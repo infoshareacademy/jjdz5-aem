@@ -2,4 +2,3 @@
 .gitignore
 .idea/
 exchangerate.iml
-out/production/exchangerate/
