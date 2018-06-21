@@ -1,14 +1,32 @@
+
+
+import javax.swing.event.SwingPropertyChangeSupport;
 import java.util.*;
 
 public class Menu {
+    Scanner scanner = new Scanner(System.in);
+
+    public void menuPanel(){
+        System.out.println("1. Pokaż dostępne waluty");
+
+    }
+
+    public void pick(){
+        System.out.println("Wybierz interesującą Cię metodę");
+        switch (scanner.nextInt()){
+            case 1: Waluta();
+            break;
+        }
+    }
+
 
     public void Waluta() {
 
-        Scanner scanner = new Scanner(System.in);
-        String[] tablica=new String[3];
+
+        String[] tablica={"PLN", "WA", "EU"};
         Set<String> current=new HashSet<>();
         for(int i=0; i<tablica.length; i++) {
-            current.add(scanner.nextLine());
+            current.add(tablica[i]);
         }
 
         Map<Integer,String> mapa=new HashMap<Integer, String>();
