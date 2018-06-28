@@ -1,4 +1,5 @@
 .idea/
 .gitignore
-jjdz5-aem.iml
 out/
+*.iml
+target/
