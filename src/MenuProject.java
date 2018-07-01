@@ -3,7 +3,7 @@
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.util.*;
 
-public class Menu {
+public class MenuProject {
 
 
     public void menuPanel() {
@@ -49,7 +49,7 @@ public class Menu {
                         System.out.println("Dziękujemy za skorzystanie z programu\n");
                         break;
                      default:
-                         System.out.println("Menu nie posiada numeru " + choose + ". Podaj ponownie numer metody, którą chcesz wywołać");
+                         System.out.println("MenuProject nie posiada numeru " + choose + ". Podaj ponownie numer metody, którą chcesz wywołać");
                          break;
                 }
             } while(choose!=0);
