@@ -16,6 +16,10 @@ public class FileContentReader {
     public FileContentReader() {
     }
 
+    public ArrayList<Currency> getListOfCurrencies() {
+        return listOfCurrencies;
+    }
+
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
