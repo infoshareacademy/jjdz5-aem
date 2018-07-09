@@ -6,9 +6,10 @@ import java.util.*;
 
 
 public class CurrentCurrency {
-    LocalDate localTime1 = LocalDate.now() ;
+
+    LocalDate localTime1;
     String dateCurrent;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
 
 
     @Override
@@ -49,14 +50,25 @@ public class CurrentCurrency {
      }
 
      if (map.isEmpty()){
-         System.out.println("Plik nie posiada bieżącego kursu");
+         System.out.println("Plik nie posiada kursu ze wskazanego dnia");
      }
 
 
  }
 
- private String checkDate(){
-
+ private String checkDate() {
+     Scanner scanner = new Scanner(System.in);
+     System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+     boolean exception=true;
+    while (exception) {
+        try {
+            localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
+            exception=false;
+        } catch (Exception e) {
+            System.out.println("Nieprawidłowy format daty");
+            System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
+        }
+    }
         switch (localTime1.getDayOfWeek()){
             case SUNDAY: dateCurrent=localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
             break;
