@@ -33,20 +33,29 @@ public class CurrentCurrency {
      Map<String,Double> map=new HashMap<>();
         checkDate();
 
-        System.out.println(dateCurrent);
+        System.out.println("    ****************************************");
+        System.out.println("    *        CURRENCY RATES                *");
+        System.out.println("    ****************************************");
+        System.out.println("        currency            value           ");
+        System.out.println("                                            ");
+
      for (Currency currency : fileContentReader.getListOfCurrencies()) {
+
          if (currency.getDate().toString().equals(dateCurrent)) {
              map.put(currency.getName(), currency.getClose());
-
+             System.out.println("        " + currency.getName() + "                  " + currency.getClose());
          }
 
      }
-        System.out.println(map.toString());
+
+     if (map.isEmpty()){
+         System.out.println("Plik nie posiada bieżącego kursu");
+     }
 
 
  }
 
- public String checkDate(){
+ private String checkDate(){
 
         switch (localTime1.getDayOfWeek()){
             case SUNDAY: dateCurrent=localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
