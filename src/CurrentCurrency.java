@@ -9,7 +9,8 @@ public class CurrentCurrency {
 
     LocalDate localTime1;
     String dateCurrent;
-
+    List<Currency>  listCurrency=new ArrayList<>();
+    List<Currency>  dateCurrency=new ArrayList<>();
 
 
     @Override
@@ -27,11 +28,17 @@ public class CurrentCurrency {
         return Objects.hash(localTime1, dateCurrent);
     }
 
+public List<Currency> readFile(){
+    FileContentReader fileContentReader = new FileContentReader();
+    fileContentReader.readFile();
+    for (Currency currency : fileContentReader.getListOfCurrencies()) {
+        dateCurrency.add(currency);
+    }
+      return   dateCurrency;
+}
 
     public void currentCash() {
-     FileContentReader fileContentReader = new FileContentReader();
-     fileContentReader.readFile();
-     Map<String,Double> map=new HashMap<>();
+
         checkDate();
 
         System.out.println("    ****************************************");
@@ -40,22 +47,36 @@ public class CurrentCurrency {
         System.out.println("        currency            value           ");
         System.out.println("                                            ");
 
-     for (Currency currency : fileContentReader.getListOfCurrencies()) {
+     for (Currency currency : dateCurrency) {
 
          if (currency.getDate().toString().equals(dateCurrent)) {
-             map.put(currency.getName(), currency.getClose());
+             listCurrency.add(currency);
              System.out.println("        " + currency.getName() + "                  " + currency.getClose());
+
          }
 
      }
 
-     if (map.isEmpty()){
+     if (listCurrency.isEmpty()){
          System.out.println("Plik nie posiada kursu ze wskazanego dnia");
      }
 
 
  }
 
+    public void currentDate() {
+
+
+        System.out.println("    ****************************************");
+        System.out.println("    *        CURRENCY DATE                 *");
+        System.out.println("    ****************************************");
+        System.out.println("     currency    date min     date max      ");
+        System.out.println("                                            ");
+        for( ContenerDateCurrency sort : sortCurrency()) {
+            System.out.println("     " + sort.current + "        " + sort.dateMin + "   " + sort.dateMax);
+        }
+    }
+//sprawdzenie czy wskazana daata wypada w sobote lub niedziele, jeżeli tak to wybieramy kurs z piątku
  private String checkDate() {
      Scanner scanner = new Scanner(System.in);
      System.out.println("Podaj datę w formacie yyyy-mm-dd:");
@@ -82,5 +103,35 @@ public class CurrentCurrency {
 
         return dateCurrent;
  }
+
+ //dodanie zakresu czasowego do walut znajdujących się w pliku
+        public List<ContenerDateCurrency> sortCurrency(){
+        Set<String> uniqueCurrent=new HashSet<>();
+        for(Currency cur: dateCurrency){
+            uniqueCurrent.add(cur.getName());
+        }
+            List<ContenerDateCurrency>contenerDateCurrencies=new ArrayList<>();
+        for (String current:uniqueCurrent){
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate dateMin=LocalDate.parse("40000101",dateTimeFormatter);
+            LocalDate dateMax=LocalDate.parse("19990101",dateTimeFormatter);
+
+
+           for(int i=0; i<dateCurrency.size(); i++){
+
+               if(current.equalsIgnoreCase(dateCurrency.get(i).getName()) && dateCurrency.get(i).getDate().isBefore(dateMin)){
+                   dateMin=dateCurrency.get(i).getDate();
+               }
+               if(current.equalsIgnoreCase(dateCurrency.get(i).getName()) && dateCurrency.get(i).getDate().isAfter(dateMax)){
+                   dateMax=dateCurrency.get(i).getDate();
+               }
+
+           }
+
+            contenerDateCurrencies.add(new ContenerDateCurrency(current, dateMin,dateMax));
+        }
+            return contenerDateCurrencies;
+
+        }
 
 }
