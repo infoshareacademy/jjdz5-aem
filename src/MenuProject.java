@@ -13,7 +13,7 @@ MenuInformation menuInformation=new MenuInformation();
         pick();
 
     }
-        public void pick () {
+        private void pick () {
 
 
             System.out.println("Wybierz interesującą Cię metodę");
