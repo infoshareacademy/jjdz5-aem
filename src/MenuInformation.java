@@ -20,8 +20,21 @@ public class MenuInformation {
                 "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
     }
 
-    public void readCurrent(){
+    public void currentCurrency(){
         CurrentCurrency currentCurrency=new CurrentCurrency();
         currentCurrency.currentCash();
+    }
+    public void readMenu(){
+        System.out.println("    ****************************************");
+        System.out.println("    *                 MENU                 *");
+        System.out.println("    ****************************************\n");
+        System.out.println("    1. Informacja o programie");
+        System.out.println("    2. Zapisanie pliku kursu walut na wskazanej lokalizacji");
+        System.out.println("    3. Wyświetlanie dostępnych  walut");
+        System.out.println("    4. Wyświetl ekstrema globalne");
+        System.out.println("    5. Wyświetl ekstrema lokalne");
+        System.out.println("    6. Kalkulator walut");
+        System.out.println("    7. Powrót do MENU");
+        System.out.println("    0. Zakończ działanie aplikacji");
     }
 }

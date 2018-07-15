@@ -8,18 +8,7 @@ public class MenuProject {
 MenuInformation menuInformation=new MenuInformation();
 
     public void menuPanel() {
-        System.out.println("    ****************************************");
-        System.out.println("    *                 MENU                 *");
-        System.out.println("    ****************************************\n");
-        System.out.println("    1. Informacja o programie");
-        System.out.println("    2. Zapisanie pliku kursu walut na wskazanej lokalizacji");
-        System.out.println("    3. Wyświetlanie dostępnych  walut");
-        System.out.println("    4. Wyświetl ekstrema globalne");
-        System.out.println("    5. Wyświetl ekstrema lokalne");
-        System.out.println("    6. Kalkulator walut");
-        System.out.println("    7. Powrót do MENU");
-        System.out.println("    0. Zakończ działanie aplikacji");
-
+        menuInformation.readMenu();
         pick();
 
     }
@@ -41,7 +30,7 @@ MenuInformation menuInformation=new MenuInformation();
                         System.out.println("Metoda umożliwia wczytanie pliku do konsoli");
                         break;
                     case 3:
-                        menuInformation.readCurrent();
+                        menuInformation.currentCurrency();
                         break;
                     case 4:
                         System.out.println("Metoda pokazuje globalną wartość min oraz max walut");
