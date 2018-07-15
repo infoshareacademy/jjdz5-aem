@@ -25,7 +25,7 @@ MenuInformation menuInformation=new MenuInformation();
 
               String  choose=scanner.nextLine();
 
-                if(choose.matches("\\d{0,9}")) {
+                if(choose.matches("\\d{0,9}") && choose.length()>0) {
                     Integer choose1=Integer.parseInt(choose);
                     switch (choose1) {
                         case 1:
