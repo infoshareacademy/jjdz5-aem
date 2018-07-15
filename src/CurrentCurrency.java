@@ -7,39 +7,23 @@ import java.util.*;
 
 public class CurrentCurrency {
 
-    LocalDate localTime1;
-    String dateCurrent;
-    List<Currency>  listCurrency=new ArrayList<>();
-    List<Currency>  dateCurrency=new ArrayList<>();
+    CurrentVariable currentVariable=new CurrentVariable();
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CurrentCurrency that = (CurrentCurrency) o;
-        return Objects.equals(localTime1, that.localTime1) &&
-                Objects.equals(dateCurrent, that.dateCurrent);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(localTime1, dateCurrent);
-    }
-
-public List<Currency> readFile(){
+private List<Currency> readFile(){
     FileContentReader fileContentReader = new FileContentReader();
     fileContentReader.readFile();
     for (Currency currency : fileContentReader.getListOfCurrencies()) {
-        dateCurrency.add(currency);
+       currentVariable.dateCurrency.add(currency);
     }
-      return   dateCurrency;
+      return   currentVariable.dateCurrency;
 }
 
     public void currentCash() {
-
+        readFile();
+        currentDate();
         checkDate();
+
+
 
         System.out.println("    ****************************************");
         System.out.println("    *        CURRENCY RATES                *");
@@ -47,26 +31,26 @@ public List<Currency> readFile(){
         System.out.println("        currency            value           ");
         System.out.println("                                            ");
 
-     for (Currency currency : dateCurrency) {
+     for (Currency currency : currentVariable.dateCurrency) {
 
-         if (currency.getDate().toString().equals(dateCurrent)) {
-             listCurrency.add(currency);
+         if (currency.getDate().toString().equals(currentVariable.dateCurrent)){
+             currentVariable.listCurrency.add(currency);
              System.out.println("        " + currency.getName() + "                  " + currency.getClose());
 
          }
 
      }
 
-     if (listCurrency.isEmpty()){
+     if (currentVariable.listCurrency.isEmpty()){
          System.out.println("Plik nie posiada kursu ze wskazanego dnia");
      }
 
 
  }
 
-    public void currentDate() {
+    private void currentDate() {
 
-
+        sortCurrency();
         System.out.println("    ****************************************");
         System.out.println("    *        CURRENCY DATE                 *");
         System.out.println("    ****************************************");
@@ -83,31 +67,31 @@ public List<Currency> readFile(){
      boolean exception=true;
     while (exception) {
         try {
-            localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
+            currentVariable.localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
             exception=false;
         } catch (Exception e) {
             System.out.println("Nieprawidłowy format daty");
             System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
         }
     }
-        switch (localTime1.getDayOfWeek()){
-            case SUNDAY: dateCurrent=localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
+        switch (currentVariable.localTime1.getDayOfWeek()){
+            case SUNDAY: currentVariable.dateCurrent=currentVariable.localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
             break;
-            case SATURDAY:dateCurrent=localTime1.minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
+            case SATURDAY:currentVariable.dateCurrent=currentVariable.localTime1.minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
             break;
-            default: dateCurrent=localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            default: currentVariable.dateCurrent=currentVariable.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
             break;
 
 
         }
 
-        return dateCurrent;
+        return currentVariable.dateCurrent;
  }
 
  //dodanie zakresu czasowego do walut znajdujących się w pliku
-        public List<ContenerDateCurrency> sortCurrency(){
+        private List<ContenerDateCurrency> sortCurrency(){
         Set<String> uniqueCurrent=new HashSet<>();
-        for(Currency cur: dateCurrency){
+        for(Currency cur: currentVariable.dateCurrency){
             uniqueCurrent.add(cur.getName());
         }
             List<ContenerDateCurrency>contenerDateCurrencies=new ArrayList<>();
@@ -117,13 +101,13 @@ public List<Currency> readFile(){
             LocalDate dateMax=LocalDate.parse("19990101",dateTimeFormatter);
 
 
-           for(int i=0; i<dateCurrency.size(); i++){
+           for(int i=0; i<currentVariable.dateCurrency.size(); i++){
 
-               if(current.equalsIgnoreCase(dateCurrency.get(i).getName()) && dateCurrency.get(i).getDate().isBefore(dateMin)){
-                   dateMin=dateCurrency.get(i).getDate();
+               if(current.equalsIgnoreCase(currentVariable.dateCurrency.get(i).getName()) && currentVariable.dateCurrency.get(i).getDate().isBefore(dateMin)){
+                   dateMin=currentVariable.dateCurrency.get(i).getDate();
                }
-               if(current.equalsIgnoreCase(dateCurrency.get(i).getName()) && dateCurrency.get(i).getDate().isAfter(dateMax)){
-                   dateMax=dateCurrency.get(i).getDate();
+               if(current.equalsIgnoreCase(currentVariable.dateCurrency.get(i).getName()) && currentVariable.dateCurrency.get(i).getDate().isAfter(dateMax)){
+                   dateMax=currentVariable.dateCurrency.get(i).getDate();
                }
 
            }
@@ -133,5 +117,7 @@ public List<Currency> readFile(){
             return contenerDateCurrencies;
 
         }
+
+
 
 }
