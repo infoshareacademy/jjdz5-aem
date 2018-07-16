@@ -26,9 +26,9 @@ private List<Currency> readFile(){
 
 
         System.out.println("    ****************************************");
-        System.out.println("    *        CURRENCY RATES                *");
+        System.out.println("    *           KURSY WALUT                *");
         System.out.println("    ****************************************");
-        System.out.println("        currency            value           ");
+        System.out.println("        waluta              wartość         ");
         System.out.println("                                            ");
 
      for (Currency currency : currentVariable.dateCurrency) {
@@ -52,9 +52,9 @@ private List<Currency> readFile(){
 
         sortCurrency();
         System.out.println("    ****************************************");
-        System.out.println("    *        CURRENCY DATE                 *");
+        System.out.println("    *            ZAKRES WALUT              *");
         System.out.println("    ****************************************");
-        System.out.println("     currency    date min     date max      ");
+        System.out.println("     waluta    data min     data max      ");
         System.out.println("                                            ");
         for( ContenerDateCurrency sort : sortCurrency()) {
             System.out.println("     " + sort.current + "        " + sort.dateMin + "   " + sort.dateMax);
