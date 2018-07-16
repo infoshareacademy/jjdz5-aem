@@ -5,7 +5,7 @@ public class MenuInformation {
         System.out.println("    ****************************************\n");
         System.out.println("Żyjemy w czasach, w których obracamy pieniędzmi nie tylko w walucie ojczystej. \n" +
                 "Spotykamy się z taką sytuacją podczas przelewów bankowych, wycieczek zagranicznych oraz wyjazdów służbowych. \n" +
-                "W takiej sytuacji chcemy w szybki sposób sprawdzić ile dana tranzakcja nas kosztuje. \n" +
+                "W takiej sytuacji chcemy w szybki sposób sprawdzić ile dana transakcja nas kosztuje. \n" +
                 "W celu ułatwienia użytkownikowi przeliczenia kursu, stworzyliśmy Aplikację Kursu Walut. \n" +
                 "Program udostępnia następujące metody: \n\n 2. Zapisanie pliku kursu walut na wskazanej lokalizacji \n" +
                 "Umożliwia zapisanie pliku na dowolnej lokalizacji wskazanej przez użytkownika. \n\n" +
