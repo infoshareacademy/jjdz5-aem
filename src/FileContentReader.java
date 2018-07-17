@@ -15,14 +15,11 @@ public class FileContentReader {
     private  final static ArrayList<Currency> currencies = new ArrayList<>();
     private  ArrayList<Currency> listOfCurrencies = new ArrayList<>();
 
-
+    public FileContentReader() {
+    }
 
     public ArrayList<Currency> getListOfCurrencies() {
         return listOfCurrencies;
-    }
-
-    public ArrayList<Currency> getCurrencies() {
-        return currencies;
     }
 
     public void setFilePath(String filePath) {
@@ -71,6 +68,7 @@ public class FileContentReader {
         }
         return currencies;
     }
+
 
     // wypisywanie obiektow currency
     public void printCurrencies(){
