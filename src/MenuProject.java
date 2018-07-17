@@ -32,10 +32,10 @@ MenuInformation menuInformation=new MenuInformation();
                             menuInformation.programInformation();
                             break;
                         case 2:
-                            System.out.println("Metoda umożliwia wczytanie pliku do konsoli");
+                            menuInformation.currentCurrency();
                             break;
                         case 3:
-                            menuInformation.currentCurrency();
+
                             break;
                         case 4:
                             System.out.println("Metoda pokazuje globalną wartość min oraz max walut");

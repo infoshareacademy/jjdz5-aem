@@ -90,10 +90,11 @@ private List<Currency> readFile(){
 
  //dodanie zakresu czasowego do walut znajdujących się w pliku
         private List<ContenerDateCurrency> sortCurrency(){
-        Set<String> uniqueCurrent=new HashSet<>();
+        Set<String> uniqueCurrent=new TreeSet<>();
         for(Currency cur: currentVariable.dateCurrency){
             uniqueCurrent.add(cur.getName());
         }
+
             List<ContenerDateCurrency>contenerDateCurrencies=new ArrayList<>();
         for (String current:uniqueCurrent){
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
