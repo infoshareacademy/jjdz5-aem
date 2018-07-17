@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileContentReader {
-    private String filePath;
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
+    private final CurrencyRepository currencyRepository = new CurrencyRepository();
+
+    private String filePath = "C:\\Users\\Adam\\Documents\\GitHub\\jjdz5-aem\\ndohlcv.txt";
+
+
 
     public FileContentReader() {
     }
@@ -26,26 +30,27 @@ public class FileContentReader {
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public ArrayList<Currency> readFile(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj sciezke do pliku z danymi");
-        setFilePath(scanner.nextLine());
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Podaj sciezke do pliku z danymi");
+//        setFilePath(scanner.nextLine());
         Path path = Paths.get(filePath);
 
         // lista przechowujaca kolejne linie jako String
         ArrayList<String> allLinesAsString = new ArrayList<>();
         try {
             allLinesAsString = (ArrayList) Files.readAllLines(path);
+            convertIntoObject(allLinesAsString);
         } catch (IOException e) {
             System.out.println("Plik nie istnieje");
         }
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
-        listOfCurrencies = convertIntoObject(allLinesAsString);
+        //listOfCurrencies = convertIntoObject(allLinesAsString);
             return listOfCurrencies;
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
-    private ArrayList<Currency> convertIntoObject(ArrayList<String> read) {
-        ArrayList<Currency> currencies = new ArrayList<>();
+    private void convertIntoObject(ArrayList<String> read) {
+        //ArrayList<Currency> currencies = new ArrayList<>();
         for (String oneLine : read) {
             String[] line = oneLine.split(",");
 
@@ -62,10 +67,10 @@ public class FileContentReader {
                     Double.parseDouble(line[5]),
                     Integer.parseInt(line[6])
             );
-            currencies.add(currency);
+            currencyRepository.addCurrency(currency);
         }
-        return currencies;
     }
+
 
     // wypisywanie obiektow currency
     public void printCurrencies(){
