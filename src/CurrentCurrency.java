@@ -1,8 +1,10 @@
 
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 
 
 public class CurrentCurrency {
@@ -35,12 +37,20 @@ private List<Currency> readFile(){
 
          if (currency.getDate().toString().equals(currentVariable.dateCurrent)){
              currentVariable.listCurrency.add(currency);
-             System.out.println("        " + currency.getName() + "                  " + currency.getClose());
+
 
          }
 
      }
 
+     //sortowanie listy walut z datą wskazaną przez użytkownika
+   currentVariable.listCurrency.sort(new SortCurrency());
+
+     for(Currency current : currentVariable.listCurrency){
+         System.out.println("        " + current.getName() + "                  " + current.getClose());
+        }
+
+//sprawdzenie czy data wystąpiła
      if (currentVariable.listCurrency.isEmpty()){
          System.out.println("Plik nie posiada kursu ze wskazanego dnia");
      }

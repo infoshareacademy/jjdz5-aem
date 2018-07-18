@@ -1,14 +1,16 @@
 import java.util.Comparator;
-import java.util.Currency;
+
 
 public class SortCurrency implements Comparator<Currency> {
 
+
     @Override
     public int compare(Currency o1, Currency o2) {
-        String currencyFirst = o1.getCurrencyCode();
-        String currencySecond= o2.getCurrencyCode();
+        String currencyFirst = o1.getName();
+        String currencySecond= o2.getName();
 
         return currencyFirst.compareTo(currencySecond);
 
     }
+
 }
