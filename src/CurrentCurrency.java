@@ -45,7 +45,7 @@ private List<Currency> readFile(){
          System.out.println("Plik nie posiada kursu ze wskazanego dnia");
      }
 
-
+        System.out.println("Wybierz metodę z MENU");
  }
 
     private void currentDate() {

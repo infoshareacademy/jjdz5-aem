@@ -8,15 +8,15 @@ public class MenuInformation {
                 "W takiej sytuacji chcemy w szybki sposób sprawdzić ile dana transakcja nas kosztuje. \n" +
                 "W celu ułatwienia użytkownikowi przeliczenia kursu, stworzyliśmy Aplikację Kursu Walut. \n" +
                 "Program udostępnia następujące metody: \n\n" +
-                "2. Wyświetlanie dostępnych  walut \n" +
+                "1. Wyświetl dostępne  waluty i aktualny kurs na dzień wskazany przez użytkownika \n" +
                 "Metoda prezentuje zakres czasowy walut znajdujących się w pliku. \n" +
                 "Program umożliwia wypisanie aktualnego kursu walut na dzień wskazany przez użytkownika \n\n" +
+                 "2. Kalkulator walut\n"  +
+                "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie. \n" +
                 "3 . Wyświetl ekstrema globalne \n" +
                 "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n" +
                 "4. Wyświetl ekstrema lokalne \n" +
-                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs we wskazanym przez użytkownika zakresie czasowym\n\n" +
-                "5. Kalkulator walut\n" +
-                "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
+                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs we wskazanym przez użytkownika zakresie czasowym\n\n" );
     }
 
     public void currentCurrency(){
@@ -27,12 +27,12 @@ public class MenuInformation {
         System.out.println("    ****************************************");
         System.out.println("    *                 MENU                 *");
         System.out.println("    ****************************************\n");
-        System.out.println("    1. Informacja o programie");
-        System.out.println("    2. Wyświetlanie dostępnych  walut i aktualnego kursu na dzień wskazany przez użytkownika");
+        System.out.println("    1. Wyświetl dostępne  waluty i aktualny kurs na dzień wskazany przez użytkownika");
+        System.out.println("    2. Kalkulator walut");
         System.out.println("    3. Wyświetl ekstrema globalne");
         System.out.println("    4. Wyświetl ekstrema lokalne");
-        System.out.println("    5. Kalkulator walut");
-        System.out.println("    6. Powrót do MENU");
+        System.out.println("    5. Powrót do MENU");
+        System.out.println("    6. Informacja o programie");
         System.out.println("    0. Zakończ działanie aplikacji");
     }
 }

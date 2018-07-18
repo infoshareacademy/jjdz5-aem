@@ -29,25 +29,22 @@ MenuInformation menuInformation=new MenuInformation();
                     Integer choose1=Integer.parseInt(choose);
                     switch (choose1) {
                         case 1:
-                            menuInformation.programInformation();
-                            break;
-                        case 2:
                             menuInformation.currentCurrency();
                             break;
+                        case 2:
+                            System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
+                            break;
                         case 3:
-
+                            System.out.println("ekstrema globalne");
                             break;
                         case 4:
-                            System.out.println("Metoda pokazuje globalną wartość min oraz max walut");
+                            System.out.println("ekstrema lokalne");
                             break;
                         case 5:
-                            System.out.println("Metoda pokazuje lokalną wartość min oraz max  walut na podstawie wybranego zakresu czasowego");
+                            menuPanel();
                             break;
                         case 6:
-                            System.out.println("Metoda umożliwia przeliczenia wskazanej waluty");
-                            break;
-                        case 7:
-                            menuPanel();
+                            menuInformation.programInformation();
                             break;
                         case 0:
                             System.out.println("Dziękujemy za skorzystanie z programu\n");
