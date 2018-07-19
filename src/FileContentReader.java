@@ -12,14 +12,17 @@ public class FileContentReader {
 
     private String filePath = "C:\\Users\\Adam\\Documents\\GitHub\\jjdz5-aem\\ndohlcv.txt";
 
-    private  final static ArrayList<Currency> currencies = new ArrayList<>();
-    private  ArrayList<Currency> listOfCurrencies = new ArrayList<>();
+    private static final ArrayList<Currency> currencies = new ArrayList<>();
+    private static ArrayList<Currency> listOfCurrencies = new ArrayList<>();
 
-    public FileContentReader() {
-    }
+
 
     public ArrayList<Currency> getListOfCurrencies() {
         return listOfCurrencies;
+    }
+
+    public ArrayList<Currency> getCurrencies() {
+        return currencies;
     }
 
     public void setFilePath(String filePath) {
@@ -68,7 +71,6 @@ public class FileContentReader {
         }
         return currencies;
     }
-
 
     // wypisywanie obiektow currency
     public void printCurrencies(){
