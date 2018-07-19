@@ -92,5 +92,7 @@ public class Currency {
     public void setVolume(Integer volume) {
         this.volume = volume;
     }
+
+
 }
 
