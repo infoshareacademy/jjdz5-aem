@@ -1,9 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        IgnoreCase ignoreCase =new IgnoreCase();
-        ignoreCase.predictedLiteray("waldamar");
-        ignoreCase.print();
-
-
+        FileContentReader fileContentReader = new FileContentReader();
+        fileContentReader.readFile();
+        GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
+        globalExtremeMenu.run();
     }
 }
