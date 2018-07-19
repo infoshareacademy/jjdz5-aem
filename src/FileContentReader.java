@@ -26,9 +26,10 @@ public class FileContentReader {
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public ArrayList<Currency> readFile(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj sciezke do pliku z danymi");
-        setFilePath(scanner.nextLine());
+        System.out.println("Tera sie laduje");
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        setFilePath(appProperties.getSourceFilePath());
+        System.out.println(filePath);
         Path path = Paths.get(filePath);
 
         // lista przechowujaca kolejne linie jako String
