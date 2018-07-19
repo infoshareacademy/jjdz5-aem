@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileContentReader {
-    private String filePath;
 
-    //lista przechowujaca liste obiektow Currency
-    private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
+
+    private String filePath = "C:\\Users\\Adam\\Documents\\GitHub\\jjdz5-aem\\ndohlcv.txt";
 
     private  final static ArrayList<Currency> currencies = new ArrayList<>();
     private  ArrayList<Currency> listOfCurrencies = new ArrayList<>();
@@ -46,8 +45,8 @@ public class FileContentReader {
             System.out.println("Plik nie istnieje");
         }
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
-        //listOfCurrencies = convertIntoObject(allLinesAsString);
-            return listOfCurrencies;
+        listOfCurrencies = convertIntoObject(allLinesAsString);
+        return listOfCurrencies;
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
