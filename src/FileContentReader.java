@@ -9,19 +9,20 @@ import java.util.Scanner;
 
 public class FileContentReader {
 
-    //lista przechowujaca liste obiektow Currency
-    private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
-    private final CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private String filePath = "C:\\Users\\Adam\\Documents\\GitHub\\jjdz5-aem\\ndohlcv.txt";
 
+    private static final ArrayList<Currency> currencies = new ArrayList<>();
+    private static ArrayList<Currency> listOfCurrencies = new ArrayList<>();
 
 
-    public FileContentReader() {
-    }
 
     public ArrayList<Currency> getListOfCurrencies() {
         return listOfCurrencies;
+    }
+
+    public ArrayList<Currency> getCurrencies() {
+        return currencies;
     }
 
     public void setFilePath(String filePath) {
@@ -31,7 +32,7 @@ public class FileContentReader {
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public ArrayList<Currency> readFile(){
 //        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Podaj sciezke do pliku z danymi");    <----- tu nic nie ruszałem bo ma byc itka inaczej
+//        System.out.println("Podaj sciezke do pliku z danymi");
 //        setFilePath(scanner.nextLine());
         Path path = Paths.get(filePath);
 
@@ -44,13 +45,12 @@ public class FileContentReader {
             System.out.println("Plik nie istnieje");
         }
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
-        //listOfCurrencies = convertIntoObject(allLinesAsString);  <--- wywołuje bezposrednio merode tam wyzej
-            return listOfCurrencies;
+        listOfCurrencies = convertIntoObject(allLinesAsString);
+        return listOfCurrencies;
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
-    private void convertIntoObject(ArrayList<String> read) {   //<------ misialem zmienic zeby nic nie zwracało
-        //ArrayList<Currency> currencies = new ArrayList<>();   <-- to jest w klasie CurrencyRepository
+    private ArrayList<Currency> convertIntoObject(ArrayList<String> read) {
         for (String oneLine : read) {
             String[] line = oneLine.split(",");
 
@@ -67,10 +67,10 @@ public class FileContentReader {
                     Double.parseDouble(line[5]),
                     Integer.parseInt(line[6])
             );
-            currencyRepository.addCurrency(currency); // <--- tu wywołuje metode z kalsy CurrencyRepository i dodaje do listy
+            currencies.add(currency);
         }
+        return currencies;
     }
-
 
     // wypisywanie obiektow currency
     public void printCurrencies(){
