@@ -15,6 +15,7 @@ public class CurrencyRepository {
 
     public void findName() {
         for (Currency c:currencies) {
+
             System.out.println(c.getName());
         }
     }
