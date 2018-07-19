@@ -1,9 +1,11 @@
-import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
 
-        MenuProject menu = new MenuProject();
+     // currentCurrency.currentDate();
+       MenuProject menu=new MenuProject();
+       menu.menuPanel();
+
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
 //        System.out.println(appProperties.getVersion());;
