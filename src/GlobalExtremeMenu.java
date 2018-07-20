@@ -8,19 +8,18 @@ public class GlobalExtremeMenu {
     private final IgnoreCase ignoreCase = new IgnoreCase();
     private ListAvailableCurrency listAvailableCurrency = new ListAvailableCurrency();
     private FeatureReader featureReader = new FeatureReader();
+    private GlobalExtreme globalExtreme = new GlobalExtreme();
 
     private final String currencies = "currencies";
     private final String extreme = "extreme";
-    private String chooseCommand;
+
 
     public void run() {
         printOptjons();
         menu();
     }
 
-    public String getChooseCommand() {
-        return chooseCommand;
-    }
+
 
     private void printOptjons() {
         consolePrinter.printLn("Choose what do you want to do");
@@ -28,16 +27,18 @@ public class GlobalExtremeMenu {
         consolePrinter.printLn("If you want find extreme enter: \"extreme\"");
     }
 
-    public void menu() {
-        this.chooseCommand = consoleReader.getString("Choose command");
-        ignoreCase.lowerSize(chooseCommand);
-        featureReader.predictedLiteray(chooseCommand);
-        switch (chooseCommand) {
-            case "currencies":
+    private void menu() {
+
+        String chooseCommand = consoleReader.getString("Choose command");
+        String s = ignoreCase.lowerSize(chooseCommand);
+//        featureReader.predictedLiteray(s);
+
+        switch (s) {
+            case "currency":
                 listAvailableCurrency.run();
                 break;
             case "extreme":
-
+                globalExtreme.run();
                 break;
 
 

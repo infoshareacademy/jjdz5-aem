@@ -5,13 +5,18 @@ import java.util.Set;
 public class ListAvailableCurrency {
 
     private FileContentReader fileContentReader = new FileContentReader();
-    private final Set<String> singleCurrency = new HashSet<>();
+    private static final Set<String> singleCurrency = new HashSet<>();
 
+    List<Currency> nowa = fileContentReader.getCurrencies();
     public void run() {
-        System.out.println(fileContentReader.getListOfCurrencies());
+        System.out.println(fileContentReader.getCurrencies());
         listofCurrencies();
         printCurrencues(singleCurrency);
 
+    }
+
+    public static Set<String> getSingleCurrency() {
+        return singleCurrency;
     }
 
     private void listofCurrencies() {

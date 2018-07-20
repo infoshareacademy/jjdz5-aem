@@ -4,17 +4,23 @@ import java.util.List;
 public class GlobalExtreme {
 
     private FileContentReader fileContentReader = new FileContentReader();
-    private GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
-    private Currency currency;
+    private ListAvailableCurrency listAvailableCurrency = new ListAvailableCurrency();
+    private ConsoleReader consoleReader = new ConsoleReader();
+    private IgnoreCase ignoreCase = new IgnoreCase();
 
     public void run() {
         findCurrency();
     }
 
+
+
     private void findCurrency() {
+        String availableCurrency = consoleReader.getString("Enter available currency");
+        String s = ignoreCase.upperSize(availableCurrency);
+        System.out.println(s);
         List<Currency> singleCurrency = new ArrayList<>();
         for (Currency c:fileContentReader.getCurrencies()) {
-            if (c.getName().equals(globalExtremeMenu.getChooseCommand())){
+            if (c.getName().equals(s)){
                 singleCurrency.add(c);
             }
         }
