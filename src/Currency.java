@@ -97,5 +97,7 @@ public class Currency implements Comparable<Currency> {
     public void setVolume(Integer volume) {
         this.volume = volume;
     }
+
+
 }
 

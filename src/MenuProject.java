@@ -2,60 +2,66 @@
 
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.util.*;
+import java.util.regex.MatchResult;
 
 public class MenuProject {
 
+MenuInformation menuInformation=new MenuInformation();
 
     public void menuPanel() {
-        System.out.println("    ****************************************");
-        System.out.println("    *                 MENU                 *");
-        System.out.println("    ****************************************\n");
-        System.out.println("    1. Wczytaj plik kursu walut do konsoli");
-        System.out.println("    2. Wyświetl dostępne  waluty");
-        System.out.println("    3. Wyświetl ekstrema globalne");
-        System.out.println("    4. Wyświetl ekstrema lokalne");
-        System.out.println("    5. Kalkulator walut");
-        System.out.println("    0. Zakończ działanie aplikacji");
-
+        menuInformation.readMenu();
         pick();
 
     }
-        public void pick () {
+        private void pick () {
 
 
             System.out.println("Wybierz interesującą Cię metodę");
-            int choose=0;
+
+           // int choose=0;
 
             do{
                 Scanner scanner = new Scanner(System.in);
-                choose=scanner.nextInt();
-                switch (choose) {
-                    case 1:
-                        System.out.println("Metoda umożliwia wczytanie pliku do konsoli");
-                        break;
-                    case 2:
-                        System.out.println("Metoda umożliwia pokazanie dostępnych walut w wyznaczonym zakresie czasowym oraz z danego dnia");
-                        break;
-                    case 3:
-                        System.out.println("Metoda pokazuje globalną wartość min oraz max walut");
-                        break;
-                    case 4:
-                        System.out.println("Metoda pokazuje lokalną wartość min oraz max  walut na podstawie wybranego zakresu czasowego");
-                        break;
-                    case 5:
-                        System.out.println("Metoda umożliwia przeliczenia wskazanej waluty");
-                        break;
-                    case 0:
-                        System.out.println("Dziękujemy za skorzystanie z programu\n");
-                        break;
-                     default:
-                         System.out.println("MenuProject nie posiada numeru " + choose + ". Podaj ponownie numer metody, którą chcesz wywołać");
-                         break;
-                }
-            } while(choose!=0);
 
-            System.out.println("     ****************************************");
-            System.out.println("     Koniec programu\n\n");
+              String  choose=scanner.nextLine();
+
+                if(choose.matches("\\d{0,9}") && choose.length()>0) {
+                    Integer choose1=Integer.parseInt(choose);
+                    switch (choose1) {
+                        case 1:
+                            menuInformation.currentCurrency();
+                            break;
+                        case 2:
+                            System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
+                            break;
+                        case 3:
+                            System.out.println("ekstrema globalne");
+                            break;
+                        case 4:
+                            System.out.println("ekstrema lokalne");
+                            break;
+                        case 5:
+                            menuPanel();
+                            break;
+                        case 6:
+                            menuInformation.programInformation();
+                            break;
+                        case 0:
+                            System.out.println("Dziękujemy za skorzystanie z programu\n");
+                            System.out.println("     ****************************************");
+                            System.out.println("     Koniec programu\n\n");
+                            System.exit(0);
+
+                        default:
+                            System.out.println("MenuProject nie posiada numeru " + choose + ". Podaj ponownie numer metody, którą chcesz wywołać");
+                            break;
+                    }
+
+                    }else {
+                    System.out.println("MenuProject nie posiada numeru " + choose + ". Podaj ponownie numer metody, którą chcesz wywołać");
+                }} while (true);
+
+
         }
 
 }
