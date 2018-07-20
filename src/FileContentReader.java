@@ -13,7 +13,7 @@ public class FileContentReader {
     private String filePath = "C:\\Users\\Adam\\Documents\\GitHub\\jjdz5-aem\\ndohlcv.txt";
 
     private  final static ArrayList<Currency> currencies = new ArrayList<>();
-    private  ArrayList<Currency> listOfCurrencies = new ArrayList<>();
+    private  static ArrayList<Currency> listOfCurrencies = new ArrayList<>();
 
 
 

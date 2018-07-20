@@ -8,6 +8,11 @@ public class Main {
      // currentCurrency.currentDate();
        MenuProject menu=new MenuProject();
        menu.menuPanel();
+//        FileContentReader fileContentReader = new FileContentReader();
+//        fileContentReader.readFile();
+//
+//        GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
+//        globalExtremeMenu.run();
 
 
     }

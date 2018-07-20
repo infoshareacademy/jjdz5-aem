@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Currency implements Comparable<Currency> {
+public class Currency {
 
     private String name;
     private LocalDate date;
@@ -10,10 +10,6 @@ public class Currency implements Comparable<Currency> {
     private Double close;
     private Integer volume;
 
-    @Override
-    public int compareTo(Currency c) {
-        return close.compareTo(c.getClose());
-    }
 
     public Currency() {
     }

@@ -7,6 +7,7 @@ import java.util.regex.MatchResult;
 public class MenuProject {
 
 MenuInformation menuInformation=new MenuInformation();
+private GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
 
     public void menuPanel() {
         menuInformation.readMenu();
@@ -36,6 +37,7 @@ MenuInformation menuInformation=new MenuInformation();
                             break;
                         case 3:
                             System.out.println("ekstrema globalne");
+                            globalExtremeMenu.run();
                             break;
                         case 4:
                             System.out.println("ekstrema lokalne");

@@ -7,8 +7,8 @@ public class ListAvailableCurrency {
     private FileContentReader fileContentReader = new FileContentReader();
     private static final Set<String> singleCurrency = new HashSet<>();
 
-    List<Currency> nowa = fileContentReader.getCurrencies();
     public void run() {
+        fileContentReader.readFile();
         System.out.println(fileContentReader.getCurrencies());
         listofCurrencies();
         printCurrencues(singleCurrency);
