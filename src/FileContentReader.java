@@ -66,43 +66,4 @@ public class FileContentReader {
         }
         return currencies;
     }
-
-    // wypisywanie obiektow currency
-    public void printCurrencies(){
-
-        if (listOfCurrencies.isEmpty()) {
-            listOfCurrencies = readFile();
-        }
-        for (Currency currency : listOfCurrencies){
-            System.out.println(currency.toString());
-        }
-    }
-
-    // zapisywanie do pliku csv
-    public void saveToCsv(){
-
-        if (listOfCurrencies.isEmpty()) {
-            listOfCurrencies = readFile();
-        }
-
-        Path savePath = Paths.get(filePath);
-
-        System.out.println("Wprowasz sciezke do ktorej chcesz zapisac plik: ");
-        Scanner scanner = new Scanner(System.in);
-        String sPath = scanner.nextLine();
-
-        if(sPath.length() > 0){
-            savePath = Paths.get(sPath);
-        }
-
-        ArrayList<String> out = new ArrayList<>();
-        for(Currency currency : listOfCurrencies){
-            out.add(currency.toString());
-        }
-        try {
-            Files.write(savePath, out);
-        } catch (IOException ex) {
-            System.out.println("Blad przy zapisywaniu pliku");
-        }
-    }
 }
