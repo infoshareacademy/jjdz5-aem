@@ -35,8 +35,15 @@ public class FileContentReader {
         try {
             allLinesAsString = (ArrayList) Files.readAllLines(path);
         } catch (IOException e) {
-            System.out.println("Brak pliku! \n");
-            System.out.println("Upewnij sie, ze plik z danymi znajduje sie w lokalizacji zdefiniowanej w app.properties i uruchom program ponownie");
+            System.out.println("Brak pliku! \n" +
+                    "Upewnij sie, ze plik z danymi znajduje sie w lokalizacji zdefiniowanej w " +
+                    "app.properties i uruchom program ponownie \n" +
+                    "Program zostanie zamkniety");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             System.exit(0);
         }
 
