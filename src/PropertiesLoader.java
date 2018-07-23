@@ -6,13 +6,14 @@ import java.util.Properties;
 public class PropertiesLoader {
 
     public static AppProperties loadProperties() {
-        try(InputStream resourceAsStream = PropertiesLoader.class. getResourceAsStream("app.properties")){
+        try(InputStream resourceAsStream = PropertiesLoader.class. getResourceAsStream("app.propertie")){
             if(resourceAsStream == null) {
                 System.out.println("Plik ustawien aplikacji nie moze byc znaleziony! \n" +
                         "Parametr metody getResourceAsStream(name) nie jest spojny z nazwa pliku properties " +
                         "lub plik properties nie znajduje sie w Resources \n" +
-                        "Program zostanie zamkniety");
-                System.exit(0);
+                        "Wyjdz z programu, popraw i uruchom ponownie \n");
+                MenuProject menu = new MenuProject();
+                menu.menuPanel();
             } else {
                 Properties properties = new Properties();
                 properties.load(resourceAsStream);

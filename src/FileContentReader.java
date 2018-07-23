@@ -37,14 +37,10 @@ public class FileContentReader {
         } catch (IOException e) {
             System.out.println("Brak pliku! \n" +
                     "Upewnij sie, ze plik z danymi znajduje sie w lokalizacji zdefiniowanej w " +
-                    "app.properties i uruchom program ponownie \n" +
-                    "Program zostanie zamkniety");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            System.exit(0);
+                    "app.properties \n" +
+                    "Wyjdz z programu, popraw i uruchom ponownie \n");
+            MenuProject menu = new MenuProject();
+            menu.menuPanel();
         }
 
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
