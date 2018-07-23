@@ -36,9 +36,9 @@ public class FileContentReader {
             allLinesAsString = (ArrayList) Files.readAllLines(path);
         } catch (IOException e) {
             System.out.println("Brak pliku! \n" +
-                    "Upewnij sie, ze plik z danymi znajduje sie w lokalizacji zdefiniowanej w " +
+                    "Upewnij się, że plik z danymi znajduję się w lokalizacji zdefiniowanej w " +
                     "app.properties \n" +
-                    "Wyjdz z programu, popraw i uruchom ponownie \n");
+                    "Wyjdź z programu, popraw i uruchom ponownie \n");
             MenuProject menu = new MenuProject();
             menu.menuPanel();
         }
