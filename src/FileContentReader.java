@@ -26,9 +26,8 @@ public class FileContentReader {
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public ArrayList<Currency> readFile(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj sciezke do pliku z danymi");
-        setFilePath(scanner.nextLine());
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        setFilePath(appProperties.getSourceFilePath());
         Path path = Paths.get(filePath);
 
         // lista przechowujaca kolejne linie jako String
@@ -36,8 +35,14 @@ public class FileContentReader {
         try {
             allLinesAsString = (ArrayList) Files.readAllLines(path);
         } catch (IOException e) {
-            System.out.println("Plik nie istnieje");
+            System.out.println("Brak pliku! \n" +
+                    "Upewnij się, że plik z danymi znajduję się w lokalizacji zdefiniowanej w " +
+                    "app.properties \n" +
+                    "Wyjdź z programu, popraw i uruchom ponownie \n");
+            MenuProject menu = new MenuProject();
+            menu.menuPanel();
         }
+
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
         listOfCurrencies = convertIntoObject(allLinesAsString);
             return listOfCurrencies;
