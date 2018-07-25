@@ -14,6 +14,7 @@ public class FileContentReader {
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
+    private ArrayList<Currency> currencies = new ArrayList<>();
 
     public FileContentReader() {
     }
@@ -23,7 +24,7 @@ public class FileContentReader {
     }
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
-    public ArrayList<Currency> readFile(){
+    public void readFile(){
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath();
         Path path = Paths.get(filePath);
@@ -43,17 +44,14 @@ public class FileContentReader {
 
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
         listOfCurrencies = convertIntoObject(allLinesAsString);
-            return listOfCurrencies;
+
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
     private ArrayList<Currency> convertIntoObject(ArrayList<String> read) {
-        ArrayList<Currency> currencies = new ArrayList<>();
-
         for (String oneLine : read) {
             Pattern pattern = Pattern.compile("^\\w\\w\\w,\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d$");
             Matcher matcher = pattern.matcher(oneLine);
-
             if (!matcher.matches()) {
                 System.out.println("Plik z danymi ma niekompatybilną strukturę. " +
                         "Przykładowa prawidłowa struktura każdej linii wygląda tak: \n" +
@@ -78,6 +76,7 @@ public class FileContentReader {
                         Integer.parseInt(line[6])
                 );
                 currencies.add(currency);
+                CurrencyRepository.setCurrencies(currencies);
             }
         }
         return currencies;
