@@ -22,14 +22,10 @@ public class FileContentReader {
         return listOfCurrencies;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public ArrayList<Currency> readFile(){
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        setFilePath(appProperties.getSourceFilePath());
+        this.filePath = appProperties.getSourceFilePath();
         Path path = Paths.get(filePath);
 
         // lista przechowujaca kolejne linie jako String
@@ -45,7 +41,7 @@ public class FileContentReader {
             menu.menuPanel();
         }
 
-        // przypisanie do listy currencies gotowych obiektow (sparsowane dane) jako efekt wywolania metody convertIntoObject()
+        // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
         listOfCurrencies = convertIntoObject(allLinesAsString);
             return listOfCurrencies;
     }
@@ -59,7 +55,7 @@ public class FileContentReader {
             Matcher matcher = pattern.matcher(oneLine);
 
             if (!matcher.matches()) {
-                System.out.println("Plik z danymi ma uszkodzoną strukturę. " +
+                System.out.println("Plik z danymi ma niekompatybilną strukturę. " +
                         "Przykładowa prawidłowa struktura każdej linii wygląda tak: \n" +
                         "AUD,19000626,2.7516,2.7516,2.7516,2.7516,0 \n" +
                         "Wyjdź z programu, popraw i spróbuj ponownie \n");
