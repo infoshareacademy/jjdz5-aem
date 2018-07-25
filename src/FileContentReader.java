@@ -55,12 +55,14 @@ public class FileContentReader {
         ArrayList<Currency> currencies = new ArrayList<>();
 
         for (String oneLine : read) {
-            Pattern pattern = Pattern.compile(",\\d(\\d+|\\.\\d+)");
+            Pattern pattern = Pattern.compile("^\\w\\w\\w,\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d$");
             Matcher matcher = pattern.matcher(oneLine);
 
             if (!matcher.matches()) {
-                System.out.println("Plik z danymi ma nieobslugiwane separatory. Jedyny obslugiwany separator to przecinek. \n" +
-                        "Wyjsc z programu, popraw i sprobuj ponownie");
+                System.out.println("Plik z danymi ma uszkodzoną strukturę. " +
+                        "Przykładowa prawidłowa struktura każdej linii wygląda tak: \n" +
+                        "AUD,19000626,2.7516,2.7516,2.7516,2.7516,0 \n" +
+                        "Wyjdź z programu, popraw i spróbuj ponownie \n");
                 MenuProject menu=new MenuProject();
                 menu.menuPanel();
             }else {
