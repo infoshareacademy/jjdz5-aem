@@ -1,12 +1,11 @@
 
 public class Main {
     public static void main(String[] args) {
+        FileContentReader fileContentReader = new FileContentReader();
+        MenuProject menu=new MenuProject();
 
-//        MenuProject menu=new MenuProject();
-//        menu.menuPanel();
-
-        CurrencyRepository currencyRepository = new CurrencyRepository();
-        currencyRepository.getName();
+        fileContentReader.readFile();
+        menu.menuPanel();
         
     }
 }

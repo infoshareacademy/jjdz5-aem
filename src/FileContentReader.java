@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,10 +16,6 @@ public class FileContentReader {
     private ArrayList<Currency> currencies = new ArrayList<>();
 
     public FileContentReader() {
-    }
-
-    public ArrayList<Currency> getListOfCurrencies() {
-        return listOfCurrencies;
     }
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
@@ -44,7 +39,7 @@ public class FileContentReader {
 
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
         listOfCurrencies = convertIntoObject(allLinesAsString);
-
+        CurrencyRepository.setCurrencies(listOfCurrencies);
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
@@ -54,10 +49,10 @@ public class FileContentReader {
             Matcher matcher = pattern.matcher(oneLine);
             if (!matcher.matches()) {
                 System.out.println("Plik z danymi ma niekompatybilną strukturę. " +
-                        "Przykładowa prawidłowa struktura każdej linii wygląda tak: \n" +
+                        "Przykładowa prawidłowa struktura każdej linii wygląda następująco: \n" +
                         "AUD,19000626,2.7516,2.7516,2.7516,2.7516,0 \n" +
                         "Wyjdź z programu, popraw i spróbuj ponownie \n");
-                MenuProject menu=new MenuProject();
+                MenuProject menu = new MenuProject();
                 menu.menuPanel();
             }else {
                 String[] line = oneLine.split(",");
@@ -76,7 +71,6 @@ public class FileContentReader {
                         Integer.parseInt(line[6])
                 );
                 currencies.add(currency);
-                CurrencyRepository.setCurrencies(currencies);
             }
         }
         return currencies;
