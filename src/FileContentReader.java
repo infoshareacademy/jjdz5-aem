@@ -33,8 +33,13 @@ public class FileContentReader {
                     "Upewnij się, że plik z danymi znajduję się w lokalizacji zdefiniowanej w " +
                     "app.properties \n" +
                     "Wyjdź z programu, popraw i uruchom ponownie \n");
-            MenuProject menu = new MenuProject();
-            menu.menuPanel();
+            try {
+                System.out.println("Nacisnij Enter aby wyjść z programu");
+                System.in.read();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            System.exit(0);
         }
 
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
@@ -49,11 +54,16 @@ public class FileContentReader {
             Matcher matcher = pattern.matcher(oneLine);
             if (!matcher.matches()) {
                 System.out.println("Plik z danymi ma niekompatybilną strukturę. " +
-                        "Przykładowa prawidłowa struktura każdej linii wygląda następująco: \n" +
+                        "Przykładowa prawidłowa struktura jednej linii wygląda następująco: \n" +
                         "AUD,19000626,2.7516,2.7516,2.7516,2.7516,0 \n" +
                         "Wyjdź z programu, popraw i spróbuj ponownie \n");
-                MenuProject menu = new MenuProject();
-                menu.menuPanel();
+                try {
+                    System.out.println("Nacisnij Enter aby wyjść z programu");
+                    System.in.read();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                System.exit(0);
             }else {
                 String[] line = oneLine.split(",");
 
