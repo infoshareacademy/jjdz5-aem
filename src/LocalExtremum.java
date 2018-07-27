@@ -26,7 +26,7 @@ public class LocalExtremum
 
         String waluta = scanner.next();
         FileContentReader fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
+        CurrencyRepository.getCurrencies();
         for (Currency currency : fileContentReader.getListOfCurrencies()) {
             if (currency.getName().equalsIgnoreCase(waluta)) {
                 singleCurrency.add(currency);
