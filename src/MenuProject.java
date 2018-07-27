@@ -7,6 +7,7 @@ import java.util.regex.MatchResult;
 public class MenuProject {
 
 MenuInformation menuInformation=new MenuInformation();
+private GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
 
     public void menuPanel() {
         menuInformation.readMenu();
@@ -35,7 +36,8 @@ MenuInformation menuInformation=new MenuInformation();
                             System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
                             break;
                         case 3:
-                            System.out.println("ekstrema globalne");
+                            System.out.println("Ekstrema globalne");
+                            globalExtremeMenu.run();
                             break;
                         case 4:
                             System.out.println("ekstrema lokalne");

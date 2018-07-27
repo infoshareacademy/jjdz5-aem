@@ -10,6 +10,7 @@ public class Currency {
     private Double close;
     private Integer volume;
 
+
     public Currency() {
     }
 
