@@ -13,7 +13,7 @@ public class FileContentReader {
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
-    private ArrayList<Currency> currencies = new ArrayList<>();
+    private static ArrayList<Currency> currencies = new ArrayList<>();
 
 
     public ArrayList<Currency> getListOfCurrencies() {

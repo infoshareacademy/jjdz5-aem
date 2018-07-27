@@ -6,10 +6,9 @@ public class ListAvailableCurrency {
 
     private FileContentReader fileContentReader = new FileContentReader();
     private static final Set<String> singleCurrency = new HashSet<>();
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public void run() {
-        fileContentReader.readFile();
-        //System.out.println(fileContentReader.getCurrencies());
         listofCurrencies();
         printCurrencues(singleCurrency);
 
@@ -20,7 +19,7 @@ public class ListAvailableCurrency {
     }
 
     private void listofCurrencies() {
-        for (Currency c:fileContentReader.getCurrencies()) {
+        for (Currency c:currencyRepository.getCurrencies()) {
             singleCurrency.add(c.getName());
         }
     }

@@ -9,6 +9,7 @@ public class GlobalExtreme {
     private ConsoleReader consoleReader = new ConsoleReader();
     private IgnoreCase ignoreCase = new IgnoreCase();
     private SortCurrency sortCurrency = new SortCurrency();
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private List<Currency> singleCurrency = new ArrayList<>();
 
@@ -22,8 +23,8 @@ public class GlobalExtreme {
         String availableCurrency = consoleReader.getString("Wpisz dostępną walutę");
         String s = ignoreCase.upperSize(availableCurrency);
 
-        if (isContains(fileContentReader.getCurrencies(),s)) {
-            for (Currency c : fileContentReader.getCurrencies()) {
+        if (isContains(currencyRepository.getCurrencies(),s)) {
+            for (Currency c : currencyRepository.getCurrencies()) {
                 if (c.getName().equals(s)) {
                     singleCurrency.add(c);
                 }
