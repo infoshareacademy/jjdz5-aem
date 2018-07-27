@@ -1,10 +1,6 @@
-
-
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.List;
 
 
 public class CurrentCurrency {
@@ -12,9 +8,7 @@ public class CurrentCurrency {
     CurrentVariable currentVariable=new CurrentVariable();
 
 private List<Currency> readFile(){
-    FileContentReader fileContentReader = new FileContentReader();
-    fileContentReader.readFile();
-    for (Currency currency : fileContentReader.getListOfCurrencies()) {
+    for (Currency currency : CurrencyRepository.getCurrencies()) {
        currentVariable.dateCurrency.add(currency);
     }
       return   currentVariable.dateCurrency;

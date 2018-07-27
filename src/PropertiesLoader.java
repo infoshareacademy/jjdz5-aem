@@ -12,8 +12,13 @@ public class PropertiesLoader {
                         "Parametr metody getResourceAsStream(name) nie jest spójny z nazwą pliku properties " +
                         "lub plik properties nie znajduję się w Resources \n" +
                         "Wyjdź z programu, popraw i uruchom ponownie \n");
-                MenuProject menu = new MenuProject();
-                menu.menuPanel();
+                try {
+                    System.out.println("Nacisnij Enter aby wyjść z programu");
+                    System.in.read();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                System.exit(0);
             } else {
                 Properties properties = new Properties();
                 properties.load(resourceAsStream);
