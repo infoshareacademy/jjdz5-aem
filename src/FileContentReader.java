@@ -13,13 +13,24 @@ public class FileContentReader {
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
-    private ArrayList<Currency> currencies = new ArrayList<>();
+    private static ArrayList<Currency> currencies = new ArrayList<>();
 
-    public FileContentReader() {
+
+    public ArrayList<Currency> getListOfCurrencies() {
+        return listOfCurrencies;
     }
 
+    public ArrayList<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+
     //metoda wczytujaca plik i zwracajaca obiekty currencies
-    public void readFile(){
+    public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath();
         Path path = Paths.get(filePath);
@@ -64,7 +75,7 @@ public class FileContentReader {
                     e1.printStackTrace();
                 }
                 System.exit(0);
-            }else {
+            } else {
                 String[] line = oneLine.split(",");
 
                 // formater, ktory konwertuje zrodlowa date yyyyMMdd do formatu DateTime yyyy-MM-dd
@@ -86,3 +97,4 @@ public class FileContentReader {
         return currencies;
     }
 }
+
