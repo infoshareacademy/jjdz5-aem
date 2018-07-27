@@ -28,7 +28,7 @@ public class Calculator {//List<Currency> CurrentVariable.listCurrency = new Arr
             throw new ArithmeticException("Liczba nie może zawierać  .  a jedynie  , ");
 
         FileContentReader fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
+        CurrencyRepository.getCurrencies();
         for (Currency currency : fileContentReader.getListOfCurrencies())
         {
             if(currency.getName().equalsIgnoreCase(waluta)){
