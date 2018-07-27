@@ -9,13 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileContentReader {
-
+    private String filePath;
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
     private ArrayList<Currency> currencies = new ArrayList<>();
 
-  
+
     public ArrayList<Currency> getListOfCurrencies() {
         return listOfCurrencies;
     }
@@ -28,9 +28,9 @@ public class FileContentReader {
         this.filePath = filePath;
     }
 
-  
+
     //metoda wczytujaca plik i zwracajaca obiekty currencies
-    public void readFile(){
+    public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath();
         Path path = Paths.get(filePath);
@@ -39,7 +39,6 @@ public class FileContentReader {
         ArrayList<String> allLinesAsString = new ArrayList<>();
         try {
             allLinesAsString = (ArrayList) Files.readAllLines(path);
-            convertIntoObject(allLinesAsString);
         } catch (IOException e) {
             System.out.println("Brak pliku! \n" +
                     "Upewnij się, że plik z danymi znajduję się w lokalizacji zdefiniowanej w " +
@@ -56,9 +55,7 @@ public class FileContentReader {
 
         // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
         listOfCurrencies = convertIntoObject(allLinesAsString);
-
         CurrencyRepository.setCurrencies(listOfCurrencies);
-
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
@@ -78,7 +75,7 @@ public class FileContentReader {
                     e1.printStackTrace();
                 }
                 System.exit(0);
-            }else {
+            } else {
                 String[] line = oneLine.split(",");
 
                 // formater, ktory konwertuje zrodlowa date yyyyMMdd do formatu DateTime yyyy-MM-dd
@@ -100,3 +97,4 @@ public class FileContentReader {
         return currencies;
     }
 }
+
