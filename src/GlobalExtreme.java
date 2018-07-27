@@ -19,11 +19,10 @@ public class GlobalExtreme {
     }
 
     private void findCurrency() {
-        //fileContentReader.readFile();
         String availableCurrency = consoleReader.getString("Wpisz dostępną walutę");
         String s = ignoreCase.upperSize(availableCurrency);
 
-        if (isContains(fileContentReader.getListOfCurrencies(),s)) {
+        if (isContains(fileContentReader.getCurrencies(),s)) {
             for (Currency c : fileContentReader.getCurrencies()) {
                 if (c.getName().equals(s)) {
                     singleCurrency.add(c);
