@@ -8,7 +8,7 @@ import static java.lang.Integer.parseInt;
 
 public class LocalExtremum
 {
-    public localExtremum()
+    public void localExtremum()
     {
         local();
     }
@@ -49,7 +49,7 @@ public class LocalExtremum
 
             }
     }
-    public limitData()
+    public void limitData()
     {
         System.out.println("Podaj datę od której chcesz zacząć w formacie yyyy-mm-dd:");
 
@@ -66,10 +66,10 @@ public class LocalExtremum
         Integer startDate = parseInt(rtDate);
         Integer endDate = parseInt(dDate);
 
-        for( ContenerDateCurrency sort : sortCurrency()) {
+       // for( ContenerDateCurrency sort : sortCurrency()) {
 
-            System.out.println("     " + sort.current + "        " + startDate + "   " + endDate + " " + Math.Min() +" " + Math.Max(sort.current));
-        }
+       //     System.out.println("     " + sort.current + "        " + startDate + "   " + endDate + " " + Math.Min() +" " + Math.Max(sort.current));
+       // }
 
     }
 
