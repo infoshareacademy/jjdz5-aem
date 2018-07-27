@@ -7,7 +7,7 @@ import java.util.regex.MatchResult;
 public class MenuProject {
 
 MenuInformation menuInformation=new MenuInformation();
-private GlobalExtremeMenu globalExtremeMenu = new GlobalExtremeMenu();
+private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
 
     public void menuPanel() {
         menuInformation.readMenu();

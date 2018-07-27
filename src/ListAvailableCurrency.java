@@ -1,11 +1,11 @@
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ListAvailableCurrency {
 
-    private FileContentReader fileContentReader = new FileContentReader();
-    private static final Set<String> singleCurrency = new HashSet<>();
+    private static final Set<String> singleCurrency = new TreeSet<>();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public void run() {
@@ -25,8 +25,9 @@ public class ListAvailableCurrency {
     }
 
     private void printCurrencues(Set<String> set) {
-        for (String s:set) {
-            System.out.println(s);
-        }
+//        for (String s:set) {
+//            System.out.println(s);
+//        }
+        System.out.println(set);
     }
 }
