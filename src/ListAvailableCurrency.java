@@ -9,7 +9,7 @@ public class ListAvailableCurrency {
 
     public void run() {
         fileContentReader.readFile();
-        System.out.println(fileContentReader.getCurrencies());
+        //System.out.println(fileContentReader.getCurrencies());
         listofCurrencies();
         printCurrencues(singleCurrency);
 

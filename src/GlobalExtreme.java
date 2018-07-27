@@ -15,29 +15,25 @@ public class GlobalExtreme {
 
     public void run() {
         findCurrency();
-        print();
-    }
-
-
-    private void menu() {
-
+        //print();
     }
 
     private void findCurrency() {
         fileContentReader.readFile();
-        String availableCurrency = consoleReader.getString("Enter available currency");
+        String availableCurrency = consoleReader.getString("Wpisz dostępną walutę");
         String s = ignoreCase.upperSize(availableCurrency);
 
-
-        for (Currency c:fileContentReader.getCurrencies()) {
-            if (c.getName().equals(s)){
-                singleCurrency.add(c);
+        if (isContains(fileContentReader.getListOfCurrencies(),s)) {
+            for (Currency c : fileContentReader.getCurrencies()) {
+                if (c.getName().equals(s)) {
+                    singleCurrency.add(c);
+                }
             }
+            sortSingleCurrency(singleCurrency);
+            extreme();
         }
-        for (Currency c: singleCurrency) {
-            System.out.println(c);
-        }
-        sortSingleCurrency(singleCurrency);
+        else
+            System.out.println("Waluta niedostępna, sprawdz dostępne waluty");
     }
 
     class SortCurrency implements Comparator<Currency> {
@@ -55,6 +51,46 @@ public class GlobalExtreme {
         for (Currency c:singleCurrency) {
             System.out.println(c);
         }
+    }
+
+    private Double getMin() {
+        Currency currency = singleCurrency.get(0);
+        return currency.getClose();
+    }
+
+    private Double getMax() {
+        Currency currency = singleCurrency.get((singleCurrency.size()) - 1);
+        return currency.getClose();
+    }
+
+    private void extreme() {
+        do {
+            String choice = consoleReader.getString("Wprowadź jakie ekstremum Cię interesuje: \"min\" lub \"max\"");
+            String lowerSize = ignoreCase.lowerSize(choice);
+            if (lowerSize.equals("min") || lowerSize.equals("max")) {
+                switch (lowerSize) {
+                    case "min":
+                        System.out.println(getMin());
+                        break;
+                    case "max":
+                        System.out.println(getMax());
+                        break;
+                }
+                break;
+            }
+            else if (lowerSize.equals("back")){
+                break;
+            }
+            else System.out.println("niepoprawna komenda, wpisz: \"min\" lub \"max\"\n" +
+                    "lub wróć wpisując: \"back\"");
+        }while (true);
+    }
+    private boolean isContains(List<Currency> list, String s) {
+        for (Currency c: list) {
+        if (c.getName().equals(s))
+            return true;
+        }
+        return false;
     }
 
 }
