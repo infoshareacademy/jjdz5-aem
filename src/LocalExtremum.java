@@ -67,7 +67,8 @@ public class LocalExtremum
         Integer endDate = parseInt(dDate);
 
         for( ContenerDateCurrency sort : sortCurrency()) {
-            System.out.println("     " + sort.current + "        " + startDate + "   " + endDate + " " + Math.Min(singleCurrency) +" " + Math.Max(singleCurrency));
+
+            System.out.println("     " + sort.current + "        " + startDate + "   " + endDate + " " + Math.Min() +" " + Math.Max(sort.current));
         }
 
     }

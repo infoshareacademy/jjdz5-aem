@@ -37,6 +37,9 @@ public class Calculator {//List<Currency> CurrentVariable.listCurrency = new Arr
 
             System.out.println("Po przeliczeniu  wynosi " + source + " waluty " + currency.getName());
 
-        }        }        // System.out.println("Po przeliczeniu  wynosi "+yourMultiplier+" "+getExpectedCurrencyName());}    }
+        }
 
-    }}
+        }
+    }
+
+    }
