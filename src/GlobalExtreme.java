@@ -101,7 +101,7 @@ public class GlobalExtreme {
                 break;
             }
             else System.out.println("niepoprawna komenda, wpisz: \"min\" lub \"max\"\n" +
-                    "lub wróć wpisując: \"back\"");
+                    "lub wróć do menu wpisując: \"back\"");
         }while (true);
     }
     private boolean isContains(List<Currency> list, String s) {
