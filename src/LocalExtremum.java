@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
+import java.lang.Math;
 import static java.lang.Integer.parseInt;
 
 public class LocalExtremum
@@ -51,13 +51,13 @@ public class LocalExtremum
     }
     public limitData()
     {
-        System.out.println("Podaj datę od której chcesz zacząć");
+        System.out.println("Podaj datę od której chcesz zacząć w formacie yyyy-mm-dd:");
 
         Scanner scanner = new Scanner(System.in);
 
         String rtDate = scanner.next();
 
-        System.out.println("Podaj datę na której chcesz skończyć");
+        System.out.println("Podaj datę na której chcesz skończyć w formacie yyyy-mm-dd:");
 
         Scanner scannr = new Scanner(System.in);
 
@@ -65,6 +65,10 @@ public class LocalExtremum
 
         Integer startDate = parseInt(rtDate);
         Integer endDate = parseInt(dDate);
+
+        for( ContenerDateCurrency sort : sortCurrency()) {
+            System.out.println("     " + sort.current + "        " + sort.dateMin + "   " + sort.dateMax + " " + Math.Min(singleCurrency) +" " + Math.Max(singleCurrency));
+        }
 
     }
 
