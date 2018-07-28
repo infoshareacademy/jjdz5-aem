@@ -8,10 +8,11 @@ public class Calculator {
     List<Currency>currentVariable=new ArrayList<Currency>();
     Set<String> singleCurrent=new TreeSet<>();
     Boolean check=true;
+    Boolean check2=true;
     String currenc;
     String currenc2;
     Double number1;
-
+    MenuProject menuProject = new MenuProject();
     public Calculator(){
 
         readFile();
@@ -29,21 +30,33 @@ public class Calculator {
             if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
                 System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc +
                         " = " +  number1/currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName());
+                menuProject.menuPanel();
 
             } else if (currenc2.equalsIgnoreCase("PLN") && currentVariable1.listCurrency.size() > 0) {
                 System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc2 +
                         " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc);
-            } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
-                programExit();
-                MenuProject menuProject = new MenuProject();
                 menuProject.menuPanel();
-                break;
+            } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
+
+                System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
+                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+                System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+                Scanner scanner4=new Scanner(System.in);
+                if(scanner4.next().equalsIgnoreCase("menu")){
+                    MenuProject menuProject = new MenuProject();
+                    menuProject.menuPanel();
+                    break;
+                }
+
             } else {
                 //obliczanie waluty
 
                 System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
                         " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName());
 
+
+                menuProject.menuPanel();
+                break;
             }
 
 
@@ -107,16 +120,17 @@ public class Calculator {
             currenc2 = scanner.next().trim();
             //sprawdzenie czy istnieje waluta
             for (String cur : singleCurrent) {
-                if (cur.equalsIgnoreCase(currenc)) {
-                    check = false;
+                if (cur.equalsIgnoreCase(currenc2)) {
+
+                    check2 = false;
                     break;
                 }
 
             }
-            if (check) {
+            if (check2) {
                 System.out.println("Brak waluty w zestawieniu.");
             }
-        } while (check == true);
+        } while (check2 == true);
 
         return currenc2;
     }
@@ -189,7 +203,7 @@ public class Calculator {
 
             }
 //na walute
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc2)){
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc2))){
                 currentVariable2.listCurrency.add(currency);
 
             }
@@ -197,17 +211,7 @@ public class Calculator {
         }
     }
 
-    public void programExit(){
-        System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
-        System.out.println("Plik nie posiada kursu ze wskazanego dnia");
 
-        Scanner scanner4=new Scanner(System.in);
-        while(scanner4.next().equalsIgnoreCase("menu")){
-            MenuProject menuProject = new MenuProject();
-            menuProject.menuPanel();
-            break;
-        }
-    }
 
 }
 
