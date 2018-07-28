@@ -1,5 +1,5 @@
-import com.infoshareacademy.aem.FileContentReader;
-import com.infoshareacademy.aem.MenuProject;
+package main.java.com.infoshareacademy.aem;
+
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package main.java.com.infoshareacademy.aem;
 
 import java.io.IOException;
 import java.util.Properties;

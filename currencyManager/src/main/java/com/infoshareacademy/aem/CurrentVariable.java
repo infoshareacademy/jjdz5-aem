@@ -1,6 +1,6 @@
-package com.infoshareacademy.aem;
+package main.java.com.infoshareacademy.aem;
 
-import com.infoshareacademy.aem.Currency;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;

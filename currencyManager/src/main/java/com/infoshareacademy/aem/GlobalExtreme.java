@@ -1,6 +1,6 @@
-package com.infoshareacademy.aem;
+package main.java.com.infoshareacademy.aem;
 
-import com.infoshareacademy.aem.ConsoleReader;
+
 
 import java.util.ArrayList;
 import java.util.Collections;

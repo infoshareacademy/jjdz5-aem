@@ -1,11 +1,10 @@
-package com.infoshareacademy.aem;
+package main.java.com.infoshareacademy.aem;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class PropertiesLoader {
 
