@@ -108,7 +108,7 @@ public class GlobalExtreme {
                             e.printStackTrace();
                         }
                         singleCurrency.clear();
-                        smallMenu();
+                        //smallMenu();
                         break;
 
                 }
@@ -118,8 +118,7 @@ public class GlobalExtreme {
                 findCurrency();
                 break;
             }
-            else System.out.println("niepoprawna komenda, wpisz: \"min\" lub \"max\"\n" +
-                    "lub wróć wpisując: \"waluta\"");
+            else System.out.println("Niepoprawna komenda!");
         }while (true);
     }
     private boolean isContains(List<Currency> list, String s) {
@@ -136,6 +135,7 @@ public class GlobalExtreme {
                     "Jeżeli chcesz wyjść do menu wpisz: \"menu\"");
             if (string.equals("dalej")){
                 findCurrency();
+                break;
             }
             else if (string.equals("menu")){
                 menuInformation.readMenu();
@@ -143,7 +143,7 @@ public class GlobalExtreme {
                 break;
             }
             else {
-                System.out.println("Niepoprawna komenda wpisz: \"dalej\" lub \"menu\"");
+                System.out.println("Niepoprawna komenda!");
             }
         } while (true);
     }
