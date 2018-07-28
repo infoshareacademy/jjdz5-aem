@@ -25,7 +25,7 @@ public class GlobalExtreme {
 
     private void findCurrency() {
         do {
-            String availableCurrency = consoleReader.getString("Wpisz dostępną walutę lub wpisz \"menu\" jeżeli chcesz wroćić");
+            String availableCurrency = consoleReader.getString("Wpisz dostępną walutę lub wpisz \"menu\" jeżeli chcesz wrócić do głównego menu");
             String s = ignoreCase.upperSize(availableCurrency);
             String S = ignoreCase.lowerSize(availableCurrency);
 
