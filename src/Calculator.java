@@ -1,5 +1,3 @@
-import sun.util.resources.cldr.uk.CurrencyNames_uk;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -43,8 +41,10 @@ public class Calculator {
             System.out.println("Plik nie posiada kursu ze wskazanego dnia");
         }else{
 
-                System.out.println("Wynik:" + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable1.dateCurrency.get(0).getClose(), number1));
-
+            System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " 1 " + currentVariable1.listCurrency.get(0).getName() +
+                " = "    + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName())  ;
+            MenuProject menuProject=new MenuProject();
+            menuProject.menuPanel();
 
         }
 
@@ -171,7 +171,7 @@ public class Calculator {
 
     //przeliczanie walut
     private double calc(double kurs1, double kurs2, double value) {
-    Double score=value*kurs1/kurs2;
+    Double score=(value*kurs1)/kurs2;
         return  score ;
 
     }
