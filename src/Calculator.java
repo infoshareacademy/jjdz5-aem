@@ -38,10 +38,10 @@ public class Calculator {
                 menuProject.menuPanel();
                 break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
-
+                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
                 System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
                 System.out.println("Jeżeli chcesz zostać wpisz dowolny ciąg znaków");
-                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+
 
                 Scanner scanner4=new Scanner(System.in);
                 if(scanner4.next().equalsIgnoreCase("menu")){
