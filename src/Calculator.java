@@ -20,34 +20,27 @@ public class Calculator {
         checkNumber();
         checkDate();
 
-        for (Currency currency : currentVariable1.dateCurrency) {
-//z waluty
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))){
-                currentVariable1.listCurrency.add(currency);
-
-            }
-//na walute
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc2)){
-                currentVariable2.listCurrency.add(currency);
-
-            }
-
-        }
-
+        checkIfDate();
 
 
 //sprawdzenie czy data wystąpiła
-        if (currentVariable1.listCurrency.isEmpty() ||  currentVariable2.listCurrency.isEmpty()){
-            System.out.println("Plik nie posiada kursu ze wskazanego dnia");
-        }else{
+        do {
+            if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
+                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
 
-            System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " +  number1 + " " + currentVariable1.listCurrency.get(0).getName() +
-                " = "    + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName())  ;
-            MenuProject menuProject=new MenuProject();
-            menuProject.menuPanel();
 
-        }
+            } else {
 
+                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
+                        " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName());
+                MenuProject menuProject = new MenuProject();
+                menuProject.menuPanel();
+                break;
+
+            }
+            checkDate();
+            checkIfDate();
+        }while(true);
 
     }
 
@@ -174,6 +167,23 @@ public class Calculator {
     Double score=(value*kurs1)/kurs2;
         return  score ;
 
+    }
+
+    public void checkIfDate(){
+
+        for (Currency currency : currentVariable1.dateCurrency) {
+//z waluty
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))){
+                currentVariable1.listCurrency.add(currency);
+
+            }
+//na walute
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc2)){
+                currentVariable2.listCurrency.add(currency);
+
+            }
+
+        }
     }
 
 }
