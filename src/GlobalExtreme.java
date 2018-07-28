@@ -54,11 +54,6 @@ public class GlobalExtreme {
         Collections.sort(list,sortCurrency);
     }
 
-    private void print() {
-        for (Currency c:singleCurrency) {
-            System.out.println(c);
-        }
-    }
 
     private Double getMin() {
         Currency currency = singleCurrency.get(0);
