@@ -70,9 +70,15 @@ public class GlobalExtreme {
         return currency.getClose();
     }
 
-    private LocalDate getData(int location) {
+    private List<LocalDate> getData(int location) {
+        List<LocalDate> date = new ArrayList<>();
         Currency currency = singleCurrency.get(location);
-        return currency.getDate();
+        for (Currency c:singleCurrency) {
+            if ((currency.getClose()).equals(c.getClose())) {
+                date.add(c.getDate());
+            }
+        }
+        return date;
     }
 
 
@@ -84,6 +90,7 @@ public class GlobalExtreme {
                 switch (lowerSize) {
                     case "min":
                         System.out.println(getMin() + " " + getData(0));
+
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
@@ -93,6 +100,7 @@ public class GlobalExtreme {
                         break;
                     case "max":
                         System.out.println(getMax() + " " + getData(singleCurrency.size()-1));
+
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
