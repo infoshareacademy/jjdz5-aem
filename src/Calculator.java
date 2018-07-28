@@ -20,7 +20,6 @@ public class Calculator {
         checkCurrencyOut();
         checkNumber();
         checkDate();
-
         checkIfDate();
 
 
@@ -28,26 +27,31 @@ public class Calculator {
         do {
 
             if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc +
+                System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
                         " = " +  number1/currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName());
                 menuProject.menuPanel();
+                break;
 
             } else if (currenc2.equalsIgnoreCase("PLN") && currentVariable1.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc2 +
-                        " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc);
+                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
+                        " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc2);
                 menuProject.menuPanel();
+                break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
 
                 System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
+                System.out.println("Jeżeli chcesz zostać wpisz dowolny ciąg znaków");
                 System.out.println("Plik nie posiada kursu ze wskazanego dnia");
-                System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+
                 Scanner scanner4=new Scanner(System.in);
                 if(scanner4.next().equalsIgnoreCase("menu")){
                     MenuProject menuProject = new MenuProject();
                     menuProject.menuPanel();
                     break;
+                }else {
+                    checkDate();
+                    checkIfDate();
                 }
-
             } else {
                 //obliczanie waluty
 
@@ -60,8 +64,7 @@ public class Calculator {
             }
 
 
-            checkDate();
-            checkIfDate();
+
         }while(true);
 
     }
