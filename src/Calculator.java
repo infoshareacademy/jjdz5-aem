@@ -39,7 +39,7 @@ public class Calculator {
                 break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
                 System.out.println("Plik nie posiada kursu ze wskazanego dnia");
-                System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
+                System.out.println("Jeżli chcesz wyjść do MENU wpisz słowo menu");
                 System.out.println("Jeżeli chcesz zostać wpisz dowolny ciąg znaków");
 
 
