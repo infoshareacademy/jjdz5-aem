@@ -6,36 +6,45 @@ import java.util.*;
 
 public class Calculator {
     CurrentVariable currentVariable1=new CurrentVariable();
+    CurrentVariable currentVariable2=new CurrentVariable();
     List<Currency>currentVariable=new ArrayList<Currency>();
     Set<String> singleCurrent=new TreeSet<>();
     Boolean check=true;
     String currenc;
+    String currenc2;
     Double number1;
 
     public Calculator(){
 
         readFile();
         checkCurrency();
+        checkCurrencyOut();
         checkNumber();
         checkDate();
-        for (Currency currency : currentVariable1.dateCurrency) {
 
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc)){
+        for (Currency currency : currentVariable1.dateCurrency) {
+//z waluty
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))){
                 currentVariable1.listCurrency.add(currency);
+
+            }
+//na walute
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc2)){
+                currentVariable2.listCurrency.add(currency);
 
             }
 
         }
 
 
+
 //sprawdzenie czy data wystąpiła
-        if (currentVariable1.listCurrency.isEmpty()){
+        if (currentVariable1.listCurrency.isEmpty() ||  currentVariable1.dateCurrency.isEmpty()){
             System.out.println("Plik nie posiada kursu ze wskazanego dnia");
         }else{
-            for(Currency c:currentVariable1.listCurrency){
-                Double score=c.getClose()*  number1;
-                System.out.println("Wynik:" + score);
-            }
+
+                System.out.println("Wynik:" + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable1.dateCurrency.get(0).getClose(), number1));
+
 
         }
 
@@ -62,11 +71,11 @@ public class Calculator {
         return   singleCurrent;
     }
 
-//sprawdzenie czy istnieje waluta
+//sprawdzenie czy istnieje waluta z której chcą wymieniać
     public String checkCurrency() {
 
         do {
-            System.out.println("Wybierz dostępną walutę ");
+            System.out.println("Wybierz waluę z której chcesz wymienić ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc = scanner.next().trim();
@@ -86,7 +95,31 @@ public class Calculator {
         return currenc;
     }
 
-  //sprawdzenie czy wpisano prawidłową kwotę
+    //sprawdzenie czy istnieje waluta na którą chcą wymieniać
+    public String checkCurrencyOut() {
+
+        do {
+            System.out.println("Wybierz dostępną walutę na którą chcesz wymienić ");
+            System.out.println(singleCurrency(currentVariable));
+            Scanner scanner = new Scanner(System.in);
+            currenc2 = scanner.next().trim();
+            //sprawdzenie czy istnieje waluta
+            for (String cur : singleCurrent) {
+                if (cur.equalsIgnoreCase(currenc)) {
+                    check = false;
+                    break;
+                }
+
+            }
+            if (check) {
+                System.out.println("Brak waluty w zestawieniu.");
+            }
+        } while (check == true);
+
+        return currenc2;
+    }
+
+    //sprawdzenie czy wpisano prawidłową kwotę
   public Double checkNumber() {
 
       do {
@@ -136,5 +169,14 @@ public class Calculator {
         return currentVariable1.dateCurrent;
     }
 
+    //przeliczanie walut
+    private double calc(double kurs1, double kurs2, double value) {
+    Double score=value*kurs1/kurs2;
+        return  score ;
+
+    }
+
 }
+
+
 
