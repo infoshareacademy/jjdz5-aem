@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -69,6 +70,17 @@ public class GlobalExtreme {
         return currency.getClose();
     }
 
+    private List<LocalDate> getData(int location) {
+        List<LocalDate> date = new ArrayList<>();
+        Currency currency = singleCurrency.get(location);
+        for (Currency c: singleCurrency) {
+            if (currency.getClose().equals(c.getClose())) {
+                date.add(c.getDate());
+            }
+        }
+           return date;
+    }
+
     private void extreme() {
         do {
             String choice = consoleReader.getString("Wprowadź jakie ekstremum Cię interesuje: \"min\" lub \"max\"");
@@ -76,21 +88,23 @@ public class GlobalExtreme {
             if (lowerSize.equals("min") || lowerSize.equals("max")) {
                 switch (lowerSize) {
                     case "min":
-                        System.out.println(getMin());
+                        System.out.println(getMin() + " " + getData(0));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        singleCurrency.clear();
                         menuInformation.readMenu();
                         break;
                     case "max":
-                        System.out.println(getMax());
+                        System.out.println(getMax() + " " + getData(singleCurrency.size()-1));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        singleCurrency.clear();
                         menuInformation.readMenu();
                         break;
                 }
