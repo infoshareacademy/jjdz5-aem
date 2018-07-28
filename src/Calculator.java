@@ -1,87 +1,84 @@
-
+import sun.util.resources.cldr.uk.CurrencyNames_uk;
 
 import java.util.*;
 
-
-
-public class Calculator {//List<Currency> CurrentVariable.listCurrency = new ArrayList<>();
-
-
-
+public class Calculator {
+    List<Currency>currentVariable=new ArrayList<Currency>();
+    Set<String> singleCurrent=new TreeSet<>();
+    Boolean check=true;
     public Calculator(){
 
+        readFile();
+        checkCurrency();
+        checkNumber();
 
 
-        score();
-
-
-
-    }    public void score() {
-
-
-
-        System.out.println("Podaj walute");
-
-
-
-        Scanner scanner = new Scanner(System.in);
-
-
-
-        String waluta=scanner.next();
-
-
-
-        System.out.println("podaj kwote");
-
-        Scanner scannerValue = new Scanner(System.in);
-
-
-
-        Double value=scannerValue.nextDouble();
-
-        String val =Double.toString(value);
-
-        boolean v = val.matches(".");
-
-        try{ if(v == true)
-
-            throw new ArithmeticException("Liczba nie może zawierać  .  a jedynie  , ");}
-
-        catch(Exception ArithmeticException) {
-
-
-
-        }
-
-        FileContentReader fileContentReader = new FileContentReader();
-
-        CurrencyRepository.getCurrencies();
-
-        for (Currency currency : fileContentReader.getListOfCurrencies())
-
-        {
-
-            if(currency.getName().equalsIgnoreCase(waluta)){
-
-
-
-                Double source=  currency.getClose()*value;
-
-
-
-                System.out.println("Po przeliczeniu  wynosi " + source + " waluty " + currency.getName());
-
-
-
-            }
-
-
-
-        }
 
     }
+//wrzucenie walut do tablicy ArrayList
+   public List<Currency> readFile(){
 
+        for (Currency currency : CurrencyRepository.getCurrencies()) {
+            currentVariable.add(currency);
+        }
+        return   currentVariable;
+    }
+//wypisanie pojedynczych walut
+
+    public Set<String> singleCurrency(List<Currency> list){
+
+        for (Currency currency : list) {
+            singleCurrent.add(currency.getName());
+        }
+        return   singleCurrent;
+    }
+
+//sprawdzenie czy istnieje waluta
+    public String checkCurrency() {
+        String currenc;
+        do {
+            System.out.println("Wybierz dostępną walutę ");
+            System.out.println(singleCurrency(currentVariable));
+            Scanner scanner = new Scanner(System.in);
+            currenc = scanner.next().trim();
+            //sprawdzenie czy istnieje waluta
+            for (String cur : singleCurrent) {
+                if (cur.equalsIgnoreCase(currenc)) {
+                    check = false;
+                    break;
+                }
+
+            }
+            if (check) {
+                System.out.println("Brak waluty w zestawieniu.");
+            }
+        } while (check == true);
+
+        return currenc;
+    }
+
+  //sprawdzenie czy wpisano prawidłową kwotę
+  public Double checkNumber() {
+      Double number1;
+      do {
+          System.out.println("Wpisz kwotę: ");
+
+          Scanner scanner = new Scanner(System.in);
+          String number = scanner.next().trim().replace(",",".");
+
+
+          //sprawdzenie czy istnieje waluta
+          if(number.matches("[0-9 .]+")) {
+                number1=Double.parseDouble(number);
+                  break;
+
+          }else {
+              System.out.println("Podana wartość nie jest cyfrą.");
+          }
+      } while (true);
+
+      return number1;
+  }
 
 
 }
