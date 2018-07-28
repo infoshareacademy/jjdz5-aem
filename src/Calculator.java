@@ -1,8 +1,11 @@
 import sun.util.resources.cldr.uk.CurrencyNames_uk;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Calculator {
+    CurrentVariable currentVariable1=new CurrentVariable();
     List<Currency>currentVariable=new ArrayList<Currency>();
     Set<String> singleCurrent=new TreeSet<>();
     Boolean check=true;
@@ -11,15 +14,33 @@ public class Calculator {
         readFile();
         checkCurrency();
         checkNumber();
+        checkDate();
+        for (Currency currency : currentVariable1.dateCurrency) {
+
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent)){
+                currentVariable1.listCurrency.add(currency);
 
 
+            }
 
+        }
+
+
+//sprawdzenie czy data wystąpiła
+        if (currentVariable1.listCurrency.isEmpty()){
+            System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+        }
+
+        System.out.println("Wybierz metodę z MENU");
     }
+
+
 //wrzucenie walut do tablicy ArrayList
    public List<Currency> readFile(){
 
         for (Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.add(currency);
+            currentVariable1.dateCurrency.add(currency);
         }
         return   currentVariable;
     }
@@ -80,6 +101,32 @@ public class Calculator {
       return number1;
   }
 
+    private String checkDate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+        boolean exception=true;
+        while (exception) {
+            try {
+                currentVariable1.localTime1= LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
+                exception=false;
+            } catch (Exception e) {
+                System.out.println("Nieprawidłowy format daty");
+                System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
+            }
+        }
+        switch (currentVariable1.localTime1.getDayOfWeek()){
+            case SUNDAY: currentVariable1.dateCurrent=currentVariable1.localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
+                break;
+            case SATURDAY:currentVariable1.dateCurrent=currentVariable1.localTime1.minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
+                break;
+            default: currentVariable1.dateCurrent=currentVariable1.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
+                break;
+
+
+        }
+
+        return currentVariable1.dateCurrent;
+    }
 
 }
 
