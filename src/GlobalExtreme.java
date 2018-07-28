@@ -41,7 +41,7 @@ public class GlobalExtreme {
             }
             else if (S.equals("menu")){
                 menuInformation.readMenu();
-                System.out.print("Wybierz interesującą Cię metodę: ");
+                System.out.print("Wybierz interesującą Cię opcje: ");
                 break;
             }
             else
@@ -139,7 +139,7 @@ public class GlobalExtreme {
             }
             else if (string.equals("menu")){
                 menuInformation.readMenu();
-                System.out.println("Wpisz interesującą Cię metodę: ");
+                System.out.println("Wpisz interesującą Cię opcje: ");
                 break;
             }
             else {
