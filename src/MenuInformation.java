@@ -22,6 +22,7 @@ public class MenuInformation {
     public void currentCurrency(){
         CurrentCurrency currentCurrency=new CurrentCurrency();
         currentCurrency.currentCash();
+
     }
     public void readMenu(){
         System.out.println("    ****************************************");
@@ -34,5 +35,8 @@ public class MenuInformation {
         System.out.println("    5. Powrót do MENU");
         System.out.println("    6. Informacja o programie");
         System.out.println("    0. Zakończ działanie aplikacji");
+    }
+
+    private void exitToMenu(String text) {
     }
 }
