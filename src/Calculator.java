@@ -37,11 +37,11 @@ public class Calculator {
 
 
 //sprawdzenie czy data wystąpiła
-        if (currentVariable1.listCurrency.isEmpty() ||  currentVariable1.dateCurrency.isEmpty()){
+        if (currentVariable1.listCurrency.isEmpty() ||  currentVariable2.listCurrency.isEmpty()){
             System.out.println("Plik nie posiada kursu ze wskazanego dnia");
         }else{
 
-            System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " 1 " + currentVariable1.listCurrency.get(0).getName() +
+            System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " +  number1 + " " + currentVariable1.listCurrency.get(0).getName() +
                 " = "    + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName())  ;
             MenuProject menuProject=new MenuProject();
             menuProject.menuPanel();
@@ -75,7 +75,7 @@ public class Calculator {
     public String checkCurrency() {
 
         do {
-            System.out.println("Wybierz waluę z której chcesz wymienić ");
+            System.out.println("Wybierz waluę którą chcesz wymienić: ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc = scanner.next().trim();
