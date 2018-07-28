@@ -9,6 +9,9 @@ public class Calculator {
     List<Currency>currentVariable=new ArrayList<Currency>();
     Set<String> singleCurrent=new TreeSet<>();
     Boolean check=true;
+    String currenc;
+    Double number1;
+
     public Calculator(){
 
         readFile();
@@ -17,9 +20,8 @@ public class Calculator {
         checkDate();
         for (Currency currency : currentVariable1.dateCurrency) {
 
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent)){
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && currency.getName().equalsIgnoreCase(currenc)){
                 currentVariable1.listCurrency.add(currency);
-
 
             }
 
@@ -29,9 +31,15 @@ public class Calculator {
 //sprawdzenie czy data wystąpiła
         if (currentVariable1.listCurrency.isEmpty()){
             System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+        }else{
+            for(Currency c:currentVariable1.listCurrency){
+                Double score=c.getClose()*  number1;
+                System.out.println("Wynik:" + score);
+            }
+
         }
 
-        System.out.println("Wybierz metodę z MENU");
+
     }
 
 
@@ -56,7 +64,7 @@ public class Calculator {
 
 //sprawdzenie czy istnieje waluta
     public String checkCurrency() {
-        String currenc;
+
         do {
             System.out.println("Wybierz dostępną walutę ");
             System.out.println(singleCurrency(currentVariable));
@@ -80,7 +88,7 @@ public class Calculator {
 
   //sprawdzenie czy wpisano prawidłową kwotę
   public Double checkNumber() {
-      Double number1;
+
       do {
           System.out.println("Wpisz kwotę: ");
 
