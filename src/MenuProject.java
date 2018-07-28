@@ -34,6 +34,7 @@ private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
                             break;
                         case 2:
                             System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
+                            Calculator calculator=new Calculator();
                             break;
                         case 3:
                             System.out.println("Ekstrema globalne,\n" +
