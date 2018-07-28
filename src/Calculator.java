@@ -25,29 +25,28 @@ public class Calculator {
 
 //sprawdzenie czy data wystąpiła
         do {
-            if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
 
+            if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
+                System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc +
+                        " = " +  number1/currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName());
 
-                System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
-                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
-
-                Scanner scanner4=new Scanner(System.in);
-                if(scanner4.next().equalsIgnoreCase("menu")){
-                    MenuProject menuProject = new MenuProject();
-                    menuProject.menuPanel();
-                    break;
-                    }
-
-
-            } else {
-
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
-                        " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName());
+            } else if (currenc2.equalsIgnoreCase("PLN") && currentVariable1.listCurrency.size() > 0) {
+                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc2 +
+                        " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc);
+            } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
+                programExit();
                 MenuProject menuProject = new MenuProject();
                 menuProject.menuPanel();
                 break;
+            } else {
+                //obliczanie waluty
+
+                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
+                        " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName());
 
             }
+
+
             checkDate();
             checkIfDate();
         }while(true);
@@ -67,7 +66,7 @@ public class Calculator {
 //wypisanie pojedynczych walut
 
     public Set<String> singleCurrency(List<Currency> list){
-
+        singleCurrent.add("PLN");
         for (Currency currency : list) {
             singleCurrent.add(currency.getName());
         }
@@ -174,6 +173,7 @@ public class Calculator {
 
     //przeliczanie walut
     private double calc(double kurs1, double kurs2, double value) {
+
     Double score=(value*kurs1)/kurs2;
         return  score ;
 
@@ -183,6 +183,7 @@ public class Calculator {
 
         for (Currency currency : currentVariable1.dateCurrency) {
 //z waluty
+
             if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))){
                 currentVariable1.listCurrency.add(currency);
 
@@ -193,6 +194,18 @@ public class Calculator {
 
             }
 
+        }
+    }
+
+    public void programExit(){
+        System.out.println("Jeżli chcesz wyjść z programu wpisz słowo menu");
+        System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+
+        Scanner scanner4=new Scanner(System.in);
+        while(scanner4.next().equalsIgnoreCase("menu")){
+            MenuProject menuProject = new MenuProject();
+            menuProject.menuPanel();
+            break;
         }
     }
 
