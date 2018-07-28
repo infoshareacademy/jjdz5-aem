@@ -1,3 +1,5 @@
+package com.infoshareacademy.aem;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;

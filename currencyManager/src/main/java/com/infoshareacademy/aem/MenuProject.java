@@ -1,4 +1,6 @@
+package com.infoshareacademy.aem;
 
+import com.infoshareacademy.aem.MenuInformation;
 
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.util.*;

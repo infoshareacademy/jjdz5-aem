@@ -1,3 +1,5 @@
+package com.infoshareacademy.aem;
+
 import java.util.Scanner;
 
 public class ConsoleReader {

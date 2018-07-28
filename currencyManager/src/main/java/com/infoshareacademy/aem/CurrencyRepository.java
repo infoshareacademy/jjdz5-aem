@@ -1,3 +1,7 @@
+package com.infoshareacademy.aem;
+
+import com.infoshareacademy.aem.Currency;
+
 import java.util.ArrayList;
 
 public class CurrencyRepository {

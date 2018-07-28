@@ -1,3 +1,7 @@
+package com.infoshareacademy.aem;
+
+import com.infoshareacademy.aem.CurrencyRepository;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;

@@ -1,3 +1,5 @@
+package com.infoshareacademy.aem;
+
 public class MenuInformation {
     public void programInformation(){
         System.out.println("    ****************************************");

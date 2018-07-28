@@ -1,3 +1,5 @@
+package com.infoshareacademy.aem;
+
 import java.time.LocalDate;
 
 public class Currency {

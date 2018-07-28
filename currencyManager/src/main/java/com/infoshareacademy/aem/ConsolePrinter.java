@@ -1,3 +1,5 @@
+package com.infoshareacademy.aem;
+
 public class ConsolePrinter {
 
     public static void printLn(String message) {

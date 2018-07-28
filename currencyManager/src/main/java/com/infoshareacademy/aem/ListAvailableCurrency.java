@@ -1,3 +1,7 @@
+package com.infoshareacademy.aem;
+
+import com.infoshareacademy.aem.CurrencyRepository;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
