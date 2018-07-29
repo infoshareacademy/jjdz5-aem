@@ -43,12 +43,6 @@ private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
                             globalExtremeMenu.run();
                             break;
                         case 4:
-                            System.out.println("ekstrema lokalne");
-                            break;
-                        case 5:
-                            menuPanel();
-                            break;
-                        case 6:
                             menuInformation.programInformation();
                             break;
                         case 0:
