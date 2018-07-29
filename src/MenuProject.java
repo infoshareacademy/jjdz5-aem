@@ -43,9 +43,6 @@ private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
                             globalExtremeMenu.run();
                             break;
                         case 4:
-                            menuPanel();
-                            break;
-                        case 5:
                             menuInformation.programInformation();
                             break;
                         case 0:

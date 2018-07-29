@@ -14,7 +14,9 @@ public class MenuInformation {
                 "2. Kalkulator walut\n"  +
                 "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie. \n\n" +
                 "3 . Wyświetl ekstrema globalne \n" +
-                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n" 
+                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n" );
+     readMenu();
+
     }
 
     public void currentCurrency(){
@@ -29,8 +31,7 @@ public class MenuInformation {
         System.out.println("    1. Wyświetl dostępne  waluty i aktualny kurs na dzień wskazany przez użytkownika");
         System.out.println("    2. Kalkulator walut");
         System.out.println("    3. Wyświetl ekstrema globalne");
-        System.out.println("    4. Powrót do MENU");
-        System.out.println("    5. Informacja o programie");
+        System.out.println("    4. Informacja o programie");
         System.out.println("    0. Zakończ działanie aplikacji");
     }
 
