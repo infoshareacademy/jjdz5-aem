@@ -1,6 +1,12 @@
+
 public class Main {
     public static void main(String[] args) {
-        Menu menu = new Menu();
 
+        FileContentReader fileContentReader = new FileContentReader();
+        MenuProject menu=new MenuProject();
+
+        fileContentReader.readFile();
+        menu.menuPanel();
+        
     }
 }
