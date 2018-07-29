@@ -89,7 +89,7 @@ public class GlobalExtreme {
         do {
             String choice = consoleReader.getString("Wprowadź jakie ekstremum Cię interesuje: \"min\" lub \"max\"\n" +
                     "możesz też wrócić do wyboru waluty wpisując: \"waluta\" ");
-            String lowerSize = ignoreCase.lowerSize(choice);
+            String lowerSize = ignoreCase.lowerSize(choice).trim();
             if (lowerSize.equals("min") || lowerSize.equals("max")) {
                 switch (lowerSize) {
                     case "min":
@@ -110,8 +110,8 @@ public class GlobalExtreme {
                             e.printStackTrace();
                         }
                         singleCurrency.clear();
-                        //smallMenu();
-                        break;
+                        smallMenu();
+
 
                 }
                 break;
