@@ -1,4 +1,4 @@
-package test.java.com.infoshareacademy.aem;
+package com.infoshareacademy.aem;
 
 import static org.junit.Assert.assertTrue;
 
@@ -7,14 +7,9 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class MainTest
-{
-    /**
-     * Rigorous Test :-)
-     */
+public class MainTest {
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void shouldAnswerWithTrue() {
+        assertTrue(true);
     }
 }

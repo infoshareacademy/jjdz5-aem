@@ -40,13 +40,11 @@ public class GlobalExtreme {
                 sortSingleCurrency(singleCurrency);
                 extreme();
                 break;
-            }
-            else if (S.equals("menu")){
+            } else if (S.equals("menu")) {
                 menuInformation.readMenu();
                 System.out.print("Wybierz interesującą Cię opcje: ");
                 break;
-            }
-            else
+            } else
                 System.out.println("Waluta niedostępna, sprawdz dostępne waluty");
         } while (true);
     }
@@ -60,7 +58,7 @@ public class GlobalExtreme {
     }
 
     private void sortSingleCurrency(List<Currency> list) {
-        Collections.sort(list,sortCurrency);
+        Collections.sort(list, sortCurrency);
     }
 
 
@@ -77,12 +75,12 @@ public class GlobalExtreme {
     private List<LocalDate> getData(int location) {
         List<LocalDate> date = new ArrayList<>();
         Currency currency = singleCurrency.get(location);
-        for (Currency c: singleCurrency) {
+        for (Currency c : singleCurrency) {
             if (currency.getClose().equals(c.getClose())) {
                 date.add(c.getDate());
             }
         }
-           return date;
+        return date;
     }
 
     private void extreme() {
@@ -103,7 +101,7 @@ public class GlobalExtreme {
                         smallMenu();
                         break;
                     case "max":
-                        System.out.println(getMax() + " " + getData(singleCurrency.size()-1));
+                        System.out.println(getMax() + " " + getData(singleCurrency.size() - 1));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
@@ -115,18 +113,17 @@ public class GlobalExtreme {
 
                 }
                 break;
-            }
-            else if (lowerSize.equals("waluta")){
+            } else if (lowerSize.equals("waluta")) {
                 findCurrency();
                 break;
-            }
-            else System.out.println("Niepoprawna komenda!");
-        }while (true);
+            } else System.out.println("Niepoprawna komenda!");
+        } while (true);
     }
+
     private boolean isContains(List<Currency> list, String s) {
-        for (Currency c: list) {
-        if (c.getName().equals(s))
-            return true;
+        for (Currency c : list) {
+            if (c.getName().equals(s))
+                return true;
         }
         return false;
     }
@@ -135,16 +132,14 @@ public class GlobalExtreme {
         do {
             String string = consoleReader.getString("Jeżeli chcesz kontynuować wpisywanie ekstremów wpisz: \"dalej\"\n" +
                     "Jeżeli chcesz wyjść do menu wpisz: \"menu\"");
-            if (string.equals("dalej")){
+            if (string.equals("dalej")) {
                 findCurrency();
                 break;
-            }
-            else if (string.equals("menu")){
+            } else if (string.equals("menu")) {
                 menuInformation.readMenu();
                 System.out.println("Wpisz interesującą Cię opcje: ");
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Niepoprawna komenda!");
             }
         } while (true);

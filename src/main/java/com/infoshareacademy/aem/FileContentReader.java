@@ -13,23 +13,12 @@ import java.util.regex.Pattern;
 public class FileContentReader {
     private String filePath;
 
-    //lista przechowujaca liste obiektow com.infoshareacademy.aem.Currency
+    //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
-    private static ArrayList<Currency> currencies = new ArrayList<>();
+    private ArrayList<Currency> currencies = new ArrayList<>();
 
-
-    public ArrayList<Currency> getListOfCurrencies() {
-        return listOfCurrencies;
+    public FileContentReader() {
     }
-
-    public ArrayList<Currency> getCurrencies() {
-        return currencies;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public void readFile() {

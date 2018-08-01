@@ -17,10 +17,10 @@ public class AppProperties {
         return properties.getProperty("version");
     }
 
-    public String getSourceFilePath(){
+    public String getSourceFilePath() {
         Pattern pattern = Pattern.compile("^.*\\.(txt|csv)$");
         Matcher matcher = pattern.matcher(properties.getProperty("sourceFilePath"));
-        if (!matcher.matches()){
+        if (!matcher.matches()) {
             System.out.println("Plik z danymi ma nieobsługiwane rozszerzenie! \n" +
                     "Wybierz plik z rozszerzeniem .txt lub .csv");
             try {

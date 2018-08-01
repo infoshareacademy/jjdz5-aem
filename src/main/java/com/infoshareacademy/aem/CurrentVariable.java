@@ -8,8 +8,8 @@ import java.util.Objects;
 public class CurrentVariable {
     LocalDate localTime1;
     String dateCurrent;
-    List<Currency> listCurrency=new ArrayList<>();
-    List<Currency>  dateCurrency=new ArrayList<>();
+    List<Currency> listCurrency = new ArrayList<>();
+    List<Currency> dateCurrency = new ArrayList<>();
 
 
     @Override
