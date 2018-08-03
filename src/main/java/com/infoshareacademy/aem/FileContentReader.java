@@ -1,5 +1,6 @@
 package com.infoshareacademy.aem;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class FileContentReader {
     private String filePath;
+    private String projectRootPath = new File("").getAbsolutePath();
 
     //lista przechowujaca liste obiektow Currency
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
@@ -20,7 +22,8 @@ public class FileContentReader {
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = appProperties.getSourceFilePath();
+        System.out.println(projectRootPath);
+        this.filePath = projectRootPath.concat(appProperties.getSourceFilePath());
         Path path = Paths.get(filePath);
 
         // lista przechowujaca kolejne linie jako String
