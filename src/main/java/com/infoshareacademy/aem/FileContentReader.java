@@ -17,9 +17,6 @@ public class FileContentReader {
     private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
     private ArrayList<Currency> currencies = new ArrayList<>();
 
-    public FileContentReader() {
-    }
-
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
