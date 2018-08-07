@@ -1,6 +1,5 @@
 package com.infoshareacademy.aem;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,27 +7,27 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileContentReader {
     private String filePath;
-    private String projectRootPath = new File("").getAbsolutePath();
 
     //lista przechowujaca liste obiektow Currency
-    private ArrayList<Currency> listOfCurrencies = new ArrayList<>();
-    private ArrayList<Currency> currencies = new ArrayList<>();
+    private List<Currency> listOfCurrencies = new ArrayList<>();
+    private List<Currency> currencies = new ArrayList<>();
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = projectRootPath.concat(appProperties.getSourceFilePath());
-        Path path = Paths.get(filePath);
+        this.filePath = appProperties.getSourceFilePath();
+        Path path = Paths.get(filePath).toAbsolutePath();
 
         // lista przechowujaca kolejne linie jako String
-        ArrayList<String> allLinesAsString = new ArrayList<>();
+        List<String> allLinesAsString = new ArrayList<>();
         try {
-            allLinesAsString = (ArrayList) Files.readAllLines(path);
+            allLinesAsString = Files.readAllLines(path);
         } catch (IOException e) {
             System.out.println("Brak pliku! \n" +
                     "Upewnij się, że plik z danymi znajduję się w lokalizacji zdefiniowanej w " +
@@ -49,7 +48,7 @@ public class FileContentReader {
     }
 
     // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
-    private ArrayList<Currency> convertIntoObject(ArrayList<String> read) {
+    private List<Currency> convertIntoObject(List<String> read) {
         for (String oneLine : read) {
             Pattern pattern = Pattern.compile("^\\w\\w\\w,\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d$");
             Matcher matcher = pattern.matcher(oneLine);
