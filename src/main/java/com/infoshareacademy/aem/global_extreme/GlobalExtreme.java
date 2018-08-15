@@ -22,15 +22,18 @@ public class GlobalExtreme {
 
 
     public void run() {
-        listAvailableCurrency.run();
+        System.out.println(printer.line1());
         findCurrency();
-        //print();
+
 
     }
 
     void findCurrency() {
         do {
-            String availableCurrency = consoleReader.getString(printer.line1());
+
+            System.out.println(printer.line1_1());
+            listAvailableCurrency.run();
+            String availableCurrency = consoleReader.getString(printer.line2());
             String s = ignoreCase.upperSize(availableCurrency).trim();
             String S = ignoreCase.lowerSize(availableCurrency).trim();
 
@@ -44,11 +47,12 @@ public class GlobalExtreme {
                 extreme();
                 break;
             } else if (S.equals("m")) {
+                System.out.print(printer.line4());
                 menuInformation.readMenu();
-                System.out.print("Wybierz interesującą Cię opcje: ");
+
                 break;
             } else
-                System.out.println("Waluta niedostępna, sprawdz dostępne waluty");
+                System.out.println(printer.line3());
         } while (true);
     }
 
