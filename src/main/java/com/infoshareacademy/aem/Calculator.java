@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Calculator {
+    Currency cc=new Currency();
     CurrentVariable currentVariable1 = new CurrentVariable();
     CurrentVariable currentVariable2 = new CurrentVariable();
     List<com.infoshareacademy.aem.Currency> currentVariable = new ArrayList<com.infoshareacademy.aem.Currency>();
@@ -30,13 +31,13 @@ public class Calculator {
         do {
 
             if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
+                System.out.println(currentVariable2.toString() + " " + number1 + " " + currenc.trim().toUpperCase() +
                         " = " + number1 / currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
                 menuProject.menuPanel();
                 break;
 
             } else if (currenc2.equalsIgnoreCase("PLN") && currentVariable1.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
+                System.out.println(currentVariable1.toString() + " " + number1 + " " + currenc.trim().toUpperCase() +
                         " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc2 + "\n");
                 menuProject.menuPanel();
                 break;
@@ -58,7 +59,7 @@ public class Calculator {
             } else {
                 //obliczanie waluty
 
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
+                System.out.println(currentVariable1.toString() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
                         " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
 
 
