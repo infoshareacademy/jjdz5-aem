@@ -1,4 +1,7 @@
-package com.infoshareacademy.aem;
+package com.infoshareacademy.aem.global_extreme;
+
+import com.infoshareacademy.aem.Currency;
+import com.infoshareacademy.aem.CurrencyRepository;
 
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package com.infoshareacademy.aem.global_extreme;
 
 import java.util.*;
 

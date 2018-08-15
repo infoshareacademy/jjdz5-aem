@@ -1,4 +1,6 @@
-package com.infoshareacademy.aem;
+package com.infoshareacademy.aem.global_extreme;
+
+import com.infoshareacademy.aem.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,36 +13,37 @@ public class GlobalExtreme {
 
     private ConsoleReader consoleReader = new ConsoleReader();
     private IgnoreCase ignoreCase = new IgnoreCase();
-    private SortCurrency sortCurrency = new SortCurrency();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
-    ListAvailableCurrency listAvailableCurrency = new ListAvailableCurrency();
+    private ListAvailableCurrency listAvailableCurrency = new ListAvailableCurrency();
     private MenuInformation menuInformation = new MenuInformation();
-
-    private List<Currency> singleCurrency = new ArrayList<>();
+    private SingleCurrency singleCurrency = new SingleCurrency();
+    private CurrencyRepositoryHelper helper = new CurrencyRepositoryBin();
+    private MyPrinter printer = new MyPrinter();
 
 
     public void run() {
         listAvailableCurrency.run();
         findCurrency();
         //print();
+
     }
 
-    private void findCurrency() {
+    void findCurrency() {
         do {
-            String availableCurrency = consoleReader.getString("Wpisz dostępną walutę lub wpisz \"menu\" jeżeli chcesz wrócić do głównego menu");
-            String s = ignoreCase.upperSize(availableCurrency);
-            String S = ignoreCase.lowerSize(availableCurrency);
+            String availableCurrency = consoleReader.getString(printer.line1());
+            String s = ignoreCase.upperSize(availableCurrency).trim();
+            String S = ignoreCase.lowerSize(availableCurrency).trim();
 
-            if (isContains(currencyRepository.getCurrencies(), s)) {
+            if (helper.isContains(currencyRepository.getCurrencies(), s)) {
                 for (Currency c : currencyRepository.getCurrencies()) {
                     if (c.getName().equals(s)) {
                         singleCurrency.add(c);
                     }
                 }
-                sortSingleCurrency(singleCurrency);
+                singleCurrency.sortSingleCurrency();
                 extreme();
                 break;
-            } else if (S.equals("menu")) {
+            } else if (S.equals("m")) {
                 menuInformation.readMenu();
                 System.out.print("Wybierz interesującą Cię opcje: ");
                 break;
@@ -50,38 +53,6 @@ public class GlobalExtreme {
     }
 
 
-    class SortCurrency implements Comparator<Currency> {
-        @Override
-        public int compare(Currency o1, Currency o2) {
-            return o1.getClose().compareTo(o2.getClose());
-        }
-    }
-
-    private void sortSingleCurrency(List<Currency> list) {
-        Collections.sort(list, sortCurrency);
-    }
-
-
-    private Double getMin() {
-        Currency currency = singleCurrency.get(0);
-        return currency.getClose();
-    }
-
-    private Double getMax() {
-        Currency currency = singleCurrency.get((singleCurrency.size()) - 1);
-        return currency.getClose();
-    }
-
-    private List<LocalDate> getData(int location) {
-        List<LocalDate> date = new ArrayList<>();
-        Currency currency = singleCurrency.get(location);
-        for (Currency c : singleCurrency) {
-            if (currency.getClose().equals(c.getClose())) {
-                date.add(c.getDate());
-            }
-        }
-        return date;
-    }
 
     private void extreme() {
         do {
@@ -91,7 +62,7 @@ public class GlobalExtreme {
             if (lowerSize.equals("min") || lowerSize.equals("max")) {
                 switch (lowerSize) {
                     case "min":
-                        System.out.println(getMin() + " " + getData(0));
+                        System.out.println(helper.getMin() + " " + helper.getDate(0));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
@@ -101,7 +72,7 @@ public class GlobalExtreme {
                         smallMenu();
                         break;
                     case "max":
-                        System.out.println(getMax() + " " + getData(singleCurrency.size() - 1));
+                        System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size()-1));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
@@ -120,13 +91,6 @@ public class GlobalExtreme {
         } while (true);
     }
 
-    private boolean isContains(List<Currency> list, String s) {
-        for (Currency c : list) {
-            if (c.getName().equals(s))
-                return true;
-        }
-        return false;
-    }
 
     private void smallMenu() {
         do {
