@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class CurrentVariable {
+
+   Currency cc=new Currency();
+
+    @Override
+    public String toString() {
+        return "W dniu " + listCurrency.get(0).getDate();
+    }
+
     LocalDate localTime1;
     String dateCurrent;
     List<Currency> listCurrency = new ArrayList<>();
