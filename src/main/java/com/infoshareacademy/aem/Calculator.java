@@ -145,7 +145,7 @@ public class Calculator {
     public Double checkNumber() {
 
         do {
-            System.out.println("Wpisz kwotę: ");
+            System.out.println("Wpisz kwotę, jaką chcesz wymienić w walucie " +  currenc);
 
             Scanner scanner = new Scanner(System.in);
             String number = scanner.next().trim().replace(",", ".");
