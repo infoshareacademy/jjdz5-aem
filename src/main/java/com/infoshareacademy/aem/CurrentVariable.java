@@ -11,7 +11,7 @@ public class CurrentVariable {
 
     @Override
     public String toString() {
-        return "Your rate on day " + listCurrency.get(0).getDate();
+        return "After conversion on " + listCurrency.get(0).getDate();
     }
 
     LocalDate localTime1;

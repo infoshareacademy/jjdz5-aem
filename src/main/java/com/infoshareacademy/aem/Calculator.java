@@ -43,7 +43,7 @@ public class Calculator {
                 break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
                 System.out.println("The file does not contain currency for the selected day");
-                System.out.println("If you want to go back to the menu write 1");
+                System.out.println("If you want to go back to the Menu, type 1");
                 System.out.println("If you want to stay, press Enter");
 
 
@@ -57,7 +57,7 @@ public class Calculator {
                     checkIfDate();
                 }
             } else {
-                //currency convert
+                //currency conversion
 
                 System.out.println(currentVariable1.toString() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
                         " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
@@ -82,7 +82,7 @@ public class Calculator {
         }
         return currentVariable;
     }
-//write single currency
+//print out single currency
 
     public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list) {
         singleCurrent.add("PLN");
@@ -96,11 +96,11 @@ public class Calculator {
     public String checkCurrency() {
 
         do {
-            System.out.println("Currency convert from: ");
+            System.out.println("Choose currency to convert from: ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc = scanner.next().trim();
-            //check currency
+            //check whether the currency exist
             for (String cur : singleCurrent) {
                 if (cur.equalsIgnoreCase(currenc)) {
                     check = false;
@@ -120,7 +120,7 @@ public class Calculator {
     public String checkCurrencyOut() {
 
         do {
-            System.out.println("Currency convert to: ");
+            System.out.println("Choose currency to convert to: ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc2 = scanner.next().trim();
@@ -141,23 +141,23 @@ public class Calculator {
         return currenc2;
     }
 
-    //check is it number
+    //check whether the typed value is a number
     public Double checkNumber() {
 
         do {
-            System.out.println("Write amount you won`t convert from " +  currenc);
+            System.out.println("Type the amount you want to convert " +  currenc);
 
             Scanner scanner = new Scanner(System.in);
             String number = scanner.next().trim().replace(",", ".");
 
 
-            //check do you write a number
+            //check whether the typed amount is a number
             if (number.matches("[0-9 .]+")) {
                 number1 = Double.parseDouble(number);
                 break;
 
             } else {
-                System.out.println("The amount you entered is not a number");
+                System.out.println("The value you entered is not a number");
             }
         } while (true);
 
@@ -166,7 +166,7 @@ public class Calculator {
 
     private String checkDate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Write the date in format: yyyy-mm-dd:");
+        System.out.println("Type the date of exchange rate you want to use. Please use the following format: yyyy-mm-dd: ");
         boolean exception = true;
         while (exception) {
             try {
@@ -174,7 +174,7 @@ public class Calculator {
                 exception = false;
             } catch (Exception e) {
                 System.out.println("Incorrect date format");
-                System.out.println("Write the date again in the format: yyyy-mm-dd: ");
+                System.out.println("Type the date again in the following format: yyyy-mm-dd: ");
             }
         }
         switch (currentVariable1.localTime1.getDayOfWeek()) {
@@ -194,7 +194,7 @@ public class Calculator {
         return currentVariable1.dateCurrent;
     }
 
-    //convert currency
+    //currency conversion
     private double calc(double kurs1, double kurs2, double value) {
 
         Double score = (value * kurs1) / kurs2;

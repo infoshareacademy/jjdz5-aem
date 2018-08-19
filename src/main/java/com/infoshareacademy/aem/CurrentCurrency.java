@@ -25,7 +25,7 @@ public class CurrentCurrency {
         System.out.println("    ****************************************");
         System.out.println("    *            EXCHANGE RATE             *");
         System.out.println("    ****************************************");
-        System.out.println("        currency              amount         ");
+        System.out.println("        Currency              Value         ");
         System.out.println("                                            ");
 
         for (Currency currency : currentVariable.dateCurrency) {
@@ -38,14 +38,14 @@ public class CurrentCurrency {
 
         }
 
-        //sort currency rate
+        //sort currency by name ascending
         currentVariable.listCurrency.sort(new SortCurrency());
 
         for (Currency current : currentVariable.listCurrency) {
             System.out.println("        " + current.getName() + "                  " + current.getClose());
         }
 
-//check date that she show again
+//check existence of the exchange rate for selected date
         if (currentVariable.listCurrency.isEmpty()) {
             System.out.println("The file does not contain currency rate for the selected day");
         }
@@ -58,19 +58,19 @@ public class CurrentCurrency {
 
         sortCurrency();
         System.out.println("    ****************************************");
-        System.out.println("    *            RANGE CURRENCY            *");
+        System.out.println("    *      DATE RANGE OF CURRENCIES        *");
         System.out.println("    ****************************************");
-        System.out.println("     currency    min date      max date      ");
+        System.out.println("     Currency    Min date      Max date      ");
         System.out.println("                                            ");
         for (ContenerDateCurrency sort : sortCurrency()) {
             System.out.println("     " + sort.current + "        " + sort.dateMin + "   " + sort.dateMax);
         }
     }
 
-    //check which day of week write user, if day is in weekend choose currency rate from Friday
+    //check which day of the week, the typed date is. If it is a weekend day, then choose Fridays rate
     private String checkDate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Write the date in the format: yyyy-mm-dd:");
+        System.out.println("Type the date of exchange rate you want to use. Please use the following format: yyyy-mm-dd:");
         boolean exception = true;
         while (exception) {
             try {
@@ -78,7 +78,7 @@ public class CurrentCurrency {
                 exception = false;
             } catch (Exception e) {
                 System.out.println("Incorrect date format");
-                System.out.println("Write the date again in the format: yyyy-mm-dd: ");
+                System.out.println("Type the date again in the following format: yyyy-mm-dd: ");
             }
         }
         switch (currentVariable.localTime1.getDayOfWeek()) {
