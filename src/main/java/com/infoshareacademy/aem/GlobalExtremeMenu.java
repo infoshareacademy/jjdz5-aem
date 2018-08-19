@@ -22,7 +22,6 @@ public class GlobalExtremeMenu {
     }
 
 
-
     private void printOptjons() {
 
         consolePrinter.printLn("\nWybierz jedną z dostępnych opcji: ");
@@ -31,7 +30,6 @@ public class GlobalExtremeMenu {
         consolePrinter.printLn("Jeżeli chcesz wyjść do głównego menu wpisz w konsoli: \"menu\"");
         consolePrinter.print("Wprowadź opcję: ");
     }
-
 
 
     private void menu() {
@@ -48,12 +46,10 @@ public class GlobalExtremeMenu {
                         globalExtreme.run();
                         break;
                 }
-            }
-            else if (s.equals("menu")) {
+            } else if (s.equals("menu")) {
                 menuInformation.readMenu();
                 break;
-            }
-            else  {
+            } else {
                 System.out.println("Niepoprawna komenda, spróbuj ponownie.\n");
 
             }

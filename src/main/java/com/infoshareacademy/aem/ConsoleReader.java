@@ -10,6 +10,7 @@ public class ConsoleReader {
         System.out.println(message);
         return scanner.nextLine();
     }
+
     public String getString() {
         return scanner.nextLine();
     }
@@ -18,6 +19,7 @@ public class ConsoleReader {
         System.out.println(message);
         return scanner.nextInt();
     }
+
     public Integer getInteger() {
         return scanner.nextInt();
     }
@@ -26,6 +28,7 @@ public class ConsoleReader {
         System.out.println(message);
         return scanner.nextDouble();
     }
+
     public Double getDouble() {
         return scanner.nextDouble();
     }

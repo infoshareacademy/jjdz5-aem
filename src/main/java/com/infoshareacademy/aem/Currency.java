@@ -25,7 +25,7 @@ public class Currency {
         this.date = date;
     }
 
-    public Currency (String name, LocalDate date, Double open, Double high, Double low, Double close, Integer volume){
+    public Currency(String name, LocalDate date, Double open, Double high, Double low, Double close, Integer volume) {
         this.name = name;
         this.date = date;
         this.open = open;

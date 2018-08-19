@@ -19,7 +19,7 @@ public class ListAvailableCurrency {
     }
 
     private void listofCurrencies() {
-        for (Currency c:currencyRepository.getCurrencies()) {
+        for (Currency c : currencyRepository.getCurrencies()) {
             singleCurrency.add(c.getName());
         }
     }

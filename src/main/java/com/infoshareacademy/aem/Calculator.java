@@ -5,17 +5,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Calculator {
-    CurrentVariable currentVariable1=new CurrentVariable();
-    CurrentVariable currentVariable2=new CurrentVariable();
-    List<com.infoshareacademy.aem.Currency>currentVariable=new ArrayList<com.infoshareacademy.aem.Currency>();
-    Set<String> singleCurrent=new TreeSet<>();
-    Boolean check=true;
-    Boolean check2=true;
+    Currency cc=new Currency();
+    CurrentVariable currentVariable1 = new CurrentVariable();
+    CurrentVariable currentVariable2 = new CurrentVariable();
+    List<com.infoshareacademy.aem.Currency> currentVariable = new ArrayList<com.infoshareacademy.aem.Currency>();
+    Set<String> singleCurrent = new TreeSet<>();
+    Boolean check = true;
+    Boolean check2 = true;
     String currenc;
     String currenc2;
     Double number1;
     MenuProject menuProject = new MenuProject();
-    public Calculator(){
+
+    public Calculator() {
 
         readFile();
         checkCurrency();
@@ -29,14 +31,14 @@ public class Calculator {
         do {
 
             if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable2.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
-                        " = " +  number1/currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName());
+                System.out.println(currentVariable2.toString() + " " + number1 + " " + currenc.trim().toUpperCase() +
+                        " = " + number1 / currentVariable2.listCurrency.get(0).getClose() + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
                 menuProject.menuPanel();
                 break;
 
             } else if (currenc2.equalsIgnoreCase("PLN") && currentVariable1.listCurrency.size() > 0) {
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currenc.trim().toUpperCase() +
-                        " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc2);
+                System.out.println(currentVariable1.toString() + " " + number1 + " " + currenc.trim().toUpperCase() +
+                        " = " + number1 * currentVariable1.listCurrency.get(0).getClose() + " " + currenc2 + "\n");
                 menuProject.menuPanel();
                 break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
@@ -45,20 +47,20 @@ public class Calculator {
                 System.out.println("Jeżeli chcesz zostać wpisz dowolny ciąg znaków");
 
 
-                Scanner scanner4=new Scanner(System.in);
-                if(scanner4.next().equalsIgnoreCase("menu")){
+                Scanner scanner4 = new Scanner(System.in);
+                if (scanner4.next().equalsIgnoreCase("menu")) {
                     MenuProject menuProject = new MenuProject();
                     menuProject.menuPanel();
                     break;
-                }else {
+                } else {
                     checkDate();
                     checkIfDate();
                 }
             } else {
                 //obliczanie waluty
 
-                System.out.println("W dniu " + currentVariable1.listCurrency.get(0).getDate() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
-                        " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName());
+                System.out.println(currentVariable1.toString() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
+                        " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
 
 
                 menuProject.menuPanel();
@@ -66,32 +68,31 @@ public class Calculator {
             }
 
 
-
-        }while(true);
+        } while (true);
 
     }
 
 
-//wrzucenie walut do tablicy ArrayList
-   public List<com.infoshareacademy.aem.Currency> readFile(){
+    //wrzucenie walut do tablicy ArrayList
+    public List<com.infoshareacademy.aem.Currency> readFile() {
 
         for (com.infoshareacademy.aem.Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.add(currency);
             currentVariable1.dateCurrency.add(currency);
         }
-        return   currentVariable;
+        return currentVariable;
     }
 //wypisanie pojedynczych walut
 
-    public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list){
+    public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list) {
         singleCurrent.add("PLN");
         for (com.infoshareacademy.aem.Currency currency : list) {
             singleCurrent.add(currency.getName());
         }
-        return   singleCurrent;
+        return singleCurrent;
     }
 
-//sprawdzenie czy istnieje waluta z której chcą wymieniać
+    //sprawdzenie czy istnieje waluta z której chcą wymieniać
     public String checkCurrency() {
 
         do {
@@ -141,47 +142,50 @@ public class Calculator {
     }
 
     //sprawdzenie czy wpisano prawidłową kwotę
-  public Double checkNumber() {
+    public Double checkNumber() {
 
-      do {
-          System.out.println("Wpisz kwotę: ");
+        do {
+            System.out.println("Wpisz kwotę: ");
 
-          Scanner scanner = new Scanner(System.in);
-          String number = scanner.next().trim().replace(",",".");
+            Scanner scanner = new Scanner(System.in);
+            String number = scanner.next().trim().replace(",", ".");
 
 
-          //sprawdzenie czy istnieje waluta
-          if(number.matches("[0-9 .]+")) {
-                number1=Double.parseDouble(number);
-                  break;
+            //sprawdzenie czy istnieje waluta
+            if (number.matches("[0-9 .]+")) {
+                number1 = Double.parseDouble(number);
+                break;
 
-          }else {
-              System.out.println("Podana wartość nie jest cyfrą.");
-          }
-      } while (true);
+            } else {
+                System.out.println("Podana wartość nie jest cyfrą.");
+            }
+        } while (true);
 
-      return number1;
-  }
+        return number1;
+    }
 
     private String checkDate() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj datę w formacie yyyy-mm-dd:");
-        boolean exception=true;
+        boolean exception = true;
         while (exception) {
             try {
-                currentVariable1.localTime1= LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
-                exception=false;
+                currentVariable1.localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
+                exception = false;
             } catch (Exception e) {
                 System.out.println("Nieprawidłowy format daty");
                 System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
             }
         }
-        switch (currentVariable1.localTime1.getDayOfWeek()){
-            case SUNDAY: currentVariable1.dateCurrent=currentVariable1.localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
+        switch (currentVariable1.localTime1.getDayOfWeek()) {
+            case SUNDAY:
+                currentVariable1.dateCurrent = currentVariable1.localTime1.minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE);
                 break;
-            case SATURDAY:currentVariable1.dateCurrent=currentVariable1.localTime1.minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
+            case SATURDAY:
+                currentVariable1.dateCurrent = currentVariable1.localTime1.minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
                 break;
-            default: currentVariable1.dateCurrent=currentVariable1.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            default:
+                currentVariable1.dateCurrent = currentVariable1.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
                 break;
 
 
@@ -193,29 +197,28 @@ public class Calculator {
     //przeliczanie walut
     private double calc(double kurs1, double kurs2, double value) {
 
-    Double score=(value*kurs1)/kurs2;
-        return  score ;
+        Double score = (value * kurs1) / kurs2;
+        return score;
 
     }
 
-    public void checkIfDate(){
+    public void checkIfDate() {
 
         for (com.infoshareacademy.aem.Currency currency : currentVariable1.dateCurrency) {
 //z waluty
 
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))){
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))) {
                 currentVariable1.listCurrency.add(currency);
 
             }
 //na walute
-            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc2))){
+            if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc2))) {
                 currentVariable2.listCurrency.add(currency);
 
             }
 
         }
     }
-
 
 
 }

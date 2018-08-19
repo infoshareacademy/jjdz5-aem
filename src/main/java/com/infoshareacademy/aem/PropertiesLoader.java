@@ -8,7 +8,7 @@ import java.util.Properties;
 public class PropertiesLoader {
 
     public static AppProperties loadProperties() {
-        try(InputStream resourceAsStream = PropertiesLoader.class. getResourceAsStream("/app.properties")){
+        try (InputStream resourceAsStream = PropertiesLoader.class.getResourceAsStream("/app.properties")) {
             if (resourceAsStream == null) {
                 System.out.println("Plik ustawień aplikacji nie może byc znaleziony! \n" +
                         "Parametr metody getResourceAsStream(name) nie jest spójny z nazwą pliku properties " +

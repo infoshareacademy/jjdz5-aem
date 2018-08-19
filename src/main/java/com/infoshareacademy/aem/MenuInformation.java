@@ -1,7 +1,7 @@
 package com.infoshareacademy.aem;
 
 public class MenuInformation {
-    public void programInformation(){
+    public void programInformation() {
         System.out.println("    ****************************************");
         System.out.println("    *       INFORMACJE O PROGRAMIE         *");
         System.out.println("    ****************************************\n");
@@ -13,20 +13,21 @@ public class MenuInformation {
                 "1. Wyświetl dostępne waluty i aktualny kurs na dzień wskazany przez użytkownika \n" +
                 "Opcja prezentuje zakres czasowy walut znajdujących się w pliku. \n" +
                 "Program umożliwia wypisanie aktualnego kursu walut na dzień wskazany przez użytkownika \n\n" +
-                "2. Kalkulator walut\n"  +
+                "2. Kalkulator walut\n" +
                 "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie. \n\n" +
                 "3 . Wyświetl ekstrema globalne \n" +
-                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n" );
+                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n");
         readMenu();
 
     }
 
-    public void currentCurrency(){
-        CurrentCurrency currentCurrency=new CurrentCurrency();
+    public void currentCurrency() {
+        CurrentCurrency currentCurrency = new CurrentCurrency();
         currentCurrency.currentCash();
 
     }
-    public void readMenu(){
+
+    public void readMenu() {
         System.out.println("    ****************************************");
         System.out.println("    *                 MENU                 *");
         System.out.println("    ****************************************\n");
