@@ -23,9 +23,9 @@ public class CurrentCurrency {
 
 
         System.out.println("    ****************************************");
-        System.out.println("    *           KURSY WALUT                *");
+        System.out.println("    *            EXCHANGE RATE             *");
         System.out.println("    ****************************************");
-        System.out.println("        waluta              wartość         ");
+        System.out.println("        currency              amount         ");
         System.out.println("                                            ");
 
         for (Currency currency : currentVariable.dateCurrency) {
@@ -38,16 +38,16 @@ public class CurrentCurrency {
 
         }
 
-        //sortowanie listy walut z datą wskazaną przez użytkownika
+        //sort currency rate
         currentVariable.listCurrency.sort(new SortCurrency());
 
         for (Currency current : currentVariable.listCurrency) {
             System.out.println("        " + current.getName() + "                  " + current.getClose());
         }
 
-//sprawdzenie czy data wystąpiła
+//check date that she show again
         if (currentVariable.listCurrency.isEmpty()) {
-            System.out.println("Plik nie posiada kursu ze wskazanego dnia");
+            System.out.println("The file does not contain currency rate for the selected day");
         }
 
         MenuProject menuProject = new MenuProject();
@@ -58,27 +58,27 @@ public class CurrentCurrency {
 
         sortCurrency();
         System.out.println("    ****************************************");
-        System.out.println("    *            ZAKRES WALUT              *");
+        System.out.println("    *            RANGE CURRENCY            *");
         System.out.println("    ****************************************");
-        System.out.println("     waluta    data min     data max      ");
+        System.out.println("     currency    min date      max date      ");
         System.out.println("                                            ");
         for (ContenerDateCurrency sort : sortCurrency()) {
             System.out.println("     " + sort.current + "        " + sort.dateMin + "   " + sort.dateMax);
         }
     }
 
-    //sprawdzenie czy wskazana daata wypada w sobote lub niedziele, jeżeli tak to wybieramy kurs z piątku
+    //check which day of week write user, if day is in weekend choose currency rate from Friday
     private String checkDate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+        System.out.println("Write the date in the format: yyyy-mm-dd:");
         boolean exception = true;
         while (exception) {
             try {
                 currentVariable.localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
                 exception = false;
             } catch (Exception e) {
-                System.out.println("Nieprawidłowy format daty");
-                System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
+                System.out.println("Incorrect date format");
+                System.out.println("Write the date again in the format: yyyy-mm-dd: ");
             }
         }
         switch (currentVariable.localTime1.getDayOfWeek()) {
@@ -98,7 +98,7 @@ public class CurrentCurrency {
         return currentVariable.dateCurrent;
     }
 
-    //dodanie zakresu czasowego do walut znajdujących się w pliku
+    //date range for each currency
     private List<ContenerDateCurrency> sortCurrency() {
         Set<String> uniqueCurrent = new TreeSet<>();
         for (Currency cur : currentVariable.dateCurrency) {

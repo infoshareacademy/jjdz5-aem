@@ -27,7 +27,7 @@ public class Calculator {
         checkIfDate();
 
 
-//sprawdzenie czy data wystąpiła
+//check  if a date exist
         do {
 
             if (currenc.equalsIgnoreCase("PLN") && currentVariable2.listCurrency.size() > 0) {
@@ -42,13 +42,13 @@ public class Calculator {
                 menuProject.menuPanel();
                 break;
             } else if (currentVariable1.listCurrency.isEmpty() || currentVariable2.listCurrency.isEmpty()) {
-                System.out.println("Plik nie posiada kursu ze wskazanego dnia");
-                System.out.println("Jeżli chcesz wyjść do MENU wpisz słowo menu");
-                System.out.println("Jeżeli chcesz zostać wpisz dowolny ciąg znaków");
+                System.out.println("The file does not contain currency for the selected day");
+                System.out.println("If you want to go back to the menu write 1");
+                System.out.println("If you want to stay, press Enter");
 
 
                 Scanner scanner4 = new Scanner(System.in);
-                if (scanner4.next().equalsIgnoreCase("menu")) {
+                if (scanner4.nextInt()==1) {
                     MenuProject menuProject = new MenuProject();
                     menuProject.menuPanel();
                     break;
@@ -57,7 +57,7 @@ public class Calculator {
                     checkIfDate();
                 }
             } else {
-                //obliczanie waluty
+                //currency convert
 
                 System.out.println(currentVariable1.toString() + " " + number1 + " " + currentVariable1.listCurrency.get(0).getName() +
                         " = " + calc(currentVariable1.listCurrency.get(0).getClose(), currentVariable2.listCurrency.get(0).getClose(), number1) + " " + currentVariable2.listCurrency.get(0).getName() + "\n");
@@ -73,7 +73,7 @@ public class Calculator {
     }
 
 
-    //wrzucenie walut do tablicy ArrayList
+    //add currency to ArrayList
     public List<com.infoshareacademy.aem.Currency> readFile() {
 
         for (com.infoshareacademy.aem.Currency currency : CurrencyRepository.getCurrencies()) {
@@ -82,7 +82,7 @@ public class Calculator {
         }
         return currentVariable;
     }
-//wypisanie pojedynczych walut
+//write single currency
 
     public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list) {
         singleCurrent.add("PLN");
@@ -92,15 +92,15 @@ public class Calculator {
         return singleCurrent;
     }
 
-    //sprawdzenie czy istnieje waluta z której chcą wymieniać
+    //check if currency exist (currency convert from)
     public String checkCurrency() {
 
         do {
-            System.out.println("Wybierz waluę którą chcesz wymienić: ");
+            System.out.println("Currency convert from: ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc = scanner.next().trim();
-            //sprawdzenie czy istnieje waluta
+            //check currency
             for (String cur : singleCurrent) {
                 if (cur.equalsIgnoreCase(currenc)) {
                     check = false;
@@ -109,22 +109,22 @@ public class Calculator {
 
             }
             if (check) {
-                System.out.println("Brak waluty w zestawieniu.");
+                System.out.println("The file does not contain the selected currency");
             }
         } while (check == true);
 
         return currenc;
     }
 
-    //sprawdzenie czy istnieje waluta na którą chcą wymieniać
+    //check if currency exist - currency convert to
     public String checkCurrencyOut() {
 
         do {
-            System.out.println("Wybierz dostępną walutę na którą chcesz wymienić ");
+            System.out.println("Currency convert to: ");
             System.out.println(singleCurrency(currentVariable));
             Scanner scanner = new Scanner(System.in);
             currenc2 = scanner.next().trim();
-            //sprawdzenie czy istnieje waluta
+            //check if currency exist
             for (String cur : singleCurrent) {
                 if (cur.equalsIgnoreCase(currenc2)) {
 
@@ -134,30 +134,30 @@ public class Calculator {
 
             }
             if (check2) {
-                System.out.println("Brak waluty w zestawieniu.");
+                System.out.println("The file does not contain the selected currency");
             }
         } while (check2 == true);
 
         return currenc2;
     }
 
-    //sprawdzenie czy wpisano prawidłową kwotę
+    //check is it number
     public Double checkNumber() {
 
         do {
-            System.out.println("Wpisz kwotę, jaką chcesz wymienić w walucie " +  currenc);
+            System.out.println("Write amount you won`t convert from " +  currenc);
 
             Scanner scanner = new Scanner(System.in);
             String number = scanner.next().trim().replace(",", ".");
 
 
-            //sprawdzenie czy istnieje waluta
+            //check do you write a number
             if (number.matches("[0-9 .]+")) {
                 number1 = Double.parseDouble(number);
                 break;
 
             } else {
-                System.out.println("Podana wartość nie jest cyfrą.");
+                System.out.println("The amount you entered is not a number");
             }
         } while (true);
 
@@ -166,15 +166,15 @@ public class Calculator {
 
     private String checkDate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj datę w formacie yyyy-mm-dd:");
+        System.out.println("Write the date in format: yyyy-mm-dd:");
         boolean exception = true;
         while (exception) {
             try {
                 currentVariable1.localTime1 = LocalDate.parse(scanner.next(), DateTimeFormatter.ISO_LOCAL_DATE);
                 exception = false;
             } catch (Exception e) {
-                System.out.println("Nieprawidłowy format daty");
-                System.out.println("Wpisz ponownie poprawny format daty w formacie yyyy-mm-dd: ");
+                System.out.println("Incorrect date format");
+                System.out.println("Write the date again in the format: yyyy-mm-dd: ");
             }
         }
         switch (currentVariable1.localTime1.getDayOfWeek()) {
@@ -194,7 +194,7 @@ public class Calculator {
         return currentVariable1.dateCurrent;
     }
 
-    //przeliczanie walut
+    //convert currency
     private double calc(double kurs1, double kurs2, double value) {
 
         Double score = (value * kurs1) / kurs2;
@@ -205,13 +205,13 @@ public class Calculator {
     public void checkIfDate() {
 
         for (com.infoshareacademy.aem.Currency currency : currentVariable1.dateCurrency) {
-//z waluty
+//from currency
 
             if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))) {
                 currentVariable1.listCurrency.add(currency);
 
             }
-//na walute
+//to currency
             if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc2))) {
                 currentVariable2.listCurrency.add(currency);
 
