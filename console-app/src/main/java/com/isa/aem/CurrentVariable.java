@@ -1,4 +1,4 @@
-package com.isa.aem;
+package com.infoshareacademy.aem;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class CurrentVariable {
 
     @Override
     public String toString() {
-        return "W dniu " + listCurrency.get(0).getDate();
+        return "After conversion on " + listCurrency.get(0).getDate();
     }
 
     LocalDate localTime1;
