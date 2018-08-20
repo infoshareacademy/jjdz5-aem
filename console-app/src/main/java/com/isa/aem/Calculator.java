@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package com.isa.aem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +8,7 @@ public class Calculator {
     Currency cc=new Currency();
     CurrentVariable currentVariable1 = new CurrentVariable();
     CurrentVariable currentVariable2 = new CurrentVariable();
-    List<com.infoshareacademy.aem.Currency> currentVariable = new ArrayList<com.infoshareacademy.aem.Currency>();
+    List<Currency> currentVariable = new ArrayList<Currency>();
     Set<String> singleCurrent = new TreeSet<>();
     Boolean check = true;
     Boolean check2 = true;
@@ -74,9 +74,9 @@ public class Calculator {
 
 
     //add currency to ArrayList
-    public List<com.infoshareacademy.aem.Currency> readFile() {
+    public List<Currency> readFile() {
 
-        for (com.infoshareacademy.aem.Currency currency : CurrencyRepository.getCurrencies()) {
+        for (Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.add(currency);
             currentVariable1.dateCurrency.add(currency);
         }
@@ -84,9 +84,9 @@ public class Calculator {
     }
 //print out single currency
 
-    public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list) {
+    public Set<String> singleCurrency(List<Currency> list) {
         singleCurrent.add("PLN");
-        for (com.infoshareacademy.aem.Currency currency : list) {
+        for (Currency currency : list) {
             singleCurrent.add(currency.getName());
         }
         return singleCurrent;
@@ -204,7 +204,7 @@ public class Calculator {
 
     public void checkIfDate() {
 
-        for (com.infoshareacademy.aem.Currency currency : currentVariable1.dateCurrency) {
+        for (Currency currency : currentVariable1.dateCurrency) {
 //from currency
 
             if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))) {
