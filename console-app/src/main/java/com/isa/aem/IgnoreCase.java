@@ -1,7 +1,5 @@
 package com.isa.aem;
 
-import java.util.*;
-
 public class IgnoreCase {
 
 

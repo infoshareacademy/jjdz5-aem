@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
 public class Calculator {
     Currency cc=new Currency();
     CurrentVariable currentVariable1 = new CurrentVariable();
