@@ -25,7 +25,7 @@ public class MyPrinter {
         return "\n\n" +
                 "     *****************   ERROR   *****************\n" +
                 "                                || m: back to menu\n\n" +
-                "     CURRENCY DOES NOT EXIST.\n";
+                "     CURRENCY OR COMMAND DOES NOT EXIST.\n";
     }
 
     public String line4() {
@@ -53,16 +53,26 @@ public class MyPrinter {
     public String line7() {
         return "\n\n"+
                 "     *****************   ERROR   *****************\n" +
-                "                                \n\n" +
+                "                                \n" +
                 "     UNKNOWN COMMAND.\n";
     }
 
     public String line8() {
         return "\n" +
-                "     .............................................\n" +
-                "     .............................................\n" +
+                "     ........................................................\n" +
+                "     ........................................................\n" +
                 "                                 || m: back to menu\n" +
-                "|| b: back to currency selection \n\n";
+                "                                 || b: back to currency selection \n" +
+                "     Command: ";
+
+    }
+
+    public String line9() {
+        return "\n\n" +
+                "     ........................................................\n"+
+                "     ........................................................\n" +
+                "                                 || m: back to menu\n\n";
+
     }
 
 

@@ -102,15 +102,17 @@ public class GlobalExtreme {
     private void smallMenu() {
         do {
             String string = consoleReader.getString(printer.line8());
-            if (string.equals("dalej")) {
+            String S = ignoreCase.lowerSize(string).trim();
+            if (S.equals("b")) {
+                System.out.println(printer.line9());
                 findCurrency();
                 break;
-            } else if (string.equals("menu")) {
+            } else if (S.equals("m")) {
                 menuInformation.readMenu();
-                System.out.println("Wpisz interesującą Cię opcje: ");
+                //System.out.println("Wpisz interesującą Cię opcje: ");
                 break;
             } else {
-                System.out.println("Niepoprawna komenda!");
+                System.out.println(printer.line7());
             }
         } while (true);
     }
