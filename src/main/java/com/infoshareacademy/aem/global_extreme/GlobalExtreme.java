@@ -17,7 +17,7 @@ public class GlobalExtreme {
     private ListAvailableCurrency listAvailableCurrency = new ListAvailableCurrency();
     private MenuInformation menuInformation = new MenuInformation();
     private SingleCurrency singleCurrency = new SingleCurrency();
-    private CurrencyRepositoryHelper helper = new CurrencyRepositoryBin();
+    private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
 
 
@@ -49,7 +49,6 @@ public class GlobalExtreme {
             } else if (S.equals("m")) {
                 System.out.print(printer.line4());
                 menuInformation.readMenu();
-
                 break;
             } else
                 System.out.println(printer.line3());
@@ -60,13 +59,12 @@ public class GlobalExtreme {
 
     private void extreme() {
         do {
-            String choice = consoleReader.getString("Wprowadź jakie ekstremum Cię interesuje: \"min\" lub \"max\"\n" +
-                    "możesz też wrócić do wyboru waluty wpisując: \"waluta\" ");
+            String choice = consoleReader.getString(printer.line5());
             String lowerSize = ignoreCase.lowerSize(choice).trim();
-            if (lowerSize.equals("min") || lowerSize.equals("max")) {
+            if (lowerSize.equals("n") || lowerSize.equals("x")) {
                 switch (lowerSize) {
-                    case "min":
-                        System.out.println(helper.getMin() + " " + helper.getDate(0));
+                    case "n":
+                        System.out.println(helper.getMin()+" " + helper.getDate(0));
                         try {
                             TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
@@ -75,7 +73,7 @@ public class GlobalExtreme {
                         singleCurrency.clear();
                         smallMenu();
                         break;
-                    case "max":
+                    case "x":
                         System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size()-1));
                         try {
                             TimeUnit.SECONDS.sleep(3);
@@ -88,18 +86,22 @@ public class GlobalExtreme {
 
                 }
                 break;
-            } else if (lowerSize.equals("waluta")) {
+            } else if (lowerSize.equals("b")) {
+                System.out.println(printer.line6());
                 findCurrency();
                 break;
-            } else System.out.println("Niepoprawna komenda!");
+            }else if (lowerSize.equals("m")) {
+                System.out.print(printer.line4());
+                menuInformation.readMenu();
+                break;
+            } else System.out.println(printer.line7());
         } while (true);
     }
 
 
     private void smallMenu() {
         do {
-            String string = consoleReader.getString("Jeżeli chcesz kontynuować wpisywanie ekstremów wpisz: \"dalej\"\n" +
-                    "Jeżeli chcesz wyjść do menu wpisz: \"menu\"");
+            String string = consoleReader.getString(printer.line8());
             if (string.equals("dalej")) {
                 findCurrency();
                 break;

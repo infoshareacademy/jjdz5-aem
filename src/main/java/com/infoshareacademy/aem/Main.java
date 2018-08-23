@@ -7,11 +7,11 @@ public class Main {
 
         FileContentReader fileContentReader = new FileContentReader();
         MenuProject menu = new MenuProject();
-        GlobalExtreme globalExtreme = new GlobalExtreme();
-        globalExtreme.run();
+//        GlobalExtreme globalExtreme = new GlobalExtreme();
+//        globalExtreme.run();
 
         fileContentReader.readFile();
-//        menu.menuPanel();
+        menu.menuPanel();
 
     }
 }

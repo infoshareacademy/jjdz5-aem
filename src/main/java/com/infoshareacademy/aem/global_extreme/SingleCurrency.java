@@ -10,7 +10,7 @@ import java.util.List;
 public class SingleCurrency {
 
 
-    private List<Currency> singleCurrency = new ArrayList<>();
+    private static final List<Currency> singleCurrency = new ArrayList<>();
     private SortCurrency  sortCurrency = new SortCurrency();
 
     public void add(Currency currency) {
@@ -24,7 +24,6 @@ public class SingleCurrency {
     public void clear() {
         singleCurrency.clear();
     }
-
 
     class SortCurrency implements Comparator<Currency> {
 
