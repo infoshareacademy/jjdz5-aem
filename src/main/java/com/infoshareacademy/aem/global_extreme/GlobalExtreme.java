@@ -19,6 +19,7 @@ public class GlobalExtreme {
     private SingleCurrency singleCurrency = new SingleCurrency();
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
+    private CheckCondition checkCondition = new CheckCondition();
 
 
     public void run() {
@@ -55,12 +56,13 @@ public class GlobalExtreme {
     }
 
     private void extreme() {
+        String choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
+                printer.extremeMenu());
+        int i = Integer.parseInt(choice);
         do {
-            String choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
-                    printer.extremeMenu());
 
             if (choice.matches("\\d{0,9}") && choice.length() > 0){
-                int i = Integer.parseInt(choice);
+
                 if (i == 2 || i == 9) {
                     switch (i) {
                         case 2:
@@ -99,21 +101,24 @@ public class GlobalExtreme {
                             + printer.unknowCommand());
                 }
             }
-        } while (true);
+        } while (checkCondition.condition(i));
     }
 
     private void smallMenu() {
+        String string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
+                printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
+        int i = Integer.parseInt(string);
+
         do {
-            String string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
-                    printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
             if (string.matches("\\d{0,9}") && string.length() > 0) {
-                int i = Integer.parseInt(string);
                 if (i == 1) {
                     System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.pointLine() +
                             printer.backToMenu() + printer.nextLine());
                     findCurrency();
                     break;
                 } else if (i == 0) {
+                    System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
+                            printer.dubleNextLine());
                     menuInformation.readMenu();
                     break;
                 } else {
@@ -121,7 +126,7 @@ public class GlobalExtreme {
                             + printer.unknowCommand());
                 }
             }
-        } while (true);
+        } while (checkCondition.condition(i));
     }
 
 }

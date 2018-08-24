@@ -4,6 +4,7 @@ import com.infoshareacademy.aem.Currency;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
@@ -45,7 +46,12 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
     }
 
     @Override
-    public boolean isTrue() {
+    public boolean isContainsInt(List<Integer> list, int i) {
+        for (Integer in : list){
+            if (in == i){
+                return true;
+            }
+        }
         return false;
     }
 }
