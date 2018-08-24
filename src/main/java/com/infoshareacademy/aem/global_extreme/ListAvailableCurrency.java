@@ -14,7 +14,6 @@ public class ListAvailableCurrency {
     public void run() {
         listofCurrencies();
         printCurrencues(singleCurrency);
-
     }
 
     public static Set<String> getSingleCurrency() {
@@ -28,9 +27,6 @@ public class ListAvailableCurrency {
     }
 
     private void printCurrencues(Set<String> set) {
-//        for (String s:set) {
-//            System.out.println(s);
-//        }
         System.out.println(set);
     }
 }

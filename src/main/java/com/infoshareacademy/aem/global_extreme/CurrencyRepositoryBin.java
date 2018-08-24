@@ -25,8 +25,9 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
     @Override
     public boolean isContains(List<Currency> list, String s) {
         for (Currency c : list) {
-            if (c.getName().equals(s))
+            if (c.getName().equals(s)) {
                 return true;
+            }
         }
         return false;
     }
@@ -43,5 +44,8 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
         return date;
     }
 
-
+    @Override
+    public boolean isTrue() {
+        return false;
+    }
 }

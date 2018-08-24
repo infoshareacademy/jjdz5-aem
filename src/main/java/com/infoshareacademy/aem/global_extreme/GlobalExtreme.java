@@ -22,20 +22,17 @@ public class GlobalExtreme {
 
 
     public void run() {
-        System.out.println(printer.line1());
+        System.out.println(printer.globalExtremeTittle() + printer.backToMenu() + printer.nextLine());
         findCurrency();
-
-
     }
 
     void findCurrency() {
         do {
-
-            System.out.println(printer.line1_1());
+            System.out.println(printer.listAblCur());
             listAvailableCurrency.run();
-            String availableCurrency = consoleReader.getString(printer.line2());
+            String availableCurrency = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
             String s = ignoreCase.upperSize(availableCurrency).trim();
-            String S = ignoreCase.lowerSize(availableCurrency).trim();
+            String trim = availableCurrency.trim();
 
             if (helper.isContains(currencyRepository.getCurrencies(), s)) {
                 for (Currency c : currencyRepository.getCurrencies()) {
@@ -46,73 +43,83 @@ public class GlobalExtreme {
                 singleCurrency.sortSingleCurrency();
                 extreme();
                 break;
-            } else if (S.equals("m")) {
-                System.out.print(printer.line4());
+            } else if (trim.equals("0")) {
+                System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
+                        printer.dubleNextLine());
                 menuInformation.readMenu();
                 break;
             } else
-                System.out.println(printer.line3());
+                System.out.println(printer.dubleNextLine() + printer.error() + printer.backToMenu() +
+                        printer.nextLine() + printer.curComUnexist());
         } while (true);
     }
-
-
 
     private void extreme() {
         do {
-            String choice = consoleReader.getString(printer.line5());
-            String lowerSize = ignoreCase.lowerSize(choice).trim();
-            if (lowerSize.equals("n") || lowerSize.equals("x")) {
-                switch (lowerSize) {
-                    case "n":
-                        System.out.println(helper.getMin()+" " + helper.getDate(0));
-                        try {
-                            TimeUnit.SECONDS.sleep(3);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        singleCurrency.clear();
-                        smallMenu();
-                        break;
-                    case "x":
-                        System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size()-1));
-                        try {
-                            TimeUnit.SECONDS.sleep(3);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        singleCurrency.clear();
-                        smallMenu();
+            String choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
+                    printer.extremeMenu());
 
-
+            if (choice.matches("\\d{0,9}") && choice.length() > 0){
+                int i = Integer.parseInt(choice);
+                if (i == 2 || i == 9) {
+                    switch (i) {
+                        case 2:
+                            System.out.println(helper.getMin() + " " + helper.getDate(0));
+                            try {
+                                TimeUnit.SECONDS.sleep(3);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            singleCurrency.clear();
+                            smallMenu();
+                            break;
+                        case 9:
+                            System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
+                            try {
+                                TimeUnit.SECONDS.sleep(3);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            singleCurrency.clear();
+                            smallMenu();
+                    }
+                    break;
+                } else if (i == 1) {
+                    System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.onlyPointLine() +
+                            printer.dubleNextLine() + printer.backToMenu());
+                    findCurrency();
+                    break;
+                } else if (i == 0) {
+                    System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
+                            printer.dubleNextLine());
+                    menuInformation.readMenu();
+                    break;
+                } else {
+                    System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
+                            + printer.unknowCommand());
                 }
-                break;
-            } else if (lowerSize.equals("b")) {
-                System.out.println(printer.line6());
-                findCurrency();
-                break;
-            }else if (lowerSize.equals("m")) {
-                System.out.print(printer.line4());
-                menuInformation.readMenu();
-                break;
-            } else System.out.println(printer.line7());
+            }
         } while (true);
     }
 
-
     private void smallMenu() {
         do {
-            String string = consoleReader.getString(printer.line8());
-            String S = ignoreCase.lowerSize(string).trim();
-            if (S.equals("b")) {
-                System.out.println(printer.line9());
-                findCurrency();
-                break;
-            } else if (S.equals("m")) {
-                menuInformation.readMenu();
-                //System.out.println("Wpisz interesującą Cię opcje: ");
-                break;
-            } else {
-                System.out.println(printer.line7());
+            String string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
+                    printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
+            if (string.matches("\\d{0,9}") && string.length() > 0) {
+                int i = Integer.parseInt(string);
+                if (i == 1) {
+                    System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.pointLine() +
+                            printer.backToMenu() + printer.nextLine());
+                    findCurrency();
+                    break;
+                } else if (i == 0) {
+                    menuInformation.readMenu();
+                    break;
+                } else {
+                    System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
+                            + printer.unknowCommand());
+                }
             }
         } while (true);
     }
