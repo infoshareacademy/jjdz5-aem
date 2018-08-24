@@ -1,5 +1,10 @@
 package com.infoshareacademy.aem;
 
+import com.infoshareacademy.aem.globalextreme.ConsoleReader;
+import com.infoshareacademy.aem.globalextreme.GlobalExtreme;
+import com.infoshareacademy.aem.globalextreme.IgnoreCase;
+import com.infoshareacademy.aem.globalextreme.ListAvailableCurrency;
+
 public class GlobalExtremeMenu {
 
     private final ConsolePrinter consolePrinter = new ConsolePrinter();
