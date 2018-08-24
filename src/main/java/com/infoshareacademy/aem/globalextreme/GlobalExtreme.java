@@ -1,12 +1,7 @@
-package com.infoshareacademy.aem.global_extreme;
+package com.infoshareacademy.aem.globalextreme;
 
 import com.infoshareacademy.aem.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class GlobalExtreme {
@@ -20,6 +15,7 @@ public class GlobalExtreme {
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
     private CheckCondition checkCondition = new CheckCondition();
+
 
 
     public void run() {
@@ -56,13 +52,14 @@ public class GlobalExtreme {
     }
 
     private void extreme() {
-        String choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
-                printer.extremeMenu());
-        int i = Integer.parseInt(choice);
+        String choice;
+        int i;
         do {
+            choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
+                    printer.extremeMenu());
 
             if (choice.matches("\\d{0,9}") && choice.length() > 0){
-
+                i = Integer.parseInt(choice);
                 if (i == 2 || i == 9) {
                     switch (i) {
                         case 2:
@@ -101,16 +98,23 @@ public class GlobalExtreme {
                             + printer.unknowCommand());
                 }
             }
-        } while (checkCondition.condition(i));
+            else {
+                System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
+                        + printer.unknowCommand());
+                extreme();
+            }
+        } while (checkCondition.condition(choice));
     }
 
     private void smallMenu() {
-        String string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
-                printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
-        int i = Integer.parseInt(string);
+        String string;
+        int i;
 
         do {
-            if (string.matches("\\d{0,9}") && string.length() > 0) {
+            string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
+                    printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
+            if (string.matches("\\d{0,1}") && string.length() > 0) {
+                i = Integer.parseInt(string);
                 if (i == 1) {
                     System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.pointLine() +
                             printer.backToMenu() + printer.nextLine());
@@ -125,8 +129,12 @@ public class GlobalExtreme {
                     System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
                             + printer.unknowCommand());
                 }
+            } else {
+                System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
+                        + printer.unknowCommand());
+                smallMenu();
             }
-        } while (checkCondition.condition(i));
+        } while (checkCondition.condition(string));
     }
 
 }

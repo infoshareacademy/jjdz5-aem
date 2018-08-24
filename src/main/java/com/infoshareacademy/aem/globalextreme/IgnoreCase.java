@@ -1,6 +1,4 @@
-package com.infoshareacademy.aem.global_extreme;
-
-import java.util.*;
+package com.infoshareacademy.aem.globalextreme;
 
 public class IgnoreCase {
 

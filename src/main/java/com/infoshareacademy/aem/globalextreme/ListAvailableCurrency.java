@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem.global_extreme;
+package com.infoshareacademy.aem.globalextreme;
 
 import com.infoshareacademy.aem.Currency;
 import com.infoshareacademy.aem.CurrencyRepository;

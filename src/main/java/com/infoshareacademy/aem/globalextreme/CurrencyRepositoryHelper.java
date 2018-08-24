@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem.global_extreme;
+package com.infoshareacademy.aem.globalextreme;
 
 import com.infoshareacademy.aem.Currency;
 
@@ -11,6 +11,6 @@ public interface CurrencyRepositoryHelper {
     Double getMin();
     Double getMax();
     boolean isContains(java.util.List<Currency> list, String s);
-    boolean isContainsInt(java.util.List<Integer> list, int i);
+    boolean ContainsNumber(java.util.List<String> list, String s);
     List<LocalDate> getDate(Integer location);
 }
