@@ -1,6 +1,6 @@
-package com.infoshareacademy.aem.globalextreme;
+package com.isa.aem.globalextreme;
 
-import com.infoshareacademy.aem.*;
+import com.isa.aem.*;
 
 import java.util.Arrays;
 import java.util.List;

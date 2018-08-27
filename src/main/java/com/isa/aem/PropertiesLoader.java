@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package com.isa.aem;
 
 import java.io.IOException;
 import java.io.InputStream;

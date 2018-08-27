@@ -1,6 +1,6 @@
-package com.infoshareacademy.aem;
+package com.isa.aem;
 
-import com.infoshareacademy.aem.globalextreme.GlobalExtreme;
+import com.isa.aem.globalextreme.GlobalExtreme;
 
 import java.util.*;
 

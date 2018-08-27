@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package com.isa.aem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +7,7 @@ import java.util.*;
 public class Calculator {
     CurrentVariable currentVariable1 = new CurrentVariable();
     CurrentVariable currentVariable2 = new CurrentVariable();
-    List<com.infoshareacademy.aem.Currency> currentVariable = new ArrayList<com.infoshareacademy.aem.Currency>();
+    List<com.isa.aem.Currency> currentVariable = new ArrayList<com.isa.aem.Currency>();
     Set<String> singleCurrent = new TreeSet<>();
     Boolean check = true;
     Boolean check2 = true;
@@ -73,9 +73,9 @@ public class Calculator {
 
 
     //wrzucenie walut do tablicy ArrayList
-    public List<com.infoshareacademy.aem.Currency> readFile() {
+    public List<com.isa.aem.Currency> readFile() {
 
-        for (com.infoshareacademy.aem.Currency currency : CurrencyRepository.getCurrencies()) {
+        for (com.isa.aem.Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.add(currency);
             currentVariable1.dateCurrency.add(currency);
         }
@@ -83,9 +83,9 @@ public class Calculator {
     }
 //wypisanie pojedynczych walut
 
-    public Set<String> singleCurrency(List<com.infoshareacademy.aem.Currency> list) {
+    public Set<String> singleCurrency(List<com.isa.aem.Currency> list) {
         singleCurrent.add("PLN");
-        for (com.infoshareacademy.aem.Currency currency : list) {
+        for (com.isa.aem.Currency currency : list) {
             singleCurrent.add(currency.getName());
         }
         return singleCurrent;
@@ -203,7 +203,7 @@ public class Calculator {
 
     public void checkIfDate() {
 
-        for (com.infoshareacademy.aem.Currency currency : currentVariable1.dateCurrency) {
+        for (com.isa.aem.Currency currency : currentVariable1.dateCurrency) {
 //z waluty
 
             if (currency.getDate().toString().equals(currentVariable1.dateCurrent) && (currency.getName().equalsIgnoreCase(currenc))) {

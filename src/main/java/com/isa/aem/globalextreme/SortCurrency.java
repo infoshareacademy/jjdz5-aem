@@ -1,6 +1,6 @@
-package com.infoshareacademy.aem.globalextreme;
+package com.isa.aem.globalextreme;
 
-import com.infoshareacademy.aem.Currency;
+import com.isa.aem.Currency;
 
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem.globalextreme;
+package com.isa.aem.globalextreme;
 
 public class IgnoreCase {
 

@@ -1,4 +1,4 @@
-package com.infoshareacademy.aem;
+package com.isa.aem;
 
 public class ConsolePrinter {
 
