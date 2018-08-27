@@ -2,6 +2,8 @@ package com.infoshareacademy.aem.globalextreme;
 
 import com.infoshareacademy.aem.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class GlobalExtreme {
@@ -14,9 +16,9 @@ public class GlobalExtreme {
     private SingleCurrency singleCurrency = new SingleCurrency();
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
-    private CheckCondition checkCondition = new CheckCondition();
+    private static final List<String> number = Arrays.asList("0","1","2","9");
 
-
+    private static final String ZERO = "0";
 
     public void run() {
         System.out.println(printer.globalExtremeTittle() + printer.backToMenu() + printer.nextLine());
@@ -24,12 +26,13 @@ public class GlobalExtreme {
     }
 
     void findCurrency() {
+        String s;
         do {
             System.out.println(printer.listAblCur());
             listAvailableCurrency.run();
             String availableCurrency = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
-            String s = ignoreCase.upperSize(availableCurrency).trim();
-            String trim = availableCurrency.trim();
+            s = ignoreCase.upperSize(availableCurrency).trim();
+            //String trim = availableCurrency.trim();
 
             if (helper.isContains(currencyRepository.getCurrencies(), s)) {
                 for (Currency c : currencyRepository.getCurrencies()) {
@@ -40,7 +43,7 @@ public class GlobalExtreme {
                 singleCurrency.sortSingleCurrency();
                 extreme();
                 break;
-            } else if (trim.equals("0")) {
+            } else if (s.equals(ZERO)) {
                 System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
                         printer.dubleNextLine());
                 menuInformation.readMenu();
@@ -48,7 +51,15 @@ public class GlobalExtreme {
             } else
                 System.out.println(printer.dubleNextLine() + printer.error() + printer.backToMenu() +
                         printer.nextLine() + printer.curComUnexist());
-        } while (true);
+
+        } while (containCurrencAndNnmber(s));
+    }
+
+    private boolean containCurrencAndNnmber(String s ) {
+        if (currencyRepository.getCurrencies().contains(s) || number.contains(s)){
+            return false;
+        }
+        return true;
     }
 
     private void extreme() {
@@ -58,9 +69,8 @@ public class GlobalExtreme {
             choice = consoleReader.getString(printer.backToMenu() + printer.bakcCurSel() +
                     printer.extremeMenu());
 
-            if (choice.matches("\\d{0,9}") && choice.length() > 0){
+            if (menuCondition(choice)){
                 i = Integer.parseInt(choice);
-                if (i == 2 || i == 9) {
                     switch (i) {
                         case 2:
                             System.out.println(helper.getMin() + " " + helper.getDate(0));
@@ -81,9 +91,8 @@ public class GlobalExtreme {
                             }
                             singleCurrency.clear();
                             smallMenu();
-                    }
                     break;
-                } else if (i == 1) {
+                } if (i == 1) {
                     System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.onlyPointLine() +
                             printer.dubleNextLine() + printer.backToMenu());
                     findCurrency();
@@ -103,7 +112,7 @@ public class GlobalExtreme {
                         + printer.unknowCommand());
                 extreme();
             }
-        } while (checkCondition.condition(choice));
+        } while (number.contains(choice));
     }
 
     private void smallMenu() {
@@ -113,7 +122,7 @@ public class GlobalExtreme {
         do {
             string = consoleReader.getString(printer.nextLine() + printer.pointLine() +
                     printer.pointLine() + printer.backToMenu() + printer.bakcCurSel() + printer.command());
-            if (string.matches("\\d{0,1}") && string.length() > 0) {
+            if (menuCondition(string)) {
                 i = Integer.parseInt(string);
                 if (i == 1) {
                     System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.pointLine() +
@@ -134,7 +143,13 @@ public class GlobalExtreme {
                         + printer.unknowCommand());
                 smallMenu();
             }
-        } while (checkCondition.condition(string));
+        } while (number.contains(string));
     }
 
+    private boolean menuCondition(String string) {
+        if (string.matches("\\d{0,1}") && string.length() > 0) {
+            return true;
+        }
+        return false;
+    }
 }

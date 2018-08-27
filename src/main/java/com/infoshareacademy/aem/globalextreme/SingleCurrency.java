@@ -9,7 +9,6 @@ import java.util.List;
 
 public class SingleCurrency {
 
-
     private static final List<Currency> singleCurrency = new ArrayList<>();
     private SortCurrency  sortCurrency = new SortCurrency();
 

@@ -43,16 +43,4 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
         }
         return date;
     }
-
-    @Override
-    public boolean ContainsNumber(List<String> list, String s) {
-        for (String st : list){
-            if (st == s){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 }

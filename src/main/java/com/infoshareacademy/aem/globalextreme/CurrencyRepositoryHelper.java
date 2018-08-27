@@ -11,6 +11,5 @@ public interface CurrencyRepositoryHelper {
     Double getMin();
     Double getMax();
     boolean isContains(java.util.List<Currency> list, String s);
-    boolean ContainsNumber(java.util.List<String> list, String s);
     List<LocalDate> getDate(Integer location);
 }
