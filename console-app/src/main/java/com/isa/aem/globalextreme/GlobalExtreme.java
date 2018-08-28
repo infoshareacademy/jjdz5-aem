@@ -71,27 +71,30 @@ public class GlobalExtreme {
 
             if (menuCondition(choice)){
                 i = Integer.parseInt(choice);
+                if (switchCase(i)) {
                     switch (i) {
-                        case 2:
-                            System.out.println(helper.getMin() + " " + helper.getDate(0));
-                            try {
-                                TimeUnit.SECONDS.sleep(3);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            singleCurrency.clear();
-                            smallMenu();
-                            break;
-                        case 9:
-                            System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
-                            try {
-                                TimeUnit.SECONDS.sleep(3);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            singleCurrency.clear();
-                            smallMenu();
-                    break;
+                            case 2:
+                                System.out.println(helper.getMin() + " " + helper.getDate(0));
+                                try {
+                                    TimeUnit.SECONDS.sleep(3);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                singleCurrency.clear();
+                                smallMenu();
+                                break;
+                            case 9:
+                                System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
+                                try {
+                                    TimeUnit.SECONDS.sleep(3);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                singleCurrency.clear();
+                                smallMenu();
+                                break;
+                                }
+                        break;
                 } if (i == 1) {
                     System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.onlyPointLine() +
                             printer.dubleNextLine() + printer.backToMenu());
@@ -148,6 +151,13 @@ public class GlobalExtreme {
 
     private boolean menuCondition(String string) {
         if (string.matches("\\d{0,1}") && string.length() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean switchCase(int i) {
+        if (i == 2 || i == 9){
             return true;
         }
         return false;
