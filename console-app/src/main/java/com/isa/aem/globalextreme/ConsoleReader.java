@@ -1,4 +1,4 @@
-package com.isa.aem;
+package com.isa.aem.globalextreme;
 
 import java.util.Scanner;
 
@@ -7,7 +7,7 @@ public class ConsoleReader {
     Scanner scanner = new Scanner(System.in);
 
     public String getString(String message) {
-        System.out.println(message);
+        System.out.print(message);
         return scanner.nextLine();
     }
 

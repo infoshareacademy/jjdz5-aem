@@ -1,7 +1,6 @@
-package com.isa.aem;
+package com.isa.aem.globalextreme;
 
 public class IgnoreCase {
-
 
     public String lowerSize(String command) {
         return command.toLowerCase();
@@ -10,6 +9,4 @@ public class IgnoreCase {
     public String upperSize(String command) {
         return command.toUpperCase();
     }
-
-
 }
