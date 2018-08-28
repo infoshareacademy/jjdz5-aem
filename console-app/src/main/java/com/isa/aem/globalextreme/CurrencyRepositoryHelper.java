@@ -10,6 +10,6 @@ public interface CurrencyRepositoryHelper {
 
     Double getMin();
     Double getMax();
-    boolean isContains(java.util.List<Currency> list, String s);
+    boolean contains(java.util.List<Currency> list, String s);
     List<LocalDate> getDate(Integer location);
 }

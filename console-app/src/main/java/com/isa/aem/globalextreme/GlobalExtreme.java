@@ -32,9 +32,8 @@ public class GlobalExtreme {
             listAvailableCurrency.run();
             String availableCurrency = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
             s = ignoreCase.upperSize(availableCurrency).trim();
-            //String trim = availableCurrency.trim();
 
-            if (helper.isContains(currencyRepository.getCurrencies(), s)) {
+            if (helper.contains(currencyRepository.getCurrencies(), s)) {
                 for (Currency c : currencyRepository.getCurrencies()) {
                     if (c.getName().equals(s)) {
                         singleCurrency.add(c);
@@ -52,10 +51,10 @@ public class GlobalExtreme {
                 System.out.println(printer.dubleNextLine() + printer.error() + printer.backToMenu() +
                         printer.nextLine() + printer.curComUnexist());
 
-        } while (containCurrencAndNnmber(s));
+        } while (containCurrencyAndNumber(s));
     }
 
-    private boolean containCurrencAndNnmber(String s ) {
+    private boolean containCurrencyAndNumber(String s ) {
         if (currencyRepository.getCurrencies().contains(s) || number.contains(s)){
             return false;
         }
