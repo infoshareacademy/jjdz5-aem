@@ -33,7 +33,7 @@ public class GlobalExtreme {
             String availableCurrency = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
             s = ignoreCase.upperSize(availableCurrency).trim();
 
-            if (helper.contains(currencyRepository.getCurrencies(), s)) {
+            if (helper.containsCurrency(currencyRepository.getCurrencies(), s)) {
                 for (Currency c : currencyRepository.getCurrencies()) {
                     if (c.getName().equals(s)) {
                         singleCurrency.add(c);
@@ -70,7 +70,7 @@ public class GlobalExtreme {
 
             if (menuCondition(choice)){
                 i = Integer.parseInt(choice);
-                if (switchCase(i)) {
+                if (checkNumberOfExtremeOptions(i)) {
                     switch (i) {
                             case 2:
                                 System.out.println(helper.getMin() + " " + helper.getDate(0));
@@ -155,7 +155,7 @@ public class GlobalExtreme {
         return false;
     }
 
-    private boolean switchCase(int i) {
+    private boolean checkNumberOfExtremeOptions(int i) {
         if (i == 2 || i == 9){
             return true;
         }

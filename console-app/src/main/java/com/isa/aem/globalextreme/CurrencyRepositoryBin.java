@@ -23,7 +23,7 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
     }
 
     @Override
-    public boolean contains(List<Currency> list, String s) {
+    public boolean containsCurrency(List<Currency> list, String s) {
         for (Currency c : list) {
             if (c.getName().equals(s)) {
                 return true;
