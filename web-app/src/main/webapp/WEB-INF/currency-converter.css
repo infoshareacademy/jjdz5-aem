@@ -2,10 +2,45 @@ body .navbar-brand{
     font-family: Impact, Charcoal, sans-serif;
     font-size:2em;
 }
-.container h4{
-    padding: 1.5em;
-    font-size: 1.2em;
-    color: dimgrey;
+.container .row #main, .container .row #main1{
+
+    background-color: dimgrey;
+
+    color: white;
+    padding: 5px 15px;
+
+    border-radius: 2px;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 1.0em;
+
+
+}
+.container .row #main h4, .container .row #main1 h4{
+    font-family: inherit;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
+.form-control#defult{
+    display: inline-block;
+    width: 30%;
+}
+
+#label-defult{
+    padding: 10px;
+}
+
+
+.container h5{
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: gray;
+    padding: 1.0em;
+}
+
+.container .col-7#main2{
+
+    margin-left: 2em;
+}

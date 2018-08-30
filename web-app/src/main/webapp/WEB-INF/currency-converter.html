@@ -32,17 +32,27 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-primary" type="submit">Search</button>
         </form>
     </div>
 
 </nav>
 
 <div class="container">
-    <div class="row">
-        <div class="col-3">
+    <div class="row" >
+        <div class="col-4" id="main">
+            <h4>Currency Converter</h4>
+        </div>
 
-                <h4>Currency Converter</h4>
+
+
+        <div class="col-7" id="main1">
+            <h4>Exchange Rate</h4>
+        </div>
+    </div>
+
+    <div class="row" >
+        <div class="col-4">
             <form>
                 <div class="form-group">
                 <label for="amount">Amount</label>
@@ -58,8 +68,8 @@
                         <label for="currencyIHave"> Currency I Have</label>
                         <select class="form-control" id="currencyIHave">
 
-                        <option label="BGN - Bułgaria" value="202">BGN - Bułgaria</option>
-                        <option label="AUD - Australia" value="781">AUD - Australia</option>
+                            <option  value="USD" img src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" size="10" alt=""> USD - USD Dolar</option>
+                            <option  value="EUR">EUR - Euro</option>
                     </select>
 
                     </div>
@@ -69,9 +79,8 @@
                     <div class="form-group">
                         <label for="currencyIWant"> Currency I Want</label>
                         <select class="form-control" id="currencyIWant">
-
-                            <option label="BGN - Bułgaria" value="202">BGN - Bułgaria</option>
-                            <option label="AUD - Australia" value="781">AUD - Australia</option>
+                            <option  value="EUR">EUR - Euro</option>
+                            <option  value="USD">USD - USD Dolar</option>
                         </select>
 
                     </div>
@@ -79,20 +88,72 @@
                 <div class="form-group">
                     <label for="date">Date</label>
                     <input id="date"
-                           required
+
                            type="date"
                            name="date"
                            class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Convert</button>
             </form>
 
         </div>
-        <div class="col-9">
 
 
 
-        </div>
+        <div class="col-7" id="main2">
+
+
+            <form>
+                <div class="form-group">
+
+                    <label for="defult" id="label-defult">Defult Currency</label>
+                    <select class="form-control" id="defult">
+                        <option  value="USD" img src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" size="10" alt=""> USD - USD Dolar</option>
+                        <option  value="EUR">EUR - Euro</option>
+                    </select>
+                </div>
+
+            </form>
+
+            <h5>Main Currency</h5>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Current rate</th>
+                    <th scope="col">Range</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">USA</th>
+                    <td>USA Dolar</td>
+                    <td>USA</td>
+                    <td>3.09</td>
+                    <td>2010-2018</td>
+                </tr>
+                <tr>
+                    <th scope="row">EUR</th>
+                    <td>Euro</td>
+                    <td>Europe</td>
+                    <td>4.20</td>
+                    <td>2010-2018</td>
+                </tr>
+                <tr>
+                    <th scope="row">GBP</th>
+                    <td>Great Britain</td>
+                    <td>Great Britain</td>
+                    <td>4.20</td>
+                    <td>2010-2018</td>
+                </tr>
+                </tbody>
+            </table>
+
+            </div>
+
 
     </div>
 </div>
