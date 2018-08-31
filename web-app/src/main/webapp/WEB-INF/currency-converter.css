@@ -99,13 +99,14 @@ body .navbar-brand{
 }
 .tabela2 tr td {
     padding:18px;
+    background-color: white;
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
 
-    background: #fafafa;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
-    background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+    background: white;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background: -moz-linear-gradient(top,  white,  white);
 }
 
 .tabela2 tr:last-child td{
