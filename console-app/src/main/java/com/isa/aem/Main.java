@@ -5,9 +5,11 @@ public class Main {
 
         FileContentReader fileContentReader = new FileContentReader();
         MenuProject menu = new MenuProject();
+        LocalExtreme localExtreme = new LocalExtreme();
 
         fileContentReader.readFile();
-        menu.menuPanel();
+//        menu.menuPanel();
 
+        System.out.println(localExtreme.getAvailableCurrencies());
     }
 }

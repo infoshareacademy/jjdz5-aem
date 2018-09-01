@@ -32,7 +32,7 @@ public class MenuProject {
                         menuInformation.currentCurrency();
                         break;
                     case 2:
-                        System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
+                        System.out.println("Funkcja umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
                         Calculator calculator = new Calculator();
                         break;
                     case 3:
@@ -42,6 +42,10 @@ public class MenuProject {
                         globalExtremeMenu.run();
                         break;
                     case 4:
+                        System.out.println("Ekstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu");
+                        LocalExtreme localExtreme = new LocalExtreme();
+                        localExtreme.getAvailableCurrencies();
+                    case 5:
                         menuInformation.programInformation();
                         break;
                     case 0:
