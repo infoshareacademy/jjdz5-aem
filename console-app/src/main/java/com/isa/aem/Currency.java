@@ -2,7 +2,7 @@ package com.isa.aem;
 
 import java.time.LocalDate;
 
-public class Currency {
+public class Currency implements Comparable<Currency> {
 
     private String name;
     private LocalDate date;
@@ -97,5 +97,9 @@ public class Currency {
     }
 
 
+    @Override
+    public int compareTo(Currency currency) {
+        return this.date.compareTo(currency.date);
+    }
 }
 
