@@ -11,7 +11,7 @@ public class Main {
 //        menu.menuPanel();
 
         localExtreme.limitCurrenciesToChosenDateRange();
-        
+
         System.out.println(localExtreme.getAvailableCurrencies());
 
 
