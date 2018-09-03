@@ -52,9 +52,9 @@ public class MyPrinter {
                 "     CURRENCY OR COMMAND DOES NOT EXIST.\n";
     }
 
-    public String command() {
+    public String extreme() {
         return
-                "     Command: ";
+                "     Extreme: ";
     }
 
     public String line1_1(){
@@ -69,14 +69,6 @@ public class MyPrinter {
     public String enterCurCom() {
         return
                 "     Enter currency/command: ";
-    }
-
-    public String extremeMenu() {
-        return
-                "     Choose yours extreme:\n" +
-                "                   2: min\n" +
-                "                   9: max\n" +
-                "     Command: ";
     }
 
     public String unknowCommand() {
