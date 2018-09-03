@@ -10,7 +10,9 @@ public class Main {
         fileContentReader.readFile();
 //        menu.menuPanel();
 
-        localExtreme.limitCurrenciesToChosenDateRange();
+        localExtreme.getDateFrom();
+        //localExtreme.getDateTo();
+        //localExtreme.limitCurrenciesToChosenDateRange();
 
         System.out.println(localExtreme.getAvailableCurrencies());
 

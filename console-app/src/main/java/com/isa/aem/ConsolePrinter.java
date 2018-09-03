@@ -2,11 +2,21 @@ package com.isa.aem;
 
 public class ConsolePrinter {
 
-    public static void printLn(String message) {
+    public void printLn(String message) {
         System.out.println(message);
     }
 
-    public static void print(String message) {
+    public void print(String message) {
         System.out.print(message);
     }
+
+    public void printLocalExtremeWelcome(){
+        System.out.println("    ****************************************");
+        System.out.println("    *            LOCAL EXTREME             *");
+        System.out.println("    ****************************************");
+        System.out.println("                                            ");
+        System.out.println("                                            ");
+    }
+
+
 }
