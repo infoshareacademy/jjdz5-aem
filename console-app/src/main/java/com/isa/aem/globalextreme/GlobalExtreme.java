@@ -100,7 +100,7 @@ public class GlobalExtreme {
         System.out.println(printer.emptySpace() + helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
     }
 
-    private boolean checkCurrencyExist(String s) {
+    public boolean checkCurrencyExist(String s) {
         if (helper.containsCurrency(currencyRepository.getCurrencies(), s)){
             return true;
         }
@@ -114,7 +114,7 @@ public class GlobalExtreme {
         return true;
     }
 
-    private void addSingleCurrencyToList(String s) {
+    public void addSingleCurrencyToList(String s) {
         for (Currency c : currencyRepository.getCurrencies()) {
             if (c.getName().equals(s)) {
                 singleCurrency.add(c);
