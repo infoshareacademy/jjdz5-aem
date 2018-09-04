@@ -22,20 +22,18 @@ public class GlobalExtreme {
     private static final Integer BACK_TO_MENU_INT = 0;
     private static final Integer BACK_TO_CURRENCY_SELECTION = 1;
 
-
     public void run() {
         System.out.println(printer.globalExtremeTittle() + printer.backToMenu() + printer.nextLine());
         findCurrency();
     }
-
 
     private void findCurrency() {
         String s;
         do {
             System.out.println(printer.listAblCur());
             listAvailableCurrency.run();
-            String commandOFConsole = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
-            s = ignoreCase.upperSize(commandOFConsole).trim();
+            String commandOfConsole = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
+            s = ignoreCase.upperSize(commandOfConsole).trim();
             checkConditionsGlobalMenu(s);
         } while (containCurrencyAndNumber(s));
     }
@@ -137,5 +135,4 @@ public class GlobalExtreme {
         }
         return false;
     }
-
 }
