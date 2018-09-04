@@ -15,22 +15,4 @@ public class ConsoleReader {
         return scanner.nextLine();
     }
 
-    public Integer getInteger(String message) {
-        System.out.println(message);
-        return scanner.nextInt();
-    }
-
-    public Integer getInteger() {
-        return scanner.nextInt();
-    }
-
-    public Double getDouble(String message) {
-        System.out.println(message);
-        return scanner.nextDouble();
-    }
-
-    public Double getDouble() {
-        return scanner.nextDouble();
-    }
-
 }

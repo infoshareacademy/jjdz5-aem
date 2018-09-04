@@ -28,6 +28,7 @@ public class GlobalExtreme {
         findCurrency();
     }
 
+
     private void findCurrency() {
         String s;
         do {
@@ -50,13 +51,14 @@ public class GlobalExtreme {
     }
 
     private void optionsOfFindExtreme(String commandOfConsole, Integer parseCommandOfConsole) {
-        commandOfConsole = consoleReader.getString();
+        commandOfConsole = consoleReader.getString(printer.command());
         if (menuCondition(commandOfConsole)) {
             currencySelection(commandOfConsole, parseCommandOfConsole);
         } else {
             System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
                     + printer.unknowCommand());
-            findExtreme();
+            System.out.println(printer.backToMenu() + printer.bakcCurSel());
+            optionsOfFindExtreme(commandOfConsole, parseCommandOfConsole);
         }
     }
 
@@ -77,11 +79,11 @@ public class GlobalExtreme {
     private void currencySelection(String commandOfConsole, Integer parseCommandOfConsole) {
         parseCommandOfConsole = Integer.parseInt(commandOfConsole);
 
-        if (parseCommandOfConsole == BACK_TO_CURRENCY_SELECTION) {
+        if (checkNavigationCommand(parseCommandOfConsole, BACK_TO_CURRENCY_SELECTION)) {
             System.out.println(printer.dubleNextLine() + printer.pointLine() + printer.onlyPointLine() +
                     printer.dubleNextLine() + printer.backToMenu());
             findCurrency();
-        } else if (parseCommandOfConsole == BACK_TO_MENU_INT) {
+        } else if (checkNavigationCommand(parseCommandOfConsole, BACK_TO_MENU_INT)) {
             System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
                     printer.dubleNextLine());
             menuInformation.readMenu();
@@ -94,8 +96,10 @@ public class GlobalExtreme {
     private void printExtremeMenu() {
         System.out.println(printer.backToMenu() + printer.bakcCurSel());
         System.out.println(printer.extreme());
-        System.out.println(helper.getMin() + " " + helper.getDate(0));
-        System.out.println(helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
+        System.out.println(printer.nextLine() + printer.min());
+        System.out.println(printer.emptySpace() + helper.getMin() + " " + helper.getDate(0));
+        System.out.println(printer.nextLine() + printer.max());
+        System.out.println(printer.emptySpace() + helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
     }
 
     private boolean checkCurrencyExist(String s) {
@@ -118,6 +122,13 @@ public class GlobalExtreme {
                 singleCurrency.add(c);
             }
         }
+    }
+
+    private boolean checkNavigationCommand(Integer inputValue, Integer condition) {
+        if (inputValue == condition){
+            return true;
+        }
+        return false;
     }
 
     private boolean menuCondition(String string) {

@@ -75,4 +75,24 @@ public class MyPrinter {
         return
                 "     UNKNOWN COMMAND.\n";
     }
+
+    public String command() {
+        return
+                "     \nCommand:";
+    }
+
+    public String emptySpace() {
+        return
+                "     ";
+    }
+
+    public String min() {
+        return
+                "     MIN:";
+    }
+
+    public String max() {
+        return
+                "     MAX:";
+    }
 }
