@@ -1,5 +1,7 @@
 package com.isa.aem;
 
+import com.isa.aem.globalextreme.GlobalExtreme;
+
 import java.util.Scanner;
 
 public class MenuProject {
@@ -36,9 +38,7 @@ public class MenuProject {
                         Calculator calculator = new Calculator();
                         break;
                     case 3:
-                        System.out.println("Ekstrema globalne,\n" +
-                                "Po tym menu możesz poruszać się również wisując małe litery,\n" +
-                                "Dostepne Waluty:");
+                        System.out.println("\n\n\n\n     ");
                         globalExtremeMenu.run();
                         break;
                     case 4:
