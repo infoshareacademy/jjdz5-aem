@@ -11,6 +11,10 @@ public class Currency {
     private Double low;
     private Double close;
     private Integer volume;
+    private CurrencyNameCountryFlags currencyNameCountryFlags;
+
+
+
 
 
     public Currency() {
@@ -96,6 +100,12 @@ public class Currency {
         this.volume = volume;
     }
 
+    public CurrencyNameCountryFlags getCurrencyNameCountryFlags() {
+        return currencyNameCountryFlags;
+    }
 
+    public void setCurrencyNameCountryFlags(CurrencyNameCountryFlags currencyNameCountryFlags) {
+        this.currencyNameCountryFlags = currencyNameCountryFlags;
+    }
 }
 
