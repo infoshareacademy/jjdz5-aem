@@ -2,10 +2,11 @@ package com.isa.aem.globalextreme;
 
 import com.isa.aem.Currency;
 
+import javax.faces.bean.ApplicationScoped;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
 
     SingleCurrency singleCurrency = new SingleCurrency();
@@ -33,14 +34,14 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
     }
 
     @Override
-    public List<LocalDate> getDate(Integer location) {
-        List<LocalDate> date = new ArrayList<>();
-        Currency currency = singleCurrency.getSingleCurrency().get(location);
-        for (Currency c : singleCurrency.getSingleCurrency()) {
-            if (currency.getClose().equals(c.getClose())) {
-                date.add(c.getDate());
-            }
-        }
-        return date;
+    public LocalDate getMinDate() {
+        Currency currency = singleCurrency.getSingleCurrency().get(0);
+        return currency.getDate();
+    }
+
+    @Override
+    public LocalDate getMaxDate() {
+        singleCurrency.getSingleCurrency().get(singleCurrency.getSingleCurrency().size()-1);
+        return null;
     }
 }

@@ -2,10 +2,10 @@ package com.isa.aem.globalextreme;
 
 import com.isa.aem.*;
 
+import javax.faces.bean.ApplicationScoped;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+@ApplicationScoped
 public class GlobalExtreme {
 
     private ConsoleReader consoleReader = new ConsoleReader();
@@ -95,9 +95,9 @@ public class GlobalExtreme {
         System.out.println(printer.backToMenu() + printer.bakcCurSel());
         System.out.println(printer.extreme());
         System.out.println(printer.nextLine() + printer.min());
-        System.out.println(printer.emptySpace() + helper.getMin() + " " + helper.getDate(0));
+        System.out.println(printer.emptySpace() + helper.getMin() + " " + helper.getMinDate());
         System.out.println(printer.nextLine() + printer.max());
-        System.out.println(printer.emptySpace() + helper.getMax() + " " + helper.getDate(singleCurrency.getSingleCurrency().size() - 1));
+        System.out.println(printer.emptySpace() + helper.getMax() + " " + helper.getMaxDate());
     }
 
     public boolean checkCurrencyExist(String s) {
