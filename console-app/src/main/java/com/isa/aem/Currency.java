@@ -13,10 +13,6 @@ public class Currency {
     private Integer volume;
     private CurrencyNameCountryFlags currencyNameCountryFlags;
 
-
-
-
-
     public Currency() {
     }
 
