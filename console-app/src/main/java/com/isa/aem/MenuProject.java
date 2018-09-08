@@ -1,11 +1,14 @@
 package com.isa.aem;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuProject {
 
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
+    ConsoleReader consoleReader = new ConsoleReader();
+    ConsolePrinter consolePrinter = new ConsolePrinter();
 
     public void menuPanel() {
         menuInformation.readMenu();
@@ -42,9 +45,14 @@ public class MenuProject {
                         globalExtremeMenu.run();
                         break;
                     case 4:
-                        System.out.println("Ekstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu");
-                        LocalExtreme localExtreme = new LocalExtreme();
-                        localExtreme.getAvailableCurrencies();
+                        consolePrinter.printLn("Ekstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu");
+                        consolePrinter.printLocalExtremeWelcome();
+                        consolePrinter.printLn("Limit the date range for the currency of your choice. ");
+                        LocalDate dateFrom = consoleReader.getDate("From");
+                        LocalDate dateTo = consoleReader.getDate("To");
+                        LocalExtremum localExtremum = new LocalExtremum();
+                        localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
+                        break;
                     case 5:
                         menuInformation.programInformation();
                         break;

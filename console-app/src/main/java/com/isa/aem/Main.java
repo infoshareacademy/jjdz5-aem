@@ -5,17 +5,9 @@ public class Main {
 
         FileContentReader fileContentReader = new FileContentReader();
         MenuProject menu = new MenuProject();
-        LocalExtreme localExtreme = new LocalExtreme();
 
         fileContentReader.readFile();
-//        menu.menuPanel();
-
-        localExtreme.getDateFrom();
-        //localExtreme.getDateTo();
-        //localExtreme.limitCurrenciesToChosenDateRange();
-
-        System.out.println(localExtreme.getAvailableCurrencies());
-
+        menu.menuPanel();
 
     }
 }

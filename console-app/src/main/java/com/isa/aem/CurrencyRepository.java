@@ -13,11 +13,11 @@ public class CurrencyRepository {
     }
 
     public static List<Currency> getCurrenciesSortedByDateAsc() {
-        Collections.sort(currencies);
         return currencies;
     }
 
     public static void setCurrencies(List<Currency> currencies) {
+        Collections.sort(currencies);
         CurrencyRepository.currencies = currencies;
     }
 }
