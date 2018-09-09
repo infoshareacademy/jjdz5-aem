@@ -16,16 +16,13 @@ public class LoadCurrencyNameCountryFlags {
     public Map<String,CurrencyNameCountryFlags> currencyInformation = new HashMap<>();
     public LoadCurrencyNameCountryFlags() {
         readFile();
-
     }
 
-    //sourceFlags
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath("sourceFlags");
         Path path = Paths.get(filePath).toAbsolutePath();
 
-        // lista przechowujaca kolejne linie jako String
         List<String> allLinesAsString = new ArrayList<>();
 
         try {
@@ -37,11 +34,9 @@ public class LoadCurrencyNameCountryFlags {
         }
 
        currencyInformation= importCurrencyNameCountryFlags(allLinesAsString);
-        CurrencyNameCountryFlags.setCurrencies(currencyInformation);
+       CurrencyNameCountryFlags.setCurrencies(currencyInformation);
 
     }
-
-
 
     public Map<String, CurrencyNameCountryFlags> importCurrencyNameCountryFlags(List<String> read) {
         for (String oneLine : read) {
@@ -52,7 +47,7 @@ public class LoadCurrencyNameCountryFlags {
                         line[0],
                         line[1],
                         line[2],
-                       line[3]
+                        line[3]
 
                 );
             currenciesWithFlags.put(currencyName,currencyFlags);
