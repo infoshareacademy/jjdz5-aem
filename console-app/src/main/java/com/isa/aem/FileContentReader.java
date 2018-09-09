@@ -19,9 +19,10 @@ public class FileContentReader {
     private List<Currency> currencies = new ArrayList<>();
 
     //metoda wczytujaca plik i zwracajaca obiekty currencies
-    public void readFile() {
+
+    public void readFile(String nameFile) {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = appProperties.getSourceFilePath("sourceFilePath");
+        this.filePath = appProperties.getSourceFilePath(nameFile);
         Path path = Paths.get(filePath).toAbsolutePath();
         System.out.println("Path to the source file: " + path);
 

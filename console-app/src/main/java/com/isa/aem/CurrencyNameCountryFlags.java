@@ -3,6 +3,10 @@ package com.isa.aem;
 import java.util.*;
 
 public class CurrencyNameCountryFlags {
+    private String name;
+    private String country;
+    private String flags;
+    private String url;
 
     public CurrencyNameCountryFlags(String name, String country, String flags, String url) {
         this.name = name;
@@ -10,11 +14,6 @@ public class CurrencyNameCountryFlags {
         this.flags = flags;
         this.url = url;
     }
-
-    private String name;
-    private String country;
-    private String flags;
-    private String url;
 
     public CurrencyNameCountryFlags() {
     }
@@ -78,7 +77,6 @@ public class CurrencyNameCountryFlags {
         return Objects.hash(name, country, flags, url);
     }
 
-
     private static Map<String,CurrencyNameCountryFlags> currencies = new HashMap<>();
 
     public static Map<String,CurrencyNameCountryFlags> getCurrencies() {
@@ -88,4 +86,6 @@ public class CurrencyNameCountryFlags {
     public static void setCurrencies(Map<String,CurrencyNameCountryFlags> currencies) {
         CurrencyNameCountryFlags.currencies = currencies;
     }
+
+
 }
