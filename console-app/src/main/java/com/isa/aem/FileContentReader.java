@@ -17,12 +17,12 @@ public class FileContentReader {
     //lista przechowujaca liste obiektow Currency
     private List<Currency> listOfCurrencies = new ArrayList<>();
     private List<Currency> currencies = new ArrayList<>();
-
+    private static String  NAME_FILE="sourceFilePath";
     //metoda wczytujaca plik i zwracajaca obiekty currencies
 
-    public void readFile(String nameFile) {
+    public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = appProperties.getSourceFilePath(nameFile);
+        this.filePath = appProperties.getSourceFilePath(NAME_FILE);
         Path path = Paths.get(filePath).toAbsolutePath();
         System.out.println("Path to the source file: " + path);
 
