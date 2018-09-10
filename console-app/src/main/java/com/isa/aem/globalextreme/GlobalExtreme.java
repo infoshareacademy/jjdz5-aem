@@ -1,6 +1,7 @@
 package com.isa.aem.globalextreme;
 
 import com.isa.aem.*;
+import com.isa.aem.tools.*;
 
 import javax.faces.bean.ApplicationScoped;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class GlobalExtreme {
     private SingleCurrency singleCurrency = new SingleCurrency();
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
+    private ListAdder listAdder = new ListAdder();
     private static final List<String> number = Arrays.asList("0", "1");
 
     private static final String BACK_TO_MENU_STR = "0";
@@ -62,8 +64,8 @@ public class GlobalExtreme {
 
     private void checkConditionsGlobalMenu(String s) {
         if (checkCurrencyExist(s)) {
-            addSingleCurrencyToList(s);
-            singleCurrency.sortSingleCurrency();
+            listAdder.addSingleCurrencyToList(s,singleCurrency.getSingleCurrency());
+            singleCurrency.sortSingleCurrencyByCourse();
             findExtreme();
         } else if (s.equals(BACK_TO_MENU_STR)) {
             System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +

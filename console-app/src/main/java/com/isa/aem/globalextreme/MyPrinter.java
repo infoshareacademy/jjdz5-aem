@@ -9,6 +9,13 @@ public class MyPrinter {
                 "     *********************************************\n";
     }
 
+    public String calculatorTittle() {
+        return
+                "     *********************************************\n" +
+                "     *                Calculator                 *\n" +
+                "     *********************************************\n";
+    }
+
     public String backToMenu (){
         return
                 "                                || 0: back to menu\n";
