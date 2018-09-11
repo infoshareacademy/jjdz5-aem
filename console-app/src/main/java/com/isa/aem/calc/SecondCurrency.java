@@ -13,10 +13,7 @@ public class SecondCurrency {
     protected void getSecondCurrency() {
         String strValue;
         do {
-            System.out.println(myPrinter.dubleNextLine());
-            available.run();
             strValue = consoleReader.getString(myPrinter.enterSecondCurrency()).toUpperCase().trim();
-            System.out.println(strValue);
             if (currencyExist.checkCurrencyExist(strValue)){
                 prepareSecondChoice.prepareSecondChoice(strValue);
             } else {

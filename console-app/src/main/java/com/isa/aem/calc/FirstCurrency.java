@@ -13,12 +13,10 @@ public class FirstCurrency {
     void getFirstCurrency() {
         String strValue;
         do {
-            availalbe.run();
             strValue = consoleReader.getString(myPrinter.enterFirstCurrency()).toUpperCase().trim();
             if (currencyExist.checkCurrencyExist(strValue)) {
                 prepareFirstChoice.prepareFirstChoice(strValue);
             } else {
-                System.out.println(myPrinter.nextLine());
                 System.out.println(myPrinter.currencyUnexist());
             }
         } while (checker.existCurrency(strValue));

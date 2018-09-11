@@ -32,8 +32,12 @@ public class PrepareCalculator {
     protected double getActualCurseOfFirstChoice() {
         return singleCurrency.getSingleCurrencyFirstChoice().get(singleCurrency.getSingleCurrencyFirstChoice().size()-1).getClose();
     }
-    protected LocalDate getActualDateOfSecondChoice() {
-        return singleCurrency.getSingleCurrencySecondChoice().get(singleCurrency.getSingleCurrencySecondChoice().size()-1).getDate();
+    protected String getNameSecond() {
+        return singleCurrency.getSingleCurrencySecondChoice().get(singleCurrency.getSingleCurrencySecondChoice().size()-1).getName();
+    }
+
+    protected String getNameFirst() {
+        return singleCurrency.getSingleCurrencyFirstChoice().get(singleCurrency.getSingleCurrencyFirstChoice().size()-1).getName();
     }
 
     protected double getActualCurseOfSecondChoice() {

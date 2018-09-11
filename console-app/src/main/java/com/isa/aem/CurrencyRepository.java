@@ -14,4 +14,8 @@ public class CurrencyRepository {
     public static void setCurrencies(List<Currency> currencies) {
         CurrencyRepository.currencies = currencies;
     }
+
+    public void add(Currency currency) {
+        currencies.add(currency);
+    }
 }

@@ -85,17 +85,17 @@ public class MyPrinter {
 
     public String enterFirstCurrency() {
         return
-                "     Enter first currency: ";
+                "     Choose and enter your currency: ";
     }
 
     public String enterSecondCurrency() {
         return
-                "     Enter second currency: ";
+                "     Choose and enter second currency: ";
     }
 
     public String enterAmound() {
         return
-                "     Enter amound: ";
+                "     Enter amount: ";
     }
 
     public String enterCurCom() {

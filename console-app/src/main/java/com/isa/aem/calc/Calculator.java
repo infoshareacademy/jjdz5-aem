@@ -1,6 +1,8 @@
 package com.isa.aem.calc;
 
 import com.isa.aem.FileContentReader;
+import com.isa.aem.tools.ListAvailableCurrency;
+import com.isa.aem.tools.MyPrinter;
 import com.isa.aem.tools.SingleCurrency;
 
 public class Calculator {
@@ -9,7 +11,8 @@ public class Calculator {
     private SecondCurrency secondCurrency = new SecondCurrency();
     PrepareCalculator prepareCalculator = new PrepareCalculator();
     private Algorithm algorithm = new Algorithm();
-    SingleCurrency singleCurrency = new SingleCurrency();
+    private ListAvailableCurrency available = new ListAvailableCurrency();
+    private MyPrinter myPrinter = new MyPrinter();
 
     private static final Integer BACK_TO_MENU = 0;
     private static final Integer BACK_TO_PREVIOUS_MENU = 1;
@@ -18,6 +21,7 @@ public class Calculator {
     public Calculator() {
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.readFile();
+
     }
 
     public void run() {
@@ -25,10 +29,21 @@ public class Calculator {
     }
 
     public void foldingTheCalculator() {
+        available.run();
         firstCurrency.getFirstCurrency();
-        secondCurrency.getSecondCurrency();
         amount.getAmound();
-        System.out.println(algorithm.algorithm());
+        secondCurrency.getSecondCurrency();
+        printEqual();
+        printCurse();
+    }
+
+    private void printEqual() {
+        System.out.println(myPrinter.emptySpace() + prepareCalculator.getAmount() + " " + prepareCalculator.getNameFirst() + " = " +
+                algorithm.algorithm() + " " + prepareCalculator.getNameSecond());
+    }
+
+    private void printCurse() {
+        System.out.println(myPrinter.emptySpace() + "Course " + prepareCalculator.getNameFirst() + " = " + algorithm.course());
     }
 
 
