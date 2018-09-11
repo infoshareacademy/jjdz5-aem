@@ -10,19 +10,11 @@ import java.util.List;
 public class SingleCurrency {
 
     private static final List<Currency> singleCurrency = new ArrayList<>();
-    private static final List<Currency> singleCurrencyFirstChoice = new ArrayList<>();
-    private static final List<Currency> singleCurrencySecondChoice= new ArrayList<>();
+    private static  List<Currency> singleCurrencyFirstChoice = new ArrayList<>();
+    private static  List<Currency> singleCurrencySecondChoice = new ArrayList<>();
 
     public void add(Currency currency) {
         singleCurrency.add(currency);
-    }
-
-    public void addToFirstChoice(Currency currency) {
-        singleCurrencyFirstChoice.add(currency);
-    }
-
-    public void addToSecondChoice(Currency currency) {
-        singleCurrencySecondChoice.add(currency);
     }
 
     public List<Currency> getSingleCurrency() {

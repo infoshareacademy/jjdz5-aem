@@ -11,11 +11,6 @@ public class ConsoleReader {
         return scanner.nextLine();
     }
 
-    public Double getDouble(String message) {
-        System.out.println(message);
-        return scanner.nextDouble();
-    }
-
     public String getString() {
         return scanner.nextLine();
     }

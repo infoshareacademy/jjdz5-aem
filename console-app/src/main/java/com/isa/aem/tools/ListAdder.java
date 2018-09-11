@@ -8,15 +8,17 @@ import java.util.List;
 public class ListAdder {
 
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    SingleCurrency singleCurrency = new SingleCurrency();
 
     public void addSingleCurrencyToList(String s, List<Currency> list) {
-        for (Currency c : currencyRepository.getCurrencies()) {
+        currencyRepository.getCurrencies().forEach(c -> {
             if (c.getName().equals(s)) {
                 list.add(c);
             }
-        }
+        });
     }
+
+
+
 
 
 }

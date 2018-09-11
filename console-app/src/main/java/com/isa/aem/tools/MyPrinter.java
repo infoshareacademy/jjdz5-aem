@@ -1,4 +1,4 @@
-package com.isa.aem.globalextreme;
+package com.isa.aem.tools;
 
 public class MyPrinter {
 
@@ -59,6 +59,16 @@ public class MyPrinter {
                 "     CURRENCY OR COMMAND DOES NOT EXIST.\n";
     }
 
+    public String currencyUnexist() {
+        return
+                "     CURRENCY DOES NOT EXIST.\n";
+    }
+
+    public String numberUnexist() {
+        return
+                "     THIS IS NOT NUMBER\n";
+    }
+
     public String extreme() {
         return
                 "     Extreme: ";
@@ -72,6 +82,21 @@ public class MyPrinter {
         return "     List available currency:";
     }
 
+
+    public String enterFirstCurrency() {
+        return
+                "     Enter first currency: ";
+    }
+
+    public String enterSecondCurrency() {
+        return
+                "     Enter second currency: ";
+    }
+
+    public String enterAmound() {
+        return
+                "     Enter amound: ";
+    }
 
     public String enterCurCom() {
         return

@@ -18,6 +18,7 @@ public class GlobalExtreme {
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
     private ListAdder listAdder = new ListAdder();
+    private CurrencyExist currencyExist = new CurrencyExist();
     private static final List<String> number = Arrays.asList("0", "1");
 
     private static final String BACK_TO_MENU_STR = "0";
@@ -63,7 +64,7 @@ public class GlobalExtreme {
     }
 
     private void checkConditionsGlobalMenu(String s) {
-        if (checkCurrencyExist(s)) {
+        if (currencyExist.checkCurrencyExist(s)) {
             listAdder.addSingleCurrencyToList(s,singleCurrency.getSingleCurrency());
             singleCurrency.sortSingleCurrencyByCourse();
             findExtreme();
@@ -100,13 +101,6 @@ public class GlobalExtreme {
         System.out.println(printer.emptySpace() + helper.getMin() + " " + helper.getMinDate());
         System.out.println(printer.nextLine() + printer.max());
         System.out.println(printer.emptySpace() + helper.getMax() + " " + helper.getMaxDate());
-    }
-
-    public boolean checkCurrencyExist(String s) {
-        if (helper.containsCurrency(currencyRepository.getCurrencies(), s)){
-            return true;
-        }
-        return false;
     }
 
     private boolean containCurrencyAndNumber(String s) {
