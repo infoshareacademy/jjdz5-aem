@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class MenuProject {
 
-    MenuInformation menuInformation = new MenuInformation();
+    private MenuInformation menuInformation = new MenuInformation();
     private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
-    ConsoleReader consoleReader = new ConsoleReader();
-    ConsolePrinter consolePrinter = new ConsolePrinter();
+    private ConsoleReader consoleReader = new ConsoleReader();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
+    private LocalExtremum localExtremum = new LocalExtremum();
 
     public void menuPanel() {
         menuInformation.readMenu();
@@ -48,10 +49,8 @@ public class MenuProject {
                         consolePrinter.printLn("Ekstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu");
                         consolePrinter.printLocalExtremeWelcome();
                         consolePrinter.printLn("Limit the date range for the currency of your choice. ");
-                        LocalDate dateFrom = consoleReader.getDate("From");
-                        LocalDate dateTo = consoleReader.getDate("To");
-                        LocalExtremum localExtremum = new LocalExtremum();
-                        localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
+                        consoleReader.runDates();
+                        //consolePrinter.printLn("Choose currency from available ones: " + CurrencyRepository.getAvailableCurrencies().toString());
                         break;
                     case 5:
                         menuInformation.programInformation();
@@ -74,6 +73,29 @@ public class MenuProject {
 
 
     }
+
+
+
+/*    private void runDates(ConsoleReader consoleReader) {
+        boolean isDateIncorrect = true;
+        LocalExtremum localExtremum = new LocalExtremum();
+        while (isDateIncorrect) {
+            LocalDate dateFrom = consoleReader.getDate("From");
+            LocalDate dateTo = consoleReader.getDate("To");
+
+            isDateIncorrect = localExtremum.isDateIncorrect();
+            if (isDateIncorrect)
+                continue;
+
+            //getFromDate
+            consoleReader.getDate("From");
+
+            //getFromDate
+            consoleReader.getDate("From");
+
+            localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
+        }
+    }*/
 
 }
 

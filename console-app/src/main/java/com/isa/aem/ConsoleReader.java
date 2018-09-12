@@ -1,6 +1,7 @@
 package com.isa.aem;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ConsoleReader {
@@ -8,9 +9,9 @@ public class ConsoleReader {
     Scanner scanner = new Scanner(System.in);
     ConsolePrinter consolePrinter = new ConsolePrinter();
     String dateStr;
-    LocalDate date;
+    LocalDate dateFrom;
+    LocalDate dateTo;
     LocalExtremum localExtremum = new LocalExtremum();
-
 
     public String getString(String message) {
         System.out.println(message);
@@ -39,18 +40,48 @@ public class ConsoleReader {
         return scanner.nextDouble();
     }
 
-    public LocalDate getDate(String sideOfRange) {
-        dateStr = getString("Choose Date " + sideOfRange + ":");
-        while (!localExtremum.isCorrectFormat(dateStr)) {
-            consolePrinter.printLn("The date you provide is incorrect format. Please use format yyyy-MM-dd:");
-            dateStr = getString("Choose Date " + sideOfRange + ":");
+    public void runDates () {
+        getDateFrom();
+        while (localExtremum.isNotWithinRange(dateFrom)) {
+            consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
+                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+            getDateFrom();
         }
-        date = LocalDate.parse(dateStr);
-        while (!localExtremum.isWithinRange(date)) {
-            consolePrinter.printLn("The date you provide is out of range. Please try again:");
-            dateStr = getString("Choose Date " + sideOfRange + ":");
+        getDateTo();
+        while (localExtremum.isNotWithinRange(dateTo)) {
+            consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
+                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+            getDateTo();
         }
-        return date;
+        consolePrinter.printLn("Date from: " + dateFrom);
+        consolePrinter.printLn("Date to: " + dateTo);
+        localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
     }
 
+    public LocalDate getDateFrom () {
+        dateStr = getString("Choose Date From: ");
+        while (isIncorrectFormat(dateStr)) {
+            consolePrinter.printLn("The date you provide is incorrect format. Please use format yyyy-MM-dd:");
+            dateStr = getString("Choose Date From: ");
+        }
+        return dateFrom = LocalDate.parse(dateStr);
+    }
+
+    public LocalDate getDateTo () {
+        dateStr = getString("Choose Date To: ");
+        while (isIncorrectFormat(dateStr)) {
+            consolePrinter.printLn("The date you provide is incorrect format. Please use format yyyy-MM-dd:");
+            dateStr = getString("Choose Date To: ");
+        }
+        return dateTo = LocalDate.parse(dateStr);
+    }
+
+    public boolean isIncorrectFormat(String givenDate) {
+        try {
+            LocalDate.parse(givenDate);
+            return false;
+        } catch (DateTimeParseException e){
+            return true;
+        }
+    }
 }
