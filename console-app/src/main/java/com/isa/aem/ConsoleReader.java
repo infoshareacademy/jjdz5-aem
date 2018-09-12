@@ -2,15 +2,17 @@ package com.isa.aem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleReader {
 
+    private Currency chosenCurrencyName;
+    private String dateStr;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     Scanner scanner = new Scanner(System.in);
     ConsolePrinter consolePrinter = new ConsolePrinter();
-    String dateStr;
-    LocalDate dateFrom;
-    LocalDate dateTo;
     LocalExtremum localExtremum = new LocalExtremum();
 
     public String getString(String message) {
@@ -40,6 +42,24 @@ public class ConsoleReader {
         return scanner.nextDouble();
     }
 
+    public void chooseCurrency() {
+        consolePrinter.printLn("Choose currency from available ones: " + CurrencyRepository.getAvailableCurrencies());
+        String typedCurrency = getString();
+        while (currencyDoesNotExists(CurrencyRepository.getCurrencies(), typedCurrency)){
+            consolePrinter.printLn("Currency does not exist. Try again");
+            typedCurrency = getString();
+        }
+        chosenCurrencyName.setName(typedCurrency);
+    }
+
+    public boolean currencyDoesNotExists (List<Currency> list, String typedCurrency) {
+        for (Currency currency : list) {
+            if (currency.getName().equalsIgnoreCase(typedCurrency))
+                return false;
+        }
+        return true;
+    }
+
     public void runDates () {
         getDateFrom();
         while (localExtremum.isNotWithinRange(dateFrom)) {
@@ -53,8 +73,6 @@ public class ConsoleReader {
                     CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
             getDateTo();
         }
-        consolePrinter.printLn("Date from: " + dateFrom);
-        consolePrinter.printLn("Date to: " + dateTo);
         localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
     }
 
@@ -83,5 +101,9 @@ public class ConsoleReader {
         } catch (DateTimeParseException e){
             return true;
         }
+    }
+
+    public void runExtremum() {
+        localExtremum.getMin(CurrencyRepository.getCurrencies(), chosenCurrencyName);
     }
 }
