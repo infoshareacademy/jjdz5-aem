@@ -46,12 +46,11 @@ public class MenuProject {
                         globalExtremeMenu.run();
                         break;
                     case 4:
-                        consolePrinter.printLn("\nEkstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu");
+                        consolePrinter.printLn("\nEkstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu\n");
                         consolePrinter.printLocalExtremeWelcome();
-                        consoleReader.chooseCurrency();
-                        consolePrinter.printLn("Limit the date range for the currency of your choice. ");
+                        consoleReader.runCurrency();
                         consoleReader.runDates();
-                        //consoleReader.runLocalExtremum();
+                        localExtremum.runExtremum();
                         break;
                     case 5:
                         menuInformation.programInformation();
@@ -94,7 +93,7 @@ public class MenuProject {
             //getFromDate
             consoleReader.getDate("From");
 
-            localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
+            localExtremum.limitRepositoryToChosenDateRange(dateFrom, dateTo);
         }
     }*/
 

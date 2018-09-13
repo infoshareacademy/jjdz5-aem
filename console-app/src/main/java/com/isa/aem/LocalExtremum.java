@@ -1,13 +1,13 @@
 package com.isa.aem;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LocalExtremum {
 
-    private List<Currency> currenciesWithinChosenDateRange = new ArrayList<>();
+    private List<Currency> repoWithChosenCurrencyOnly;
+    private List<Currency> repoWithChosenCurrencyOnlyWithinChosenDateRange;
     private List<Double> min;
     private List<Double> max;
     private String givenDate;
@@ -15,23 +15,44 @@ public class LocalExtremum {
     private LocalDate dateTo;
 
 
-    public List<Currency> limitCurrenciesToChosenDateRange(LocalDate dateFrom, LocalDate dateTo) {
+
+    public List<Currency> limitRepositoryToChosenCurrency(String currencyName) {
+        repoWithChosenCurrencyOnly = new ArrayList<>();
         for (Currency currency : CurrencyRepository.getCurrencies()) {
-            if ((dateFrom.isBefore(currency.getDate()) || dateFrom.equals(currency.getDate())) &&
-                    (currency.getDate().isBefore(dateTo)) || currency.getDate().equals(dateTo)) {
-                currenciesWithinChosenDateRange.add(currency);
-            } continue;
+            if (currency.getName().equalsIgnoreCase(currencyName)) {
+                repoWithChosenCurrencyOnly.add(currency);
+            }continue;
         }
-        System.out.println(currenciesWithinChosenDateRange);
-        return currenciesWithinChosenDateRange;
+        System.out.println(repoWithChosenCurrencyOnly);
+        return repoWithChosenCurrencyOnly;
     }
 
-
-    public List<Currency> getMin (List<Currency> list, Currency currencyName ) {
-        for (Currency currency : list) {
-            currency.getClose();
+    public List<Currency> limitRepositoryToChosenDateRange(LocalDate dateFrom, LocalDate dateTo) {
+        repoWithChosenCurrencyOnlyWithinChosenDateRange = new ArrayList<>();
+        for (Currency currency : repoWithChosenCurrencyOnly) {
+            if ((dateFrom.isBefore(currency.getDate()) || dateFrom.equals(currency.getDate())) &&
+                    (currency.getDate().isBefore(dateTo)) || currency.getDate().equals(dateTo)) {
+                repoWithChosenCurrencyOnlyWithinChosenDateRange.add(currency);
+            } continue;
         }
-        return null;
+        System.out.println(repoWithChosenCurrencyOnlyWithinChosenDateRange.size());
+        return repoWithChosenCurrencyOnlyWithinChosenDateRange;
+    }
+
+    public void runExtremum() {
+        getMin();
+        //getMax();
+    }
+
+    public List<Double> getMin () {
+        System.out.println(repoWithChosenCurrencyOnlyWithinChosenDateRange.size());
+        min.add(repoWithChosenCurrencyOnlyWithinChosenDateRange.get(0).getClose());
+        return min;
+    }
+
+    public List<Double> getMax () {
+        max.add(repoWithChosenCurrencyOnlyWithinChosenDateRange.get(repoWithChosenCurrencyOnlyWithinChosenDateRange.size()-1).getClose());
+        return max;
     }
 
     public boolean isNotWithinRange(LocalDate givenDate) {

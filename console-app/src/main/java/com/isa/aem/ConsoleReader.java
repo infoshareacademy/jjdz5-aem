@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ConsoleReader {
 
-    private Currency chosenCurrencyName;
+    private String chosenCurrency;
     private String dateStr;
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -42,6 +42,13 @@ public class ConsoleReader {
         return scanner.nextDouble();
     }
 
+
+    public void runCurrency () {
+        chooseCurrency();
+        localExtremum.limitRepositoryToChosenCurrency(chosenCurrency);
+    }
+
+
     public void chooseCurrency() {
         consolePrinter.printLn("Choose currency from available ones: " + CurrencyRepository.getAvailableCurrencies());
         String typedCurrency = getString();
@@ -49,7 +56,8 @@ public class ConsoleReader {
             consolePrinter.printLn("Currency does not exist. Try again");
             typedCurrency = getString();
         }
-        chosenCurrencyName.setName(typedCurrency);
+        chosenCurrency = typedCurrency;
+        System.out.println(chosenCurrency);
     }
 
     public boolean currencyDoesNotExists (List<Currency> list, String typedCurrency) {
@@ -61,6 +69,7 @@ public class ConsoleReader {
     }
 
     public void runDates () {
+        consolePrinter.printLn("Limit the date range for the currency of your choice. ");
         getDateFrom();
         while (localExtremum.isNotWithinRange(dateFrom)) {
             consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
@@ -73,7 +82,7 @@ public class ConsoleReader {
                     CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
             getDateTo();
         }
-        localExtremum.limitCurrenciesToChosenDateRange(dateFrom, dateTo);
+        localExtremum.limitRepositoryToChosenDateRange(dateFrom, dateTo);
     }
 
     public LocalDate getDateFrom () {
@@ -101,9 +110,5 @@ public class ConsoleReader {
         } catch (DateTimeParseException e){
             return true;
         }
-    }
-
-    public void runExtremum() {
-        localExtremum.getMin(CurrencyRepository.getCurrencies(), chosenCurrencyName);
     }
 }
