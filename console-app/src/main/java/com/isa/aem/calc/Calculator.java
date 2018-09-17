@@ -36,13 +36,16 @@ public class Calculator {
                         printer.dubleNextLine());
                 menuInformation.readMenu();
             }
-            if (strCommand.equals(SIMPLE_CALCULATOR)){
-                foldingTheCalculator();
+            else if (strCommand.equals(SIMPLE_CALCULATOR)){
+                foldingTheSimpleCalculator();
+            }
+            else {
+                System.out.println(printer.unknowCommand());
             }
         }while (!command.contains(strCommand));
     }
 
-    private void foldingTheCalculator() {
+    private void foldingTheSimpleCalculator() {
         availableCurrency.print();
         algorithm.loadFromKeyboard();
         printEqual();
@@ -51,7 +54,7 @@ public class Calculator {
 
     private void printEqual() {
         System.out.println(printer.emptySpace() + algorithm.getAmount() + " " + algorithm.getFirstCurrency() + " = " +
-                algorithm.result() + " " + algorithm.getSecondCurrency());
+                algorithm.equal() + " " + algorithm.getSecondCurrency());
     }
 
     private void printCurse() {

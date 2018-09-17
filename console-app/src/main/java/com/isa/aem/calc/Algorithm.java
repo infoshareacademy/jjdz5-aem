@@ -15,14 +15,18 @@ public class Algorithm {
         secondCurrency = consoleSupport.secondCurrencyService();
     }
 
-    protected BigDecimal result() {
+    private BigDecimal algorithm(Double amount, Double firstCourse, Double secondCourse) {
         BigDecimal amoun = new BigDecimal(amount);
-        BigDecimal first = new BigDecimal(prepareCalculator.getActualCurseOfFirstChoice());
-        BigDecimal second = new BigDecimal(prepareCalculator.getActualCurseOfSecondChoice());
+        BigDecimal first = new BigDecimal(firstCourse);
+        BigDecimal second = new BigDecimal(secondCourse);
         BigDecimal divide = first.divide(second, BigDecimal.ROUND_HALF_UP).setScale(4, RoundingMode.HALF_UP);
         BigDecimal multiply = divide.multiply(amoun).setScale(4,RoundingMode.HALF_UP);
 
         return multiply;
+    }
+
+    protected BigDecimal equal() {
+        return algorithm(this.amount, prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
     }
 
     protected BigDecimal course() {
