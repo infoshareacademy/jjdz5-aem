@@ -31,17 +31,7 @@ public class Calculator {
         do {
             strCommand = consoleReader.getString(printer.backToMenu() + printer.simpleCalculator() +
                     printer.calculatorWithDate() +  printer.command());
-            if (strCommand.equals(BACK_TO_MENU)){
-                System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
-                        printer.dubleNextLine());
-                menuInformation.readMenu();
-            }
-            else if (strCommand.equals(SIMPLE_CALCULATOR)){
-                foldingTheSimpleCalculator();
-            }
-            else {
-                System.out.println(printer.unknowCommand());
-            }
+            menuOptions(strCommand);
         }while (!command.contains(strCommand));
     }
 
@@ -52,14 +42,60 @@ public class Calculator {
         printCurse();
     }
 
+    private void foldingTheCalculatorWithData() {
+        availableCurrency.print();
+        algorithm.loadFromKeyboard();
+        checkIfDateExist();
+        printCurseWithDate();
+    }
+
     private void printEqual() {
         System.out.println(printer.emptySpace() + algorithm.getAmount() + " " + algorithm.getFirstCurrency() + " = " +
                 algorithm.equal() + " " + algorithm.getSecondCurrency());
     }
 
-    private void printCurse() {
-        System.out.println(printer.emptySpace() + "Course " + algorithm.getFirstCurrency() + " = " + algorithm.course());
+    private void printEqualWithDate() {
+        System.out.println(printer.emptySpace() + algorithm.getAmount() + " " + algorithm.getFirstCurrency() + " = " +
+                algorithm.equalWithDate() + " " + algorithm.getSecondCurrency());
     }
 
+    private void printCurse() {
+        System.out.println(printer.emptySpace() + "Course " + algorithm.getFirstCurrency() + " = " + algorithm.equalCurse());
+    }
 
+    private void printCurseWithDate() {
+        System.out.println(printer.emptySpace() + "Course " + algorithm.getFirstCurrency() + " = " + algorithm.equalCurseWithDate());
+    }
+
+    private void menuOptions(String strCommand) {
+        if (strCommand.equals(BACK_TO_MENU)) {
+            System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
+                    printer.dubleNextLine());
+            menuInformation.readMenu();
+        }
+        else if (strCommand.equals(SIMPLE_CALCULATOR)){
+                foldingTheSimpleCalculator();
+                smallMenu();
+        }
+        else if (strCommand.equals(CALCULATOR_WITH_DATE)) {
+            foldingTheCalculatorWithData();
+            smallMenu();
+        }
+        else {
+            System.out.println(printer.unknowCommand());
+        }
+    }
+
+    private void checkIfDateExist() {
+        do {
+            algorithm.loadDateFromKeyboard();
+            if (algorithm.checkFirst() & algorithm.checkSecond()){
+                printEqualWithDate();
+            }
+            else {
+                System.out.println(printer.unexistDate());
+                checkIfDateExist();
+            }
+        } while (!(algorithm.checkFirst() && algorithm.checkSecond()));
+    }
 }

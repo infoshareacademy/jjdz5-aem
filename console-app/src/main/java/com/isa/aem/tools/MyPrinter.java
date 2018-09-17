@@ -109,9 +109,24 @@ public class MyPrinter {
                 "     Enter currency/command: ";
     }
 
+    public String enterDate() {
+        return
+                "     Enter date (yyyymmdd): ";
+    }
+
     public String unknowCommand() {
         return
                 "     UNKNOWN COMMAND.\n";
+    }
+
+    public String unexistDate() {
+        return
+                "     We have no curse with this date \n";
+    }
+
+    public String wrongDate() {
+        return
+                "     WRONG DATE.\n";
     }
 
     public String command() {

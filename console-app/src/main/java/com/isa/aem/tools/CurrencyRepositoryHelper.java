@@ -13,4 +13,6 @@ public interface CurrencyRepositoryHelper {
     boolean containsCurrency(java.util.List<Currency> list, String s);
     LocalDate getMinDate();
     LocalDate getMaxDate();
+    boolean containsDate(List<Currency> list, LocalDate date);
+    Double courseByDate(List<Currency> list, LocalDate date);
 }

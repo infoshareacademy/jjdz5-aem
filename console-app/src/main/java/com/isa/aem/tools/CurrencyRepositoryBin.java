@@ -1,8 +1,6 @@
 package com.isa.aem.tools;
 
 import com.isa.aem.Currency;
-import com.isa.aem.tools.CurrencyRepositoryHelper;
-import com.isa.aem.tools.SingleCurrency;
 
 import javax.faces.bean.ApplicationScoped;
 import java.time.LocalDate;
@@ -44,6 +42,26 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
     @Override
     public LocalDate getMaxDate() {
         singleCurrency.getSingleCurrency().get(singleCurrency.getSingleCurrency().size()-1);
+        return null;
+    }
+
+    @Override
+    public boolean containsDate(List<Currency> list, LocalDate date) {
+        for (Currency c: list) {
+            if (c.getDate().equals(date)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Double courseByDate(List<Currency> list, LocalDate date) {
+        for (Currency c : list) {
+            if (c.getDate().equals(date)){
+                return c.getClose();
+            }
+        }
         return null;
     }
 }

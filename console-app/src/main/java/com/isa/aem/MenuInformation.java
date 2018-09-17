@@ -38,6 +38,4 @@ public class MenuInformation {
         System.out.println("    0. Zakończ działanie aplikacji");
     }
 
-    private void exitToMenu(String text) {
-    }
 }

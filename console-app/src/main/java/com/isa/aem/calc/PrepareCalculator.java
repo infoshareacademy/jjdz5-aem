@@ -18,7 +18,6 @@ public class PrepareCalculator {
         sortSecondChoiceByDate();
     }
 
-
     void sortFirstChoiceByDate() {
         singleCurrency.sortSingleCurrencyByDate(singleCurrency.getSingleCurrencyFirstChoice());
     }

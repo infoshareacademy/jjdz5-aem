@@ -31,6 +31,8 @@ public class CurrentVariable {
                 Objects.equals(dateCurrency, that.dateCurrency);
     }
 
+
+
     @Override
     public int hashCode() {
 
