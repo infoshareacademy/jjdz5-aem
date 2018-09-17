@@ -7,7 +7,7 @@ public class Main {
 
         FileContentReader fileContentReader = new FileContentReader();
         MenuProject menu = new MenuProject();
-        fileContentReader.readFile("sourceFilePath");
+        fileContentReader.readFile();
         menu.menuPanel();
     }
 }
