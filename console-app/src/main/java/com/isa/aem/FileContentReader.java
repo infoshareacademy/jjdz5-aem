@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class FileContentReader {
     private String filePath;
     private CurrencyPLN currencyPLN = new CurrencyPLN(
-            "PLN", LocalDate.now(),0.0,0.0,0.0,1.0,1);
+            "PLN", LocalDate.now(),1.0,1.0,1.0,1.0001,1);
 
     //lista przechowujaca liste obiektow Currency
     private List<Currency> listOfCurrencies = new ArrayList<>();

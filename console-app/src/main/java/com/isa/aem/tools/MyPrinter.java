@@ -16,6 +16,16 @@ public class MyPrinter {
                 "     *********************************************\n";
     }
 
+    public String simpleCalculator (){
+        return
+                "                                || 1: simple calcualtor\n";
+    }
+
+    public String calculatorWithDate (){
+        return
+                "                                || 2: calculator with date\n";
+    }
+
     public String backToMenu (){
         return
                 "                                || 0: back to menu\n";
@@ -74,10 +84,6 @@ public class MyPrinter {
                 "     Extreme: ";
     }
 
-    public String line1_1(){
-        return "     List available currency:";
-    }
-
     public String listAblCur(){
         return "     List available currency:";
     }
@@ -93,7 +99,7 @@ public class MyPrinter {
                 "     Choose and enter second currency: ";
     }
 
-    public String enterAmound() {
+    public String enterAmount() {
         return
                 "     Enter amount: ";
     }

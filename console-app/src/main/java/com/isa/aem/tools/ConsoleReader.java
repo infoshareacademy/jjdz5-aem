@@ -10,9 +10,4 @@ public class ConsoleReader {
         System.out.print(message);
         return scanner.nextLine();
     }
-
-    public String getString() {
-        return scanner.nextLine();
-    }
-
 }

@@ -34,7 +34,7 @@ public class GlobalExtreme {
         String s;
         do {
             System.out.println(printer.listAblCur());
-            listAvailableCurrency.run();
+            listAvailableCurrency.print();
             String commandOfConsole = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
             s = ignoreCase.upperSize(commandOfConsole).trim();
             checkConditionsGlobalMenu(s);
@@ -119,10 +119,7 @@ public class GlobalExtreme {
     }
 
     private boolean checkNavigationCommand(Integer inputValue, Integer condition) {
-        if (inputValue == condition){
-            return true;
-        }
-        return false;
+        return inputValue == condition;
     }
 
     private boolean menuCondition(String string) {

@@ -11,7 +11,7 @@ public class ListAvailableCurrency {
     private static final Set<String> singleCurrency = new TreeSet<>();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
-    public void run() {
+    public void print() {
         listofCurrencies();
         printCurrencues(singleCurrency);
     }

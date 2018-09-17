@@ -1,5 +1,6 @@
 package com.isa.aem;
 
+import com.isa.aem.calc.Calculator;
 import com.isa.aem.globalextreme.GlobalExtreme;
 
 import java.util.Scanner;
@@ -8,16 +9,14 @@ public class MenuProject {
 
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
+    private Calculator calculator = new Calculator();
 
     public void menuPanel() {
         menuInformation.readMenu();
         pick();
-
     }
 
     private void pick() {
-
-
         System.out.println("Wybierz interesującą Cię metodę");
 
         // int choose=0;
@@ -34,8 +33,7 @@ public class MenuProject {
                         menuInformation.currentCurrency();
                         break;
                     case 2:
-                        System.out.println("Metoda umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
-                        Calculator calculator = new Calculator();
+                        calculator.run();
                         break;
                     case 3:
                         System.out.println("\n\n\n\n     ");
