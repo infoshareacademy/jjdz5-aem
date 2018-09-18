@@ -7,6 +7,11 @@ import java.util.Scanner;
 
 public class MenuProject {
 
+    public MenuProject() {
+        FileContentReader fileContentReader = new FileContentReader();
+        fileContentReader.readFile();
+    }
+
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
     private Calculator calculator = new Calculator();
