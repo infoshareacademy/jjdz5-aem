@@ -40,7 +40,7 @@ public class ConsoleSupport {
 //        return strValue;
 //    }
 //
-//    double amountGivenByUserServis() {
+//    double amountGivenByUserService() {
 //        String strValue;
 //        String replace;
 //        Double amount = null;

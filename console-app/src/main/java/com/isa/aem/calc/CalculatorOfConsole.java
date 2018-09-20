@@ -51,29 +51,29 @@ public class CalculatorOfConsole {
 
     private void foldingTheSimpleCalculator() {
         availableCurrency.print();
-        amountGivenByUser = calculator.amountGivenByUserServis();
+        amountGivenByUser = calculator.amountGivenByUserService();
         firstCurrencySelectedByUser = calculator.firstCurrencySelectedByUserService();
         secondCurrencySelectedByUser = calculator.secondCurrencySelectedByUserService();
-//        printEqual();
-//        printCurse();
+        printEqual();
+        printCurse();
     }
 
     private void foldingTheCalculatorWithData() {
         availableCurrency.print();
-        amountGivenByUser = calculator.amountGivenByUserServis();
+        amountGivenByUser = calculator.amountGivenByUserService();
         firstCurrencySelectedByUser = calculator.firstCurrencySelectedByUserService();
         secondCurrencySelectedByUser = calculator.secondCurrencySelectedByUserService();
         checkIfDateExist();
     }
 
-//    private void printEqual() {
-//        System.out.println(printer.emptySpace() + amountGivenByUser + " " + firstCurrencySelectedByUser + " = " +
-//                calculator.resultOfCurrencyConversionAlgorithm(amountGivenByUser) + " " + secondCurrencySelectedByUser);
-//    }
-//
-//    private void printCurse() {
-//        System.out.println(printer.emptySpace() + "Course " + firstCurrencySelectedByUser + " = " + calculator.resultOfCalculateCourseAlgorithm());
-//    }
+    private void printEqual() {
+        System.out.println(printer.emptySpace() + amountGivenByUser + " " + firstCurrencySelectedByUser + " = " +
+                calculator.resultOfCurrencyConversionAlgorithm(amountGivenByUser) + " " + secondCurrencySelectedByUser);
+    }
+
+    private void printCurse() {
+        System.out.println(printer.emptySpace() + "Course " + firstCurrencySelectedByUser + " = " + calculator.resultOfCalculateCourseAlgorithm());
+    }
 
     private void menuOptions(String strCommand) {
         if (strCommand.equals(BACK_TO_MENU)) {
@@ -102,8 +102,8 @@ public class CalculatorOfConsole {
         do {
             dataService();
             if (calculator.checkIfChoiceByUserContainsGivenDate(date)){
-//                printEqualWithDate();
-//                printCurseWithDate();
+                printEqualWithDate();
+                printCurseWithDate();
             }
             else {
                 System.out.println(myPrinter.unexistDate());
@@ -112,12 +112,12 @@ public class CalculatorOfConsole {
         } while (!(algorithm.checkFirst() && algorithm.checkSecond()));
     }
 
-//    private void printEqualWithDate() {
-//        System.out.println(myPrinter.emptySpace() + amountGivenByUser + " " + firstCurrencySelectedByUser + " = " +
-//                calculator.resultOfCurrencyConversionAlgorithm(amountGivenByUser) + " " + secondCurrencySelectedByUser);
-//    }
-//
-//    private void printCurseWithDate() {
-//        System.out.println(myPrinter.emptySpace() + "Course " + firstCurrencySelectedByUser + " = " + calculator.resultOfCalculateCourseAlgorithm());
-//    }
+    private void printEqualWithDate() {
+        System.out.println(myPrinter.emptySpace() + amountGivenByUser + " " + firstCurrencySelectedByUser + " = " +
+                calculator.resultOfCurrencyConversionAlgorithm(amountGivenByUser) + " " + secondCurrencySelectedByUser);
+    }
+
+    private void printCurseWithDate() {
+        System.out.println(myPrinter.emptySpace() + "Course " + firstCurrencySelectedByUser + " = " + calculator.resultOfCalculateCourseAlgorithm());
+    }
 }

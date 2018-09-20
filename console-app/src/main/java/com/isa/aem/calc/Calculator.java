@@ -67,7 +67,7 @@ public class Calculator {
         return secondCurrencySelectedByUser;
     }
 
-    double amountGivenByUserServis() {
+    double amountGivenByUserService() {
         String strValue;
         String replace;
         Double amountGivenByUser = null;
