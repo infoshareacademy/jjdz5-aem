@@ -65,7 +65,7 @@ public class GlobalExtreme {
 
     private void checkConditionsGlobalMenu(String s) {
         if (currencyExist.checkCurrencyExist(s)) {
-            listAdder.addSingleCurrencyToList(s,singleCurrency.getSingleCurrency());
+           // listAdder.addSingleCurrencyToList(s,singleCurrency.getSingleCurrency());
             singleCurrency.sortSingleCurrencyByCourse();
             findExtreme();
         } else if (s.equals(BACK_TO_MENU_STR)) {

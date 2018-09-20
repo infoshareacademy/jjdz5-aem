@@ -12,7 +12,7 @@ public class MyPrinter {
     public String calculatorTittle() {
         return
                 "     *********************************************\n" +
-                "     *                Calculator                 *\n" +
+                "     *                CalculatorOfConsole                 *\n" +
                 "     *********************************************\n";
     }
 

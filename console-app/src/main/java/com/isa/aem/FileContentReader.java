@@ -1,6 +1,6 @@
 package com.isa.aem;
 
-import com.isa.aem.calc.CurrencyPLN;
+import com.isa.aem.tools.CurrencyPLN;
 
 import java.io.IOException;
 import java.nio.file.Files;

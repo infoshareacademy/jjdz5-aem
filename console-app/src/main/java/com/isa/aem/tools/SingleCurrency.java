@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @ApplicationScoped
-public class SingleCurrency {
+public class SingleCurrency { //currency history
 
     private static final List<Currency> singleCurrency = new ArrayList<>();
     private static  List<Currency> singleCurrencyFirstChoice = new ArrayList<>();

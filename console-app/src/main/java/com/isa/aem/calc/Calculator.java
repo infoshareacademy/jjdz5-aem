@@ -1,101 +1,96 @@
 package com.isa.aem.calc;
 
-import com.isa.aem.MenuInformation;
+import com.isa.aem.tools.Checker;
 import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.ListAvailableCurrency;
 import com.isa.aem.tools.MyPrinter;
 
-import java.util.Arrays;
-import java.util.List;
+import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Calculator {
-    private Algorithm algorithm = new Algorithm();
-    private ListAvailableCurrency availableCurrency = new ListAvailableCurrency();
-    private MyPrinter printer = new MyPrinter();
-    private ConsoleReader consoleReader = new ConsoleReader();
-    private MenuInformation menuInformation = new MenuInformation();
 
-    private static final List<String> command = Arrays.asList("0", "1", "2");
-    private static final String BACK_TO_MENU = "0";
-    private static final String SIMPLE_CALCULATOR = "1";
-    private static final String CALCULATOR_WITH_DATE = "2";
+    @Inject
+    CurrencyServis currencyServis;
+    @Inject
+    Algorithm algorithm;
+
+    @Inject
+    ConsoleReader consoleReader;
+    @Inject
+    MyPrinter myPrinter;
+    @Inject
+    Checker checker;
+    private BigDecimal resultOfCalculateCourse;
+    private BigDecimal resultOfCurrencyConversion;
 
 
-    public void run() {
-        System.out.println(printer.calculatorTittle());
-        smallMenu();
+    protected BigDecimal resultOfCurrencyConversionAlgorithm(Double amountGivenByUser) {
+        return algorithm.currencyConversionAlgorithm(amountGivenByUser, currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
+                currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
+
     }
 
-    private void smallMenu() {
-        String strCommand;
+    protected BigDecimal resultOfCalculateCourseAlgorithm() {
+        return algorithm.calculateCourseAlgorithm(currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
+                currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
+
+    }
+
+    protected String firstCurrencySelectedByUserService() {
+        String firstCurrencySelectedByUser;
         do {
-            strCommand = consoleReader.getString(printer.backToMenu() + printer.simpleCalculator() +
-                    printer.calculatorWithDate() +  printer.command());
-            menuOptions(strCommand);
-        }while (!command.contains(strCommand));
+            firstCurrencySelectedByUser= consoleReader.getString(myPrinter.enterFirstCurrency()).trim().toUpperCase();
+            if (currencyServis.checkCurrencyExist(firstCurrencySelectedByUser)) {
+                currencyServis.addFirstCurrencySelectedByUserToList(firstCurrencySelectedByUser);
+                currencyServis.sortingCurrenciesGivenByUserByDate(currencyServis.getFirstCurrencySelectedByUser());
+            } else {
+                System.out.println(myPrinter.currencyUnexist());
+            }
+        } while (checker.existCurrency(firstCurrencySelectedByUser));
+        return firstCurrencySelectedByUser;
     }
 
-    private void foldingTheSimpleCalculator() {
-        availableCurrency.print();
-        algorithm.loadFromKeyboard();
-        printEqual();
-        printCurse();
-    }
-
-    private void foldingTheCalculatorWithData() {
-        availableCurrency.print();
-        algorithm.loadFromKeyboard();
-        checkIfDateExist();
-        printCurseWithDate();
-    }
-
-    private void printEqual() {
-        System.out.println(printer.emptySpace() + algorithm.getAmount() + " " + algorithm.getFirstCurrency() + " = " +
-                algorithm.equal() + " " + algorithm.getSecondCurrency());
-    }
-
-    private void printEqualWithDate() {
-        System.out.println(printer.emptySpace() + algorithm.getAmount() + " " + algorithm.getFirstCurrency() + " = " +
-                algorithm.equalWithDate() + " " + algorithm.getSecondCurrency());
-    }
-
-    private void printCurse() {
-        System.out.println(printer.emptySpace() + "Course " + algorithm.getFirstCurrency() + " = " + algorithm.equalCurse());
-    }
-
-    private void printCurseWithDate() {
-        System.out.println(printer.emptySpace() + "Course " + algorithm.getFirstCurrency() + " = " + algorithm.equalCurseWithDate());
-    }
-
-    private void menuOptions(String strCommand) {
-        if (strCommand.equals(BACK_TO_MENU)) {
-            System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
-                    printer.dubleNextLine());
-            menuInformation.readMenu();
-        }
-        else if (strCommand.equals(SIMPLE_CALCULATOR)){
-                foldingTheSimpleCalculator();
-                smallMenu();
-        }
-        else if (strCommand.equals(CALCULATOR_WITH_DATE)) {
-            foldingTheCalculatorWithData();
-            smallMenu();
-        }
-        else {
-            System.out.println(printer.unknowCommand());
-        }
-    }
-
-    private void checkIfDateExist() {
+    protected String secondCurrencySelectedByUserService() {
+        String secondCurrencySelectedByUser;
         do {
-            algorithm.loadDateFromKeyboard();
-            if (algorithm.checkFirst() & algorithm.checkSecond()){
-                printEqualWithDate();
+            secondCurrencySelectedByUser = consoleReader.getString(myPrinter.enterSecondCurrency()).trim().toUpperCase();
+            if (currencyServis.checkCurrencyExist(secondCurrencySelectedByUser)){
+                currencyServis.addSecondCurrencySelectedByUserToList(secondCurrencySelectedByUser);
+                currencyServis.sortingCurrenciesGivenByUserByDate(currencyServis.getSecondCurrencySelectedByUser());
+
+            } else {
+                System.out.println(myPrinter.nextLine());
+                System.out.println(myPrinter.currencyUnexist());
             }
-            else {
-                System.out.println(printer.unexistDate());
-                checkIfDateExist();
-            }
-        } while (!(algorithm.checkFirst() && algorithm.checkSecond()));
+        }while (checker.existCurrency(secondCurrencySelectedByUser));
+        return secondCurrencySelectedByUser;
     }
+
+    double amountGivenByUserServis() {
+        String strValue;
+        String replace;
+        Double amountGivenByUser = null;
+        do {
+            strValue = consoleReader.getString(myPrinter.enterAmount());
+            replace = strValue.replace(',', '.');
+            if (checker.checkIfItIsANumber(replace)){
+                amountGivenByUser = Double.parseDouble(replace);
+            } else {
+                System.out.println(myPrinter.numberUnexist());
+            }
+        } while (!checker.checkIfItIsANumber(replace));
+        return amountGivenByUser;
+    }
+
+    protected boolean checkIfChoiceByUserContainsGivenDate(LocalDate date) {
+        return currencyServis.checkIfInFirstChoiceContainsGivenDate(date) && currencyServis.checkIfInSecondChoiceContainsGivenDate(date);
+    }
+
+
+
+
+
+
+
 }

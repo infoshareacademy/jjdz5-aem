@@ -9,13 +9,8 @@ public class ListAdder {
 
     CurrencyRepository currencyRepository = new CurrencyRepository();
 
-    public void addSingleCurrencyToList(String s, List<Currency> list) {
-        currencyRepository.getCurrencies().forEach(c -> {
-            if (c.getName().equals(s)) {
-                list.add(c);
-            }
-        });
-    }
+
+
 
 
 

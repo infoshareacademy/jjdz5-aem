@@ -15,6 +15,10 @@ public class CurrencyRepository {
         CurrencyRepository.currencies = currencies;
     }
 
+    public void grtdsddssd(CurrencyRepository currencyRepository){
+
+    }
+
     public void add(Currency currency) {
         currencies.add(currency);
     }

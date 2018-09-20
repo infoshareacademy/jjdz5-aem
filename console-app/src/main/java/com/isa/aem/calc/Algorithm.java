@@ -7,8 +7,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Algorithm {
-    private PrepareCalculator prepareCalculator = new PrepareCalculator();
-    private ConsoleSupport consoleSupport = new ConsoleSupport();
+
     private CurrencyRepositoryBin currencyRepositoryBin = new CurrencyRepositoryBin();
     private SingleCurrency singleCurrency = new SingleCurrency();
     private String firstCurrency;
@@ -16,15 +15,15 @@ public class Algorithm {
     private String secondCurrency;
     private LocalDate date;
 
-    public void loadFromKeyboard() {
-        firstCurrency = consoleSupport.firstCurrencyService();
-        amount = consoleSupport.amountSercive();
-        secondCurrency = consoleSupport.secondCurrencyService();
-    }
-
-    protected void loadDateFromKeyboard() {
-        date = consoleSupport.dataServis();
-    }
+//    public void loadFromKeyboard() {
+//        firstCurrency = consoleSupport.firstCurrencySelectedByUserService();
+//        amount = consoleSupport.amountService();
+//        secondCurrency = consoleSupport.secondCurrencySelectedByUserService();
+//    }
+//
+//    protected void loadDateFromKeyboard() {
+//        date = consoleSupport.dateService();
+//    }
 
     protected boolean checkFirst() {
         return currencyRepositoryBin.containsDate(singleCurrency.getSingleCurrencyFirstChoice(), date);
@@ -34,34 +33,31 @@ public class Algorithm {
         return currencyRepositoryBin.containsDate(singleCurrency.getSingleCurrencySecondChoice(), date);
     }
 
-    private BigDecimal algorithm(Double amount, Double firstCourse, Double secondCourse) {
-        BigDecimal amoun = new BigDecimal(amount);
+    protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstCourse, Double secondCourse) {
+        BigDecimal amount = new BigDecimal(amountGivenByUser);
         BigDecimal first = new BigDecimal(firstCourse);
         BigDecimal second = new BigDecimal(secondCourse);
         BigDecimal divide = first.divide(second, BigDecimal.ROUND_HALF_UP).setScale(4, RoundingMode.HALF_UP);
-        BigDecimal multiply = divide.multiply(amoun).setScale(4,RoundingMode.HALF_UP);
+        BigDecimal multiply = divide.multiply(amount).setScale(4,RoundingMode.HALF_UP);
 
         return multiply;
     }
 
-    protected BigDecimal equal() {
-        return algorithm(this.amount, prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
-    }
 
-    protected BigDecimal equalWithDate() {
-        return algorithm(this.amount,currencyRepositoryBin.courseByDate(singleCurrency.getSingleCurrencyFirstChoice(), date),
-                currencyRepositoryBin.courseByDate(singleCurrency.getSingleCurrencySecondChoice(), date));
-    }
+//    protected BigDecimal equalWithDate() {
+//        return algorithm(this.amount,currencyRepositoryBin.courseByDate(singleCurrency.getSingleCurrencyFirstChoice(), date),
+//                currencyRepositoryBin.courseByDate(singleCurrency.getSingleCurrencySecondChoice(), date));
+//    }
+//
+//    protected BigDecimal equalCurseWithDate() {
+//        return course(prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
+//    }
+//
+//    protected BigDecimal equalCurse() {
+//        return course(prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
+//    }
 
-    protected BigDecimal equalCurseWithDate() {
-        return course(prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
-    }
-
-    protected BigDecimal equalCurse() {
-        return course(prepareCalculator.getActualCurseOfFirstChoice(), prepareCalculator.getActualCurseOfSecondChoice());
-    }
-
-    protected BigDecimal course(Double first, Double second) {
+    protected BigDecimal calculateCourseAlgorithm(Double first, Double second) {
         BigDecimal one = new BigDecimal(first);
         BigDecimal two = new BigDecimal(second);
 
