@@ -5,11 +5,12 @@ import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.ListAvailableCurrency;
 import com.isa.aem.tools.MyPrinter;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-
+@ApplicationScoped
 public class CalculatorOfConsole {
     private Algorithm algorithm = new Algorithm();
     private ListAvailableCurrency availableCurrency = new ListAvailableCurrency();
@@ -20,7 +21,7 @@ public class CalculatorOfConsole {
     @Inject
     Calculator calculator;
     @Inject
-    DateServis dateService;
+    DateService dateService;
     @Inject
     MyPrinter myPrinter;
 
@@ -109,7 +110,7 @@ public class CalculatorOfConsole {
                 System.out.println(myPrinter.unexistDate());
                 checkIfDateExist();
             }
-        } while (!(algorithm.checkFirst() && algorithm.checkSecond()));
+        } while (!(calculator.checkIfChoiceByUserContainsGivenDate(date)));
     }
 
     private void printEqualWithDate() {

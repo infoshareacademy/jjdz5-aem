@@ -4,17 +4,17 @@ import com.isa.aem.tools.Checker;
 import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.MyPrinter;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+@ApplicationScoped
 public class Calculator {
 
     @Inject
     CurrencyServis currencyServis;
     @Inject
     Algorithm algorithm;
-
     @Inject
     ConsoleReader consoleReader;
     @Inject
@@ -28,13 +28,11 @@ public class Calculator {
     protected BigDecimal resultOfCurrencyConversionAlgorithm(Double amountGivenByUser) {
         return algorithm.currencyConversionAlgorithm(amountGivenByUser, currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
                 currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
-
     }
 
     protected BigDecimal resultOfCalculateCourseAlgorithm() {
         return algorithm.calculateCourseAlgorithm(currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
                 currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
-
     }
 
     protected String firstCurrencySelectedByUserService() {
@@ -86,11 +84,4 @@ public class Calculator {
     protected boolean checkIfChoiceByUserContainsGivenDate(LocalDate date) {
         return currencyServis.checkIfInFirstChoiceContainsGivenDate(date) && currencyServis.checkIfInSecondChoiceContainsGivenDate(date);
     }
-
-
-
-
-
-
-
 }

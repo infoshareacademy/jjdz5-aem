@@ -4,12 +4,13 @@ import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.CurrencyRepositoryHelper;
 import com.isa.aem.tools.MyPrinter;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-public class DateServis {
+@ApplicationScoped
+public class DateService {
 
     @Inject
     CurrencyRepositoryHelper currencyRepositoryHelper;

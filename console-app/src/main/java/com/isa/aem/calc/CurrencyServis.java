@@ -4,12 +4,13 @@ import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.CurrencyRepositoryHelper;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@ApplicationScoped
 public class CurrencyServis {
 
     @Inject
@@ -17,7 +18,7 @@ public class CurrencyServis {
     @Inject
     CurrencyRepositoryHelper currencyRepositoryHelper;
     @Inject
-    DateServis dateServis;
+    DateService dateServis;
     private List<Currency> firstCurrencySelectedByUser = new ArrayList<>();
     private List<Currency> secondCurrencySelectedByUser = new ArrayList<>();
 

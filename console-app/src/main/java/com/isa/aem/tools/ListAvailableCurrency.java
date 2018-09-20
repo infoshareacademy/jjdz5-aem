@@ -3,9 +3,10 @@ package com.isa.aem.tools;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.Set;
 import java.util.TreeSet;
-
+@ApplicationScoped
 public class ListAvailableCurrency {
 
     private static final Set<String> singleCurrency = new TreeSet<>();
