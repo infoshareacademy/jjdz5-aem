@@ -19,6 +19,7 @@ public class GlobalExtreme {
     private static final String BACK_TO_MENU_STR = "0";
     private static final Integer BACK_TO_MENU_INT = 0;
     private static final Integer BACK_TO_CURRENCY_SELECTION = 1;
+    private String optionGivenByUser;
 
     public void run() {
         System.out.println(myPrinter.globalExtremeTittle() + myPrinter.backToMenu() + myPrinter.nextLine());
@@ -26,7 +27,7 @@ public class GlobalExtreme {
     }
 
     void smallMenu() {
-        String optionGivenByUser;
+
         do {
             System.out.println(myPrinter.listAblCur());
             listAvailableCurrency.print();
@@ -50,7 +51,7 @@ public class GlobalExtreme {
     }
 
     private void foldingExtreme() {
-        dataTransducerIntroducedByConsole.findExtreme();
+        dataTransducerIntroducedByConsole.findExtreme(optionGivenByUser);
         dataTransducerIntroducedByConsole.printExtremeMenu();
     }
 

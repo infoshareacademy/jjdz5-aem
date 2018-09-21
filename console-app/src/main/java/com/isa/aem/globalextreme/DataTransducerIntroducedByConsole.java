@@ -15,10 +15,7 @@ public class DataTransducerIntroducedByConsole {
 
     private List<String> menuCommand = Arrays.asList("0", "1");
 
-    protected void findExtreme() {
-        String currencySelectedByUser;
-        do {
-            currencySelectedByUser = consoleReader.getString(myPrinter.command());
+    protected void findExtreme(String currencySelectedByUser) {
             if (currencyExist.checkCurrencyExist(currencySelectedByUser)) {
                 extremeService.addCurrencySelectedByUserToList(currencySelectedByUser);
                 extremeService.sortingCurrenciesGivenByUserAtExchangingRate(extremeService.getCurrencySelectedByUser());
@@ -26,7 +23,7 @@ public class DataTransducerIntroducedByConsole {
             else {
                 System.out.println(myPrinter.currencyUnexist());
             }
-        } while (!currencyExist.checkCurrencyExist(currencySelectedByUser));
+
     }
 
     protected boolean containCurrencyAndNumber(String command) {
