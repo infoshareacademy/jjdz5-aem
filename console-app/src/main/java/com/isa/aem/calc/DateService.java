@@ -1,23 +1,10 @@
 package com.isa.aem.calc;
 
-import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.CurrencyRepositoryHelper;
-import com.isa.aem.tools.MyPrinter;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-@ApplicationScoped
-public class DateService {
 
-    @Inject
-    CurrencyRepositoryHelper currencyRepositoryHelper;
-    @Inject
-    ConsoleReader consoleReader;
-    @Inject
-    MyPrinter myPrinter;
+public class DateService {
 
     protected LocalDate dataParse(String strDate) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -41,15 +28,5 @@ public class DateService {
         }
     }
 
-    LocalDate dataService() {
-        String strDate = consoleReader.getString(myPrinter.enterDate());
-        LocalDate date = null;
-        try {
-            date = dataParse(strDate);
-        } catch (Exception ex) {
-            System.out.println(myPrinter.wrongDate());
-            dataParse(strDate);
-        }
-        return date;
-    }
+
 }

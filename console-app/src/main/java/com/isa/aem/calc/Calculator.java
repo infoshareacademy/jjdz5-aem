@@ -1,47 +1,36 @@
 package com.isa.aem.calc;
 
-import com.isa.aem.tools.Checker;
-import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.MyPrinter;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import com.isa.aem.tools.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-@ApplicationScoped
+
 public class Calculator {
 
-    @Inject
-    CurrencyServis currencyServis;
-    @Inject
-    Algorithm algorithm;
-    @Inject
-    ConsoleReader consoleReader;
-    @Inject
-    MyPrinter myPrinter;
-    @Inject
-    Checker checker;
-    private BigDecimal resultOfCalculateCourse;
-    private BigDecimal resultOfCurrencyConversion;
-
+    private CurrencyService currencyService = new CurrencyService();
+    private Algorithm algorithm = new Algorithm();
+    private ConsoleReader consoleReader = new ConsoleReader();
+    private MyPrinter myPrinter = new MyPrinter();
+    private Checker checker = new Checker();
+    private DateService dataService = new DateService();
+    private CurrencyRepositoryHelper currencyRepositoryHelper = new CurrencyRepositoryBin();
 
     protected BigDecimal resultOfCurrencyConversionAlgorithm(Double amountGivenByUser) {
-        return algorithm.currencyConversionAlgorithm(amountGivenByUser, currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
-                currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
+        return algorithm.currencyConversionAlgorithm(amountGivenByUser, currencyService.getActualCurseOfFirstCurrencySelectedByUser(),
+                currencyService.getActualCurseOfSecondCurrencySelectedByUser());
     }
 
     protected BigDecimal resultOfCalculateCourseAlgorithm() {
-        return algorithm.calculateCourseAlgorithm(currencyServis.getActualCurseOfFirstCurrencySelectedByUser(),
-                currencyServis.getActualCurseOfSecondCurrencySelectedByUser());
+        return algorithm.calculateCourseAlgorithm(currencyService.getActualCurseOfFirstCurrencySelectedByUser(),
+                currencyService.getActualCurseOfSecondCurrencySelectedByUser());
     }
 
     protected String firstCurrencySelectedByUserService() {
         String firstCurrencySelectedByUser;
         do {
             firstCurrencySelectedByUser= consoleReader.getString(myPrinter.enterFirstCurrency()).trim().toUpperCase();
-            if (currencyServis.checkCurrencyExist(firstCurrencySelectedByUser)) {
-                currencyServis.addFirstCurrencySelectedByUserToList(firstCurrencySelectedByUser);
-                currencyServis.sortingCurrenciesGivenByUserByDate(currencyServis.getFirstCurrencySelectedByUser());
+            if (currencyService.checkCurrencyExist(firstCurrencySelectedByUser)) {
+                currencyService.addFirstCurrencySelectedByUserToList(firstCurrencySelectedByUser);
+                currencyService.sortingCurrenciesGivenByUserByDate(currencyService.getFirstCurrencySelectedByUser());
             } else {
                 System.out.println(myPrinter.currencyUnexist());
             }
@@ -53,9 +42,9 @@ public class Calculator {
         String secondCurrencySelectedByUser;
         do {
             secondCurrencySelectedByUser = consoleReader.getString(myPrinter.enterSecondCurrency()).trim().toUpperCase();
-            if (currencyServis.checkCurrencyExist(secondCurrencySelectedByUser)){
-                currencyServis.addSecondCurrencySelectedByUserToList(secondCurrencySelectedByUser);
-                currencyServis.sortingCurrenciesGivenByUserByDate(currencyServis.getSecondCurrencySelectedByUser());
+            if (currencyService.checkCurrencyExist(secondCurrencySelectedByUser)){
+                currencyService.addSecondCurrencySelectedByUserToList(secondCurrencySelectedByUser);
+                currencyService.sortingCurrenciesGivenByUserByDate(currencyService.getSecondCurrencySelectedByUser());
 
             } else {
                 System.out.println(myPrinter.nextLine());
@@ -70,7 +59,7 @@ public class Calculator {
         String replace;
         Double amountGivenByUser = null;
         do {
-            strValue = consoleReader.getString(myPrinter.enterAmount());
+            strValue = consoleReader.getString(myPrinter.enterAmount().trim());
             replace = strValue.replace(',', '.');
             if (checker.checkIfItIsANumber(replace)){
                 amountGivenByUser = Double.parseDouble(replace);
@@ -81,7 +70,27 @@ public class Calculator {
         return amountGivenByUser;
     }
 
+    LocalDate dataService() {
+        String strDate = consoleReader.getString(myPrinter.enterDate().trim());
+        LocalDate date = null;
+        try {
+            date = dataService.dataParse(strDate);
+        } catch (Exception ex) {
+            System.out.println(myPrinter.wrongDate());
+            dataService();
+        }
+        return date;
+    }
+
+    protected boolean checkIfInFirstChoiceContainsGivenDate(LocalDate date) {
+        return currencyRepositoryHelper.containsDate(currencyService.getFirstCurrencySelectedByUser(), date);
+    }
+
+    protected boolean checkIfInSecondChoiceContainsGivenDate(LocalDate date) {
+        return currencyRepositoryHelper.containsDate(currencyService.getSecondCurrencySelectedByUser(), date);
+    }
+
     protected boolean checkIfChoiceByUserContainsGivenDate(LocalDate date) {
-        return currencyServis.checkIfInFirstChoiceContainsGivenDate(date) && currencyServis.checkIfInSecondChoiceContainsGivenDate(date);
+        return checkIfInFirstChoiceContainsGivenDate(date) && checkIfInSecondChoiceContainsGivenDate(date);
     }
 }

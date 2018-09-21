@@ -1,5 +1,8 @@
 package com.isa.aem.tools;
 
+import javax.enterprise.inject.Default;
+
+@Default
 public class MyPrinter {
 
     public String globalExtremeTittle() {
@@ -12,7 +15,7 @@ public class MyPrinter {
     public String calculatorTittle() {
         return
                 "     *********************************************\n" +
-                "     *                CalculatorOfConsole                 *\n" +
+                "     *                Calculator                 *\n" +
                 "     *********************************************\n";
     }
 

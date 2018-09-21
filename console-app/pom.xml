@@ -14,6 +14,7 @@
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
         </dependency>
+
     </dependencies>
 
     <modelVersion>4.0.0</modelVersion>
@@ -37,6 +38,11 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.2.2.Final</version>
             </plugin>
         </plugins>
     </build>

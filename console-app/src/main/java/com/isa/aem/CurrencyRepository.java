@@ -1,8 +1,9 @@
 package com.isa.aem;
 
+import javax.enterprise.inject.Default;
 import java.util.ArrayList;
 import java.util.List;
-
+@Default
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();

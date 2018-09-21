@@ -4,37 +4,30 @@ import com.isa.aem.MenuInformation;
 import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.ListAvailableCurrency;
 import com.isa.aem.tools.MyPrinter;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-@ApplicationScoped
+
 public class CalculatorOfConsole {
-    private Algorithm algorithm = new Algorithm();
+
     private ListAvailableCurrency availableCurrency = new ListAvailableCurrency();
     private MyPrinter printer = new MyPrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
 
-    @Inject
-    Calculator calculator;
-    @Inject
-    DateService dateService;
-    @Inject
-    MyPrinter myPrinter;
+    private Calculator calculator = new Calculator();
+    private DateService dateService = new DateService();
+    private MyPrinter myPrinter = new MyPrinter();
 
     private static final List<String> command = Arrays.asList("0", "1", "2");
     private static final String BACK_TO_MENU = "0";
     private static final String SIMPLE_CALCULATOR = "1";
     private static final String CALCULATOR_WITH_DATE = "2";
-    private LocalDate date;
 
     private String firstCurrencySelectedByUser;
     private String secondCurrencySelectedByUser;
     private Double amountGivenByUser;
-
+    private LocalDate date;
 
     public void run() {
         System.out.println(printer.calculatorTittle());
@@ -95,14 +88,11 @@ public class CalculatorOfConsole {
         }
     }
 
-    protected void dataService() {
-        date = dateService.dataService();
-    }
 
     protected void checkIfDateExist() {
         do {
-            dataService();
-            if (calculator.checkIfChoiceByUserContainsGivenDate(date)){
+            date = calculator.dataService();
+            if (calculator.checkIfChoiceByUserContainsGivenDate(this.date)){
                 printEqualWithDate();
                 printCurseWithDate();
             }

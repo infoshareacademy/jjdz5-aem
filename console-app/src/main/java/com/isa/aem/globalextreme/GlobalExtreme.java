@@ -17,7 +17,6 @@ public class GlobalExtreme {
     private SingleCurrency singleCurrency = new SingleCurrency();
     private CurrencyRepositoryBin helper = new CurrencyRepositoryBin();
     private MyPrinter printer = new MyPrinter();
-    private ListAdder listAdder = new ListAdder();
     private CurrencyExist currencyExist = new CurrencyExist();
     private static final List<String> number = Arrays.asList("0", "1");
 

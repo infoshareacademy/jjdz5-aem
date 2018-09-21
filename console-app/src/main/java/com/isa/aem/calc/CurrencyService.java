@@ -2,23 +2,17 @@ package com.isa.aem.calc;
 
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.tools.CurrencyRepositoryHelper;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import com.isa.aem.tools.CurrencyRepositoryBin;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-@ApplicationScoped
-public class CurrencyServis {
 
-    @Inject
-    CurrencyRepository currencyRepository;
-    @Inject
-    CurrencyRepositoryHelper currencyRepositoryHelper;
-    @Inject
-    DateService dateServis;
+public class CurrencyService {
+
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
+    private CurrencyRepositoryBin currencyRepositoryBin = new CurrencyRepositoryBin();
+
     private List<Currency> firstCurrencySelectedByUser = new ArrayList<>();
     private List<Currency> secondCurrencySelectedByUser = new ArrayList<>();
 
@@ -62,16 +56,9 @@ public class CurrencyServis {
         Collections.sort(currenciesGivenByUse,(o1, o2) -> o1.getDate().compareTo(o2.getDate()));
     }
 
-    protected boolean checkIfInFirstChoiceContainsGivenDate(LocalDate date) {
-        return currencyRepositoryHelper.containsDate(firstCurrencySelectedByUser, date);
-    }
-
-    protected boolean checkIfInSecondChoiceContainsGivenDate(LocalDate date) {
-        return currencyRepositoryHelper.containsDate(secondCurrencySelectedByUser, date);
-    }
 
     public boolean checkCurrencyExist(String s) {
-        return (currencyRepositoryHelper.containsCurrency(currencyRepository.getCurrencies(), s));
+        return (currencyRepositoryBin.containsCurrency(currencyRepository.getCurrencies(), s));
     }
 
 }
