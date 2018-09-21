@@ -3,7 +3,6 @@ package com.isa.aem.calc;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.CurrencyRepositoryBin;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,16 +47,12 @@ public class CurrencyService {
         return secondCurrencySelectedByUser.get(secondCurrencySelectedByUser.size()-1).getClose();
     }
 
-    protected void sortingCurrenciesGivenByUserAtExchangingRate(List<Currency> currenciesGivenByUse) {
-        Collections.sort(currenciesGivenByUse, (o1, o2) -> o1.getClose().compareTo(o2.getClose()));
-    }
-
     protected void sortingCurrenciesGivenByUserByDate(List<Currency> currenciesGivenByUse) {
         Collections.sort(currenciesGivenByUse,(o1, o2) -> o1.getDate().compareTo(o2.getDate()));
     }
 
 
-    public boolean checkCurrencyExist(String s) {
+    protected boolean checkCurrencyExist(String s) {
         return (currencyRepositoryBin.containsCurrency(currencyRepository.getCurrencies(), s));
     }
 

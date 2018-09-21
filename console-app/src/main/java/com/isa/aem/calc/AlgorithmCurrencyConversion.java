@@ -3,7 +3,7 @@ package com.isa.aem.calc;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Algorithm {
+public class AlgorithmCurrencyConversion {
 
     protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstCourseOfCurrencyGivenByUser,
                                                      Double secondCourseOfCurrencyGivenByUser) {

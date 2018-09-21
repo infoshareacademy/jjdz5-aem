@@ -9,19 +9,6 @@ import java.util.List;
 @ApplicationScoped
 public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
 
-    SingleCurrency singleCurrency = new SingleCurrency();
-
-    @Override
-    public Double getMin() {
-        Currency currency = singleCurrency.getSingleCurrency().get(0);
-        return currency.getClose();
-    }
-
-    @Override
-    public Double getMax() {
-        Currency currency = singleCurrency.getSingleCurrency().get(singleCurrency.getSingleCurrency().size() - 1);
-        return currency.getClose();
-    }
 
     @Override
     public boolean containsCurrency(List<Currency> list, String s) {
@@ -31,18 +18,6 @@ public class CurrencyRepositoryBin implements CurrencyRepositoryHelper {
             }
         }
         return false;
-    }
-
-    @Override
-    public LocalDate getMinDate() {
-        Currency currency = singleCurrency.getSingleCurrency().get(0);
-        return currency.getDate();
-    }
-
-    @Override
-    public LocalDate getMaxDate() {
-        singleCurrency.getSingleCurrency().get(singleCurrency.getSingleCurrency().size()-1);
-        return null;
     }
 
     @Override

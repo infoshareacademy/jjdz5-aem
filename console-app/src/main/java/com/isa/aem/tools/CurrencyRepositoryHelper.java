@@ -8,11 +8,7 @@ import java.util.List;
 
 public interface CurrencyRepositoryHelper {
 
-    Double getMin();
-    Double getMax();
     boolean containsCurrency(java.util.List<Currency> list, String s);
-    LocalDate getMinDate();
-    LocalDate getMaxDate();
     boolean containsDate(List<Currency> list, LocalDate date);
     Double courseByDate(List<Currency> list, LocalDate date);
 }

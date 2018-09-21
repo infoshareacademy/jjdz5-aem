@@ -1,6 +1,6 @@
 package com.isa.aem;
 
-import com.isa.aem.calc.CalculatorOfConsole;
+import com.isa.aem.calc.ComplexConsoleCalculator;
 import com.isa.aem.globalextreme.GlobalExtreme;
 
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class MenuProject {
 
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
-    private CalculatorOfConsole calculator = new CalculatorOfConsole();
+    private ComplexConsoleCalculator calculator = new ComplexConsoleCalculator();
 
     public void menuPanel() {
         menuInformation.readMenu();

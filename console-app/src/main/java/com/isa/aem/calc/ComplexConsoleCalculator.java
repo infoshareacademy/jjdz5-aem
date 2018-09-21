@@ -8,14 +8,14 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatorOfConsole {
+public class ComplexConsoleCalculator {
 
     private ListAvailableCurrency availableCurrency = new ListAvailableCurrency();
     private MyPrinter printer = new MyPrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
 
-    private DataTransducerFromConsole calculator = new DataTransducerFromConsole();
+    private DataTransducerIntroducedByConsole calculator = new DataTransducerIntroducedByConsole();
     private DateService dateService = new DateService();
     private MyPrinter myPrinter = new MyPrinter();
 
@@ -88,8 +88,7 @@ public class CalculatorOfConsole {
         }
     }
 
-
-    protected void checkIfDateExist() {
+    private void checkIfDateExist() {
         do {
             date = calculator.dataService();
             if (calculator.checkIfChoiceByUserContainsGivenDate(this.date)){

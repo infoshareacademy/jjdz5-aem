@@ -27,6 +27,4 @@ public class DateService {
             return date;
         }
     }
-
-
 }
