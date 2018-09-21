@@ -4,7 +4,7 @@ import com.isa.aem.tools.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Calculator {
+public class DataTransducerFromConsole {
 
     private CurrencyService currencyService = new CurrencyService();
     private Algorithm algorithm = new Algorithm();

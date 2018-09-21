@@ -15,7 +15,7 @@ public class CalculatorOfConsole {
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
 
-    private Calculator calculator = new Calculator();
+    private DataTransducerFromConsole calculator = new DataTransducerFromConsole();
     private DateService dateService = new DateService();
     private MyPrinter myPrinter = new MyPrinter();
 
