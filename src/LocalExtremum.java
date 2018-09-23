@@ -4,6 +4,9 @@ import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +25,15 @@ public class LocalExtremum {
     private static final String BACK_TO_MENU_STR = "0";
     private static final Integer BACK_TO_MENU_INT = 0;
     private static final Integer BACK_TO_CURRENCY_SELECTION = 1;
+    private Integer StartYear;
+    private Integer StartMonth;
+    private Integer StartDay;
+    private Integer PeriodYear;
+    private Integer PeriodMonth;
+    private Integer PeriodDay;
+    private Integer EndYear;
+    private Integer EndMonth;
+    private Integer EndDay;
 
     private void findCurrency() {
         String s;
@@ -30,7 +42,7 @@ public class LocalExtremum {
             listAvailableCurrency.run();
             String commandOfConsole = consoleReader.getString(printer.nextLine() + printer.enterCurCom());
             s = ignoreCase.upperSize(commandOfConsole).trim();
-           // checkConditionsGlobalMenu(s);
+            // checkConditionsGlobalMenu(s);
         } while (containCurrencyAndNumber(s));
     }
     private void findExtreme() {
@@ -42,6 +54,18 @@ public class LocalExtremum {
             optionsOfFindExtreme(commandOfConsole,parseCommandOfConsole);
         } while (number.contains(commandOfConsole));
     }
+    private void optionsOfFindExtreme(String commandOfConsole, Integer parseCommandOfConsole) {
+        commandOfConsole = consoleReader.getString(printer.command());
+        if (menuCondition(commandOfConsole)) {
+            currencySelection(commandOfConsole, parseCommandOfConsole);
+        } else {
+            System.out.println(printer.dubleNextLine() + printer.error() + printer.dubleNextLine()
+                    + printer.unknowCommand());
+            System.out.println(printer.backToMenu() + printer.bakcCurSel());
+            optionsOfFindExtreme(commandOfConsole, parseCommandOfConsole);
+        }
+    }
+
 
     private boolean containCurrencyAndNumber(String s) {
         if (helper.containsCurrency(currencyRepository.getCurrencies(), s) || number.contains(s)) {
@@ -93,6 +117,14 @@ public class LocalExtremum {
                     + printer.unknowCommand());
         }
     }
+    private void LocalExtremumDate()
+    {
+        LocalDate setDate = LocalDate.of(StartYear,StartMonth,StartDay);
+        Period periodoftime = Period.of(PeriodYear,PeriodMonth,PeriodDay);
+        List<Currency> dateList = CurrencyRepository.getCurrencies(setDate,periodoftime);
+
+
+    }
 
     private void ExtremeBoundaries( )
     {
@@ -119,6 +151,12 @@ public class LocalExtremum {
 
     private boolean checkNavigationCommand(Integer inputValue, Integer condition) {
         if (inputValue == condition){
+            return true;
+        }
+        return false;
+    }
+    private boolean menuCondition(String string) {
+        if (string.matches("\\d{0,1}") && string.length() > 0) {
             return true;
         }
         return false;
