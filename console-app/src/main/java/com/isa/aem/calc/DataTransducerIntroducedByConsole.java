@@ -1,7 +1,8 @@
 package com.isa.aem.calc;
 
+import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.*;
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 public class DataTransducerIntroducedByConsole {
@@ -13,46 +14,26 @@ public class DataTransducerIntroducedByConsole {
     private DateService dataService = new DateService();
     private CurrencyRepositoryHelper currencyRepositoryHelper = new CurrencyRepositoryBin();
     private CurrencyExist currencyExist = new CurrencyExist();
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
+    private String currencyNameSelectedByUser;
 
 
-    protected BigDecimal resultOfCurrencyConversionAlgorithm(Double amountGivenByUser) {
-        return algorithmCurrencyConversion.currencyConversionAlgorithm(amountGivenByUser, currencyService.getActualCurseOfFirstCurrencySelectedByUser(),
-                currencyService.getActualCurseOfSecondCurrencySelectedByUser());
+    protected String getCurrencySelectedByUserOfConsole(String commandForUser) {
+        return consoleReader.getString(commandForUser).trim().toUpperCase();
     }
 
-    protected BigDecimal resultOfCalculateCourseAlgorithm() {
-        return algorithmCurrencyConversion.calculateCourseAlgorithm(currencyService.getActualCurseOfFirstCurrencySelectedByUser(),
-                currencyService.getActualCurseOfSecondCurrencySelectedByUser());
-    }
-
-    protected String firstCurrencySelectedByUserService() {
-        String firstCurrencySelectedByUser;
+    protected Double currencySelectedByUserService(String commandForUser) {
+        Double mostCurrentExchangedRateOFSelectedCurrencyFromTheFile = null;
         do {
-            firstCurrencySelectedByUser= consoleReader.getString(myPrinter.enterFirstCurrency()).trim().toUpperCase();
-            if (currencyService.checkCurrencyExist(firstCurrencySelectedByUser)) {
-                currencyService.addFirstCurrencySelectedByUserToList(firstCurrencySelectedByUser);
-                currencyService.sortingCurrenciesGivenByUserByDate(currencyService.getFirstCurrencySelectedByUser());
+            currencyNameSelectedByUser = getCurrencySelectedByUserOfConsole(commandForUser);
+            if (currencyRepository.containsCurrencyNameInCurrencyList(currencyNameSelectedByUser)) {
+                mostCurrentExchangedRateOFSelectedCurrencyFromTheFile = currencyRepository
+                        .getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(currencyNameSelectedByUser);
             } else {
                 System.out.println(myPrinter.currencyUnexist());
             }
-        } while (existCurrency(firstCurrencySelectedByUser));
-        return firstCurrencySelectedByUser;
-    }
-
-    protected String secondCurrencySelectedByUserService() {
-        String secondCurrencySelectedByUser;
-        do {
-            secondCurrencySelectedByUser = consoleReader.getString(myPrinter.enterSecondCurrency()).trim().toUpperCase();
-            if (currencyService.checkCurrencyExist(secondCurrencySelectedByUser)){
-                currencyService.addSecondCurrencySelectedByUserToList(secondCurrencySelectedByUser);
-                currencyService.sortingCurrenciesGivenByUserByDate(currencyService.getSecondCurrencySelectedByUser());
-
-            } else {
-                System.out.println(myPrinter.nextLine());
-                System.out.println(myPrinter.currencyUnexist());
-            }
-        }while (existCurrency(secondCurrencySelectedByUser));
-        return secondCurrencySelectedByUser;
+        } while (existCurrency(currencyNameSelectedByUser));
+        return mostCurrentExchangedRateOFSelectedCurrencyFromTheFile;
     }
 
     protected double amountGivenByUserService() {
@@ -94,15 +75,13 @@ public class DataTransducerIntroducedByConsole {
         return true;
     }
 
-    private boolean checkIfInFirstChoiceContainsGivenDate(LocalDate date) {
-        return currencyRepositoryHelper.containsDate(currencyService.getFirstCurrencySelectedByUser(), date);
+    protected boolean checkIfCurrencyNameSelectedByUserContainsGivenDate(
+            String firstNameOfCurrency, String secondNameOfCurrency, LocalDate date) {
+        return currencyRepository.checkIfExistCurrencyWithGivenDate(firstNameOfCurrency, date)
+                && currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrency, date);
     }
 
-    private boolean checkIfInSecondChoiceContainsGivenDate(LocalDate date) {
-        return currencyRepositoryHelper.containsDate(currencyService.getSecondCurrencySelectedByUser(), date);
-    }
-
-    protected boolean checkIfChoiceByUserContainsGivenDate(LocalDate date) {
-        return checkIfInFirstChoiceContainsGivenDate(date) && checkIfInSecondChoiceContainsGivenDate(date);
+    public String getCurrencyNameSelectedByUser() {
+        return currencyNameSelectedByUser;
     }
 }

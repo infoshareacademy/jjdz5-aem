@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateService {
 
-    protected LocalDate dataParse(String strDate) {
+    public LocalDate dataParse(String strDate) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String replacePoint = strDate.replace(".", "");
         String replaceDash = replacePoint.replace("-", "");

@@ -9,7 +9,6 @@ public class DataTransducerIntroducedByConsole {
 
     private MyPrinter myPrinter = new MyPrinter();
     private CurrencyRepositoryHelper currencyRepositoryHelper = new CurrencyRepositoryBin();
-    private ConsoleReader consoleReader = new ConsoleReader();
     private ExtremeService extremeService = new ExtremeService();
     private CurrencyExist currencyExist = new CurrencyExist();
 
