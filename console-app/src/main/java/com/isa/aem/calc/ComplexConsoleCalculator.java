@@ -113,10 +113,10 @@ public class ComplexConsoleCalculator {
             if ((currencyRepository.checkIfExistCurrencyWithGivenDate(firstNameOfCurrencySelectedByUser, date) == false)){
                 System.out.println(firstNameOfCurrencySelectedByUser + " have no date: " + date);
             }
-            else if ((currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrencySelectedByUser,date) == false)) {
+            if ((currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrencySelectedByUser,date) == false)) {
                 System.out.println(secondNameOfCurrencySelectedByUser + " have no date: " + date);
             }
-            else if (dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
+            if (dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
                     firstNameOfCurrencySelectedByUser, secondNameOfCurrencySelectedByUser, this.date)){
                 printEqualWithDate();
                 printCurseWithDate();
