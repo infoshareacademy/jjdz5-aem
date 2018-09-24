@@ -81,11 +81,13 @@ public class ComplexConsoleCalculator {
 
     private void printEqual() {
         System.out.println(printer.emptySpace() + amountGivenByUser + " " + firstNameOfCurrencySelectedByUser + " = " +
-                  exchangingRate + " " +secondNameOfCurrencySelectedByUser);
+                  exchangingRate + " " +secondNameOfCurrencySelectedByUser + " by date: " +
+                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
     }
 
     private void printCurse() {
-        System.out.println(printer.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate );
+        System.out.println(printer.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate + " by date: " +
+                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
     }
 
     private void menuOptions(String strCommand) {
@@ -131,10 +133,12 @@ public class ComplexConsoleCalculator {
 
     private void printEqualWithDate() {
         System.out.println(myPrinter.emptySpace() + amountGivenByUser + " " + firstNameOfCurrencySelectedByUser + " = " +
-                exchangingRate + " " + secondNameOfCurrencySelectedByUser);
+                exchangingRate + " " + secondNameOfCurrencySelectedByUser + " by date: " +
+                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
     }
 
     private void printCurseWithDate() {
-        System.out.println(myPrinter.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate);
+        System.out.println(myPrinter.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate + " by date: " +
+                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
     }
 }
