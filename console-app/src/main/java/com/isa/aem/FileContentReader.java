@@ -28,7 +28,6 @@ public class FileContentReader {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath(NAME_FILE);
         Path path = Paths.get(filePath).toAbsolutePath();
-        System.out.println("Path to the source file: " + path);
 
         // lista przechowujaca kolejne linie jako String
         List<String> allLinesAsString = new ArrayList<>();

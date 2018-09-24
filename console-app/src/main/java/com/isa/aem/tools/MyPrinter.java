@@ -144,11 +144,11 @@ public class MyPrinter {
 
     public String min() {
         return
-                "     MIN:";
+                "     MIN";
     }
 
     public String max() {
         return
-                "     MAX:";
+                "     MAX";
     }
 }

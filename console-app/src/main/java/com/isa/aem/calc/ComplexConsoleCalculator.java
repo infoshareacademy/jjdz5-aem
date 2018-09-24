@@ -3,7 +3,6 @@ package com.isa.aem.calc;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
 import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.ListAvailableCurrency;
 import com.isa.aem.tools.MyPrinter;
 
 import java.math.BigDecimal;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class ComplexConsoleCalculator {
 
-    private ListAvailableCurrency availableCurrency = new ListAvailableCurrency();
     private MyPrinter printer = new MyPrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
@@ -29,10 +27,10 @@ public class ComplexConsoleCalculator {
 
     private LocalDate date;
     private BigDecimal exchangingRate;
-    private Double amountGivenByUser;
+    private Double getAmountGivenByUser;
     private BigDecimal rate;
-    private String firstNameOfCurrencySelectedByUser;
-    private String secondNameOfCurrencySelectedByUser;
+    private String getFirstNameOfCurrencySelectedByUser;
+    private String getSecondNameOfCurrencySelectedByUser;
 
     public void run() {
         System.out.println(printer.calculatorTittle());
@@ -50,49 +48,102 @@ public class ComplexConsoleCalculator {
 
     private void foldingTheSimpleCalculator() {
         System.out.println(currencyRepository.listAvailableCurrency());
-        Double rateOfFirstSelectedCurrency = dataTransducerIntroducedByConsole.currencySelectedByUserService(myPrinter.enterFirstCurrency());
-        firstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole.getCurrencyNameSelectedByUser();
-        amountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
-        Double rateOfSecondSelectedCurrency = dataTransducerIntroducedByConsole.currencySelectedByUserService(myPrinter.enterSecondCurrency());
-        secondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole.getCurrencyNameSelectedByUser();
+        getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+                .getCurrencySelectedByUserOfConsole(myPrinter.enterFirstCurrency());
+        getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+                .getCurrencySelectedByUserOfConsole(myPrinter.enterSecondCurrency());
+        getAmountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
+        Double rateOfFirstCurrencyNameSelectedByUser = currencyRepository
+                .getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser);
+        Double rateOfSecondCurrencyNameSelectedByUser = currencyRepository
+                .getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(getSecondNameOfCurrencySelectedByUser);
         exchangingRate = algorithmCurrencyConversion
                 .currencyConversionAlgorithm(
-                        amountGivenByUser, rateOfFirstSelectedCurrency, rateOfSecondSelectedCurrency);
+                        getAmountGivenByUser, rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
         rate = algorithmCurrencyConversion
-                .calculateCourseAlgorithm(rateOfFirstSelectedCurrency, rateOfSecondSelectedCurrency);
+                .calculateCourseAlgorithm(rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
         printEqual();
         printCurse();
     }
 
     private void foldingTheCalculatorWithData() {
         System.out.println(currencyRepository.listAvailableCurrency());
-        Double rateOfFirstSelectedCurrency = dataTransducerIntroducedByConsole.currencySelectedByUserService(myPrinter.enterFirstCurrency());
-        firstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole.getCurrencyNameSelectedByUser();
-        amountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
-        Double rateOfSecondSelectedCurrency = dataTransducerIntroducedByConsole.currencySelectedByUserService(myPrinter.enterSecondCurrency());
-        secondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole.getCurrencyNameSelectedByUser();
+        getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+                .getCurrencySelectedByUserOfConsole(
+                        myPrinter.enterFirstCurrency());
+        getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+                .getCurrencySelectedByUserOfConsole(
+                        myPrinter.enterSecondCurrency());
+        getAmountGivenByUser = dataTransducerIntroducedByConsole
+                .amountGivenByUserService();
+        checkIfDateExist();
+        Double rateOfFirstCurrencyNameSelectedByUserWithDate = currencyRepository
+                .getRateOfGivenDate(
+                        getFirstNameOfCurrencySelectedByUser,
+                        date);
+        Double rateOfSecondCurrencyNameSelectedByUserWithDate = currencyRepository
+                .getRateOfGivenDate(
+                        getSecondNameOfCurrencySelectedByUser,
+                        date);
         exchangingRate = algorithmCurrencyConversion
                 .currencyConversionAlgorithm(
-                        amountGivenByUser, rateOfFirstSelectedCurrency, rateOfSecondSelectedCurrency);
+                        getAmountGivenByUser,
+                        rateOfFirstCurrencyNameSelectedByUserWithDate,
+                        rateOfSecondCurrencyNameSelectedByUserWithDate);
         rate = algorithmCurrencyConversion
-                .calculateCourseAlgorithm(rateOfFirstSelectedCurrency, rateOfSecondSelectedCurrency);
-        checkIfDateExist();
+                .calculateCourseAlgorithm(
+                        rateOfFirstCurrencyNameSelectedByUserWithDate,
+                        rateOfSecondCurrencyNameSelectedByUserWithDate);
+        printEqualWithDate();
+        printCurseWithDate();
     }
 
     private void printEqual() {
-        System.out.println(printer.emptySpace() + amountGivenByUser + " " + firstNameOfCurrencySelectedByUser + " = " +
-                  exchangingRate + " " +secondNameOfCurrencySelectedByUser + " by date: " +
-                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
+        System.out.println(
+                printer.emptySpace() +
+                        getAmountGivenByUser + " " +
+                        getFirstNameOfCurrencySelectedByUser + " = " +
+                exchangingRate + " " +
+                        getSecondNameOfCurrencySelectedByUser + " by date: " +
+                currencyRepository
+                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printCurse() {
-        System.out.println(printer.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate + " by date: " +
-                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
+        System.out.println(
+                printer.emptySpace() + "Course " +
+                        getFirstNameOfCurrencySelectedByUser + " = " +
+                rate + " by date: " +
+                currencyRepository
+                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+    }
+
+    private void printEqualWithDate() {
+        System.out.println(
+                myPrinter.emptySpace() +
+                        getAmountGivenByUser + " " +
+                        getFirstNameOfCurrencySelectedByUser + " = " +
+                exchangingRate + " " +
+                        getSecondNameOfCurrencySelectedByUser + " by date: " +
+                currencyRepository
+                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+    }
+
+    private void printCurseWithDate() {
+        System.out.println(
+                myPrinter.emptySpace() + "Course " +
+                        getFirstNameOfCurrencySelectedByUser + " = " +
+                rate + " by date: " +
+                currencyRepository
+                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void menuOptions(String strCommand) {
         if (strCommand.equals(BACK_TO_MENU)) {
-            System.out.print(printer.dubleNextLine() + printer.pointLine() + printer.starsLine() +
+            System.out.print(
+                    printer.dubleNextLine() +
+                    printer.pointLine() +
+                    printer.starsLine() +
                     printer.dubleNextLine());
             menuInformation.readMenu();
         }
@@ -112,33 +163,23 @@ public class ComplexConsoleCalculator {
     private void checkIfDateExist() {
         do {
             date = dataTransducerIntroducedByConsole.dataService();
-            if ((currencyRepository.checkIfExistCurrencyWithGivenDate(firstNameOfCurrencySelectedByUser, date) == false)){
-                System.out.println(firstNameOfCurrencySelectedByUser + " have no date: " + date);
+            if ((currencyRepository.checkIfExistCurrencyWithGivenDate(getFirstNameOfCurrencySelectedByUser, date) == false)){
+                System.out.println(getFirstNameOfCurrencySelectedByUser + " have no date: " + date);
             }
-            if ((currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrencySelectedByUser,date) == false)) {
-                System.out.println(secondNameOfCurrencySelectedByUser + " have no date: " + date);
+            if ((currencyRepository.checkIfExistCurrencyWithGivenDate(getSecondNameOfCurrencySelectedByUser,date) == false)) {
+                System.out.println(getSecondNameOfCurrencySelectedByUser + " have no date: " + date);
             }
             if (dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
-                    firstNameOfCurrencySelectedByUser, secondNameOfCurrencySelectedByUser, this.date)){
-                printEqualWithDate();
-                printCurseWithDate();
+                    getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, this.date)){
+                break;
             }
             else {
                 System.out.println(myPrinter.unexistDate());
                 checkIfDateExist();
             }
         } while (!(dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
-                firstNameOfCurrencySelectedByUser, secondNameOfCurrencySelectedByUser, date)));
+                getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, date)));
     }
 
-    private void printEqualWithDate() {
-        System.out.println(myPrinter.emptySpace() + amountGivenByUser + " " + firstNameOfCurrencySelectedByUser + " = " +
-                exchangingRate + " " + secondNameOfCurrencySelectedByUser + " by date: " +
-                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
-    }
 
-    private void printCurseWithDate() {
-        System.out.println(myPrinter.emptySpace() + "Course " + firstNameOfCurrencySelectedByUser + " = " + rate + " by date: " +
-                currencyRepository.getMostCurrentDateOFSelectedCurrencyFromTheFile(firstNameOfCurrencySelectedByUser));
-    }
 }

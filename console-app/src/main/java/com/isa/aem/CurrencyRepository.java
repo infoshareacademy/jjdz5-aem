@@ -70,4 +70,25 @@ public class CurrencyRepository {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+    public Double getMinRateOFExtremum(String nameOfCurrency) {
+        return currencies.stream()
+                .filter(currency -> currency.getName().equals(nameOfCurrency))
+                .min((o1, o2) -> o1.getClose().compareTo(o2.getClose()))
+                .get().getClose();
+    }
+
+    public List<LocalDate> findDuplicate(Double value) {
+        return currencies.stream()
+                .filter(currency -> currency.getClose().equals(value))
+                .map(currency -> currency.getDate())
+                .collect(Collectors.toList());
+    }
+
+    public Double getMaxRateOFExtremum(String nameOfCurrency) {
+        return currencies.stream()
+                .filter(currency -> currency.getName().equals(nameOfCurrency))
+                .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
+                .get().getClose();
+    }
 }

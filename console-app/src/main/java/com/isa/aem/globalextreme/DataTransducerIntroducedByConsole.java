@@ -1,49 +1,38 @@
 package com.isa.aem.globalextreme;
 
+import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.*;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class DataTransducerIntroducedByConsole {
 
     private MyPrinter myPrinter = new MyPrinter();
-    private CurrencyRepositoryHelper currencyRepositoryHelper = new CurrencyRepositoryBin();
-    private ExtremeService extremeService = new ExtremeService();
-    private CurrencyExist currencyExist = new CurrencyExist();
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private List<String> menuCommand = Arrays.asList("0", "1");
 
-    protected void findExtreme(String currencySelectedByUser) {
-            if (currencyExist.checkCurrencyExist(currencySelectedByUser)) {
-                extremeService.addCurrencySelectedByUserToList(currencySelectedByUser);
-                extremeService.sortingCurrenciesGivenByUserAtExchangingRate(extremeService.getCurrencySelectedByUser());
-            }
-            else {
-                System.out.println(myPrinter.currencyUnexist());
-            }
-
+    protected boolean containCurrencyAndNumber(String commandOfUser) {
+        return  !(currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)
+                || menuCommand.contains(commandOfUser));
     }
 
-    protected boolean containCurrencyAndNumber(String command) {
-        if (currencyRepositoryHelper.containsCurrency(extremeService.getCurrencySelectedByUser(), command) || menuCommand.contains(command)) {
-            return false;
-        }
-        return true;
-    }
-
-    protected void printExtremeMenu() {
+    protected void printExtremeMenu(String nameOfCurrency) {
         System.out.println(myPrinter.backToMenu() + myPrinter.bakcCurSel());
         System.out.println(myPrinter.extreme());
         System.out.println(myPrinter.nextLine() + myPrinter.min());
-        System.out.println(myPrinter.emptySpace() + extremeService.getMin() + " " + extremeService.getMinDate());
+        Double minRateOFExtremum = currencyRepository.getMinRateOFExtremum(nameOfCurrency);
+        System.out.println(
+                myPrinter.emptySpace() +
+                nameOfCurrency + ": " +
+                minRateOFExtremum + " " +
+                currencyRepository.findDuplicate(minRateOFExtremum));
         System.out.println(myPrinter.nextLine() + myPrinter.max());
-        System.out.println(myPrinter.emptySpace() + extremeService.getMax() + " " + extremeService.getMaxDate());
+        Double maxRateOFExtremum = currencyRepository.getMaxRateOFExtremum(nameOfCurrency);
+        System.out.println(
+                myPrinter.emptySpace() +
+                nameOfCurrency + ": " +
+                maxRateOFExtremum + " " +
+                currencyRepository.findDuplicate(maxRateOFExtremum));
     }
-
-
-
-
-
-
 }
