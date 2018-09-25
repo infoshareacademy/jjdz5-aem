@@ -5,15 +5,17 @@ import java.math.RoundingMode;
 
 public class AlgorithmCurrencyConversion {
 
-    protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstCourseOfCurrencyGivenByUser,
-                                                     Double secondCourseOfCurrencyGivenByUser) {
-        BigDecimal amount = new BigDecimal(amountGivenByUser);
-        BigDecimal first = new BigDecimal(firstCourseOfCurrencyGivenByUser);
-        BigDecimal second = new BigDecimal(secondCourseOfCurrencyGivenByUser);
-        BigDecimal divide = first.divide(second, BigDecimal.ROUND_HALF_UP).setScale(4, RoundingMode.HALF_UP);
-        BigDecimal multiply = divide.multiply(amount).setScale(4,RoundingMode.HALF_UP);
+    private static final Integer SCALE_ROUND = 1;
 
-        return multiply;
+    protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstRateOfCurrencyGivenByUser,
+                                                     Double secondRateOfCurrencyGivenByUser) {
+        BigDecimal amount = new BigDecimal(amountGivenByUser);
+        BigDecimal firstRate = new BigDecimal(firstRateOfCurrencyGivenByUser);
+        BigDecimal secondRate = new BigDecimal(secondRateOfCurrencyGivenByUser);
+        BigDecimal division = firstRate.divide(secondRate, BigDecimal.ROUND_HALF_UP).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
+        BigDecimal multiplication = division.multiply(amount).setScale(4,RoundingMode.HALF_UP);
+
+        return multiplication;
     }
 
     protected BigDecimal calculateCourseAlgorithm(Double firstCourseOfCurrencyGivenByUser,

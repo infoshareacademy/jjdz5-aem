@@ -32,20 +32,20 @@ public class GlobalExtremum {
     private void selectedCurrencyOrOptionsOfMenuGlobalExtremuem() {
         do {
             optionGivenByUser = consoleReader.getString(myPrinter.nextLine() + myPrinter.enterCurCom()).trim().toUpperCase();
-            menuOptions(optionGivenByUser);
+            chcekerIfCommandOfUserIsTrue(optionGivenByUser);
         } while (dataTransducerIntroducedByConsole.containCurrencyAndNumber(optionGivenByUser));
     }
 
-    private void menuOptions(String commandOfUser) {
+    private void chcekerIfCommandOfUserIsTrue(String commandOfUser) {
         if (currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)) {
             dataTransducerIntroducedByConsole.printExtremeMenu(commandOfUser);
             selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
         }
-        else if (commandOfUser.equals(BACK_TO_CURRENCY_SELECTION)){
+        else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)){
             System.out.println(myPrinter.dubleNextLine());
            searchExstremeum();
         }
-        else if (commandOfUser.equals(BACK_TO_MENU_STR)) {
+        else if (BACK_TO_MENU_STR.equals(commandOfUser)) {
             System.out.print(
                     myPrinter.dubleNextLine() +
                     myPrinter.pointLine() +
