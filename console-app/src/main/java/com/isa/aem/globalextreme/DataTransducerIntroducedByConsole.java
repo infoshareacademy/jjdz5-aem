@@ -21,14 +21,14 @@ public class DataTransducerIntroducedByConsole {
         System.out.println(myPrinter.backToMenu() + myPrinter.bakcCurSel());
         System.out.println(myPrinter.extreme());
         System.out.println(myPrinter.nextLine() + myPrinter.min());
-        Double minRateOFExtremum = currencyRepository.getMinRateOFExtremum(nameOfCurrency);
+        Double minRateOFExtremum = currencyRepository.getMinRateOfExtremum(nameOfCurrency);
         System.out.println(
                 myPrinter.emptySpace() +
                 nameOfCurrency + ": " +
                 minRateOFExtremum + " " +
                 currencyRepository.findDuplicate(minRateOFExtremum));
         System.out.println(myPrinter.nextLine() + myPrinter.max());
-        Double maxRateOFExtremum = currencyRepository.getMaxRateOFExtremum(nameOfCurrency);
+        Double maxRateOFExtremum = currencyRepository.getMaxRateOfExtremum(nameOfCurrency);
         System.out.println(
                 myPrinter.emptySpace() +
                 nameOfCurrency + ": " +

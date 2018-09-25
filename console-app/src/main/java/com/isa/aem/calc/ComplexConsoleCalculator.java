@@ -34,15 +34,15 @@ public class ComplexConsoleCalculator {
 
     public void run() {
         System.out.println(printer.calculatorTittle());
-        smallMenu();
+        selectionOptionsInMenuOfCalculator();
     }
 
-    private void smallMenu() {
+    private void selectionOptionsInMenuOfCalculator() {
         String strCommand;
         do {
             strCommand = consoleReader.getString(printer.backToMenu() + printer.simpleCalculator() +
                     printer.calculatorWithDate() +  printer.command());
-            menuOptions(strCommand);
+            chcekerIfCommandOfUserIsTrue(strCommand);
         }while (!command.contains(strCommand));
     }
 
@@ -54,9 +54,9 @@ public class ComplexConsoleCalculator {
                 .getCurrencySelectedByUserOfConsole(myPrinter.enterSecondCurrency());
         getAmountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
         Double rateOfFirstCurrencyNameSelectedByUser = currencyRepository
-                .getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser);
+                .getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser);
         Double rateOfSecondCurrencyNameSelectedByUser = currencyRepository
-                .getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(getSecondNameOfCurrencySelectedByUser);
+                .getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(getSecondNameOfCurrencySelectedByUser);
         exchangingRate = algorithmCurrencyConversion
                 .currencyConversionAlgorithm(
                         getAmountGivenByUser, rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
@@ -106,7 +106,7 @@ public class ComplexConsoleCalculator {
                 exchangingRate + " " +
                         getSecondNameOfCurrencySelectedByUser + " by date: " +
                 currencyRepository
-                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printCurse() {
@@ -115,7 +115,7 @@ public class ComplexConsoleCalculator {
                         getFirstNameOfCurrencySelectedByUser + " = " +
                 rate + " by date: " +
                 currencyRepository
-                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printEqualWithDate() {
@@ -126,7 +126,7 @@ public class ComplexConsoleCalculator {
                 exchangingRate + " " +
                         getSecondNameOfCurrencySelectedByUser + " by date: " +
                 currencyRepository
-                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printCurseWithDate() {
@@ -135,10 +135,10 @@ public class ComplexConsoleCalculator {
                         getFirstNameOfCurrencySelectedByUser + " = " +
                 rate + " by date: " +
                 currencyRepository
-                        .getMostCurrentDateOFSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
     }
 
-    private void menuOptions(String strCommand) {
+    private void chcekerIfCommandOfUserIsTrue(String strCommand) {
         if (strCommand.equals(BACK_TO_MENU)) {
             System.out.print(
                     printer.dubleNextLine() +
@@ -149,11 +149,11 @@ public class ComplexConsoleCalculator {
         }
         else if (strCommand.equals(SIMPLE_CALCULATOR)){
                 foldingTheSimpleCalculator();
-                smallMenu();
+                selectionOptionsInMenuOfCalculator();
         }
         else if (strCommand.equals(CALCULATOR_WITH_DATE)) {
             foldingTheCalculatorWithData();
-            smallMenu();
+            selectionOptionsInMenuOfCalculator();
         }
         else {
             System.out.println(printer.unknowCommand());

@@ -39,7 +39,7 @@ public class CurrencyRepository {
                 .anyMatch(currency -> currency.equals(date));
     }
 
-    public LocalDate getMostCurrentDateOFSelectedCurrencyFromTheFile(String nameOfCurrency) {
+    public LocalDate getMostCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
        return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .map(currency -> currency.getDate())
@@ -47,7 +47,7 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public Double getMostCurrentExchangedRateOFSelectedCurrencyFromTheFile(String nameOfCurrency) {
+    public Double getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
@@ -71,7 +71,7 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-    public Double getMinRateOFExtremum(String nameOfCurrency) {
+    public Double getMinRateOfExtremum(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .min((o1, o2) -> o1.getClose().compareTo(o2.getClose()))
@@ -85,7 +85,7 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-    public Double getMaxRateOFExtremum(String nameOfCurrency) {
+    public Double getMaxRateOfExtremum(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
