@@ -1,4 +1,4 @@
-package com.isa.aem.globalextreme;
+package com.isa.aem.globalextremum;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.*;

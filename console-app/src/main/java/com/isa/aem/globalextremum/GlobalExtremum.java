@@ -1,9 +1,9 @@
-package com.isa.aem.globalextreme;
+package com.isa.aem.globalextremum;
 
 import com.isa.aem.*;
 import com.isa.aem.tools.*;
 
-public class GlobalExtreme {
+public class GlobalExtremum {
 
     private ConsoleReader consoleReader = new ConsoleReader();
     private CurrencyRepository currencyRepository = new CurrencyRepository();

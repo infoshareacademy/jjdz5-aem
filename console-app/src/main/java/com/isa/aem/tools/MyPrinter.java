@@ -15,7 +15,7 @@ public class MyPrinter {
     public String calculatorTittle() {
         return
                 "     *********************************************\n" +
-                "     *                DataTransducerIntroducedByConsole                 *\n" +
+                "     *                Calculator                 *\n" +
                 "     *********************************************\n";
     }
 
