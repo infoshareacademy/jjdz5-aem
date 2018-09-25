@@ -12,8 +12,10 @@ public class AlgorithmCurrencyConversion {
         BigDecimal amount = new BigDecimal(amountGivenByUser);
         BigDecimal firstRate = new BigDecimal(firstRateOfCurrencyGivenByUser);
         BigDecimal secondRate = new BigDecimal(secondRateOfCurrencyGivenByUser);
-        BigDecimal division = firstRate.divide(secondRate, BigDecimal.ROUND_HALF_UP).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
-        BigDecimal multiplication = division.multiply(amount).setScale(SCALE_ROUND,RoundingMode.HALF_UP);
+        BigDecimal division = firstRate.setScale(SCALE_ROUND,RoundingMode.HALF_UP)
+                .divide(secondRate, BigDecimal.ROUND_HALF_UP).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
+        BigDecimal multiplication = division.setScale(SCALE_ROUND,RoundingMode.HALF_UP)
+                .multiply(amount).setScale(SCALE_ROUND,RoundingMode.HALF_UP);
 
         return multiplication;
     }

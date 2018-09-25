@@ -78,6 +78,7 @@ public class CurrencyRepository {
         return currencies.stream()
                 .filter(currency -> currency.getClose().equals(value))
                 .map(currency -> currency.getDate())
+                .distinct()
                 .collect(Collectors.toList());
     }
 
