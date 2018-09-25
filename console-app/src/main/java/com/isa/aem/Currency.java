@@ -11,7 +11,7 @@ public class Currency implements Comparable<Currency> {
     private Double low;
     private Double close;
     private Integer volume;
-
+    private CurrencyNameCountryFlags currencyNameCountryFlags;
 
     public Currency() {
     }
@@ -96,10 +96,16 @@ public class Currency implements Comparable<Currency> {
         this.volume = volume;
     }
 
+    public CurrencyNameCountryFlags getCurrencyNameCountryFlags() {
+        return currencyNameCountryFlags;
+    }
 
     @Override
     public int compareTo(Currency currency) {
         return this.date.compareTo(currency.date);
+    }
+    public void setCurrencyNameCountryFlags(CurrencyNameCountryFlags currencyNameCountryFlags) {
+        this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
 }
 

@@ -1,25 +1,35 @@
 package com.isa.aem;
 
+import com.isa.aem.calc.ComplexConsoleCalculator;
+import com.isa.aem.globalextremum.GlobalExtremum;
+import com.isa.aem.tools.CurrencyPLN;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuProject {
 
-    private MenuInformation menuInformation = new MenuInformation();
-    private GlobalExtreme globalExtremeMenu = new GlobalExtreme();
     private ConsoleReader consoleReader = new ConsoleReader();
     private ConsolePrinter consolePrinter = new ConsolePrinter();
     private LocalExtremum localExtremum = new LocalExtremum();
 
+    public MenuProject() {
+        FileContentReader fileContentReader = new FileContentReader();
+        fileContentReader.readFile();
+        CurrencyPLN currencyPLN = new CurrencyPLN();
+        currencyPLN.addPLNToListCurrency();
+    }
+
+    MenuInformation menuInformation = new MenuInformation();
+    private GlobalExtremum globalExtremeMenu = new GlobalExtremum();
+    private ComplexConsoleCalculator calculator = new ComplexConsoleCalculator();
+
     public void menuPanel() {
         menuInformation.readMenu();
         pick();
-
     }
 
     private void pick() {
-
-
         System.out.println("Wybierz interesującą Cię metodę");
 
         // int choose=0;
@@ -36,13 +46,10 @@ public class MenuProject {
                         menuInformation.currentCurrency();
                         break;
                     case 2:
-                        System.out.println("Funkcja umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie.");
-                        Calculator calculator = new Calculator();
+                        calculator.run();
                         break;
                     case 3:
-                        System.out.println("Ekstrema globalne,\n" +
-                                "Po tym menu możesz poruszać się również wisując małe litery,\n" +
-                                "Dostepne Waluty:");
+                        System.out.println("\n\n\n\n     ");
                         globalExtremeMenu.run();
                         break;
                     case 4:
@@ -73,29 +80,6 @@ public class MenuProject {
 
 
     }
-
-
-
-/*    private void runDates(ConsoleReader consoleReader) {
-        boolean isDateIncorrect = true;
-        LocalExtremum localExtremum = new LocalExtremum();
-        while (isDateIncorrect) {
-            LocalDate dateFrom = consoleReader.getDate("From");
-            LocalDate dateTo = consoleReader.getDate("To");
-
-            isDateIncorrect = localExtremum.isDateIncorrect();
-            if (isDateIncorrect)
-                continue;
-
-            //getFromDate
-            consoleReader.getDate("From");
-
-            //getFromDate
-            consoleReader.getDate("From");
-
-            localExtremum.limitRepositoryToChosenDateRange(dateFrom, dateTo);
-        }
-    }*/
 
 }
 
