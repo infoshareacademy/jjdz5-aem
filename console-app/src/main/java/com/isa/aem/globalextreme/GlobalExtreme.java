@@ -26,10 +26,10 @@ public class GlobalExtreme {
     private void searchExstremeum() {
         System.out.println(myPrinter.listAblCur());
         System.out.println(currencyRepository.listAvailableCurrency());
-        smallMenu();
+        selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
     }
 
-    private void smallMenu() {
+    private void selectedCurrencyOrOptionsOfMenuGlobalExtremuem() {
         do {
             optionGivenByUser = consoleReader.getString(myPrinter.nextLine() + myPrinter.enterCurCom()).trim().toUpperCase();
             menuOptions(optionGivenByUser);
@@ -39,7 +39,7 @@ public class GlobalExtreme {
     private void menuOptions(String commandOfUser) {
         if (currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)) {
             dataTransducerIntroducedByConsole.printExtremeMenu(commandOfUser);
-            smallMenu();
+            selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
         }
         else if (commandOfUser.equals(BACK_TO_CURRENCY_SELECTION)){
             System.out.println(myPrinter.dubleNextLine());
@@ -53,12 +53,13 @@ public class GlobalExtreme {
                     myPrinter.dubleNextLine());
             menuInformation.readMenu();
         }
-        else
+        else {
             System.out.println(
                     myPrinter.dubleNextLine() +
-                    myPrinter.error() +
-                    myPrinter.backToMenu() +
-                    myPrinter.nextLine() +
-                    myPrinter.curComUnexist());
+                            myPrinter.error() +
+                            myPrinter.backToMenu() +
+                            myPrinter.nextLine() +
+                            myPrinter.curComUnexist());
+        }
     }
 }
