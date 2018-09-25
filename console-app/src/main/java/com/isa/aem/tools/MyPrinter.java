@@ -87,7 +87,7 @@ public class MyPrinter {
                 "     Extreme: ";
     }
 
-    public String listAblCur(){
+    public String listAvailableCurrency(){
         return "     List available currency:";
     }
 

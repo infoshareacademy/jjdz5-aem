@@ -24,7 +24,7 @@ public class GlobalExtremum {
     }
 
     private void searchExstremeum() {
-        System.out.println(myPrinter.listAblCur());
+        System.out.println(myPrinter.listAvailableCurrency());
         System.out.println(currencyRepository.listAvailableCurrency());
         selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
     }
