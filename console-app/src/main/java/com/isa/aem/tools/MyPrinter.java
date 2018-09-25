@@ -1,5 +1,8 @@
-package com.isa.aem.globalextreme;
+package com.isa.aem.tools;
 
+import javax.enterprise.inject.Default;
+
+@Default
 public class MyPrinter {
 
     public String globalExtremeTittle() {
@@ -7,6 +10,23 @@ public class MyPrinter {
                 "     *********************************************\n" +
                 "     *              Global Extreme               *\n" +
                 "     *********************************************\n";
+    }
+
+    public String calculatorTittle() {
+        return
+                "     *********************************************\n" +
+                "     *                Calculator                 *\n" +
+                "     *********************************************\n";
+    }
+
+    public String simpleCalculator (){
+        return
+                "                                || 1: simple calcualtor\n";
+    }
+
+    public String calculatorWithDate (){
+        return
+                "                                || 2: calculator with date\n";
     }
 
     public String backToMenu (){
@@ -52,28 +72,64 @@ public class MyPrinter {
                 "     CURRENCY OR COMMAND DOES NOT EXIST.\n";
     }
 
+    public String currencyUnexist() {
+        return
+                "     CURRENCY DOES NOT EXIST.\n";
+    }
+
+    public String numberUnexist() {
+        return
+                "     THIS IS NOT NUMBER\n";
+    }
+
     public String extreme() {
         return
                 "     Extreme: ";
     }
 
-    public String line1_1(){
+    public String listAvailableCurrency(){
         return "     List available currency:";
     }
 
-    public String listAblCur(){
-        return "     List available currency:";
+
+    public String enterFirstCurrency() {
+        return
+                "     Choose and enter your currency: ";
     }
 
+    public String enterSecondCurrency() {
+        return
+                "     Choose and enter second currency: ";
+    }
+
+    public String enterAmount() {
+        return
+                "     Enter amount: ";
+    }
 
     public String enterCurCom() {
         return
                 "     Enter currency/command: ";
     }
 
+    public String enterDate() {
+        return
+                "     Enter date (yyyymmdd): ";
+    }
+
     public String unknowCommand() {
         return
                 "     UNKNOWN COMMAND.\n";
+    }
+
+    public String unexistDate() {
+        return
+                "     We have no curse with this date \n";
+    }
+
+    public String wrongDate() {
+        return
+                "     WRONG DATE.\n";
     }
 
     public String command() {
@@ -88,11 +144,11 @@ public class MyPrinter {
 
     public String min() {
         return
-                "     MIN:";
+                "     MIN";
     }
 
     public String max() {
         return
-                "     MAX:";
+                "     MAX";
     }
 }

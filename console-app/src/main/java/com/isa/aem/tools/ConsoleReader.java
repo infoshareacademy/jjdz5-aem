@@ -1,7 +1,6 @@
-package com.isa.aem.globalextreme;
+package com.isa.aem.tools;
 
 import java.util.Scanner;
-
 public class ConsoleReader {
 
     Scanner scanner = new Scanner(System.in);
@@ -10,9 +9,4 @@ public class ConsoleReader {
         System.out.print(message);
         return scanner.nextLine();
     }
-
-    public String getString() {
-        return scanner.nextLine();
-    }
-
 }

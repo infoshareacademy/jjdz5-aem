@@ -1,5 +1,7 @@
 package com.isa.aem;
 
+import com.isa.aem.tools.CurrencyPLN;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileContentReader {
+    CurrencyRepository currencyRepository = new CurrencyRepository();
     private String filePath;
+    private CurrencyPLN currencyPLN = new CurrencyPLN(
+            "PLN", LocalDate.now(),1.0,1.0,1.0,1.0001,1);
 
     //lista przechowujaca liste obiektow Currency
     private List<Currency> listOfCurrencies = new ArrayList<>();
@@ -24,7 +29,6 @@ public class FileContentReader {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath(NAME_FILE);
         Path path = Paths.get(filePath).toAbsolutePath();
-        System.out.println("Path to the source file: " + path);
 
         // lista przechowujaca kolejne linie jako String
         List<String> allLinesAsString = new ArrayList<>();
@@ -83,6 +87,7 @@ public class FileContentReader {
                         Integer.parseInt(line[6])
                 );
                 currencies.add(currency);
+
             }
         }
         return currencies;
