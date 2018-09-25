@@ -21,7 +21,7 @@ public class DataTransducerIntroducedByConsole {
             } else {
                 System.out.println(myPrinter.currencyUnexist());
             }
-        } while (currencyRepository.containsCurrencyNameInCurrencyList(commandByUser));
+        } while (!currencyRepository.containsCurrencyNameInCurrencyList(commandByUser));
         return null;
     }
 
