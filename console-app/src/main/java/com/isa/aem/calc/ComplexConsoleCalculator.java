@@ -125,8 +125,7 @@ public class ComplexConsoleCalculator {
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         exchangingRate + " " +
                         getSecondNameOfCurrencySelectedByUser + " by date: " +
-                        currencyRepository
-                                .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        date);
     }
 
     private void printRateWithDate() {
@@ -134,8 +133,7 @@ public class ComplexConsoleCalculator {
                 myPrinter.emptySpace() + "Course " +
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
-                        currencyRepository
-                                .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                        date);
     }
 
     private void chcekerIfCommandOfUserIsTrue(String strCommand) {

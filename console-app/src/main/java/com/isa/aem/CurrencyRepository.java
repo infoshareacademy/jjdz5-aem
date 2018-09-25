@@ -19,10 +19,6 @@ public class CurrencyRepository {
         CurrencyRepository.currencies = currencies;
     }
 
-    public void grtdsddssd(CurrencyRepository currencyRepository){
-
-    }
-
     public void add(Currency currency) {
         currencies.add(currency);
     }
@@ -90,5 +86,12 @@ public class CurrencyRepository {
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
                 .get().getClose();
+    }
+
+    public List<LocalDate> getEverySingleDateOfFile() {
+        return currencies.stream()
+                .map(currency -> currency.getDate())
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

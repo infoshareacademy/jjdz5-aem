@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileContentReader {
+    CurrencyRepository currencyRepository = new CurrencyRepository();
     private String filePath;
     private CurrencyPLN currencyPLN = new CurrencyPLN(
             "PLN", LocalDate.now(),1.0,1.0,1.0,1.0001,1);
@@ -86,7 +87,7 @@ public class FileContentReader {
                         Integer.parseInt(line[6])
                 );
                 currencies.add(currency);
-                currencies.add(currencyPLN);
+
             }
         }
         return currencies;
