@@ -1,17 +1,19 @@
 package com.isa.aem.servlets;
 
+import com.isa.aem.*;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 import javax.inject.Inject;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+
+
 import java.util.HashMap;
 
 @WebServlet("/hello-servlet-aem")
@@ -20,9 +22,10 @@ public class HelloServletAem extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-    @Override
-    public void init() throws ServletException {
-        System.out.println("servlet utworzony");
+    public void init() {
+     FileContentReader fileContentReader=new FileContentReader();
+    fileContentReader.readFile();
+
     }
 
     @Override
@@ -35,5 +38,6 @@ public class HelloServletAem extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
+
     }
 }
