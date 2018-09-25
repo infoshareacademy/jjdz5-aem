@@ -27,8 +27,9 @@ public class HelloServletAem extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         Template template = templateProvider
-                .getTemplate(getServletContext(), "test");
+                .getTemplate(getServletContext(), "currency-converter");
         try {
             template.process(new HashMap<>(), resp.getWriter());
         } catch (TemplateException e) {
