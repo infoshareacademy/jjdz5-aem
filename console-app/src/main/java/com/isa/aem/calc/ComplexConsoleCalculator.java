@@ -111,7 +111,7 @@ public class ComplexConsoleCalculator {
 
     private void printRate() {
         System.out.println(
-                printer.emptySpace() + "Course " +
+                printer.emptySpace() + "Rate " +
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
                         currencyRepository
@@ -130,7 +130,7 @@ public class ComplexConsoleCalculator {
 
     private void printRateWithDate() {
         System.out.println(
-                myPrinter.emptySpace() + "Course " +
+                myPrinter.emptySpace() + "Rate " +
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
                         date);

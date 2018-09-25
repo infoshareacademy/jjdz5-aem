@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 public class AlgorithmCurrencyConversion {
 
-    private static final Integer SCALE_ROUND = 1;
+    private static final Integer SCALE_ROUND = 4;
 
     protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstRateOfCurrencyGivenByUser,
                                                      Double secondRateOfCurrencyGivenByUser) {
@@ -13,7 +13,7 @@ public class AlgorithmCurrencyConversion {
         BigDecimal firstRate = new BigDecimal(firstRateOfCurrencyGivenByUser);
         BigDecimal secondRate = new BigDecimal(secondRateOfCurrencyGivenByUser);
         BigDecimal division = firstRate.divide(secondRate, BigDecimal.ROUND_HALF_UP).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
-        BigDecimal multiplication = division.multiply(amount).setScale(4,RoundingMode.HALF_UP);
+        BigDecimal multiplication = division.multiply(amount).setScale(SCALE_ROUND,RoundingMode.HALF_UP);
 
         return multiplication;
     }
@@ -23,6 +23,8 @@ public class AlgorithmCurrencyConversion {
         BigDecimal first = new BigDecimal(firstCourseOfCurrencyGivenByUser);
         BigDecimal second = new BigDecimal(secondCourseOfCurrencyGivenByUser);
 
-        return second.divide(first, BigDecimal.ROUND_HALF_UP).setScale(4, RoundingMode.HALF_UP);
+        return second.setScale(SCALE_ROUND,RoundingMode.HALF_UP)
+                .divide(first, BigDecimal.ROUND_HALF_UP)
+                .setScale(SCALE_ROUND, RoundingMode.HALF_UP);
     }
 }
