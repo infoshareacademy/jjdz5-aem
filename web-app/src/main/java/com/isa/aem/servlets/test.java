@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
-@WebServlet("/test")
+@WebServlet(urlPatterns = "/welcome")
 public class test extends HttpServlet {
 
     @Inject
@@ -25,12 +26,17 @@ public class test extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "test");
+                .getTemplate(getServletContext(), "welcome-user");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("name", "Basia");
+
         try {
-            template.process(new HashMap<>(), resp.getWriter());
+            template.process(model, resp.getWriter());
         } catch (TemplateException e) {
             e.printStackTrace();
         }

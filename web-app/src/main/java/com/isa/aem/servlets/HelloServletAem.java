@@ -1,6 +1,7 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
+import com.isa.aem.Currency;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,9 +16,10 @@ import java.io.IOException;
 
 
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
-@WebServlet("/hello-servlet-aem")
+@WebServlet(urlPatterns = "/hello-servlet-aem")
 public class HelloServletAem extends HttpServlet {
 
     @Inject
@@ -26,7 +28,8 @@ public class HelloServletAem extends HttpServlet {
     public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
     public CurrencyRepository currencyRepository;
 
-    public void init() {
+    @Override
+    public void init()throws ServletException {
         fileContentReader=new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
@@ -36,25 +39,30 @@ public class HelloServletAem extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<!DOCTYPE html>");
+
         currencyRepository=new CurrencyRepository();
+        Set<Currency> singleCurrency1 = new HashSet<>();
+        for (Currency cc : CurrencyRepository.getCurrencies()) {
+            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            singleCurrency1.add(new Currency(cc.getName(),cc.getCurrencyNameCountryFlags()));
+        }
 
-//        for (Currency cc: CurrencyRepository.getCurrencies()) {
-//            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-//
-//        }
-        writer.println(currencyRepository.listAvailableCurrency());
+        Set<Currency>singleCurrency= singleCurrency1.stream()
+                .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+                .distinct()
+                .collect(Collectors.toSet());
 
-//
-//        Template template = templateProvider
-//                .getTemplate(getServletContext(), "currency-converter");
-//        try {
-//            template.process(new HashMap<>(), resp.getWriter());
-//        } catch (TemplateException e) {
-//            e.printStackTrace();
-//        }
+        Template template = templateProvider
+                .getTemplate(getServletContext(), "currency-converter");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("singleCurrency", singleCurrency);
+
+        try {
+            template.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
 
     }
 }

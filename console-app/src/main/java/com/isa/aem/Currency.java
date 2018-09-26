@@ -1,6 +1,7 @@
 package com.isa.aem;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Currency {
 
@@ -33,6 +34,35 @@ public class Currency {
         this.low = low;
         this.close = close;
         this.volume = volume;
+    }
+
+    public Currency(String name, LocalDate date, Double open, Double high, Double low, Double close, Integer volume,CurrencyNameCountryFlags currencyNameCountryFlags) {
+        this.name = name;
+        this.date = date;
+        this.open = open;
+        this.high = high;
+        this.low = low;
+        this.close = close;
+        this.volume = volume;
+        this.currencyNameCountryFlags =currencyNameCountryFlags;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Currency)) return false;
+        Currency currency = (Currency) o;
+        return Objects.equals(currencyNameCountryFlags, currency.currencyNameCountryFlags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currencyNameCountryFlags);
+    }
+
+    public Currency(String name, CurrencyNameCountryFlags currencyNameCountryFlags) {
+        this.name = name;
+        this.currencyNameCountryFlags =currencyNameCountryFlags;
     }
 
     @Override
@@ -96,12 +126,11 @@ public class Currency {
         this.volume = volume;
     }
 
-    public CurrencyNameCountryFlags getCurrencyNameCountryFlags() {
-        return currencyNameCountryFlags;
-    }
-
     public void setCurrencyNameCountryFlags(CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.currencyNameCountryFlags = currencyNameCountryFlags;
+    }
+    public CurrencyNameCountryFlags getCurrencyNameCountryFlags() {
+        return currencyNameCountryFlags;
     }
 }
 
