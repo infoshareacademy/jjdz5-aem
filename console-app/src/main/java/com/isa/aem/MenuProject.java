@@ -8,13 +8,6 @@ import java.util.Scanner;
 
 public class MenuProject {
 
-    public MenuProject() {
-        FileContentReader fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
-        CurrencyPLN currencyPLN = new CurrencyPLN();
-        currencyPLN.addPLNToListCurrency();
-    }
-
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtremum globalExtremeMenu = new GlobalExtremum();
     private ComplexConsoleCalculator calculator = new ComplexConsoleCalculator();

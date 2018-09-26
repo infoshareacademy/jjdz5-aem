@@ -29,7 +29,6 @@ public class FileContentReader {
         AppProperties appProperties = PropertiesLoader.loadProperties();
         this.filePath = appProperties.getSourceFilePath(NAME_FILE);
         Path path = Paths.get(filePath).toAbsolutePath();
-
         // lista przechowujaca kolejne linie jako String
         List<String> allLinesAsString = new ArrayList<>();
         try {
@@ -91,6 +90,15 @@ public class FileContentReader {
             }
         }
         return currencies;
+    }
+    public void addPLNToListCurrency() {
+
+        List<LocalDate> everySingleDateOfFile = currencyRepository.getEverySingleDateOfFile();
+        for (LocalDate date : everySingleDateOfFile){
+            Currency currencyPLN = new Currency(
+                    "PLN", date, 1.0,1.0,1.0,1.0,1);
+            currencyRepository.add(currencyPLN);
+        }
     }
 }
 

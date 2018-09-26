@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 @WebServlet("/hello-servlet-aem")
@@ -21,23 +22,39 @@ public class HelloServletAem extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
+    public FileContentReader fileContentReader;
+    public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
+    public CurrencyRepository currencyRepository;
 
     public void init() {
-     FileContentReader fileContentReader=new FileContentReader();
-    fileContentReader.readFile();
+        fileContentReader=new FileContentReader();
+        fileContentReader.readFile();
+        fileContentReader.addPLNToListCurrency();
+        loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+        PrintWriter writer = resp.getWriter();
+        writer.println("<!DOCTYPE html>");
+        currencyRepository=new CurrencyRepository();
 
-        Template template = templateProvider
-                .getTemplate(getServletContext(), "currency-converter");
-        try {
-            template.process(new HashMap<>(), resp.getWriter());
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        }
+//        for (Currency cc: CurrencyRepository.getCurrencies()) {
+//            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+//
+//        }
+        writer.println(currencyRepository.listAvailableCurrency());
+
+//
+//        Template template = templateProvider
+//                .getTemplate(getServletContext(), "currency-converter");
+//        try {
+//            template.process(new HashMap<>(), resp.getWriter());
+//        } catch (TemplateException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }
