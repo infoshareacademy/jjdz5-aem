@@ -47,10 +47,10 @@ public class HelloServletAem extends HttpServlet {
             singleCurrency1.add(new Currency(cc.getName(),cc.getCurrencyNameCountryFlags()));
         }
 
-        Set<Currency>singleCurrency= singleCurrency1.stream()
-                .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+        List<Currency>singleCurrency= singleCurrency1.stream()
+                .sorted(Comparator.comparing(Currency::getName))
                 .distinct()
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-converter");

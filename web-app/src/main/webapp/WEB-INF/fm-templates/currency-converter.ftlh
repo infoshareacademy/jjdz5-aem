@@ -198,8 +198,9 @@
 
                     <label for="defult" id="label-defult">Currency</label>
                     <select class="form-control" id="defult">
-                        <option  value="USD"> USD - USD Dolar</option>
-                        <option  value="EUR">EUR - Euro</option>
+                       <#list singleCurrency as s>
+                           <option>${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                        </#list>
                     </select>
                 </div>
 
