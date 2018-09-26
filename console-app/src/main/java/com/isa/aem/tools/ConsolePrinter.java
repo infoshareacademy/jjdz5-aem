@@ -1,4 +1,4 @@
-package com.isa.aem;
+package com.isa.aem.tools;
 
 public class ConsolePrinter {
 

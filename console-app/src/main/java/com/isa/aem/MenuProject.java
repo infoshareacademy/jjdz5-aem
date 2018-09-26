@@ -2,9 +2,10 @@ package com.isa.aem;
 
 import com.isa.aem.calc.ComplexConsoleCalculator;
 import com.isa.aem.globalextremum.GlobalExtremum;
+import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.CurrencyPLN;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuProject {

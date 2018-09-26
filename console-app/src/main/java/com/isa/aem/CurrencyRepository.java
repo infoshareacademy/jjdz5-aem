@@ -1,5 +1,7 @@
 package com.isa.aem;
 
+import javax.enterprise.inject.Default;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +11,10 @@ import java.util.stream.Collectors;
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();
+    private static List<String> availableCurrencyNames;
+    private static List<Currency> repoWithChosenCurrencyOnly;
+    private static List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
+
 
     public static List<Currency> getCurrencies() {
         return currencies;
@@ -94,5 +100,41 @@ public class CurrencyRepository {
                 .map(currency -> currency.getDate())
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+
+
+    public static List<Currency> getRepoWithChosenCurrencyOnly() {
+        return repoWithChosenCurrencyOnly;
+    }
+
+    public static List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
+        return repositoryWithChosenCurrencyWithinChosenDateRange;
+    }
+
+    public static LocalDate getFirstDateFromRepository() {
+        return currencies.get(0).getDate();
+    }
+
+    public static LocalDate getLastDateFromRepository() {
+        return currencies.get(CurrencyRepository.getCurrencies().size()-1).getDate();
+    }
+
+    public static List<String> getAvailableCurrencyNames() {
+        List<String> availableCurrencyNames = currencies.stream()
+                .map(currency -> currency.getName())
+                .distinct()
+                .collect(Collectors.toList());
+        return availableCurrencyNames;
+    }
+
+    public static List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
+        repositoryWithChosenCurrencyWithinChosenDateRange = currencies.stream()
+                .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
+                .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))
+                .filter(currency -> currency.getDate().isBefore(dateTo) || currency.getDate().equals(dateTo))
+                .collect(Collectors.toList());
+        System.out.println(repositoryWithChosenCurrencyWithinChosenDateRange);
+        return repositoryWithChosenCurrencyWithinChosenDateRange;
     }
 }
