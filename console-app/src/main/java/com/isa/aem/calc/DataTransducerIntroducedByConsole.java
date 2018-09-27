@@ -41,18 +41,17 @@ public class DataTransducerIntroducedByConsole {
         return amountGivenByUser;
     }
 
-    protected LocalDate dataService() {
-
+   protected LocalDate dataService() {
         String strDate;
         LocalDate date = null;
         do{
             strDate = consoleReader.getString(myPrinter.enterDate().trim());
-            if (strDate.matches("[0-9]{8}")) {
+            String preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
+            if (preparedDate.matches("[0-9]{8}")) {
                 date = dataService.dataParse(strDate);
             }
             else {
                 System.out.println(myPrinter.wrongDate());
-                dataService();
             }
         } while (!(strDate.matches("[0-9]{8}")));
         return date;

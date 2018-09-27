@@ -64,12 +64,16 @@ public class HelloServletAem extends HttpServlet {
 
     }
 
-//    @Override
-//
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//        PrintWriter writer =resp.getWriter();
-//        String id= req.getParameter("amount");
-//    }
+    @Override
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Currency currency=new Currency();
+        PrintWriter writer =resp.getWriter();
+        String amount= req.getParameter("amount");
+        String have= req.getParameter("have");
+        String want= req.getParameter("want");
+        String date= req.getParameter("date");
+
+    }
 
 }
