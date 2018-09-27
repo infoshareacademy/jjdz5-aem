@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,23 +23,28 @@ public class test extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        System.out.println("servlet utworzony");
+
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
 
-        Template template = templateProvider
-                .getTemplate(getServletContext(), "welcome-user");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter writer =resp.getWriter();
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("name", "Basia");
-
-        try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        }
-    }
+        resp.setContentType("text/html;charset=UTF-8");
+        writer.println("<!DOCTYPE html>");
+        resp.setContentType("text/html;charset=UTF-8");
+        writer.println("Brak osoby w bazie");
+//        Template template = templateProvider
+//                .getTemplate(getServletContext(), "currency converter");
+//
+//        Map<String, Object> model = new HashMap<>();
+//        model.put("name", "Basia");
+//
+//        try {
+//            template.process(model, resp.getWriter());
+//        } catch (TemplateException e) {
+//            e.printStackTrace();
+//        }
+ }
 }

@@ -4,7 +4,10 @@
     <meta charset="UTF-8"/>
     <title>Currency Manager</title>
    <style>
-
+        .container .row #footer{
+        padding: 20%;
+        border: 20%;
+        }
        .container .row #main, .container .row #main1{
 
            background-color: dimgrey;
@@ -27,7 +30,7 @@
 
        .form-control#defult{
            display: inline-block;
-           width: 30%;
+           width: 50%;
        }
 
        #label-defult{
@@ -149,9 +152,9 @@
 
                     <div class="form-group">
                         <label for="currencyIHave"> Currency I Have</label>
-                        <select class="form-control" id="currencyIHave">
+                        <select class="form-control" id="currencyIHave" name="have">
                              <#list singleCurrency as s>
-                                 <option>${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                                 <option >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
                                      </#list>
                                  </select>
                     </div>
@@ -160,9 +163,9 @@
 
                     <div class="form-group">
                         <label for="currencyIWant"> Currency I Want</label>
-                             <select class="form-control" id="currencyIWant">
+                             <select class="form-control" id="currencyIWant" name="want">
                               <#list singleCurrency as s>
-                                <option>${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                                <option >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
                                   </#list>
                              </select>
                     </div>
@@ -175,7 +178,7 @@
                            name="date"
                            class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Convert</button>
+                <button type="submit" class="btn btn-primary" >Convert</button>
 
 
                 <div class="form-group">
@@ -296,14 +299,19 @@
         </div>
     </div>
 </div>
+<div class="row" id="footer">
+ <div class="col-11" >
+<h5>Currency Manager</h5>
+        </div>
 </div>
-
+</div>
+ <#include "footer.html">
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script src="scripts.js"></script>
-<#include "footer.html">
+
 </body>
 </html>

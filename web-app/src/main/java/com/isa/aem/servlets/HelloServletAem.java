@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -65,4 +63,13 @@ public class HelloServletAem extends HttpServlet {
         }
 
     }
+
+//    @Override
+//
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//
+//        PrintWriter writer =resp.getWriter();
+//        String id= req.getParameter("amount");
+//    }
+
 }
