@@ -7,7 +7,7 @@ public class AlgorithmCurrencyConversion {
 
     private static final Integer SCALE_ROUND = 4;
 
-    protected BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstRateOfCurrencyGivenByUser,
+   public BigDecimal currencyConversionAlgorithm(Double amountGivenByUser, Double firstRateOfCurrencyGivenByUser,
                                                      Double secondRateOfCurrencyGivenByUser) {
         BigDecimal amount = new BigDecimal(amountGivenByUser);
         BigDecimal firstRate = new BigDecimal(firstRateOfCurrencyGivenByUser);

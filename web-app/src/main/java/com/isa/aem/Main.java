@@ -1,5 +1,11 @@
 package com.isa.aem;
 
+import com.isa.aem.calc.AlgorithmCurrencyConversion;
+import com.isa.aem.calc.DateService;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -7,20 +13,16 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-
+        CurrencyRepository cc=new CurrencyRepository();
+        AlgorithmCurrencyConversion aa=new AlgorithmCurrencyConversion();
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
-        CurrencyRepository currencyRepository = new CurrencyRepository();
-        Set<Currency> singleCurrency = new HashSet<>();
-        for (Currency cc : CurrencyRepository.getCurrencies()) {
-            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-        }
-   // singleCurrency.forEach(s-> System.out.println(s.getCurrencyNameCountryFlags().getCurrency()));
+        DateService dataService = new DateService();
+        String data="2018-01-01";
 
-
-        singleCurrency.forEach(ss-> System.out.println(ss.getName() + "-" + ss.getCurrencyNameCountryFlags().getCurrency()));
+        LocalDate date1 = dataService.dataParse(   data.replace("-",""));
+        System.out.println(date1);
 
     }
 

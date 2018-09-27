@@ -2,6 +2,7 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.*;
 import com.isa.aem.Currency;
+import com.isa.aem.calc.AlgorithmCurrencyConversion;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -62,18 +65,26 @@ public class HelloServletAem extends HttpServlet {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Currency currency=new Currency();
-        PrintWriter writer =resp.getWriter();
-        String amount= req.getParameter("amount");
-        String have= req.getParameter("have");
-        String want= req.getParameter("want");
-        String date= req.getParameter("date");
-
+//        CurrencyRepository currencyRepository=new CurrencyRepository();
+//        AlgorithmCurrencyConversion algorithmCurrencyConversion=new AlgorithmCurrencyConversion();
+//        PrintWriter writer =resp.getWriter();
+//        String amount= req.getParameter("amount");
+//        String have= req.getParameter("have");
+//        String want= req.getParameter("want");
+//        String date= req.getParameter("date");
+//        Double calculatorAmount=Double.parseDouble(amount);
+//        String[] calculatorCurrencyHaveTable=have.split("-");
+//        String[] calculatorCurrencyWantTable=want.split("-");
+//
+//        Double currencyHave= currencyRepository.getRateOfGivenDate(calculatorCurrencyHaveTable[0], LocalDate.now().minusMonths(2));
+//        Double currencyWant= currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], LocalDate.now().minusMonths(2));
+//        BigDecimal score= algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
+//
+//        req.getSession().setAttribute("score", score);
+//        req.getSession().getAttribute("score");
+//        writer.println("<!DOCTYPE html><html><body></body></html>");
+//        resp.setContentType("text/html;charset=UTF-8");
+//        writer.println(score);
     }
 
 }

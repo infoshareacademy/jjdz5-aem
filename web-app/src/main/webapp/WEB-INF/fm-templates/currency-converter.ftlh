@@ -139,7 +139,7 @@
 
     <div class="row" >
         <div class="col-4">
-            <form>
+            <form method="get" action= "welcome">
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input id="amount"
