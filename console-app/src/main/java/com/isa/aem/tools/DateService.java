@@ -1,4 +1,4 @@
-package com.isa.aem.calc;
+package com.isa.aem.tools;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -6,12 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 public class DateService {
 
-    public LocalDate dataParse(String strDate) {
+    public LocalDate dataParse(String preparedDate) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String replacePoint = strDate.replace(".", "");
-        String replaceDash = replacePoint.replace("-", "");
-        String replaceComma = replaceDash.replace(",", "");
-        LocalDate parse = LocalDate.parse(replaceComma, dateTimeFormatter);
+        LocalDate parse = LocalDate.parse(preparedDate, dateTimeFormatter);
 
         return checkDayOfWeek(parse);
     }
@@ -26,5 +23,12 @@ public class DateService {
         else {
             return date;
         }
+    }
+
+    public String preparingDateRemovingPunctuationMarks(String dateStringFormat) {
+        String replacePoint = dateStringFormat.replace(".", "");
+        String replaceDash = replacePoint.replace("-", "");
+        String replaceComma = replaceDash.replace(",", "");
+        return replaceComma;
     }
 }
