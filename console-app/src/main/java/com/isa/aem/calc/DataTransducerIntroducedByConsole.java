@@ -11,6 +11,8 @@ public class DataTransducerIntroducedByConsole {
     private DateService dataService = new DateService();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
+    private static final String ONLY_EIGHT_DIGITS = "[0-9]{8}";
+
     protected String getCurrencySelectedByUserOfConsole(String commandForUser) {
         String commandByUser = null;
         do {
@@ -47,13 +49,13 @@ public class DataTransducerIntroducedByConsole {
         do{
             strDate = consoleReader.getString(myPrinter.enterDate().trim());
             String preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
-            if (preparedDate.matches("[0-9]{8}")) {
+            if (preparedDate.matches(ONLY_EIGHT_DIGITS)) {
                 date = dataService.dataParse(strDate);
             }
             else {
                 System.out.println(myPrinter.wrongDate());
             }
-        } while (!(strDate.matches("[0-9]{8}")));
+        } while (!(strDate.matches(ONLY_EIGHT_DIGITS)));
         return date;
     }
 
