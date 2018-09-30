@@ -70,27 +70,25 @@ public class CalculatorServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        DateService dataService = new DateService();
         CurrencyRepository currencyRepository = new CurrencyRepository();
         AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
-        PrintWriter writer = resp.getWriter();
-        String amount = req.getParameter("amount");
-        String have = req.getParameter("have");
-        String want = req.getParameter("want");
-        String date = req.getParameter("date");
-        Double calculatorAmount = Double.parseDouble(amount);
-        String[] calculatorCurrencyHaveTable = have.split(" - ");
-        String[] calculatorCurrencyWantTable = want.split(" - ");
+
+        String reqAmount = req.getParameter("amount");
+        String reqHave = req.getParameter("have");
+        String reqWant = req.getParameter("want");
+        String reqDate = req.getParameter("date");
+        Double calculatorAmount = Double.parseDouble(reqAmount);
+        String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
+        String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
 
-        DateService dataService = new DateService();
-
-        if(date.length()==LENGTH_OF_DATE){
-            LocalDate date1 = dataService.dataParse(date.replace("-", ""));
-            Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date1);
-            Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date1);
+        if(reqDate.length()==LENGTH_OF_DATE){
+            LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
+            Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date);
+            Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date);
             BigDecimal score1= algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-            score=score1 + " " + calculatorCurrencyWantTable[0] + " " + date1;
+            score=score1 + " " + calculatorCurrencyWantTable[0] + " " + date;
         }else{
 
         }
