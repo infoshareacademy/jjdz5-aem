@@ -1,8 +1,7 @@
 package com.isa.aem.servlets;
 
-import com.isa.aem.CurrencyRepository;
-import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.*;
+import com.isa.aem.Currency;
 import com.isa.aem.calc.AlgorithmCurrencyConversion;
 import com.isa.aem.calc.DataTransducerIntroducedByConsole;
 import com.isa.aem.calc.DateService;
@@ -20,8 +19,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/welcome")
 public class test extends HttpServlet {
@@ -33,17 +32,19 @@ public class test extends HttpServlet {
     public CurrencyRepository currencyRepository;
 
     @Override
-    public void init()throws ServletException {
-        fileContentReader=new FileContentReader();
+    public void init() throws ServletException {
+        fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
 
     }
 
+
+
     @Override
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CurrencyRepository currencyRepository = new CurrencyRepository();
         AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
         PrintWriter writer = resp.getWriter();
@@ -54,21 +55,23 @@ public class test extends HttpServlet {
         Double calculatorAmount = Double.parseDouble(amount);
         String[] calculatorCurrencyHaveTable = have.split(" - ");
         String[] calculatorCurrencyWantTable = want.split(" - ");
-        String haveCurrency=calculatorCurrencyHaveTable[0];
+        String haveCurrency = calculatorCurrencyHaveTable[0];
 
-       DateService dataService = new DateService();
-       LocalDate date1 = dataService.dataParse(date.replace("-",""));
+        DateService dataService = new DateService();
+        LocalDate date1 = dataService.dataParse(date.replace("-", ""));
 
-          Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date1);
-          Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date1);
-         BigDecimal score = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
+        Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date1);
+        Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date1);
+        BigDecimal score = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
 
-            req.getSession().setAttribute("score",score);
-            req.getSession().getAttribute("score");
-            writer.println("<!DOCTYPE html><html><body></body></html>");
-            resp.setContentType("text/html;charset=UTF-8");
+        req.getSession().setAttribute("score", score);
+        req.getSession().getAttribute("score");
+        writer.println("<!DOCTYPE html><html><body></body></html>");
+        resp.setContentType("text/html;charset=UTF-8");
 
-            writer.println(score);
+        writer.println(score);
 
     }
+
+
 }

@@ -8,19 +8,15 @@
         padding: 20%;
         border: 20%;
         }
+
        .container .row #main, .container .row #main1{
-
            background-color: dimgrey;
-
            color: white;
            padding: 5px 15px;
-
            border-radius: 2px;
            text-align: center;
            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
            margin: 1.0em;
-
-
        }
        .container .row #main h4, .container .row #main1 h4{
            font-family: inherit;
@@ -139,7 +135,7 @@
 
     <div class="row" >
         <div class="col-4">
-            <form method="get" action= "welcome">
+            <form method="post" action="/hello-servlet-aem" >
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input id="amount"
@@ -178,14 +174,14 @@
                            name="date"
                            class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary" >Convert</button>
-
-
+                <button type="submit" class="btn btn-primary" value="result" >Convert</button>
                 <div class="form-group">
                     <label for="result" class="result"><strong>Result</strong></label>
-                    <textarea rows="2" cols="47" id="result" name="result"></textarea>
+
+                     <h3 id="result_main">${resultCalculator}</h3>
 
                 </div>
+
             </form>
 
 

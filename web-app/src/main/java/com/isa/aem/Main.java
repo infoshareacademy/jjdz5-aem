@@ -13,16 +13,9 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-        CurrencyRepository cc=new CurrencyRepository();
-        AlgorithmCurrencyConversion aa=new AlgorithmCurrencyConversion();
-        FileContentReader fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        DateService dataService = new DateService();
-        String data="2018-01-01";
+         BigDecimal score=new BigDecimal(0.00);
 
-        LocalDate date1 = dataService.dataParse(   data.replace("-",""));
-        System.out.println(date1);
+
 
     }
 
