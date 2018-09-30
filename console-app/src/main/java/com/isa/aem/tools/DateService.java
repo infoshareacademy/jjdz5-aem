@@ -1,4 +1,4 @@
-package com.isa.aem.calc;
+package com.isa.aem.tools;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

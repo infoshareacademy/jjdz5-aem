@@ -3,7 +3,9 @@ package com.isa.aem;
 import javax.enterprise.inject.Default;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Default
@@ -60,11 +62,19 @@ public class CurrencyRepository {
                 .getClose();
     }
 
+
     public List<String> listAvailableCurrency() {
         return currencies.stream()
                 .map(currency -> currency.getName())
                 .distinct()
                 .sorted((o1, o2) -> o1.compareTo(o2))
+                .collect(Collectors.toList());
+    }
+
+    public List<Currency> getSortedCurrencySet(Set<Currency> SetOfCurrencyObject){
+        return   SetOfCurrencyObject.stream()
+                .sorted(Comparator.comparing(Currency::getName))
+                .distinct()
                 .collect(Collectors.toList());
     }
 

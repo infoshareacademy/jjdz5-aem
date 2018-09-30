@@ -1,13 +1,9 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
-import com.isa.aem.Currency;
 import com.isa.aem.calc.AlgorithmCurrencyConversion;
-import com.isa.aem.calc.DataTransducerIntroducedByConsole;
-import com.isa.aem.calc.DateService;
+import com.isa.aem.tools.DateService;
 import com.isa.aem.freemarker.TemplateProvider;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -19,8 +15,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/welcome")
 public class test extends HttpServlet {

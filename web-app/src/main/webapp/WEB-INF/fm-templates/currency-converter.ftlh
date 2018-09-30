@@ -135,7 +135,7 @@
 
     <div class="row" >
         <div class="col-4">
-            <form method="post" action="/hello-servlet-aem" >
+            <form method="post" action="/currency-manager" >
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input id="amount"
@@ -174,14 +174,16 @@
                            name="date"
                            class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary" value="result" >Convert</button>
+                <button type="submit" class="btn btn-primary" value="result">Convert</button>
+
+                 <#if resultCalculator?length!=0>
                 <div class="form-group">
                     <label for="result" class="result"><strong>Result</strong></label>
 
-                     <h3 id="result_main">${resultCalculator}</h3>
+                     <h5 id="result_main">${resultCalculator}</h5>
 
                 </div>
-
+               </#if>
             </form>
 
 

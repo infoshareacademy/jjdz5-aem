@@ -3,12 +3,12 @@ package com.isa.aem.servlets;
 import com.isa.aem.*;
 import com.isa.aem.Currency;
 import com.isa.aem.calc.AlgorithmCurrencyConversion;
-import com.isa.aem.calc.DateService;
+import com.isa.aem.tools.DateService;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import javax.inject.Inject;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +19,12 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = "/hello-servlet-aem")
-public class HelloServletAem extends HttpServlet {
+@WebServlet(urlPatterns = "/currency-manager")
+public class CalculatorServlet extends HttpServlet {
 
-    private BigDecimal score=new BigDecimal(0.00);
+    private String score=new String();
+    private static Integer LENGTH_OF_DATE=10;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -46,16 +46,13 @@ public class HelloServletAem extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         currencyRepository=new CurrencyRepository();
-        Set<Currency> singleCurrency1 = new HashSet<>();
+        Set<Currency> currencyNameAndCountry = new HashSet<>();
         for (Currency cc : CurrencyRepository.getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            singleCurrency1.add(new Currency(cc.getName(),cc.getCurrencyNameCountryFlags()));
+            currencyNameAndCountry.add(new Currency(cc.getName(),cc.getCurrencyNameCountryFlags()));
         }
 
-        List<Currency>singleCurrency= singleCurrency1.stream()
-                .sorted(Comparator.comparing(Currency::getName))
-                .distinct()
-                .collect(Collectors.toList());
+        List<Currency> singleCurrency= currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-converter");
@@ -68,13 +65,12 @@ public class HelloServletAem extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         CurrencyRepository currencyRepository = new CurrencyRepository();
         AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
         PrintWriter writer = resp.getWriter();
@@ -88,16 +84,17 @@ public class HelloServletAem extends HttpServlet {
         String haveCurrency = calculatorCurrencyHaveTable[0];
 
         DateService dataService = new DateService();
-        LocalDate date1 = dataService.dataParse(date.replace("-", ""));
 
-        Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date1);
-        Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date1);
-        BigDecimal score1= algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-        score=score1;
+        if(date.length()==LENGTH_OF_DATE){
+            LocalDate date1 = dataService.dataParse(date.replace("-", ""));
+            Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date1);
+            Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date1);
+            BigDecimal score1= algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
+            score=score1 + " " + calculatorCurrencyWantTable[0] + " " + date1;
+        }else{
+
+        }
 
         doGet(req, resp);
     }
-
-
-
 }
