@@ -31,9 +31,4 @@ public class DateService {
         String replaceComma = replaceDash.replace(",", "");
         return replaceComma;
     }
-
-    public static void main(String[] args) {
-        DateService dateService = new DateService();
-        System.out.println(dateService.preparingDateRemovingPunctuationMarks("2017-06-06"));
-    }
 }
