@@ -74,6 +74,5 @@ public class DataTransducerIntroducedByConsole {
     private Boolean checkIfItIsCorrectDataFormatAndOnlyEightDigits() {
         return (preparedDate.matches(CORRECT_DATE_FORM)
                 && preparedDate.matches(ONLY_EIGHT_DIGITS));
-
     }
 }
