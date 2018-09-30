@@ -32,7 +32,7 @@ public class DataTransducerIntroducedByConsole {
         String replace;
         Double amountGivenByUser = null;
         do {
-            strValue = consoleReader.getString(myPrinter.enterAmount().trim());
+            strValue = consoleReader.getString(myPrinter.enterAmount()).trim();
             replace = strValue.replace(',', '.');
             if (checkIfItIsANumber(replace)){
                 amountGivenByUser = Double.parseDouble(replace);
