@@ -6,7 +6,6 @@ import com.isa.aem.local.extremum.LocalExtremum;
 import com.isa.aem.local.extremum.LocalExtremumService;
 import com.isa.aem.tools.ConsolePrinter;
 import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.CurrencyPLN;
 
 import java.util.Scanner;
 
@@ -21,8 +20,7 @@ public class MenuProject {
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.readFile();
-        CurrencyPLN currencyPLN = new CurrencyPLN();
-        currencyPLN.addPLNToListCurrency();
+        fileContentReader.addPLNToListCurrency();
     }
 
     MenuInformation menuInformation = new MenuInformation();

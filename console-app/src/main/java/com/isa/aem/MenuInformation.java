@@ -17,6 +17,8 @@ public class MenuInformation {
                 "Umożliwia użytkownikowi przeliczenie kursu walut w określonej walucie i po określonym kursie. \n\n" +
                 "3 . Wyświetl ekstrema globalne \n" +
                 "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs \n\n");
+                "4 . Wyświetl ekstrema lokalne \n" +
+                "Pokazuje użytkownikowi, kiedy wskazana waluta przyjmowała najwyższy oraz najniższy kurs w wybranym zakresie czasowym\n\n");
         readMenu();
 
     }

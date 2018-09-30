@@ -8,12 +8,9 @@ import java.util.InputMismatchException;
 
 public class DataValidator {
 
-    public LocalDate dataParse(String strDate) {
+    public LocalDate dataParse(String preparedDate) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String replacePoint = strDate.replace(".", "");
-        String replaceDash = replacePoint.replace("-", "");
-        String replaceComma = replaceDash.replace(",", "");
-        LocalDate parse = LocalDate.parse(replaceComma, dateTimeFormatter);
+        LocalDate parse = LocalDate.parse(preparedDate, dateTimeFormatter);
 
         return checkDayOfWeek(parse);
     }
@@ -28,6 +25,13 @@ public class DataValidator {
         else {
             return date;
         }
+    }
+
+    public String preparingDateRemovingPunctuationMarks(String dateStringFormat) {
+        String replacePoint = dateStringFormat.replace(".", "");
+        String replaceDash = replacePoint.replace("-", "");
+        String replaceComma = replaceDash.replace(",", "");
+        return replaceComma;
     }
 
     public boolean isNotInteger (String typedString) {

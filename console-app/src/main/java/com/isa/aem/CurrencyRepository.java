@@ -68,6 +68,7 @@ public class CurrencyRepository {
         return currencies.stream()
                 .map(currency -> currency.getName())
                 .distinct()
+                .sorted((o1, o2) -> o1.compareTo(o2))
                 .collect(Collectors.toList());
     }
 
