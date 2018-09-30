@@ -46,16 +46,17 @@ public class DataTransducerIntroducedByConsole {
     protected LocalDate dataService() {
         String strDate;
         LocalDate date = null;
+        String preparedDate;
         do{
             strDate = consoleReader.getString(myPrinter.enterDate()).trim();
-            String preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
+            preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
             if (preparedDate.matches(ONLY_EIGHT_DIGITS_IN_DATE_FORMAT)) {
                 date = dataService.dataParse(preparedDate);
             }
             else {
                 System.out.println(myPrinter.wrongDate());
             }
-        } while (!(strDate.matches(ONLY_EIGHT_DIGITS_IN_DATE_FORMAT)));
+        } while (!(preparedDate.matches(ONLY_EIGHT_DIGITS_IN_DATE_FORMAT)));
         return date;
     }
 
