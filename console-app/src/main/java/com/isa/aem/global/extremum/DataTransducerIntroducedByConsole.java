@@ -1,4 +1,4 @@
-package com.isa.aem.globalextremum;
+package com.isa.aem.global.extremum;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.tools.*;
@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DataTransducerIntroducedByConsole {
 
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private List<String> menuCommand = Arrays.asList("0", "1");
@@ -18,19 +18,19 @@ public class DataTransducerIntroducedByConsole {
     }
 
     protected void printExtremeMenu(String nameOfCurrency) {
-        System.out.println(myPrinter.backToMenu() + myPrinter.bakcCurSel());
-        System.out.println(myPrinter.extreme());
-        System.out.println(myPrinter.nextLine() + myPrinter.min());
+        System.out.println(consolePrinter.backToMenu() + consolePrinter.bakcCurSel());
+        System.out.println(consolePrinter.extreme());
+        System.out.println(consolePrinter.nextLine() + consolePrinter.min());
         Double minRateOFExtremum = currencyRepository.getMinRateOfExtremum(nameOfCurrency);
         System.out.println(
-                myPrinter.emptySpace() +
+                consolePrinter.emptySpace() +
                 nameOfCurrency + ": " +
                 minRateOFExtremum + " " +
                 currencyRepository.findDuplicate(minRateOFExtremum));
-        System.out.println(myPrinter.nextLine() + myPrinter.max());
+        System.out.println(consolePrinter.nextLine() + consolePrinter.max());
         Double maxRateOFExtremum = currencyRepository.getMaxRateOfExtremum(nameOfCurrency);
         System.out.println(
-                myPrinter.emptySpace() +
+                consolePrinter.emptySpace() +
                 nameOfCurrency + ": " +
                 maxRateOFExtremum + " " +
                 currencyRepository.findDuplicate(maxRateOFExtremum));

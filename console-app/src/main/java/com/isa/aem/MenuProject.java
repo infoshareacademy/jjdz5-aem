@@ -1,7 +1,9 @@
 package com.isa.aem;
 
 import com.isa.aem.calc.ComplexConsoleCalculator;
-import com.isa.aem.globalextremum.GlobalExtremum;
+import com.isa.aem.global.extremum.GlobalExtremum;
+import com.isa.aem.local.extremum.LocalExtremum;
+import com.isa.aem.local.extremum.LocalExtremumService;
 import com.isa.aem.tools.ConsolePrinter;
 import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.CurrencyPLN;
@@ -10,9 +12,11 @@ import java.util.Scanner;
 
 public class MenuProject {
 
-    private ConsoleReader consoleReader = new ConsoleReader();
-    private ConsolePrinter consolePrinter = new ConsolePrinter();
-    private LocalExtremum localExtremum = new LocalExtremum();
+    ConsoleReader consoleReader = new ConsoleReader();
+    ConsolePrinter consolePrinter = new ConsolePrinter();
+    LocalExtremum localExtremum = new LocalExtremum();
+    LocalExtremumService localExtremumService = new LocalExtremumService();
+
 
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
@@ -54,11 +58,11 @@ public class MenuProject {
                         globalExtremeMenu.run();
                         break;
                     case 4:
-                        consolePrinter.printLn("\nEkstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu\n");
-                        consolePrinter.printLocalExtremeWelcome();
-                        consoleReader.runCurrency();
-                        consoleReader.runDates();
+                        consolePrinter.printLocalExtremumWelcome();
+                        localExtremumService.runCurrencySelection();
+                        localExtremumService.runDatesSelection();
                         localExtremum.runExtremum();
+                        localExtremumService.chooseWhatNext();
                         break;
                     case 5:
                         menuInformation.programInformation();

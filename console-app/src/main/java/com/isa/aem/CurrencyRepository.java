@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();
-    private static List<String> availableCurrencyNames;
-    private static List<Currency> repoWithChosenCurrencyOnly;
     private static List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
 
 
@@ -102,12 +100,6 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-
-
-    public static List<Currency> getRepoWithChosenCurrencyOnly() {
-        return repoWithChosenCurrencyOnly;
-    }
-
     public static List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
         return repositoryWithChosenCurrencyWithinChosenDateRange;
     }
@@ -129,12 +121,17 @@ public class CurrencyRepository {
     }
 
     public static List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
-        repositoryWithChosenCurrencyWithinChosenDateRange = currencies.stream()
+        return repositoryWithChosenCurrencyWithinChosenDateRange = currencies.stream()
                 .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
                 .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))
                 .filter(currency -> currency.getDate().isBefore(dateTo) || currency.getDate().equals(dateTo))
                 .collect(Collectors.toList());
-        System.out.println(repositoryWithChosenCurrencyWithinChosenDateRange);
-        return repositoryWithChosenCurrencyWithinChosenDateRange;
+    }
+
+    public List<Currency> findDuplicatedExtremums(Double value) {
+        return currencies.stream()
+                .filter(currency -> currency.getClose().equals(value))
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

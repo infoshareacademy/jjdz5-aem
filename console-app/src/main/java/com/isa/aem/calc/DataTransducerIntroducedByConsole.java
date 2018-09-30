@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class DataTransducerIntroducedByConsole {
 
     private ConsoleReader consoleReader = new ConsoleReader();
-    private MyPrinter myPrinter = new MyPrinter();
-    private DateService dataService = new DateService();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
+    private DataValidator dataService = new DataValidator();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     protected String getCurrencySelectedByUserOfConsole(String commandForUser) {
@@ -19,7 +19,7 @@ public class DataTransducerIntroducedByConsole {
                 return commandByUser;
 
             } else {
-                System.out.println(myPrinter.currencyUnexist());
+                System.out.println(consolePrinter.currencyUnexist());
             }
         } while (!currencyRepository.containsCurrencyNameInCurrencyList(commandByUser));
         return null;
@@ -30,24 +30,24 @@ public class DataTransducerIntroducedByConsole {
         String replace;
         Double amountGivenByUser = null;
         do {
-            strValue = consoleReader.getString(myPrinter.enterAmount().trim());
+            strValue = consoleReader.getString(consolePrinter.enterAmount().trim());
             replace = strValue.replace(',', '.');
             if (checkIfItIsANumber(replace)){
                 amountGivenByUser = Double.parseDouble(replace);
             } else {
-                System.out.println(myPrinter.numberUnexist());
+                System.out.println(consolePrinter.numberUnexist());
             }
         } while (!checkIfItIsANumber(replace));
         return amountGivenByUser;
     }
 
     protected LocalDate dataService() {
-        String strDate = consoleReader.getString(myPrinter.enterDate().trim());
+        String strDate = consoleReader.getString(consolePrinter.enterDate().trim());
         LocalDate date = null;
         try {
             date = dataService.dataParse(strDate);
         } catch (Exception ex) {
-            System.out.println(myPrinter.wrongDate());
+            System.out.println(consolePrinter.wrongDate());
             dataService();
         }
         return date;

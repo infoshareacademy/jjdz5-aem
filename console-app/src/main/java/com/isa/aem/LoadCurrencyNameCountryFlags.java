@@ -10,7 +10,7 @@ import java.util.*;
 public class LoadCurrencyNameCountryFlags {
 
     private String filePath;
-    private Map<String,CurrencyNameCountryFlags > currenciesWithFlags = new HashMap<>();
+    private Map<String, CurrencyNameCountryFlags> currenciesWithFlags = new HashMap<>();
     public Map<String,CurrencyNameCountryFlags> currencyInformation = new HashMap<>();
     public LoadCurrencyNameCountryFlags() {
         readFile();

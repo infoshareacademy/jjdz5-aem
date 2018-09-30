@@ -3,7 +3,7 @@ package com.isa.aem.calc;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
 import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.MyPrinter;
+import com.isa.aem.tools.ConsolePrinter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,11 +12,11 @@ import java.util.List;
 
 public class ComplexConsoleCalculator {
 
-    private MyPrinter printer = new MyPrinter();
+    private ConsolePrinter printer = new ConsolePrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
     private AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
@@ -49,9 +49,9 @@ public class ComplexConsoleCalculator {
     private void foldingTheSimpleCalculator() {
         System.out.println(currencyRepository.listAvailableCurrency());
         getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
-                .getCurrencySelectedByUserOfConsole(myPrinter.enterFirstCurrency());
+                .getCurrencySelectedByUserOfConsole(consolePrinter.enterFirstCurrency());
         getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
-                .getCurrencySelectedByUserOfConsole(myPrinter.enterSecondCurrency());
+                .getCurrencySelectedByUserOfConsole(consolePrinter.enterSecondCurrency());
         getAmountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
         Double rateOfFirstCurrencyNameSelectedByUser = currencyRepository
                 .getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser);
@@ -70,10 +70,10 @@ public class ComplexConsoleCalculator {
         System.out.println(currencyRepository.listAvailableCurrency());
         getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
                 .getCurrencySelectedByUserOfConsole(
-                        myPrinter.enterFirstCurrency());
+                        consolePrinter.enterFirstCurrency());
         getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
                 .getCurrencySelectedByUserOfConsole(
-                        myPrinter.enterSecondCurrency());
+                        consolePrinter.enterSecondCurrency());
         getAmountGivenByUser = dataTransducerIntroducedByConsole
                 .amountGivenByUserService();
         checkIfDateExist();
@@ -120,7 +120,7 @@ public class ComplexConsoleCalculator {
 
     private void printExchangingRateWithDate() {
         System.out.println(
-                myPrinter.emptySpace() +
+                consolePrinter.emptySpace() +
                         getAmountGivenByUser + " " +
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         exchangingRate + " " +
@@ -130,7 +130,7 @@ public class ComplexConsoleCalculator {
 
     private void printRateWithDate() {
         System.out.println(
-                myPrinter.emptySpace() + "Rate " +
+                consolePrinter.emptySpace() + "Rate " +
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
                         date);
@@ -168,7 +168,7 @@ public class ComplexConsoleCalculator {
                     getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, this.date)) {
                 break;
             } else {
-                System.out.println(myPrinter.unexistDate());
+                System.out.println(consolePrinter.unexistDate());
                 checkIfDateExist();
             }
         } while (!(dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(

@@ -1,4 +1,4 @@
-package com.isa.aem.globalextremum;
+package com.isa.aem.global.extremum;
 
 import com.isa.aem.*;
 import com.isa.aem.tools.*;
@@ -8,7 +8,7 @@ public class GlobalExtremum {
     private ConsoleReader consoleReader = new ConsoleReader();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private MenuInformation menuInformation = new MenuInformation();
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
 
     private static final String BACK_TO_MENU_STR = "0";
@@ -17,21 +17,21 @@ public class GlobalExtremum {
 
     public void run() {
         System.out.println(
-                myPrinter.globalExtremeTittle() +
-                myPrinter.backToMenu() +
-                myPrinter.nextLine());
-        searchExstremeum();
+                consolePrinter.globalExtremeTittle() +
+                consolePrinter.backToMenu() +
+                consolePrinter.nextLine());
+        searchExtremum();
     }
 
-    private void searchExstremeum() {
-        System.out.println(myPrinter.listAvailableCurrency());
+    private void searchExtremum() {
+        System.out.println(consolePrinter.listAvailableCurrency());
         System.out.println(currencyRepository.listAvailableCurrency());
-        selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
+        selectedCurrencyOrOptionsOfMenuGlobalExtremum();
     }
 
-    private void selectedCurrencyOrOptionsOfMenuGlobalExtremuem() {
+    private void selectedCurrencyOrOptionsOfMenuGlobalExtremum() {
         do {
-            optionGivenByUser = consoleReader.getString(myPrinter.nextLine() + myPrinter.enterCurCom()).trim().toUpperCase();
+            optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurCom()).trim().toUpperCase();
             chcekerIfCommandOfUserIsTrue(optionGivenByUser);
         } while (dataTransducerIntroducedByConsole.containCurrencyAndNumber(optionGivenByUser));
     }
@@ -39,27 +39,27 @@ public class GlobalExtremum {
     private void chcekerIfCommandOfUserIsTrue(String commandOfUser) {
         if (currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)) {
             dataTransducerIntroducedByConsole.printExtremeMenu(commandOfUser);
-            selectedCurrencyOrOptionsOfMenuGlobalExtremuem();
+            selectedCurrencyOrOptionsOfMenuGlobalExtremum();
         }
         else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)){
-            System.out.println(myPrinter.dubleNextLine());
-           searchExstremeum();
+            System.out.println(consolePrinter.dubleNextLine());
+           searchExtremum();
         }
         else if (BACK_TO_MENU_STR.equals(commandOfUser)) {
             System.out.print(
-                    myPrinter.dubleNextLine() +
-                    myPrinter.pointLine() +
-                    myPrinter.starsLine() +
-                    myPrinter.dubleNextLine());
+                    consolePrinter.dubleNextLine() +
+                    consolePrinter.pointLine() +
+                    consolePrinter.starsLine() +
+                    consolePrinter.dubleNextLine());
             menuInformation.readMenu();
         }
         else {
             System.out.println(
-                    myPrinter.dubleNextLine() +
-                            myPrinter.error() +
-                            myPrinter.backToMenu() +
-                            myPrinter.nextLine() +
-                            myPrinter.curComUnexist());
+                    consolePrinter.dubleNextLine() +
+                            consolePrinter.error() +
+                            consolePrinter.backToMenu() +
+                            consolePrinter.nextLine() +
+                            consolePrinter.curComUnexist());
         }
     }
 }
