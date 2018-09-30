@@ -47,10 +47,10 @@ public class DataTransducerIntroducedByConsole {
         String strDate;
         LocalDate date = null;
         do{
-            strDate = consoleReader.getString(myPrinter.enterDate().trim());
+            strDate = consoleReader.getString(myPrinter.enterDate()).trim();
             String preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
             if (preparedDate.matches(ONLY_EIGHT_DIGITS)) {
-                date = dataService.dataParse(strDate);
+                date = dataService.dataParse(preparedDate);
             }
             else {
                 System.out.println(myPrinter.wrongDate());
