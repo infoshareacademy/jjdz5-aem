@@ -35,8 +35,6 @@ public class MenuProject {
     private void pick() {
         System.out.println("Wybierz interesującą Cię metodę");
 
-        // int choose=0;
-
         do {
             Scanner scanner = new Scanner(System.in);
 
@@ -57,10 +55,7 @@ public class MenuProject {
                         break;
                     case 4:
                         consolePrinter.printLocalExtremumWelcome();
-                        localExtremumService.runCurrencySelection();
-                        localExtremumService.runDatesSelection();
-                        localExtremum.runExtremum();
-                        localExtremumService.chooseWhatNext();
+                        localExtremumService.run();
                         break;
                     case 5:
                         menuInformation.programInformation();

@@ -1,9 +1,13 @@
 package com.isa.aem.tools;
 
+import com.isa.aem.local.extremum.LocalExtremum;
+
 import javax.enterprise.inject.Default;
 
 @Default
 public class ConsolePrinter {
+
+    LocalExtremum localExtremum = new LocalExtremum();
 
     public void printLn(String message) {
         System.out.println(message);
@@ -55,7 +59,7 @@ public class ConsolePrinter {
         return "\n";
     }
 
-    public String dubleNextLine() {
+    public String doubleNextLine() {
         return "\n";
     }
 

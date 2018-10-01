@@ -42,20 +42,20 @@ public class GlobalExtremum {
             selectedCurrencyOrOptionsOfMenuGlobalExtremum();
         }
         else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)){
-            System.out.println(consolePrinter.dubleNextLine());
+            System.out.println(consolePrinter.doubleNextLine());
            searchExtremum();
         }
         else if (BACK_TO_MENU_STR.equals(commandOfUser)) {
             System.out.print(
-                    consolePrinter.dubleNextLine() +
+                    consolePrinter.doubleNextLine() +
                     consolePrinter.pointLine() +
                     consolePrinter.starsLine() +
-                    consolePrinter.dubleNextLine());
+                    consolePrinter.doubleNextLine());
             menuInformation.readMenu();
         }
         else {
             System.out.println(
-                    consolePrinter.dubleNextLine() +
+                    consolePrinter.doubleNextLine() +
                             consolePrinter.error() +
                             consolePrinter.backToMenu() +
                             consolePrinter.nextLine() +

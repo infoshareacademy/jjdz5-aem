@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
 
 public class DataValidator {
 
@@ -17,12 +16,12 @@ public class DataValidator {
 
     private LocalDate checkDayOfWeek(LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        if (DayOfWeek.SATURDAY == dayOfWeek ){
+        if (DayOfWeek.SATURDAY == dayOfWeek) {
             return date.minusDays(1);
-        }if (DayOfWeek.SUNDAY == dayOfWeek ){
-            return date.minusDays(2);
         }
-        else {
+        if (DayOfWeek.SUNDAY == dayOfWeek) {
+            return date.minusDays(2);
+        } else {
             return date;
         }
     }
@@ -34,21 +33,23 @@ public class DataValidator {
         return replaceComma;
     }
 
-    public boolean isNotInteger (String typedString) {
+    public boolean isNumeric(String strNum) {
         try {
-            Integer.parseInt(typedString);
+            Integer.parseInt(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
             return false;
-        } catch (InputMismatchException e) {
-            return true;
         }
+        return true;
     }
 
     public boolean isIncorrectDateFormat(String givenDate) {
         try {
             LocalDate.parse(givenDate);
             return false;
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             return true;
         }
     }
+
+
 }

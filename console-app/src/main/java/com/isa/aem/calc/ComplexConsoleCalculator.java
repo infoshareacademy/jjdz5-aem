@@ -139,10 +139,10 @@ public class ComplexConsoleCalculator {
     private void chcekerIfCommandOfUserIsTrue(String strCommand) {
         if (BACK_TO_MENU.equals(strCommand)) {
             System.out.print(
-                    printer.dubleNextLine() +
+                    printer.doubleNextLine() +
                             printer.pointLine() +
                             printer.starsLine() +
-                            printer.dubleNextLine());
+                            printer.doubleNextLine());
             menuInformation.readMenu();
         } else if (SIMPLE_CALCULATOR.equals(strCommand)) {
             foldingTheSimpleCalculator();

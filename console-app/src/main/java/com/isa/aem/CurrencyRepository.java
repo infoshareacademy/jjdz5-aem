@@ -33,14 +33,14 @@ public class CurrencyRepository {
     }
 
     public Boolean checkIfExistCurrencyWithGivenDate(String name, LocalDate date) {
-        return  currencies.stream()
+        return currencies.stream()
                 .filter(currency -> currency.getName().equals(name))
                 .map(currency -> currency.getDate())
                 .anyMatch(currency -> currency.equals(date));
     }
 
     public LocalDate getMostCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
-       return currencies.stream()
+        return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .map(currency -> currency.getDate())
                 .max((o1, o2) -> o1.compareTo(o2))
@@ -110,7 +110,7 @@ public class CurrencyRepository {
     }
 
     public static LocalDate getLastDateFromRepository() {
-        return currencies.get(CurrencyRepository.getCurrencies().size()-1).getDate();
+        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate();
     }
 
     public static List<String> getAvailableCurrencyNames() {
@@ -130,7 +130,7 @@ public class CurrencyRepository {
     }
 
     public List<Currency> findDuplicatedExtremums(Double value) {
-        return currencies.stream()
+        return repositoryWithChosenCurrencyWithinChosenDateRange.stream()
                 .filter(currency -> currency.getClose().equals(value))
                 .distinct()
                 .collect(Collectors.toList());
