@@ -176,24 +176,17 @@
                 </div>
                 <button type="submit" class="btn btn-primary" value="result">Convert</button>
 
-                 <#if resultCalculator?length!=0>
-                <div class="form-group">
+                 <#if resultCalculator.getCurrencyHave()??>
+                <div>
                     <label for="result" class="result"><strong>Result</strong></label>
-
-                     <h5 id="result_main">${resultCalculator}</h5>
-
+                     <div >${resultCalculator.getScore()} ${resultCalculator.getCurrencyWant()}</div>
+                     <div >Date of currency ${resultCalculator.getDateExchange()}</div>
+                     <div>1  ${resultCalculator.getCurrencyHave()} =  ${resultCalculator.getCourseValue()}  ${resultCalculator.getCurrencyWant()} </div>
                 </div>
                </#if>
             </form>
-
-
         </div>
-
-
-
         <div class="col-7" id="main_currency">
-
-
             <form>
                 <div class="form-group">
 
@@ -308,7 +301,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 <script src="scripts.js"></script>
 
 </body>

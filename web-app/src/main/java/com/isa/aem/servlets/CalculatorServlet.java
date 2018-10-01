@@ -2,12 +2,12 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.*;
 import com.isa.aem.Currency;
-import com.isa.aem.calc.AlgorithmCurrencyConversion;
+import com.isa.aem.calculatorMethod.ResultCalculator;
+import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.tools.DateService;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
 @WebServlet(urlPatterns = "/currency-manager")
 public class CalculatorServlet extends HttpServlet {
 
-    private String score=new String();
+    private Score score=new Score();
     private static Integer LENGTH_OF_DATE=10;
 
     @Inject
@@ -71,8 +69,7 @@ public class CalculatorServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateService dataService = new DateService();
-        CurrencyRepository currencyRepository = new CurrencyRepository();
-        AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
+        ResultCalculator resultCalculator=new ResultCalculator();
 
         String reqAmount = req.getParameter("amount");
         String reqHave = req.getParameter("have");
@@ -84,12 +81,15 @@ public class CalculatorServlet extends HttpServlet {
         String haveCurrency = calculatorCurrencyHaveTable[0];
 
         if(reqDate.length()==LENGTH_OF_DATE){
-            LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
-            Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date);
-            Double currencyWant = currencyRepository.getRateOfGivenDate(calculatorCurrencyWantTable[0], date);
-            BigDecimal score1= algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-            score=score1 + " " + calculatorCurrencyWantTable[0] + " " + date;
+                LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
+                score=resultCalculator.resultCalculator(haveCurrency,date, calculatorCurrencyWantTable[0], calculatorAmount);
         }else{
+            LocalDate date=  currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(calculatorCurrencyWantTable[0]);
+            LocalDate dateHave=  currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
+
+            if (date.equals(dateHave)){
+                score=resultCalculator.resultCalculator(haveCurrency,date, calculatorCurrencyWantTable[0], calculatorAmount);
+            }
 
         }
 

@@ -20,7 +20,7 @@ public class AlgorithmCurrencyConversion {
         return multiplication;
     }
 
-    protected BigDecimal calculateCourseAlgorithm(Double firstCourseOfCurrencyGivenByUser,
+    public BigDecimal calculateCourseAlgorithm(Double firstCourseOfCurrencyGivenByUser,
                                                   Double secondCourseOfCurrencyGivenByUser) {
         BigDecimal first = new BigDecimal(firstCourseOfCurrencyGivenByUser);
         BigDecimal second = new BigDecimal(secondCourseOfCurrencyGivenByUser);
