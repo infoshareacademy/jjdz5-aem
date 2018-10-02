@@ -64,7 +64,7 @@ public class CurrencyRepository {
     }
 
 
-    public List<String> listAvailableCurrency() {
+   public List<String> listAvailableCurrency() {
         return currencies.stream()
                 .map(currency -> currency.getName())
                 .distinct()
@@ -76,6 +76,9 @@ public class CurrencyRepository {
         return   SetOfCurrencyObject.stream()
                 .sorted(Comparator.comparing(Currency::getName))
                 .distinct()
+                .collect(Collectors.toList());
+    }
+
                 .collect(Collectors.toList());
     }
 

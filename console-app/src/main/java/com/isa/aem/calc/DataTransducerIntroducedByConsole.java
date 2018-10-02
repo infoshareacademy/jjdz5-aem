@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class DataTransducerIntroducedByConsole {
 
     private ConsoleReader consoleReader = new ConsoleReader();
-    private ConsolePrinter myPrinter = new ConsolePrinter();
-    private DataValidator dataValidator = new DataValidator();
+    private MyPrinter myPrinter = new MyPrinter();
+    private DateService dataService = new DateService();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private static final String CORRECT_DATE_FORM = "^\\d{4}(0?[1-9]|1[012])(0?[1-9]|[12][0-9]|3[01])$";
@@ -50,9 +50,9 @@ public class DataTransducerIntroducedByConsole {
         LocalDate date = null;
         do{
             strDate = consoleReader.getString(myPrinter.enterDate()).trim();
-            preparedDate = dataValidator.preparingDateRemovingPunctuationMarks(strDate);
+            preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
             if (checkIfItIsCorrectDataFormatAndOnlyEightDigits()) {
-                date = dataValidator.dataParse(preparedDate);
+                date = dataService.dataParse(preparedDate);
             }
             else {
                 System.out.println(myPrinter.wrongDate());

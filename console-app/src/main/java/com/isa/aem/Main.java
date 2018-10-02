@@ -8,7 +8,5 @@ public class Main {
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
-
     }
 }
-
