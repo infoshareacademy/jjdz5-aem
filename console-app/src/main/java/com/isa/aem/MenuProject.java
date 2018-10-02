@@ -2,11 +2,16 @@ package com.isa.aem;
 
 import com.isa.aem.calc.ComplexConsoleCalculator;
 import com.isa.aem.globalextremum.GlobalExtremum;
-import com.isa.aem.tools.CurrencyPLN;
 
 import java.util.Scanner;
 
 public class MenuProject {
+
+    public MenuProject() {
+        FileContentReader fileContentReader = new FileContentReader();
+        fileContentReader.readFile();
+        fileContentReader.addPLNToListCurrency();
+    }
 
     MenuInformation menuInformation = new MenuInformation();
     private GlobalExtremum globalExtremeMenu = new GlobalExtremum();
@@ -63,4 +68,3 @@ public class MenuProject {
     }
 
 }
-
