@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class DataTransducerIntroducedByConsole {
 
     private ConsoleReader consoleReader = new ConsoleReader();
-    private MyPrinter myPrinter = new MyPrinter();
-    private DateService dataService = new DateService();
+    private ConsolePrinter myPrinter = new ConsolePrinter();
+    private DataValidator dataService = new DataValidator();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     protected String getCurrencySelectedByUserOfConsole(String commandForUser) {

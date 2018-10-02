@@ -3,7 +3,7 @@ package com.isa.aem.calc;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
 import com.isa.aem.tools.ConsoleReader;
-import com.isa.aem.tools.MyPrinter;
+import com.isa.aem.tools.ConsolePrinter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,11 +12,11 @@ import java.util.List;
 
 public class ComplexConsoleCalculator {
 
-    private MyPrinter printer = new MyPrinter();
+    private ConsolePrinter printer = new ConsolePrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter myPrinter = new ConsolePrinter();
     private AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 

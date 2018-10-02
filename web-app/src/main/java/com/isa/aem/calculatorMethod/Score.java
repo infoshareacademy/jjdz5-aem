@@ -2,9 +2,7 @@ package com.isa.aem.calculatorMethod;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.calc.AlgorithmCurrencyConversion;
-import com.isa.aem.tools.DateService;
-
-import javax.sql.DataSource;
+import com.isa.aem.tools.DataValidator;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -19,7 +17,7 @@ public class Score {
     Double amount;
     CurrencyRepository currencyRepository = new CurrencyRepository();
     AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
-    DateService dataService = new DateService();
+    DataValidator dataService = new DataValidator();
 
     @Override
     public String toString() {

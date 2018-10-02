@@ -3,7 +3,7 @@ package com.isa.aem.tools;
 import javax.enterprise.inject.Default;
 
 @Default
-public class MyPrinter {
+public class ConsolePrinter {
 
     public String globalExtremeTittle() {
         return
