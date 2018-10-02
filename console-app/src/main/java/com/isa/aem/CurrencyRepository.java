@@ -79,8 +79,6 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-                .collect(Collectors.toList());
-    }
 
     public Double getMinRateOfExtremum(String nameOfCurrency) {
         return currencies.stream()
