@@ -45,6 +45,7 @@ public class CurrencyRepository {
                 .get();
     }
 
+
     public Double getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))

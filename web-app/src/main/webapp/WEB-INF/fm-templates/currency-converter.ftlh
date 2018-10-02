@@ -179,9 +179,9 @@
                  <#if resultCalculator.getCurrencyHave()??>
                 <div>
                     <label for="result" class="result"><strong>Result</strong></label>
-                     <div >${resultCalculator.getScore()} ${resultCalculator.getCurrencyWant()}</div>
-                     <div >Date of currency ${resultCalculator.getDateExchange()}</div>
-                     <div>1  ${resultCalculator.getCurrencyHave()} =  ${resultCalculator.getCourseValue()}  ${resultCalculator.getCurrencyWant()} </div>
+                     <div >${resultCalculator.getAmount()} ${resultCalculator.getCurrencyHave()} = ${resultCalculator.getScore()} ${resultCalculator.getCurrencyWant()}</div>
+                     <div >By date: ${resultCalculator.getDateExchange()}</div>
+                     <div>Rate: 1  ${resultCalculator.getCurrencyWant()} =  ${resultCalculator.getCourseValue()}  ${resultCalculator.getCurrencyHave()} </div>
                 </div>
                </#if>
             </form>

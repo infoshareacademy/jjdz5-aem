@@ -2,7 +2,6 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.*;
 import com.isa.aem.Currency;
-import com.isa.aem.calculatorMethod.ResultCalculator;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.tools.DateService;
 import com.isa.aem.freemarker.TemplateProvider;
@@ -21,8 +20,7 @@ import java.util.*;
 @WebServlet(urlPatterns = "/currency-manager")
 public class CalculatorServlet extends HttpServlet {
 
-    private Score score=new Score();
-    private static Integer LENGTH_OF_DATE=10;
+    private Score score = new Score();
 
     @Inject
     private TemplateProvider templateProvider;
@@ -32,8 +30,8 @@ public class CalculatorServlet extends HttpServlet {
 
 
     @Override
-    public void init()throws ServletException {
-        fileContentReader=new FileContentReader();
+    public void init() throws ServletException {
+        fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
@@ -43,14 +41,14 @@ public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        currencyRepository=new CurrencyRepository();
+        currencyRepository = new CurrencyRepository();
         Set<Currency> currencyNameAndCountry = new HashSet<>();
         for (Currency cc : CurrencyRepository.getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            currencyNameAndCountry.add(new Currency(cc.getName(),cc.getCurrencyNameCountryFlags()));
+            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
         }
 
-        List<Currency> singleCurrency= currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
+        List<Currency> singleCurrency = currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-converter");
@@ -68,8 +66,6 @@ public class CalculatorServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DateService dataService = new DateService();
-        ResultCalculator resultCalculator=new ResultCalculator();
 
         String reqAmount = req.getParameter("amount");
         String reqHave = req.getParameter("have");
@@ -80,17 +76,14 @@ public class CalculatorServlet extends HttpServlet {
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
 
-        if(reqDate.length()==LENGTH_OF_DATE){
-                LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
-                score=resultCalculator.resultCalculator(haveCurrency,date, calculatorCurrencyWantTable[0], calculatorAmount);
-        }else{
-            LocalDate date=  currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(calculatorCurrencyWantTable[0]);
-            LocalDate dateHave=  currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
+        LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
 
-            if (date.equals(dateHave)){
-                score=resultCalculator.resultCalculator(haveCurrency,date, calculatorCurrencyWantTable[0], calculatorAmount);
-            }
+        if(score.checkDateIfExistCurrencyWithGivenDate(haveCurrency, calculatorCurrencyWantTable[0], date)==true){
 
+                score = score.resultCalculator(haveCurrency, date, calculatorCurrencyWantTable[0], calculatorAmount);
+
+            }else {
+                score = score.resultCalculator(haveCurrency, date, calculatorCurrencyWantTable[0], calculatorAmount);
         }
 
         doGet(req, resp);
