@@ -3,20 +3,21 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.calc.AlgorithmCurrencyConversion;
 import com.isa.aem.tools.DataValidator;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Score {
     private static Integer LENGTH_OF_DATE = 10;
 
-    BigDecimal score;
-    String currencyHave;
-    String currencyWant;
-    LocalDate dateExchange;
-    BigDecimal courseValue;
-    Double amount;
-    LocalDate minDate;
-    LocalDate maxDate;
+    public BigDecimal score;
+    public String currencyHave;
+    public String currencyWant;
+    public LocalDate dateExchange;
+    public BigDecimal courseValue;
+    public Double amount;
+    public LocalDate minDate;
+    public LocalDate maxDate;
 
     public LocalDate getMinDate() {
         return minDate;
@@ -112,7 +113,7 @@ public class Score {
 
     public LocalDate scoreDate(String reqDate, String haveCurrency, String wantCurrency) {
 
-        Boolean dateIsCorrect=reqDate.length() == LENGTH_OF_DATE && checkDateIfExistCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
+        Boolean dateIsCorrect = reqDate.length() == LENGTH_OF_DATE && checkDateIfExistCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
 
         if (dateIsCorrect) {
             LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
@@ -125,7 +126,7 @@ public class Score {
         Boolean dateHaveSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(haveCurrency, date);
         Boolean dateWantSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(wantCurrency, date);
 
-        if (dateHaveSelectedByUserExist == true && dateWantSelectedByUserExist==true) {
+        if (dateHaveSelectedByUserExist && dateWantSelectedByUserExist) {
             return true;
         }
         return false;
@@ -138,6 +139,5 @@ public class Score {
         BigDecimal score1 = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
         BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyHave, currencyWant);
         return new Score(score1, haveCurrency, wantCurrency, date, curseValue, calculatorAmount);
-
     }
 }

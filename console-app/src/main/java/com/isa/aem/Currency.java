@@ -49,7 +49,9 @@ public class Currency {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         if (!(o instanceof Currency)) return false;
         Currency currency = (Currency) o;
         return Objects.equals(currencyNameCountryFlags, currency.currencyNameCountryFlags);

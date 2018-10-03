@@ -7,5 +7,4 @@ public class Main {
         MenuProject menu = new MenuProject();
         menu.menuPanel();
     }
-
 }
