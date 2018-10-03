@@ -139,9 +139,10 @@
             <form>
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
-                    <select class="form-control" id="currencyIWant">
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="USD">USD - USD Dolar</option>
+                    <select class="form-control" id="currencyIWant" name="currency">
+                             <#list singleCurrency as s>
+                                 <option >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                             </#list>
                     </select>
                 </div>
             </form>
