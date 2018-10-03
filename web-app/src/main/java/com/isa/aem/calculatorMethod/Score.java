@@ -15,6 +15,25 @@ public class Score {
     LocalDate dateExchange;
     BigDecimal courseValue;
     Double amount;
+    LocalDate minDate;
+    LocalDate maxDate;
+
+    public LocalDate getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(LocalDate minDate) {
+        this.minDate = minDate;
+    }
+
+    public LocalDate getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(LocalDate maxDate) {
+        this.maxDate = maxDate;
+    }
+
     CurrencyRepository currencyRepository = new CurrencyRepository();
     AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
     DataValidator dataService = new DataValidator();

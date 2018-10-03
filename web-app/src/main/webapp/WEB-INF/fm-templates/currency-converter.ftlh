@@ -141,6 +141,7 @@
                     <input id="amount"
                            required
                            type="number"
+                           min="0"
                            name="amount"
                            value=${score.getAmount()}
                            class="form-control" />
@@ -180,6 +181,7 @@
                     <input id="date"
                            type="date"
                            name="date"
+                           min=${score.getMinDate()} max=${score.getMaxDate()}
                            value=${score.getDateExchange()}
                            class="form-control" />
                 </div>
@@ -311,6 +313,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="scripts.js"></script>
-
 </body>
 </html>

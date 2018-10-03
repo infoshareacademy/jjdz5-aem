@@ -45,6 +45,14 @@ public class CurrencyRepository {
                 .get();
     }
 
+    public LocalDate getMinCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
+        return currencies.stream()
+                .filter(currency -> currency.getName().equals(nameOfCurrency))
+                .map(currency -> currency.getDate())
+                .min((o1, o2) -> o1.compareTo(o2))
+                .get();
+    }
+
 
     public Double getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
         return currencies.stream()
