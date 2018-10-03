@@ -142,6 +142,7 @@
                            required
                            type="number"
                            name="amount"
+                           value=${score.getAmount()}
                            class="form-control" />
                 </div>
                 <div class="form-group">
@@ -150,7 +151,12 @@
                         <label for="currencyIHave"> Currency I Have</label>
                         <select class="form-control" id="currencyIHave" name="have">
                              <#list singleCurrency as s>
-                                 <option >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                                 <option
+                                 <#if s.getName()== score.getCurrencyHave()>
+                                   selected </#if>
+                                    >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}
+
+                                 </option>
                                      </#list>
                                  </select>
                     </div>
@@ -161,7 +167,10 @@
                         <label for="currencyIWant"> Currency I Want</label>
                              <select class="form-control" id="currencyIWant" name="want">
                               <#list singleCurrency as s>
-                                <option >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                                <option
+                                <#if s.getName()== score.getCurrencyWant()>
+                                 selected </#if>
+                                  >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
                                   </#list>
                              </select>
                     </div>
@@ -169,19 +178,19 @@
                 <div class="form-group">
                     <label for="date">Date</label>
                     <input id="date"
-
                            type="date"
                            name="date"
+                           value=${score.getDateExchange()}
                            class="form-control" />
                 </div>
                 <button type="submit" class="btn btn-primary" value="result">Convert</button>
 
-                 <#if resultCalculator.getCurrencyHave()??>
+                 <#if score.getScore()??>
                 <div>
                     <label for="result" class="result"><strong>Result</strong></label>
-                     <div >${resultCalculator.getAmount()} ${resultCalculator.getCurrencyHave()} = ${resultCalculator.getScore()} ${resultCalculator.getCurrencyWant()}</div>
-                     <div >By date: ${resultCalculator.getDateExchange()}</div>
-                     <div>Rate: 1  ${resultCalculator.getCurrencyWant()} =  ${resultCalculator.getCourseValue()}  ${resultCalculator.getCurrencyHave()} </div>
+                     <div >${score.getAmount()} ${score.getCurrencyHave()} = ${score.getScore()} ${score.getCurrencyWant()}</div>
+                     <div >By date: ${score.getDateExchange()}</div>
+                     <div>Rate: 1  ${score.getCurrencyWant()} =  ${score.getCourseValue()}  ${score.getCurrencyHave()} </div>
                 </div>
                </#if>
             </form>

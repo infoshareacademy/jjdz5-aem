@@ -49,12 +49,29 @@ public class CalculatorServlet extends HttpServlet {
 
         List<Currency> singleCurrency = currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
 
+        if(score.getAmount()==null){
+            score.setAmount(100.00);
+        }
+
+        if(score.getCurrencyHave()==null){
+            score.setCurrencyHave("PLN");
+        }
+
+        if (score.getCurrencyWant()==null){
+            score.setCurrencyWant("EUR");
+        }
+
+        if (score.getDateExchange()==null){
+            LocalDate dateHave= currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
+            score.setDateExchange(dateHave);
+        }
+
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-converter");
 
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
-        model.put("resultCalculator", score);
+        model.put("score", score);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
