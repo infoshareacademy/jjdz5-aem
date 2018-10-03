@@ -112,7 +112,6 @@ public class Score {
     }
 
     public LocalDate scoreDate(String reqDate, String haveCurrency, String wantCurrency) {
-
         Boolean dateIsCorrect = reqDate.length() == LENGTH_OF_DATE && checkDateIfExistCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
 
         if (dateIsCorrect) {
@@ -133,7 +132,6 @@ public class Score {
     }
 
     public Score resultCalculator(String haveCurrency, LocalDate date, String wantCurrency, Double calculatorAmount) {
-
         Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date);
         Double currencyWant = currencyRepository.getRateOfGivenDate(wantCurrency, date);
         BigDecimal score1 = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
