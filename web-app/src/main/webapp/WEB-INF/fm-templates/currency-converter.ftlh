@@ -191,8 +191,8 @@
                 <div>
                     <label for="result" class="result"><strong>Result</strong></label>
                      <div >${score.getAmount()} ${score.getCurrencyHave()} = ${score.getScore()} ${score.getCurrencyWant()}</div>
-                     <div >By date: ${score.getDateExchange()}</div>
-                     <div>Rate: 1  ${score.getCurrencyWant()} =  ${score.getCourseValue()}  ${score.getCurrencyHave()} </div>
+                     <div >On date: ${score.getDateExchange()}</div>
+                     <div>Rate: 1  ${score.getCurrencyHave()} =  ${score.getCourseValue()}  ${score.getCurrencyWant()} </div>
                 </div>
                </#if>
             </form>

@@ -7,10 +7,10 @@ public class ScoreResult {
 
     public Score getScoreResult(String haveCurrency, String wantCurrency, LocalDate date, Double calculatorAmount){
         if(score.isDateExistInCurrencyWithGivenDate(haveCurrency, wantCurrency, date)){
-            score = score.resultCalculator(haveCurrency, date, wantCurrency, calculatorAmount);
+            return score.resultCalculator(haveCurrency, date, wantCurrency, calculatorAmount);
         }else {
-            score = score.resultCalculator(haveCurrency, date, wantCurrency, calculatorAmount);
+           return score.resultCalculator(haveCurrency, date, wantCurrency, calculatorAmount);
         }
-        return score;
+
     }
 }

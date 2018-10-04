@@ -137,10 +137,11 @@ public class Score {
     }
 
     public Score resultCalculator(String haveCurrency, LocalDate date, String wantCurrency, Double calculatorAmount) {
+        CurrencyRepository currencyRepository = new CurrencyRepository();
         Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date);
         Double currencyWant = currencyRepository.getRateOfGivenDate(wantCurrency, date);
         BigDecimal score1 = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyHave, currencyWant);
+        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant,currencyHave);
         return new Score(score1, haveCurrency, wantCurrency, date, curseValue, calculatorAmount);
     }
 

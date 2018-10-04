@@ -22,13 +22,12 @@ public class CalculatorServlet extends HttpServlet {
 
     private Score score = new Score();
     private ScoreResult scoreResult=new ScoreResult();
+    CurrencyRepository currencyRepository=new CurrencyRepository();
 
     @Inject
     private TemplateProvider templateProvider;
     public FileContentReader fileContentReader;
     public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
-    public CurrencyRepository currencyRepository=new CurrencyRepository();
-
 
     @Override
     public void init() throws ServletException {
@@ -94,10 +93,10 @@ public class CalculatorServlet extends HttpServlet {
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
         LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
-        
+
+        score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
         score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
         score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
 
         doGet(req, resp);
     }
