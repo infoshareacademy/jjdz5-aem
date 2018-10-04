@@ -15,14 +15,14 @@ import java.util.Set;
 public class Score {
     private static Integer LENGTH_OF_DATE = 10;
 
-    public BigDecimal score;
-    public String currencyHave;
-    public String currencyWant;
-    public LocalDate dateExchange;
-    public BigDecimal courseValue;
-    public Double amount;
-    public LocalDate minDate;
-    public LocalDate maxDate;
+    private BigDecimal score;
+    private String currencyHave;
+    private String currencyWant;
+    private LocalDate dateExchange;
+    private BigDecimal courseValue;
+    private Double amount;
+    private LocalDate minDate;
+    private LocalDate maxDate;
 
     public LocalDate getMinDate() {
         return minDate;
