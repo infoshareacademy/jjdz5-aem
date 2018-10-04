@@ -117,20 +117,20 @@ public class Score {
     }
 
     public LocalDate scoreDate(String reqDate, String haveCurrency, String wantCurrency) {
-        Boolean dateIsCorrect = reqDate.length() == LENGTH_OF_DATE && checkDateIfExistCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
+        Boolean isDateCorrect = reqDate.length() == LENGTH_OF_DATE && isDateExistInCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
 
-        if (dateIsCorrect) {
+        if (isDateCorrect) {
             LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
             return date;
         }
         return currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
     }
-
-    public Boolean checkDateIfExistCurrencyWithGivenDate(String haveCurrency, String wantCurrency, LocalDate date) {
-        Boolean dateHaveSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(haveCurrency, date);
-        Boolean dateWantSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(wantCurrency, date);
-
-        if (dateHaveSelectedByUserExist && dateWantSelectedByUserExist) {
+    
+    public Boolean isDateExistInCurrencyWithGivenDate(String haveCurrency, String wantCurrency, LocalDate date) {
+        Boolean isDateHaveSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(haveCurrency, date);
+        Boolean isDateWantSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(wantCurrency, date);
+        
+        if (isDateHaveSelectedByUserExist && isDateWantSelectedByUserExist) {
             return true;
         }
         return false;
