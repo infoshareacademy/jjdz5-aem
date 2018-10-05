@@ -76,13 +76,13 @@ public class LocalExtremumServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String chosenCurrencyName = req.getParameter("chosenCurrencyName");
-        LocalDate dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
-        LocalDate dateTo = LocalDate.parse(req.getParameter("dateTo"));
+        dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
+        dateTo = LocalDate.parse(req.getParameter("dateTo"));
 
         List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = currencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, dateFrom, dateTo);
 
         minExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
-        maxExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+        maxExtremum = localExtremum.getMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
 
         doGet(req, resp);
     }

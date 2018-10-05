@@ -133,82 +133,62 @@
             <h4>Local Extremum</h4>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-4">
-            <form method="post" action="/local-extremum">
-                <div class="form-group">
-                    <label for="currencyIWant">Currency Selection</label>
-                    <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
-                             <#list availableCurrencyNames as ac>
-                                 <option >${ac}</option>
-                             </#list>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="col-4">
-            <form>
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-        <div class="col-1">
-            <form>
-                <div class="form-group">
-                    <div>
-
+    <form method="post" action="/local-extremum">
+        <div class="row">
+            <div class="col-4">
+                    <div class="form-group">
+                        <label for="currencyIWant">Currency Selection</label>
+                        <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
+                                 <#list availableCurrencyNames as ac>
+                                     <option >${ac}</option>
+                                 </#list>
+                        </select>
                     </div>
+            </div>
+            <div class="col-4">
+                    <div class="form-group">
+                    </div>
+            </div>
+            <div class="col-1">
+                    <div class="form-group">
+                    </div>
+            </div>
+            <div class="col-3">
+                    <div class="form-group" id=show-extremums">
+                        <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
+                    </div>
+            </div>
+        </div>
 
-                </div>
-            </form>
+        <div class="row">
+            <div class="col-4">
+                    <div class="form-group">
+                        <label for="date">Date From</label>
+                        <input id="date"
+                               type="date"
+                               name="dateFrom"
+                               class="form-control"/>
+                    </div>
+            </div>
+            <div class="col-4">
+                    <div class="form-group">
+                        <label for="date">Date To</label>
+                        <input id="date"
+                               type="date"
+                               name="dateTo"
+                               class="form-control"/>
+                    </div>
+            </div>
+            <div class="col-1">
+                    <div class="form-group">
+                    </div>
+            </div>
+            <div class="col-3">
+                    <div class="form-group">
+                    </div>
+            </div>
         </div>
-        <div class="col-3">
-            <form method="post" action="/local-extremum">
-                <div class="form-group" id=show-extremums">
-                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <form method="post" action="/local-extremum">
-                <div class="form-group">
-                    <label for="date">Date From</label>
-                    <input id="date"
-                           type="date"
-                           name="dateFrom"
-                           class="form-control"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-4">
-            <form method="post" action="/local-extremum">
-                <div class="form-group">
-                    <label for="date">Date To</label>
-                    <input id="date"
-                           type="date"
-                           name="dateFrom"
-
-                           class="form-control"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-1">
-            <form>
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-        <div class="col-3">
-            <form>
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-    </div>
+    </form>
 
     <div class="row">
         <div class="col-12" id="main_currency">
