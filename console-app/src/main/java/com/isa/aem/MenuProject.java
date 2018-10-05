@@ -11,9 +11,7 @@ import java.util.Scanner;
 
 public class MenuProject {
 
-    ConsoleReader consoleReader = new ConsoleReader();
     ConsolePrinter consolePrinter = new ConsolePrinter();
-    LocalExtremum localExtremum = new LocalExtremum();
     LocalExtremumService localExtremumService = new LocalExtremumService();
 
 
@@ -80,4 +78,3 @@ public class MenuProject {
     }
 
 }
-

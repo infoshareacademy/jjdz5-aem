@@ -89,7 +89,6 @@ public class LocalExtremumService {
     }
 
 
-
     public void runExtremum() {
         List<Currency> minExtremum = localExtremum.getMinExtremum(currencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
         consolePrinter.printLn("\nMIN");

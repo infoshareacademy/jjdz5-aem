@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 public class DataValidator {
 
     CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -20,6 +21,7 @@ public class DataValidator {
 
     private LocalDate checkDayOfWeek(LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
+
         if (DayOfWeek.SATURDAY == dayOfWeek) {
             return date.minusDays(1);
         }
@@ -62,6 +64,4 @@ public class DataValidator {
             return false;
         }
     }
-
-
 }

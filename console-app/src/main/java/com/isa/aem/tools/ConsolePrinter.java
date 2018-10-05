@@ -1,13 +1,9 @@
 package com.isa.aem.tools;
 
-import com.isa.aem.local.extremum.LocalExtremum;
-
 import javax.enterprise.inject.Default;
 
 @Default
 public class ConsolePrinter {
-
-    LocalExtremum localExtremum = new LocalExtremum();
 
     public void printLn(String message) {
         System.out.println(message);
@@ -23,7 +19,6 @@ public class ConsolePrinter {
                 "     *               Local Extremum               *\n" +
                 "     **********************************************\n" );
     }
-
 
     public String globalExtremeTittle() {
         return

@@ -1,6 +1,8 @@
 package com.isa.aem;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class CurrencyNameCountryFlags {
 
@@ -72,13 +74,13 @@ public class CurrencyNameCountryFlags {
     public CurrencyNameCountryFlags() {
     }
 
-    private static Map<String,CurrencyNameCountryFlags> currencies = new HashMap<>();
+    private static Map<String, CurrencyNameCountryFlags> currencies = new HashMap<>();
 
-    public static Map<String,CurrencyNameCountryFlags> getCurrencies() {
+    public static Map<String, CurrencyNameCountryFlags> getCurrencies() {
         return currencies;
     }
 
-    public static void setCurrencies(Map<String,CurrencyNameCountryFlags> currencies) {
+    public static void setCurrencies(Map<String, CurrencyNameCountryFlags> currencies) {
         CurrencyNameCountryFlags.currencies = currencies;
     }
 

@@ -1,7 +1,9 @@
 package com.isa.aem.global.extremum;
 
-import com.isa.aem.*;
-import com.isa.aem.tools.*;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.MenuInformation;
+import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
 
 public class GlobalExtremum {
 
@@ -12,14 +14,14 @@ public class GlobalExtremum {
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
 
     private static final String BACK_TO_MENU_STR = "0";
-    private static final String  BACK_TO_CURRENCY_SELECTION = "1";
+    private static final String BACK_TO_CURRENCY_SELECTION = "1";
     private String optionGivenByUser;
 
     public void run() {
         System.out.println(
                 consolePrinter.globalExtremeTittle() +
-                consolePrinter.backToMenu() +
-                consolePrinter.nextLine());
+                        consolePrinter.backToMenu() +
+                        consolePrinter.nextLine());
         searchExtremum();
     }
 
@@ -40,20 +42,17 @@ public class GlobalExtremum {
         if (currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)) {
             dataTransducerIntroducedByConsole.printExtremeMenu(commandOfUser);
             selectedCurrencyOrOptionsOfMenuGlobalExtremum();
-        }
-        else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)){
+        } else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)) {
             System.out.println(consolePrinter.doubleNextLine());
-           searchExtremum();
-        }
-        else if (BACK_TO_MENU_STR.equals(commandOfUser)) {
+            searchExtremum();
+        } else if (BACK_TO_MENU_STR.equals(commandOfUser)) {
             System.out.print(
                     consolePrinter.doubleNextLine() +
-                    consolePrinter.pointLine() +
-                    consolePrinter.starsLine() +
-                    consolePrinter.doubleNextLine());
+                            consolePrinter.pointLine() +
+                            consolePrinter.starsLine() +
+                            consolePrinter.doubleNextLine());
             menuInformation.readMenu();
-        }
-        else {
+        } else {
             System.out.println(
                     consolePrinter.doubleNextLine() +
                             consolePrinter.error() +

@@ -1,8 +1,10 @@
 package com.isa.aem.servlets;
 
 
-import com.isa.aem.*;
 import com.isa.aem.Currency;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.FileContentReader;
+import com.isa.aem.LoadCurrencyNameCountryFlags;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
 import freemarker.template.Template;
@@ -16,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet("/local-extremum")
 public class LocalExtremumServlet extends HttpServlet {

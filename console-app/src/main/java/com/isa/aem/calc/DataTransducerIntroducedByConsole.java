@@ -1,7 +1,10 @@
 package com.isa.aem.calc;
 
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.tools.*;
+import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
+import com.isa.aem.tools.DataValidator;
+
 import java.time.LocalDate;
 
 public class DataTransducerIntroducedByConsole {
@@ -36,7 +39,7 @@ public class DataTransducerIntroducedByConsole {
         do {
             strValue = consoleReader.getString(consolePrinter.enterAmount()).trim();
             replace = strValue.replace(',', '.');
-            if (checkIfItIsANumber(replace)){
+            if (checkIfItIsANumber(replace)) {
                 amountGivenByUser = Double.parseDouble(replace);
             } else {
                 System.out.println(consolePrinter.numberUnexist());
@@ -48,13 +51,12 @@ public class DataTransducerIntroducedByConsole {
     protected LocalDate dataService() {
         String strDate;
         LocalDate date = null;
-        do{
+        do {
             strDate = consoleReader.getString(consolePrinter.enterDate()).trim();
             preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
             if (checkIfItIsCorrectDataFormatAndOnlyEightDigits()) {
                 date = dataService.dataParse(preparedDate);
-            }
-            else {
+            } else {
                 System.out.println(consolePrinter.wrongDate());
             }
         } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits()));

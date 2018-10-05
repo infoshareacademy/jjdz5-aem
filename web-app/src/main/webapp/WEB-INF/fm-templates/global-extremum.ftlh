@@ -136,27 +136,27 @@
     <form method="post" action="/global-extremum">
         <div class="row">
             <div class="col-4">
-                    <div class="form-group">
-                        <label for="currencyIWant">Currency Selection</label>
-                        <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
+                <div class="form-group">
+                    <label for="currencyIWant">Currency Selection</label>
+                    <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
                                  <#list availableCurrencyNames as ac>
-                                     <option >${ac}</option>
+                                     <option>${ac}</option>
                                  </#list>
-                        </select>
-                    </div>
+                    </select>
+                </div>
             </div>
             <div class="col-4">
-                    <div class="form-group">
-                    </div>
+                <div class="form-group">
+                </div>
             </div>
             <div class="col-1">
-                    <div class="form-group">
-                    </div>
+                <div class="form-group">
+                </div>
             </div>
             <div class="col-3">
-                    <div class="form-group" id=show-extremums">
-                        <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
-                    </div>
+                <div class="form-group" id=show-extremums">
+                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
+                </div>
             </div>
         </div>
     </form>
@@ -179,7 +179,7 @@
                 <tbody>
                 <tr>
                     <td>USD<img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
+                                src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
                     <td>USA Dolar</td>
                     <td>USA</td>
                     <td>3.09</td>

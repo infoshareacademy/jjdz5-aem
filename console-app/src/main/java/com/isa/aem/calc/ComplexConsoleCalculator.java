@@ -2,8 +2,8 @@ package com.isa.aem.calc;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
-import com.isa.aem.tools.ConsoleReader;
 import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
