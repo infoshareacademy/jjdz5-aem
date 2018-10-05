@@ -190,9 +190,9 @@
                  <#if score.getScore()??>
                 <div>
                     <label for="result" class="result"><strong>Result</strong></label>
-                     <div >${score.getAmount()} ${score.getCurrencyHave()} = ${score.getScore()} ${score.getCurrencyWant()}</div>
-                     <div >On date: ${score.getDateExchange()}</div>
-                     <div>Rate: 1  ${score.getCurrencyHave()} =  ${score.getCourseValue()}  ${score.getCurrencyWant()} </div>
+                    <div >On date: ${score.getDateExchange()}</div>
+                     <div><marquee><strong>Your exchange:</strong> ${score.getAmount()} ${score.getCurrencyHave()} = ${score.getScore()} ${score.getCurrencyWant()}
+                     <strong>Unit exchange rate:</strong> 1 ${score.getCurrencyHave()} =  ${score.getCourseValue()}  ${score.getCurrencyWant()} </marquee></div>
                 </div>
                </#if>
             </form>
