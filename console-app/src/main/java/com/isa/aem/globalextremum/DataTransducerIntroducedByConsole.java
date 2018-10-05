@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DataTransducerIntroducedByConsole {
 
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter myPrinter = new ConsolePrinter();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private List<String> menuCommand = Arrays.asList("0", "1");

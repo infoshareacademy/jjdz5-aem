@@ -91,4 +91,3 @@ public class FileContentReader {
         return currencies;
     }
 }
-

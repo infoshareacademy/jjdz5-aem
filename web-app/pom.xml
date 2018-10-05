@@ -11,12 +11,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>web-app</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-    <name>web-app</name>
-    <url>http://www.example.com</url>
-
     <dependencies>
+        <dependency>
+            <groupId>com.isa.aem</groupId>
+            <artifactId>console-app</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.isa.aem</groupId>
             <artifactId>console-app</artifactId>
@@ -33,7 +33,9 @@
             <version>2.3.28</version>
         </dependency>
     </dependencies>
-
+    <packaging>war</packaging>
+    <name>web-app</name>
+    <url>http://www.example.com</url>
     <build>
         <finalName>web-app</finalName>
         <plugins>
@@ -41,11 +43,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.2.2.Final</version>
             </plugin>
         </plugins>
     </build>

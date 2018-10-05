@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class CurrentVariable {
 
-   Currency cc=new Currency();
+    Currency cc=new Currency();
 
     @Override
     public String toString() {

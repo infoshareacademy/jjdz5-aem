@@ -2,13 +2,14 @@ package com.isa.aem.globalextremum;
 
 import com.isa.aem.*;
 import com.isa.aem.tools.*;
+import com.isa.aem.tools.ConsolePrinter;
 
 public class GlobalExtremum {
 
     private ConsoleReader consoleReader = new ConsoleReader();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private MenuInformation menuInformation = new MenuInformation();
-    private MyPrinter myPrinter = new MyPrinter();
+    private ConsolePrinter myPrinter = new ConsolePrinter();
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
 
     private static final String BACK_TO_MENU_STR = "0";
