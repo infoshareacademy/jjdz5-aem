@@ -1,11 +1,15 @@
 package com.isa.aem.tools;
 
+import com.isa.aem.CurrencyRepository;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DataValidator {
+
+    CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public LocalDate dataParse(String preparedDate) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -48,6 +52,14 @@ public class DataValidator {
             return false;
         } catch (DateTimeParseException e) {
             return true;
+        }
+    }
+
+    public boolean isNotWithinRange(LocalDate givenDate) {
+        if (givenDate.isBefore(currencyRepository.getFirstDateFromRepository()) || givenDate.isAfter(currencyRepository.getLastDateFromRepository())) {
+            return true;
+        } else {
+            return false;
         }
     }
 

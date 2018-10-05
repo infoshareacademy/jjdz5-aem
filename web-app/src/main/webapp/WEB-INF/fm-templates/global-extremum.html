@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <title>Local Extremum</title>
+    <title>Global Extremum</title>
     <style>
 
         .container .row #main, .container .row #main1 {
@@ -130,19 +130,18 @@
 <div class="container">
     <div class="row">
         <div class="col-12" id="main">
-            <h4>Local Extremum</h4>
+            <h4>Global Extremum</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-4">
-            <form method="post" action="/local-extremum">
+            <form>
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
-                    <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
-                             <#list availableCurrencyNames as ac>
-                                 <option >${ac}</option>
-                             </#list>
+                    <select class="form-control" id="currencyIWant">
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="USD">USD - USD Dolar</option>
                     </select>
                 </div>
             </form>
@@ -156,55 +155,13 @@
         <div class="col-1">
             <form>
                 <div class="form-group">
-                    <div>
-
-                    </div>
-
                 </div>
             </form>
         </div>
         <div class="col-3">
-            <form method="post" action="/local-extremum">
+            <form>
                 <div class="form-group" id=show-extremums">
-                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <form method="post" action="/local-extremum">
-                <div class="form-group">
-                    <label for="date">Date From</label>
-                    <input id="date"
-                           type="date"
-                           name="dateFrom"
-                           class="form-control"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-4">
-            <form method="post" action="/local-extremum">
-                <div class="form-group">
-                    <label for="date">Date To</label>
-                    <input id="date"
-                           type="date"
-                           name="dateFrom"
-
-                           class="form-control"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-1">
-            <form>
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-        <div class="col-3">
-            <form>
-                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Show Extremums</button>
                 </div>
             </form>
         </div>
@@ -227,7 +184,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>USD<img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
+                    <td>USD <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
                                  src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
                     <td>USA Dolar</td>
                     <td>USA</td>

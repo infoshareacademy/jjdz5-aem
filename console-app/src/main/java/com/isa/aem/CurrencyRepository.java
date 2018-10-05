@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();
-    private static List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
+    private List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
 
 
     public static List<Currency> getCurrencies() {
@@ -110,15 +110,15 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-    public static List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
+    public List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
         return repositoryWithChosenCurrencyWithinChosenDateRange;
     }
 
-    public static LocalDate getFirstDateFromRepository() {
+    public LocalDate getFirstDateFromRepository() {
         return currencies.get(0).getDate();
     }
 
-    public static LocalDate getLastDateFromRepository() {
+    public LocalDate getLastDateFromRepository() {
         return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate();
     }
 
@@ -130,7 +130,7 @@ public class CurrencyRepository {
         return availableCurrencyNames;
     }
 
-    public static List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
+    public List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
         return repositoryWithChosenCurrencyWithinChosenDateRange = currencies.stream()
                 .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
                 .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))

@@ -21,8 +21,7 @@ public class ConsolePrinter {
         System.out.println("\n" +
                 "     **********************************************\n" +
                 "     *               Local Extremum               *\n" +
-                "     **********************************************\n" +
-                "\nEkstrema lokalne. Funkcja umożliwia wyświetlenie ekstremów danej waluty dla zadanego przedziału czasu\n\n");
+                "     **********************************************\n" );
     }
 
 

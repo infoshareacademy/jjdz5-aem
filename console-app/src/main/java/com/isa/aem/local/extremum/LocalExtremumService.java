@@ -17,6 +17,7 @@ public class LocalExtremumService {
     private LocalDate chosenDateFrom;
     private LocalDate chosenDateTo;
     private String typedMenuOptionString;
+    CurrencyRepository currencyRepository = new CurrencyRepository();
     ConsoleReader consoleReader = new ConsoleReader();
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataValidator dataValidator = new DataValidator();
@@ -55,18 +56,18 @@ public class LocalExtremumService {
     public void runDatesSelection() {
         consolePrinter.printLn("\nLimit the date range for the currency of your choice. ");
         chooseDateFrom();
-        while (isNotWithinRange(chosenDateFrom)) {
+        while (dataValidator.isNotWithinRange(chosenDateFrom)) {
             consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
-                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateFrom();
         }
         chooseDateTo();
-        while (isNotWithinRange(chosenDateTo)) {
+        while (dataValidator.isNotWithinRange(chosenDateTo)) {
             consolePrinter.printLn("The date you provide is out of repository range. Choose date between: " +
-                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateTo();
         }
-        CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        currencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
     }
 
     public LocalDate chooseDateFrom() {
@@ -87,21 +88,15 @@ public class LocalExtremumService {
         return chosenDateTo = LocalDate.parse(typedDateString);
     }
 
-    public boolean isNotWithinRange(LocalDate givenDate) {
-        if (givenDate.isBefore(CurrencyRepository.getFirstDateFromRepository()) || givenDate.isAfter(CurrencyRepository.getLastDateFromRepository())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
     public void runExtremum() {
-        List<Currency> minExtremum = localExtremum.getMinExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
         consolePrinter.printLn("\nMIN");
         minExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
         consolePrinter.printLn("MAX");
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
         maxExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
     }
