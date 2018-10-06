@@ -1,5 +1,6 @@
 package com.isa.aem.servlets;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.*;
 import com.isa.aem.Currency;
 import com.isa.aem.calculatorMethod.Score;
@@ -70,9 +71,11 @@ public class CurrencyManagerServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-manager-converter");
 
+        Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
+        model.put("logged", userName);
 
         try {
             template.process(model, resp.getWriter());

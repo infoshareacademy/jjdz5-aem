@@ -120,6 +120,7 @@
 </head>
 
 <body>
+<h6>User: ${logged}</h6>
 <#include "manager-menu.html">
 
 <div class="container">
