@@ -143,7 +143,7 @@
                            type="number"
                            min="0"
                            name="amount"
-                           value=${score.getAmount()}
+                           value="${score.getAmount()?long?c}"
                            class="form-control" />
                 </div>
                 <div class="form-group">
@@ -303,7 +303,7 @@
 </div>
 <div class="row" id="footer">
  <div class="col-11" >
-<h5>Currency Manager</h5>
+<h5></h5>
         </div>
 </div>
 </div>

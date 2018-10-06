@@ -73,6 +73,7 @@ public class CalculatorServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
+
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
