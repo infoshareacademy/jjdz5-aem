@@ -143,7 +143,7 @@
                            type="number"
                            min="0"
                            name="amount"
-                           value=${score.getAmount()}
+                           value="${score.getAmount()?long?c}"
                            class="form-control" />
                 </div>
                 <div class="form-group">
