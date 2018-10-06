@@ -12,33 +12,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="/test">Global Extreme</a>
             </li>
-
-            <li class="nav-item">
-                <html>
-                <head>
-                    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-                    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                    <script src="https://apis.google.com/js/platform.js" async defer></script>
-                    <meta name="google-signin-scope" content="profile email">
-                    <meta name="google-signin-client_id"
-                          content="926732976801-63jco5oge4dhrqb490m6e9k7357khl28.apps.googleusercontent.com">
-                </head>
-                <body>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-                <a href="#" onclick="signOut();">Sign out</a>
-                <script>
-                    function signOut() {
-                        var auth2 = gapi.auth2.getAuthInstance();
-                        auth2.signOut().then(function () {
-                            console.log('User signed out.');
-                        });
-                    }
-                </script>
-                </body>
-                </html>
-            </li>
         </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <a href="calculator" onclick="signOut();">Sign out</a>
+            <script>
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
+                }
+            </script>
+        </form>
 
     </div>
 
