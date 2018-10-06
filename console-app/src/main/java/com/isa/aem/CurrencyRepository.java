@@ -33,14 +33,14 @@ public class CurrencyRepository {
 
     public Boolean checkIfExistCurrencyWithGivenDate(String name, LocalDate date) {
         return currencies.stream()
-                .filter(currency -> currency.getName().equals(name))
+                .filter(currency -> name.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .anyMatch(currency -> currency.equals(date));
     }
 
     public LocalDate getMostCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
         return currencies.stream()
-                .filter(currency -> currency.getName().equals(nameOfCurrency))
+                .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .max((o1, o2) -> o1.compareTo(o2))
                 .get();
@@ -48,7 +48,7 @@ public class CurrencyRepository {
 
     public LocalDate getMinCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
         return currencies.stream()
-                .filter(currency -> currency.getName().equals(nameOfCurrency))
+                .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .min((o1, o2) -> o1.compareTo(o2))
                 .get();
@@ -66,7 +66,7 @@ public class CurrencyRepository {
     public Double getRateOfGivenDate(String nameOfCurrency, LocalDate dateOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
-                .filter(currency -> currency.getDate().equals(dateOfCurrency))
+                .filter(currency -> dateOfCurrency.equals(currency.getDate()))
                 .findFirst()
                 .get()
                 .getClose();
@@ -152,7 +152,7 @@ public class CurrencyRepository {
 
     public List<Currency> findDuplicatedExtremums(Double value) {
         return repositoryWithChosenCurrencyWithinChosenDateRange.stream()
-                .filter(currency -> currency.getClose().equals(value))
+                .filter(currency -> value.equals(currency.getClose()))
                 .collect(Collectors.toList());
     }
 

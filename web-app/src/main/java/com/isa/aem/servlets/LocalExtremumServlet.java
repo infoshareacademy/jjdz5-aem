@@ -67,8 +67,6 @@ public class LocalExtremumServlet extends HttpServlet {
             dateTo = currencyRepository.getLastDateFromRepository();
         }
 
-
-
         List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, dateFrom, dateTo);
 
         List<Currency> minExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);

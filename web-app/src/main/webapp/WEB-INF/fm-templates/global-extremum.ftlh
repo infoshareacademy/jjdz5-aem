@@ -133,7 +133,7 @@
             <h4>Global Extremum</h4>
         </div>
     </div>
-    <form method="post" action="/global-extremum">
+    <form action="/global-extremum">
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
