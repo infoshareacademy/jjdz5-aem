@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-@WebServlet(urlPatterns = "/calculator")
-public class CalculatorServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/currency-manager")
+public class CurrencyManagerServlet extends HttpServlet {
 
     private Score score = new Score();
     private ScoreResult scoreResult=new ScoreResult();
@@ -68,7 +68,7 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "currency-converter");
+                .getTemplate(getServletContext(), "currency-manager-converter");
 
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
