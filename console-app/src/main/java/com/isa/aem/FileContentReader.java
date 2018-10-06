@@ -12,20 +12,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileContentReader {
+    CurrencyRepository currencyRepository = new CurrencyRepository();
     private String filePath;
 
-    //lista przechowujaca liste obiektow Currency
     private List<Currency> listOfCurrencies = new ArrayList<>();
     private List<Currency> currencies = new ArrayList<>();
+    private static String  NAME_FILE="sourceFilePath";
 
-    //metoda wczytujaca plik i zwracajaca obiekty currencies
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = appProperties.getSourceFilePath();
+        this.filePath = appProperties.getSourceFilePath(NAME_FILE);
         Path path = Paths.get(filePath).toAbsolutePath();
-        System.out.println("Path to the source file: " + path);
 
-        // lista przechowujaca kolejne linie jako String
         List<String> allLinesAsString = new ArrayList<>();
         try {
             allLinesAsString = Files.readAllLines(path);
@@ -43,12 +41,19 @@ public class FileContentReader {
             System.exit(0);
         }
 
-        // przypisanie do listy currencies gotowych obiektow (sparsowane dane)
         listOfCurrencies = convertIntoObject(allLinesAsString);
         CurrencyRepository.setCurrencies(listOfCurrencies);
     }
 
-    // metoda konwertujaca kolejne linie stringow do obiektow (parsowanie oraz formatowanie danych do wlasciwych typow)
+    public void addPLNToListCurrency() {
+        List<LocalDate> everySingleDateOfFile = currencyRepository.getEverySingleDateOfFile();
+        for (LocalDate date : everySingleDateOfFile){
+            Currency currencyPLN = new Currency(
+                    "PLN", date, 1.0,1.0,1.0,1.0,1);
+            currencyRepository.add(currencyPLN);
+        }
+    }
+
     private List<Currency> convertIntoObject(List<String> read) {
         for (String oneLine : read) {
             Pattern pattern = Pattern.compile("^\\w\\w\\w,\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d\\.\\d+,\\d$");
@@ -68,10 +73,8 @@ public class FileContentReader {
             } else {
                 String[] line = oneLine.split(",");
 
-                // formater, ktory konwertuje zrodlowa date yyyyMMdd do formatu DateTime yyyy-MM-dd
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-                // parsowanie pol obiektow currency i wypelnenie nimi listy curriencies
                 Currency currency = new Currency(
                         line[0],
                         LocalDate.parse(line[1], dateTimeFormatter),
@@ -82,9 +85,9 @@ public class FileContentReader {
                         Integer.parseInt(line[6])
                 );
                 currencies.add(currency);
+
             }
         }
         return currencies;
     }
 }
-

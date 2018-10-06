@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class CurrentVariable {
 
-   Currency cc=new Currency();
+    Currency cc=new Currency();
 
     @Override
     public String toString() {
@@ -30,6 +30,8 @@ public class CurrentVariable {
                 Objects.equals(listCurrency, that.listCurrency) &&
                 Objects.equals(dateCurrency, that.dateCurrency);
     }
+
+
 
     @Override
     public int hashCode() {
