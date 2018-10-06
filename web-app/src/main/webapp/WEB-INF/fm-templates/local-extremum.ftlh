@@ -167,6 +167,7 @@
                     <input id="date"
                            type="date"
                            name="dateFrom"
+                           value=${dateFrom}
                            class="form-control"/>
                 </div>
             </div>
@@ -176,6 +177,7 @@
                     <input id="date"
                            type="date"
                            name="dateTo"
+                           value=${dateTo}
                            class="form-control"/>
                 </div>
             </div>

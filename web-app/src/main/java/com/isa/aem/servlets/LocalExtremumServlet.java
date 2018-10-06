@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,17 +27,13 @@ import java.util.Map;
 public class LocalExtremumServlet extends HttpServlet {
 
     private LocalExtremum localExtremum = new LocalExtremum();
-    private List<Currency> minExtremum;
-    private List<Currency> maxExtremum;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-
 
     @Inject
     private TemplateProvider templateProvider;
     public FileContentReader fileContentReader;
     public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
-    public CurrencyRepository currencyRepository;
 
     @Override
     public void init() throws ServletException {
@@ -48,26 +45,38 @@ public class LocalExtremumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        currencyRepository = new CurrencyRepository();
-
-        List<String> availableCurrencyNames = currencyRepository.getAvailableCurrencyNames();
+        List<String> availableCurrencyNames = CurrencyRepository.getAvailableCurrencyNames();
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
+        String chosenCurrencyName = req.getParameter("chosenCurrencyName");
+
+        if(req.getParameter("dateFrom") != null) {
+            dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
+        } else {
+            dateFrom = CurrencyRepository.getFirstDateFromRepository();
+        }
+
+        if(req.getParameter("dateTo") != null) {
+            dateTo = LocalDate.parse(req.getParameter("dateTo"));
+        } else {
+            dateTo = CurrencyRepository.getLastDateFromRepository();
+        }
+
+        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, dateFrom, dateTo);
+
+//        List<Currency> minExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> minExtremum = new ArrayList<>();
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+
         Map<String, Object> model = new HashMap<>();
         model.put("availableCurrencyNames", availableCurrencyNames);
+        model.put("chosenCurrencyName", "USD");
+        model.put("dateFrom", dateFrom);
+        model.put("dateTo", dateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
-
-        if (dateFrom == null) {
-            dateFrom = currencyRepository.getFirstDateFromRepository();
-        }
-
-        if (dateTo == null) {
-            dateTo = currencyRepository.getLastDateFromRepository();
-        }
-
 
         try {
             template.process(model, resp.getWriter());
@@ -77,6 +86,11 @@ public class LocalExtremumServlet extends HttpServlet {
     }
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+
+    /*    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String chosenCurrencyName = req.getParameter("chosenCurrencyName");
@@ -89,5 +103,5 @@ public class LocalExtremumServlet extends HttpServlet {
         maxExtremum = localExtremum.getMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
 
         doGet(req, resp);
-    }
+    }*/
 }
