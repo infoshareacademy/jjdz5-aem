@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();
-    private List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
+    private static List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
 
 
     public static List<Currency> getCurrencies() {
@@ -117,15 +117,15 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
+    public static List<Currency> getRepositoryWithChosenCurrencyWithinChosenDateRange() {
         return repositoryWithChosenCurrencyWithinChosenDateRange;
     }
 
-    public LocalDate getFirstDateFromRepository() {
+    public static LocalDate getFirstDateFromRepository() {
         return currencies.get(0).getDate();
     }
 
-    public LocalDate getLastDateFromRepository() {
+    public static LocalDate getLastDateFromRepository() {
         return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate();
     }
 
@@ -137,7 +137,7 @@ public class CurrencyRepository {
         return availableCurrencyNames;
     }
 
-    public List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
+    public static List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
         return repositoryWithChosenCurrencyWithinChosenDateRange = currencies.stream()
                 .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
                 .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))
@@ -148,7 +148,6 @@ public class CurrencyRepository {
     public List<Currency> findDuplicatedExtremums(Double value) {
         return repositoryWithChosenCurrencyWithinChosenDateRange.stream()
                 .filter(currency -> currency.getClose().equals(value))
-                .distinct()
                 .collect(Collectors.toList());
     }
 }

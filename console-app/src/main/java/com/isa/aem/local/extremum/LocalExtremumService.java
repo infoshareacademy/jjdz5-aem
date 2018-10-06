@@ -17,7 +17,6 @@ public class LocalExtremumService {
     private LocalDate chosenDateFrom;
     private LocalDate chosenDateTo;
     private String typedMenuOptionString;
-    CurrencyRepository currencyRepository = new CurrencyRepository();
     ConsoleReader consoleReader = new ConsoleReader();
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataValidator dataValidator = new DataValidator();
@@ -58,16 +57,16 @@ public class LocalExtremumService {
         chooseDateFrom();
         while (dataValidator.isNotWithinRange(chosenDateFrom)) {
             consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
-                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
+                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
             chooseDateFrom();
         }
         chooseDateTo();
         while (dataValidator.isNotWithinRange(chosenDateTo)) {
             consolePrinter.printLn("The date you provide is out of repository range. Choose date between: " +
-                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
+                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
             chooseDateTo();
         }
-        currencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
     }
 
     public LocalDate chooseDateFrom() {
@@ -90,12 +89,12 @@ public class LocalExtremumService {
 
 
     public void runExtremum() {
-        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> minExtremum = localExtremum.getMinExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
         consolePrinter.printLn("\nMIN");
         minExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
         consolePrinter.printLn("MAX");
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
         maxExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
     }
