@@ -121,16 +121,21 @@ public class CurrencyRepository {
         return repositoryWithChosenCurrencyWithinChosenDateRange;
     }
 
-    public static LocalDate getFirstDateFromRepository() {
+    public LocalDate getFirstDateFromRepository() {
         return currencies.get(0).getDate();
     }
 
-    public static LocalDate getLastDateFromRepository() {
+    public LocalDate getLastDateFromRepository() {
         return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate();
+    }
+
+    public LocalDate getLastMonthDateFromRepository() {
+        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate().minusDays(30);
     }
 
     public static List<String> getAvailableCurrencyNames() {
         List<String> availableCurrencyNames = currencies.stream()
+                .sorted(Comparator.comparing(Currency::getName))
                 .map(currency -> currency.getName())
                 .distinct()
                 .collect(Collectors.toList());
@@ -150,4 +155,20 @@ public class CurrencyRepository {
                 .filter(currency -> currency.getClose().equals(value))
                 .collect(Collectors.toList());
     }
+
+    public Boolean isDateFromAfterDateTo(LocalDate dateFrom, LocalDate dateTo) {
+        if (dateFrom.isAfter(dateTo)) {
+            return true;
+        }
+        else return false;
+    }
+
+    public Boolean isDateToBeforeDateFrom(LocalDate dateFrom, LocalDate dateTo) {
+        if (dateTo.isBefore(dateFrom)) {
+            return true;
+        }
+        else return false;
+    }
+
+
 }

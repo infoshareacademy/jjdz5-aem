@@ -167,8 +167,14 @@
                     <input id="date"
                            type="date"
                            name="dateFrom"
+                           min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateFrom}
-                           class="form-control"/>
+                                   class="form-control"/>
+                    <#if currencyRepository.isDateFromAfterDateTo(dateFrom, dateTo) == true>
+                        <div class="alert alert-error">
+                            Date From is after Date To. Try again!
+                        </div>
+                    </#if>
                 </div>
             </div>
             <div class="col-4">
@@ -177,8 +183,9 @@
                     <input id="date"
                            type="date"
                            name="dateTo"
+                           min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateTo}
-                           class="form-control"/>
+                                   class="form-control"/>
                 </div>
             </div>
             <div class="col-1">
@@ -201,37 +208,19 @@
                 <thead>
                 <tr>
                     <th scope="col">Currency Code</th>
-                    <th scope="col">Currency Name</th>
-                    <th scope="col">Country</th>
                     <th scope="col">Minimum Value</th>
                     <th scope="col">Dates of Occurence</th>
                 </tr>
                 </thead>
                 <tbody>
+                <#list minExtremum as minCur>
                 <tr>
-                    <td>USD<img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
-                    <td>USA Dolar</td>
-                    <td>USA</td>
-                    <td>3.09</td>
-                    <td>2010.01.01 do 2018.08.01</td>
+                    <td>${minCur.getName()}
+                    </td>
+                    <td>${minCur.getClose()}</td>
+                    <td>${minCur.getDate()}</td>
                 </tr>
-                <tr>
-                    <td>EUR <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/eur.svg" width="30" alt=""></td>
-                    <td>Euro</td>
-                    <td>Europe</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                <tr>
-                    <td>GBP <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/gbp.svg" width="30" alt=""></td>
-                    <td>British Pound</td>
-                    <td>Great Britain</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
+                </#list>
                 </tbody>
             </table>
         </div>
@@ -246,42 +235,23 @@
                 <thead>
                 <tr>
                     <th scope="col">Currency Code</th>
-                    <th scope="col">Currency Name</th>
-                    <th scope="col">Country</th>
                     <th scope="col">Maximum Value</th>
                     <th scope="col">Dates of Occurence</th>
                 </tr>
                 </thead>
                 <tbody>
+                <#list maxExtremum as maxCur>
                 <tr>
-                    <td>USD <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
-                    <td>USA Dolar</td>
-                    <td>USA</td>
-                    <td>3.09</td>
-                    <td>2010.01.01 do 2018.08.01</td>
+                    <td>${maxCur.getName()}
+                    </td>
+                    <td>${maxCur.getClose()}</td>
+                    <td>${maxCur.getDate()}</td>
                 </tr>
-                <tr>
-                    <td>EUR <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/eur.svg" width="30" alt=""></td>
-                    <td>Euro</td>
-                    <td>Europe</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                <tr>
-                    <td>GBP <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src="https://www.xe.com/themes/xe/images/flags/svg/gbp.svg" width="30" alt=""></td>
-                    <td>British Pound</td>
-                    <td>Great Britain</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
+                </#list>
                 </tbody>
             </table>
         </div>
     </div>
-
 </div>
 
 

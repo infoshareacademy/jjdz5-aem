@@ -22,6 +22,7 @@ public class LocalExtremumService {
     DataValidator dataValidator = new DataValidator();
     LocalExtremum localExtremum = new LocalExtremum();
     MenuInformation menuInformation = new MenuInformation();
+    CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public void run() {
         runCurrencySelection();
@@ -57,13 +58,13 @@ public class LocalExtremumService {
         chooseDateFrom();
         while (dataValidator.isNotWithinRange(chosenDateFrom)) {
             consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
-                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateFrom();
         }
         chooseDateTo();
         while (dataValidator.isNotWithinRange(chosenDateTo)) {
             consolePrinter.printLn("The date you provide is out of repository range. Choose date between: " +
-                    CurrencyRepository.getFirstDateFromRepository() + " and " + CurrencyRepository.getLastDateFromRepository());
+                    currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateTo();
         }
         CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
