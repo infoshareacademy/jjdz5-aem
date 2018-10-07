@@ -140,7 +140,7 @@
 
     <div class="row">
         <div class="col-4">
-            <form method="post" action="/currency-manager">
+            <form method="post" action="/calculator">
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input id="amount"
