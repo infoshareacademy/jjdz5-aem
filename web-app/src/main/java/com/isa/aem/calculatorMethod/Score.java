@@ -12,9 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 public class Score {
     private static Integer LENGTH_OF_DATE = 10;
-
     private BigDecimal score;
     private String currencyHave;
     private String currencyWant;
@@ -117,6 +117,7 @@ public class Score {
     }
 
     public LocalDate scoreDate(String reqDate, String haveCurrency, String wantCurrency) {
+
         Boolean isDateCorrect = reqDate.length() == LENGTH_OF_DATE && isDateExistInCurrencyWithGivenDate(haveCurrency, wantCurrency, dataService.dataParse(reqDate.replace("-", "")));
 
         if (isDateCorrect) {
@@ -125,11 +126,11 @@ public class Score {
         }
         return currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
     }
-    
+
     public Boolean isDateExistInCurrencyWithGivenDate(String haveCurrency, String wantCurrency, LocalDate date) {
         Boolean isDateHaveSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(haveCurrency, date);
         Boolean isDateWantSelectedByUserExist = currencyRepository.checkIfExistCurrencyWithGivenDate(wantCurrency, date);
-        
+
         if (isDateHaveSelectedByUserExist && isDateWantSelectedByUserExist) {
             return true;
         }
@@ -141,7 +142,7 @@ public class Score {
         Double currencyHave = currencyRepository.getRateOfGivenDate(haveCurrency, date);
         Double currencyWant = currencyRepository.getRateOfGivenDate(wantCurrency, date);
         BigDecimal score1 = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant,currencyHave);
+        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant, currencyHave);
         return new Score(score1, haveCurrency, wantCurrency, date, curseValue, calculatorAmount);
     }
 
@@ -151,6 +152,6 @@ public class Score {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
             currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
         }
-            return  currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
+        return currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
     }
 }

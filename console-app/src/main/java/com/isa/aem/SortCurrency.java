@@ -12,7 +12,5 @@ public class SortCurrency implements Comparator<Currency> {
         String currencySecond = o2.getName();
 
         return currencyFirst.compareTo(currencySecond);
-
     }
-
 }

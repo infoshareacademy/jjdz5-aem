@@ -5,17 +5,32 @@ import javax.enterprise.inject.Default;
 @Default
 public class ConsolePrinter {
 
+    public void printLn(String message) {
+        System.out.println(message);
+    }
+
+    public void print(String message) {
+        System.out.print(message);
+    }
+
+    public void printLocalExtremumWelcome(){
+        System.out.println("\n" +
+                "     **********************************************\n" +
+                "     *               Local Extremum               *\n" +
+                "     **********************************************\n" );
+    }
+
     public String globalExtremeTittle() {
         return
                 "     *********************************************\n" +
-                "     *              Global Extreme               *\n" +
+                "     *              Global Extremum               *\n" +
                 "     *********************************************\n";
     }
 
     public String calculatorTittle() {
         return
                 "     *********************************************\n" +
-                "     *                Calculator                 *\n" +
+                "     *             Currency Calculator           *\n" +
                 "     *********************************************\n";
     }
 
@@ -38,7 +53,7 @@ public class ConsolePrinter {
         return "\n";
     }
 
-    public String dubleNextLine() {
+    public String doubleNextLine() {
         return "\n";
     }
 

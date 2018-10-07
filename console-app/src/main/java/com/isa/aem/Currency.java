@@ -3,7 +3,7 @@ package com.isa.aem;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Currency {
+public class Currency implements Comparable<Currency> {
 
     private String name;
     private LocalDate date;
@@ -36,7 +36,7 @@ public class Currency {
         this.volume = volume;
     }
 
-    public Currency(String name, LocalDate date, Double open, Double high, Double low, Double close, Integer volume,CurrencyNameCountryFlags currencyNameCountryFlags) {
+    public Currency(String name, LocalDate date, Double open, Double high, Double low, Double close, Integer volume, CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.name = name;
         this.date = date;
         this.open = open;
@@ -44,7 +44,7 @@ public class Currency {
         this.low = low;
         this.close = close;
         this.volume = volume;
-        this.currencyNameCountryFlags =currencyNameCountryFlags;
+        this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Currency {
 
     public Currency(String name, CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.name = name;
-        this.currencyNameCountryFlags =currencyNameCountryFlags;
+        this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
 
     @Override
@@ -131,8 +131,14 @@ public class Currency {
     public void setCurrencyNameCountryFlags(CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
+
     public CurrencyNameCountryFlags getCurrencyNameCountryFlags() {
         return currencyNameCountryFlags;
+    }
+
+    @Override
+    public int compareTo(Currency currency) {
+        return this.date.compareTo(currency.date);
     }
 }
 

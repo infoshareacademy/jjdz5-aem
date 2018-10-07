@@ -1,14 +1,17 @@
 package com.isa.aem.calc;
 
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.tools.*;
+import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
+import com.isa.aem.tools.DataValidator;
+
 import java.time.LocalDate;
 
 public class DataTransducerIntroducedByConsole {
 
     private ConsoleReader consoleReader = new ConsoleReader();
-    private ConsolePrinter myPrinter = new ConsolePrinter();
-    private DateService dataService = new DateService();
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
+    private DataValidator dataService = new DataValidator();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private static final String CORRECT_DATE_FORM = "^\\d{4}(0?[1-9]|1[012])(0?[1-9]|[12][0-9]|3[01])$";
@@ -23,7 +26,7 @@ public class DataTransducerIntroducedByConsole {
                 return commandByUser;
 
             } else {
-                System.out.println(myPrinter.currencyUnexist());
+                System.out.println(consolePrinter.currencyUnexist());
             }
         } while (!currencyRepository.containsCurrencyNameInCurrencyList(commandByUser));
         return null;
@@ -34,12 +37,12 @@ public class DataTransducerIntroducedByConsole {
         String replace;
         Double amountGivenByUser = null;
         do {
-            strValue = consoleReader.getString(myPrinter.enterAmount()).trim();
+            strValue = consoleReader.getString(consolePrinter.enterAmount()).trim();
             replace = strValue.replace(',', '.');
-            if (checkIfItIsANumber(replace)){
+            if (checkIfItIsANumber(replace)) {
                 amountGivenByUser = Double.parseDouble(replace);
             } else {
-                System.out.println(myPrinter.numberUnexist());
+                System.out.println(consolePrinter.numberUnexist());
             }
         } while (!checkIfItIsANumber(replace));
         return amountGivenByUser;
@@ -48,14 +51,13 @@ public class DataTransducerIntroducedByConsole {
     protected LocalDate dataService() {
         String strDate;
         LocalDate date = null;
-        do{
-            strDate = consoleReader.getString(myPrinter.enterDate()).trim();
+        do {
+            strDate = consoleReader.getString(consolePrinter.enterDate()).trim();
             preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
             if (checkIfItIsCorrectDataFormatAndOnlyEightDigits()) {
                 date = dataService.dataParse(preparedDate);
-            }
-            else {
-                System.out.println(myPrinter.wrongDate());
+            } else {
+                System.out.println(consolePrinter.wrongDate());
             }
         } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits()));
         return date;

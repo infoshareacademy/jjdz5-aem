@@ -17,7 +17,7 @@ public class FileContentReader {
 
     private List<Currency> listOfCurrencies = new ArrayList<>();
     private List<Currency> currencies = new ArrayList<>();
-    private static String  NAME_FILE="sourceFilePath";
+    private static String NAME_FILE = "sourceFilePath";
 
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
@@ -47,9 +47,9 @@ public class FileContentReader {
 
     public void addPLNToListCurrency() {
         List<LocalDate> everySingleDateOfFile = currencyRepository.getEverySingleDateOfFile();
-        for (LocalDate date : everySingleDateOfFile){
+        for (LocalDate date : everySingleDateOfFile) {
             Currency currencyPLN = new Currency(
-                    "PLN", date, 1.0,1.0,1.0,1.0,1);
+                    "PLN", date, 1.0, 1.0, 1.0, 1.0, 1);
             currencyRepository.add(currencyPLN);
         }
     }

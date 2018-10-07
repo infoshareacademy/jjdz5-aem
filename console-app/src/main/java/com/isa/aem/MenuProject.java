@@ -1,11 +1,19 @@
 package com.isa.aem;
 
 import com.isa.aem.calc.ComplexConsoleCalculator;
-import com.isa.aem.globalextremum.GlobalExtremum;
+import com.isa.aem.global.extremum.GlobalExtremum;
+import com.isa.aem.local.extremum.LocalExtremum;
+import com.isa.aem.local.extremum.LocalExtremumService;
+import com.isa.aem.tools.ConsolePrinter;
+import com.isa.aem.tools.ConsoleReader;
 
 import java.util.Scanner;
 
 public class MenuProject {
+
+    ConsolePrinter consolePrinter = new ConsolePrinter();
+    LocalExtremumService localExtremumService = new LocalExtremumService();
+
 
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
@@ -24,8 +32,6 @@ public class MenuProject {
 
     private void pick() {
         System.out.println("Wybierz interesującą Cię metodę");
-
-        // int choose=0;
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -46,6 +52,10 @@ public class MenuProject {
                         globalExtremeMenu.run();
                         break;
                     case 4:
+                        consolePrinter.printLocalExtremumWelcome();
+                        localExtremumService.run();
+                        break;
+                    case 5:
                         menuInformation.programInformation();
                         break;
                     case 0:

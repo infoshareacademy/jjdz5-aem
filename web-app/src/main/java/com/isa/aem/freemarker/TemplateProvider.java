@@ -3,9 +3,10 @@ package com.isa.aem.freemarker;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.servlet.ServletContext;
+import java.io.IOException;
 
 @ApplicationScoped
 public class TemplateProvider {
