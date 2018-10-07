@@ -142,6 +142,7 @@
                     <input id="amount"
                            required
                            type="number"
+                           step="0.01"
                            min="0"
                            name="amount"
                            value="${score.getAmount()?long?c}"

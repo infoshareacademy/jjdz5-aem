@@ -140,9 +140,13 @@
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
                     <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
-                                 <#list availableCurrencyNames as ac>
-                                     <option>${ac}</option>
-                                 </#list>
+                        <#list availableCurrencyNames as ac>
+                            <option
+                                <#if ac == chosenCurrencyName>
+                                    selected </#if>>
+                                ${ac}
+                            </option>
+                        </#list>
                     </select>
                 </div>
             </div>

@@ -52,7 +52,11 @@ public class LocalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
-        String chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        String chosenCurrencyName = "EUR";
+
+        if(req.getParameter("chosenCurrencyName") != null){
+            chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        }
 
         if(req.getParameter("dateFrom") != null) {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
