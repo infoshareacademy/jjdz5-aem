@@ -125,7 +125,7 @@
 </head>
 
 <body>
-<#include "menu.html">
+<#include "manager-menu.html">
 
 <div class="container">
     <div class="row">

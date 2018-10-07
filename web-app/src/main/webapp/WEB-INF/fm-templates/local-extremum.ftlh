@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Local Extremum</title>
@@ -125,7 +125,7 @@
 </head>
 
 <body>
-<#include "menu.html">
+<#include "manager-menu.html">
 
 <div class="container">
     <div class="row">

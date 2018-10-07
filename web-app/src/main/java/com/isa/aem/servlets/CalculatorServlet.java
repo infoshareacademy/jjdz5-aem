@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@WebServlet(urlPatterns = "/currency-manager")
+@WebServlet(urlPatterns = "/calculator")
 public class CalculatorServlet extends HttpServlet {
 
     private Score score = new Score();
