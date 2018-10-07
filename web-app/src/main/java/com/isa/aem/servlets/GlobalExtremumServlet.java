@@ -38,8 +38,11 @@ public class GlobalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "global-extremum");
 
+        Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();
         model.put("availableCurrencyNames", availableCurrencyNames);
+        model.put("logged", userName);
+
 
 
         try {

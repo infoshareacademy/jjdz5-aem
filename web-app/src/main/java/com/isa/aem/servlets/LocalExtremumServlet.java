@@ -52,7 +52,11 @@ public class LocalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
-        String chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        String chosenCurrencyName = "EUR";
+
+        if(req.getParameter("chosenCurrencyName") != null){
+            chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        }
 
         if(req.getParameter("dateFrom") != null) {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
@@ -72,6 +76,7 @@ public class LocalExtremumServlet extends HttpServlet {
         List<Currency> minExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
         List<Currency> maxExtremum = localExtremum.getMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
 
+        Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();
         model.put("dataValidator", dataValidator);
         model.put("currencyRepository", currencyRepository);
@@ -81,6 +86,7 @@ public class LocalExtremumServlet extends HttpServlet {
         model.put("dateTo", dateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
+        model.put("logged", userName);
 
         try {
             template.process(model, resp.getWriter());

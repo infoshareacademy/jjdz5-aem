@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Local Extremum</title>
@@ -125,7 +125,8 @@
 </head>
 
 <body>
-<#include "menu.html">
+<h6 align="right">User: ${logged}</h6>
+<#include "manager-menu.html">
 
 <div class="container">
     <div class="row">
@@ -139,9 +140,13 @@
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
                     <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
-                                 <#list availableCurrencyNames as ac>
-                                     <option>${ac}</option>
-                                 </#list>
+                        <#list availableCurrencyNames as ac>
+                            <option
+                                <#if ac == chosenCurrencyName>
+                                    selected </#if>>
+                                ${ac}
+                            </option>
+                        </#list>
                     </select>
                 </div>
             </div>

@@ -125,7 +125,8 @@
 </head>
 
 <body>
-<#include "menu.html">
+<h6 align="right">User: ${logged}</h6>
+<#include "manager-menu.html">
 
 <div class="container">
     <div class="row">
