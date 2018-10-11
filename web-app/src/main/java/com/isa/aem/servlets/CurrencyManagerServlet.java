@@ -3,6 +3,7 @@ package com.isa.aem.servlets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.*;
 import com.isa.aem.Currency;
+import com.isa.aem.calculatorMethod.AvailableCurrencyTable;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
@@ -22,8 +23,10 @@ import java.util.*;
 public class CurrencyManagerServlet extends HttpServlet {
 
     private Score score = new Score();
+    private AvailableCurrencyTable availableCurrencyTable=new AvailableCurrencyTable();
     private ScoreResult scoreResult=new ScoreResult();
     CurrencyRepository currencyRepository=new CurrencyRepository();
+    String currencyInTable;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -49,6 +52,8 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         if(score.getCurrencyHave()==null){
             score.setCurrencyHave("PLN");
+            currencyInTable="AUD";
+            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable.availableCurrencyObjects(currencyInTable);
         }
 
         if (score.getCurrencyWant()==null){
@@ -68,6 +73,11 @@ public class CurrencyManagerServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
         }
 
+//        if (currencyInTable == null) {
+//            currencyInTable="PLN";
+//            availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+//        }
+
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-manager-converter");
 
@@ -76,6 +86,8 @@ public class CurrencyManagerServlet extends HttpServlet {
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
         model.put("logged", userName);
+        model.put("currencyInTable", currencyInTable);
+        model.put("availableCurrencyTable", availableCurrencyTable.tableListCurrencyObject);
 
         try {
             template.process(model, resp.getWriter());
@@ -87,7 +99,7 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        AvailableCurrencyTable availableCurrencyTable1=new AvailableCurrencyTable();
         String reqAmount = req.getParameter("amount");
         String reqHave = req.getParameter("have");
         String reqWant = req.getParameter("want");
@@ -97,10 +109,14 @@ public class CurrencyManagerServlet extends HttpServlet {
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
         LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
+        String currencyInTableNames=req.getParameter("currency_table");
+     //   String[] currencyInTableName = currencyInTableNames.split(" - ");
+        currencyInTable=haveCurrency;
 
         score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
         score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
         score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
+        availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable1.availableCurrencyObjects(haveCurrency);
 
         doGet(req, resp);
     }

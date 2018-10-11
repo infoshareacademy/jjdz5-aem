@@ -211,10 +211,13 @@
                 <div class="form-group">
 
                     <label for="defult" id="label-defult">Currency</label>
-                    <select class="form-control" id="defult">
-                       <#list singleCurrency as s>
-                           <option>${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
-                       </#list>
+                    <select class="form-control" id="defult" name="currency_table">
+                     <#list singleCurrency as s>
+                        <option
+                        <#if s.getName()== currencyInTable>
+                            selected </#if>
+                              >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                               </#list>
                     </select>
                 </div>
 

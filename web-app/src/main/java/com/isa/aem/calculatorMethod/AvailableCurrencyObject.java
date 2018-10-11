@@ -22,6 +22,10 @@ public class AvailableCurrencyObject {
         this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
 
+    public AvailableCurrencyObject() {
+
+    }
+
     @Override
     public String toString() {
         return "AvailableCurrencyObject{" +

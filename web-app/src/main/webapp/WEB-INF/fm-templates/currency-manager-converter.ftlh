@@ -123,7 +123,7 @@
     <h6 align="right">User: ${logged}</h6>
 <#include "manager-menu.html">
 
-<div class="container">
+<div class="container" >
     <div class="row" >
         <div class="col-4" id="main">
             <h4>Currency Converter</h4>
@@ -135,8 +135,9 @@
     </div>
 
     <div class="row" >
-        <div class="col-4">
-            <form method="post" action="/currency-manager" >
+                 <div class="col-4">
+
+            <form method="post" action="/currency-manager" NAME="form1">
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input id="amount"
@@ -198,20 +199,27 @@
                 </div>
                  </#if>
             </form>
-        </div>
-        <div class="col-7" id="main_currency">
-            <form>
+            </div>
+         <div class="col-7" id="main_currency">
+            <form method="post" action="/currency-manager" NAME="form2">
                 <div class="form-group">
 
                     <label for="defult" id="label-defult">Currency</label>
-                    <select class="form-control" id="defult">
-                       <#list singleCurrency as s>
-                           <option>${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
-                       </#list>
+
+                    <select class="form-control" id="defult" name="currency_table">
+
+                     <#list singleCurrency as s>
+                        <option
+                        <#if s.getName()== currencyInTable>
+                            selected </#if>
+                              >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
+                               </#list>
                     </select>
+                   <button type="submit" class="btn btn-primary" value="result1">Convert</button>
+                  </form>
+
                 </div>
 
-            </form>
 
             <h5>Main Currencies</h5>
 
@@ -225,83 +233,23 @@
                     <th scope="col">Date range</th>
                 </tr>
                 </thead>
-                <tbody>
+             <tbody>
+                 <#list availableCurrencyTable as s>
                 <tr>
-                    <td>USA <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
-                    <td>USA Dolar</td>
-                    <td>USA</td>
-                    <td>3.09</td>
-                    <td>2010.01.01 do 2018.08.01</td>
+                    <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src=" ${s.getCurrencyNameCountryFlags().getUrl()}" width="20" alt="">  ${s.getName()} </td>
+                    <td>${s.getCurrencyNameCountryFlags().getCurrency()}</td>
+                    <td>${s.getCurrencyNameCountryFlags().getCountry()}</td>
+                    <td>${s.getValue()}</td>
+                    <td>${s.getCurrencyRange()}</td>
                 </tr>
-                <tr>
-                    <td>EUR <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/eur.svg" width="30" alt=""></td>
-                    <td>Euro</td>
-                    <td>Europe</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                <tr>
-                    <td>GBP <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/gbp.svg" width="30" alt=""></td>
-                    <td>British Pound</td>
-                    <td>Great Britain</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
+                 </#list>
                 </tbody>
             </table>
-
-        </div>
-
+     </div>
 
     </div>
 
-    <div class="row" >
-        <div class="col-4">
 
-
-
-
-        </div>
-
-        <div class="col-7" id="table_remining">
-            <h5>Other Currency</h5>
-            <table class="tabela2" cellspacing='0'>
-                <thead>
-                <tr>
-                    <th scope="col">Currency</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Current rate</th>
-                    <th scope="col">Date range</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>USA <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/usd.svg" width="30" alt=""></td>
-                    <td>USA Dolar</td>
-                    <td>USA</td>
-                    <td>3.09</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                <tr>
-                    <td>EUR <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/eur.svg" width="30" alt=""></td>
-                    <td>Euro</td>
-                    <td>Europe</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                <tr>
-                    <td>GBP <img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe" src="https://www.xe.com/themes/xe/images/flags/svg/gbp.svg" width="30" alt=""></td>
-                    <td>British Pound</td>
-                    <td>Great Britain</td>
-                    <td>4.20</td>
-                    <td>2010.01.01 do 2018.08.01</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
 </div>
 <div class="row" id="footer">
     <div class="col-11" >
