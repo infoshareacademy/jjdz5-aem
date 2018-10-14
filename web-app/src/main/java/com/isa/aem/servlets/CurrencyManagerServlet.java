@@ -1,6 +1,5 @@
 package com.isa.aem.servlets;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.*;
 import com.isa.aem.Currency;
 import com.isa.aem.calculatorMethod.AvailableCurrencyTable;
@@ -52,8 +51,7 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         if(score.getCurrencyHave()==null){
             score.setCurrencyHave("PLN");
-            currencyInTable="AUD";
-            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+
         }
 
         if (score.getCurrencyWant()==null){
@@ -73,10 +71,10 @@ public class CurrencyManagerServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
         }
 
-//        if (currencyInTable == null) {
-//            currencyInTable="PLN";
-//            availableCurrencyTable.availableCurrencyObjects(currencyInTable);
-//        }
+        if (currencyInTable == null) {
+            currencyInTable="PLN";
+            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+        }
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-manager-converter");
@@ -99,25 +97,30 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AvailableCurrencyTable availableCurrencyTable1=new AvailableCurrencyTable();
-        String reqAmount = req.getParameter("amount");
-        String reqHave = req.getParameter("have");
-        String reqWant = req.getParameter("want");
-        String reqDate = req.getParameter("date");
-        Double calculatorAmount = Double.parseDouble(reqAmount);
-        String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
-        String[] calculatorCurrencyWantTable = reqWant.split(" - ");
-        String haveCurrency = calculatorCurrencyHaveTable[0];
-        LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
-        String currencyInTableNames=req.getParameter("currency_table");
-     //   String[] currencyInTableName = currencyInTableNames.split(" - ");
-        currencyInTable=haveCurrency;
+        String action = req.getParameter("action");
 
-        score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable1.availableCurrencyObjects(haveCurrency);
+        if ("calculator".equals(action)) {
+            String reqAmount = req.getParameter("amount");
+            String reqHave = req.getParameter("have");
+            String reqWant = req.getParameter("want");
+            String reqDate = req.getParameter("date");
+            Double calculatorAmount = Double.parseDouble(reqAmount);
+            String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
+            String[] calculatorCurrencyWantTable = reqWant.split(" - ");
+            String haveCurrency = calculatorCurrencyHaveTable[0];
+            LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
+            score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
+            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
+            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
 
+        } else if ("rangeCurrency".equals(action)) {
+            AvailableCurrencyTable availableCurrencyTable1=new AvailableCurrencyTable();
+            String currencyInTableNames=req.getParameter("currency_table");
+            String[] currencyInTableName = currencyInTableNames.split(" - ");
+            currencyInTable=currencyInTableName[0];
+            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable1.availableCurrencyObjects(currencyInTable);
+
+        }
         doGet(req, resp);
     }
 }

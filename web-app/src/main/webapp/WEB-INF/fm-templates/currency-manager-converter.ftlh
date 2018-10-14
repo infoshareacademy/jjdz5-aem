@@ -188,7 +188,7 @@
                            value=${score.getDateExchange()}
                                    class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary" value="result">Convert</button>
+                <button type="submit" class="btn btn-primary" name="action" value="calculator">Convert</button>
 
                  <#if score.getScore()??>
                 <div>
@@ -215,14 +215,10 @@
                               >${s.getName()} - ${s.getCurrencyNameCountryFlags().getCurrency()}</option>
                                </#list>
                     </select>
-                   <button type="submit" class="btn btn-primary" value="result1">Convert</button>
+                   <button type="submit" class="btn btn-primary" name="action" value="rangeCurrency">Show</button>
                   </form>
-
                 </div>
-
-
             <h5>Main Currencies</h5>
-
             <table class="tabela2" cellspacing='0'>
                 <thead>
                 <tr>
@@ -246,10 +242,7 @@
                 </tbody>
             </table>
      </div>
-
     </div>
-
-
 </div>
 <div class="row" id="footer">
     <div class="col-11" >
@@ -258,7 +251,6 @@
 </div>
 </div>
  <#include "footer.html">
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

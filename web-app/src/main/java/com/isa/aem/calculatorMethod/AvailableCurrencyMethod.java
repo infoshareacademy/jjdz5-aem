@@ -10,15 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AvailableCurrencyMethod {
-
-
  public  List<Currency> currencyInMaxDate;
  public  LocalDate dateMax;
  public  LocalDate dateMin;
  public CurrencyRepository currencyRepository=new CurrencyRepository();
 
  public LocalDate currencyMaxDateInFile(String nameOfCurrency){
-
      LocalDate date =currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
      String date1=date.format(dateTimeFormatter);
@@ -36,7 +33,6 @@ public class AvailableCurrencyMethod {
 
     public String currencyRange(String nameOfCurrency){
         return currencyMinDateInFile(nameOfCurrency) + " - " + currencyMaxDateInFile(nameOfCurrency);
-
     }
 
     public BigDecimal changeValue(String nameOfCurrency, String nameCurrencyWant, LocalDate dateMax){
@@ -48,7 +44,6 @@ public class AvailableCurrencyMethod {
     }
 
     public  List<Currency> getSingleCurrencyWithMaxDate(LocalDate dateMax) {
-
         currencyInMaxDate =CurrencyRepository.getCurrencies().stream()
                 .filter(cc->cc.getDate().equals(dateMax))
                 .collect(Collectors.toList());
