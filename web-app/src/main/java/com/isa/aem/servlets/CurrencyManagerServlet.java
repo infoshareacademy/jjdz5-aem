@@ -2,7 +2,7 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.*;
 import com.isa.aem.Currency;
-import com.isa.aem.calculatorMethod.AvailableCurrencyTable;
+import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
@@ -23,7 +23,7 @@ import java.util.*;
 public class CurrencyManagerServlet extends HttpServlet {
 
     private Score score = new Score();
-    private AvailableCurrencyTable availableCurrencyTable = new AvailableCurrencyTable();
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
     String currencyInTable;
@@ -74,7 +74,7 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         if (currencyInTable == null) {
             currencyInTable = "PLN";
-            availableCurrencyTable.tableListCurrencyObject = availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+            createAListOfAvailableCurrencies.tableListCurrencyObject = createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
         }
 
         Template template = templateProvider
@@ -86,7 +86,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         model.put("score", score);
         model.put("logged", userName);
         model.put("currencyInTable", currencyInTable);
-        model.put("availableCurrencyTable", availableCurrencyTable.tableListCurrencyObject);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.tableListCurrencyObject);
 
         try {
             template.process(model, resp.getWriter());
@@ -115,11 +115,11 @@ public class CurrencyManagerServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
 
         } else if ("rangeCurrency".equals(action)) {
-            AvailableCurrencyTable availableCurrencyTable1 = new AvailableCurrencyTable();
+            CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
             String currencyInTableNames = req.getParameter("currency_table");
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
-            availableCurrencyTable.tableListCurrencyObject = availableCurrencyTable1.availableCurrencyObjects(currencyInTable);
+            createAListOfAvailableCurrencies.tableListCurrencyObject = createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable);
 
         }
         doGet(req, resp);

@@ -4,7 +4,7 @@ import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
-import com.isa.aem.calculatorMethod.AvailableCurrencyTable;
+import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
@@ -30,7 +30,7 @@ public class CalculatorServlet extends HttpServlet {
     private Score score = new Score();
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    private AvailableCurrencyTable availableCurrencyTable=new AvailableCurrencyTable();
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies =new CreateAListOfAvailableCurrencies();
     String currencyInTable;
 
     @Inject
@@ -87,7 +87,7 @@ public class CalculatorServlet extends HttpServlet {
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
         model.put("currencyInTable", currencyInTable);
-        model.put("availableCurrencyTable", availableCurrencyTable);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -113,7 +113,7 @@ public class CalculatorServlet extends HttpServlet {
         score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
         score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
         score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+        createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
 
         doGet(req, resp);
     }

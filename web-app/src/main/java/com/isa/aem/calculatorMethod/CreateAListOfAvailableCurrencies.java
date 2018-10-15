@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AvailableCurrencyTable {
+public class CreateAListOfAvailableCurrencies {
     private AvailableCurrencyMethod availableCurrencyMethod = new AvailableCurrencyMethod();
     private LocalDate maxDate;
     public List<AvailableCurrency> tableListCurrencyObject = new ArrayList<>();
