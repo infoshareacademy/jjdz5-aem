@@ -30,7 +30,7 @@ public class AvailableCurrencyObject {
         return "AvailableCurrencyObject{" +
                 "dateMin=" + dateMin +
                 ", dateMax=" + dateMax +
-                ", currencyRange='" + currencyRange + '\'' +
+                ", getRangeOfSelectedCurrency='" + currencyRange + '\'' +
                 ", name='" + name + '\'' +
                 ", value=" + value +
                 ", currencyNameCountryFlags=" + currencyNameCountryFlags +
