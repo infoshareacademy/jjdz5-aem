@@ -17,10 +17,7 @@ public class AvailableCurrencyMethod {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public LocalDate getMaxDateForSelectedCurrency(String nameOfCurrency) {
-        LocalDate date = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String date1 = date.format(dateTimeFormatter);
-        dateMax = LocalDate.parse(date1, dateTimeFormatter);
+        dateMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
         return dateMax;
     }
 
