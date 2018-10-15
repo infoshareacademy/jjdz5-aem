@@ -46,7 +46,7 @@ public class AvailableCurrencyMethod {
 
     public List<Currency> getSingleCurrencyWithMaxDate(LocalDate dateMax) {
         currencyInMaxDate = CurrencyRepository.getCurrencies().stream()
-                .filter(cc -> cc.getDate().equals(dateMax))
+                .filter(currency -> currency.getDate().equals(dateMax))
                 .collect(Collectors.toList());
 
         return currencyInMaxDate;
