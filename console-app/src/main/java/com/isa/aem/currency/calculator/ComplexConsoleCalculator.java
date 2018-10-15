@@ -1,4 +1,4 @@
-package com.isa.aem.calc;
+package com.isa.aem.currency.calculator;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;

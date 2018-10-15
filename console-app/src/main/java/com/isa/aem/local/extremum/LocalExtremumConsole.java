@@ -10,7 +10,7 @@ import com.isa.aem.tools.DataValidator;
 import java.time.LocalDate;
 import java.util.List;
 
-public class LocalExtremumService {
+public class LocalExtremumConsole {
 
     private String chosenCurrencyName;
     private String typedDateString;
@@ -24,6 +24,7 @@ public class LocalExtremumService {
     MenuInformation menuInformation = new MenuInformation();
     CurrencyRepository currencyRepository = new CurrencyRepository();
 
+
     public void run() {
         runCurrencySelection();
         runDatesSelection();
@@ -32,7 +33,7 @@ public class LocalExtremumService {
     }
 
     public void runCurrencySelection() {
-        chooseCurrency(CurrencyRepository.getAvailableCurrencyNames());
+        chooseCurrency(currencyRepository.getAvailableCurrencyNames());
     }
 
     public void chooseCurrency(List<String> availableCurrencyNames) {
@@ -67,7 +68,6 @@ public class LocalExtremumService {
                     currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateTo();
         }
-        CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
     }
 
     public LocalDate chooseDateFrom() {
@@ -90,12 +90,12 @@ public class LocalExtremumService {
 
 
     public void runExtremum() {
-        List<Currency> minExtremum = localExtremum.getMinExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> minExtremum = localExtremum.getMinExtremum(chosenCurrencyName, chosenDateFrom, chosenDateTo);
         consolePrinter.printLn("\nMIN");
         minExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
         consolePrinter.printLn("MAX");
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(CurrencyRepository.getRepositoryWithChosenCurrencyWithinChosenDateRange());
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(chosenCurrencyName, chosenDateFrom, chosenDateTo);
         maxExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
     }
@@ -128,4 +128,5 @@ public class LocalExtremumService {
             }
         } while (isChoiceCorrect == false);
     }
+
 }

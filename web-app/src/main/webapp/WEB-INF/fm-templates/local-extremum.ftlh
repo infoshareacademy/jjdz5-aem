@@ -175,7 +175,7 @@
                            min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateFrom}
                                    class="form-control"/>
-                    <#if currencyRepository.isDateFromAfterDateTo(dateFrom, dateTo) == true>
+                    <#if localExtremum.isDateFromAfterDateTo(dateFrom, dateTo) == true>
                         <div class="alert alert-error">
                             Date From is after Date To. Try again!
                         </div>

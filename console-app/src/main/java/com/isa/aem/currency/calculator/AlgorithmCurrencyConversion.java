@@ -1,4 +1,4 @@
-package com.isa.aem.calc;
+package com.isa.aem.currency.calculator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

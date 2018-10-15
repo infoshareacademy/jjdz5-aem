@@ -36,7 +36,7 @@ public class ConsolePrinter {
 
     public String simpleCalculator (){
         return
-                "                                || 1: simple calcualtor\n";
+                "                                || 1: simple calculator\n";
     }
 
     public String calculatorWithDate (){

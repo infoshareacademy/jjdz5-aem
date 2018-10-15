@@ -1,19 +1,16 @@
 package com.isa.aem;
 
-import com.isa.aem.calc.ComplexConsoleCalculator;
+import com.isa.aem.currency.calculator.ComplexConsoleCalculator;
 import com.isa.aem.global.extremum.GlobalExtremum;
-import com.isa.aem.local.extremum.LocalExtremum;
-import com.isa.aem.local.extremum.LocalExtremumService;
+import com.isa.aem.local.extremum.LocalExtremumConsole;
 import com.isa.aem.tools.ConsolePrinter;
-import com.isa.aem.tools.ConsoleReader;
 
 import java.util.Scanner;
 
 public class MenuProject {
 
     ConsolePrinter consolePrinter = new ConsolePrinter();
-    LocalExtremumService localExtremumService = new LocalExtremumService();
-
+    LocalExtremumConsole localExtremumConsole = new LocalExtremumConsole();
 
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
@@ -53,7 +50,7 @@ public class MenuProject {
                         break;
                     case 4:
                         consolePrinter.printLocalExtremumWelcome();
-                        localExtremumService.run();
+                        localExtremumConsole.run();
                         break;
                     case 5:
                         menuInformation.programInformation();

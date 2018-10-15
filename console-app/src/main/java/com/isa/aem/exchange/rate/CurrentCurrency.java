@@ -1,4 +1,9 @@
-package com.isa.aem;
+package com.isa.aem.exchange.rate;
+
+import com.isa.aem.Currency;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.MenuProject;
+import com.isa.aem.SortCurrency;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,8 +14,8 @@ public class CurrentCurrency {
 
     CurrentVariable currentVariable = new CurrentVariable();
 
-    private List<Currency> readFile() {
-        for (Currency currency : CurrencyRepository.getCurrencies()) {
+    private List<com.isa.aem.Currency> readFile() {
+        for (com.isa.aem.Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.dateCurrency.add(currency);
         }
         return currentVariable.dateCurrency;
@@ -28,7 +33,7 @@ public class CurrentCurrency {
         System.out.println("        Currency              Value         ");
         System.out.println("                                            ");
 
-        for (Currency currency : currentVariable.dateCurrency) {
+        for (com.isa.aem.Currency currency : currentVariable.dateCurrency) {
 
             if (currency.getDate().toString().equals(currentVariable.dateCurrent)) {
                 currentVariable.listCurrency.add(currency);
@@ -41,7 +46,7 @@ public class CurrentCurrency {
         //sort currency by name ascending
         currentVariable.listCurrency.sort(new SortCurrency());
 
-        for (Currency current : currentVariable.listCurrency) {
+        for (com.isa.aem.Currency current : currentVariable.listCurrency) {
             System.out.println("        " + current.getName() + "                  " + current.getClose());
         }
 

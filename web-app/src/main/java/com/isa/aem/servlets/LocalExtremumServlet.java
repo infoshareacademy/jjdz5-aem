@@ -27,8 +27,8 @@ import java.util.Map;
 public class LocalExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
-    private DataValidator dataValidator = new DataValidator();
     private LocalExtremum localExtremum = new LocalExtremum();
+    private DataValidator dataValidator = new DataValidator();
     private LocalDate dateFrom;
     private LocalDate dateTo;
 
@@ -47,43 +47,42 @@ public class LocalExtremumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<String> availableCurrencyNames = CurrencyRepository.getAvailableCurrencyNames();
+        List<String> availableCurrencyNames = currencyRepository.getAvailableCurrencyNames();
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
         String chosenCurrencyName = "EUR";
 
-        if(req.getParameter("chosenCurrencyName") != null){
+        if (req.getParameter("chosenCurrencyName") != null) {
             chosenCurrencyName = req.getParameter("chosenCurrencyName");
         }
 
-        if(req.getParameter("dateFrom") != null) {
+        if (req.getParameter("dateFrom") != null) {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
         } else {
-            dateFrom = currencyRepository.getLastMonthDateFromRepository();
+            dateFrom = currencyRepository.getPastMonthDateFromRepository();
             System.out.println(dateFrom);
         }
 
-        if(req.getParameter("dateTo") != null) {
+        if (req.getParameter("dateTo") != null) {
             dateTo = LocalDate.parse(req.getParameter("dateTo"));
         } else {
             dateTo = currencyRepository.getLastDateFromRepository();
         }
 
-        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = CurrencyRepository.limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, dateFrom, dateTo);
-
-        List<Currency> minExtremum = localExtremum.getMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> minExtremum = localExtremum.getMinExtremum(chosenCurrencyName, dateFrom, dateTo);
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(chosenCurrencyName, dateFrom, dateTo);
 
         Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();
-        model.put("dataValidator", dataValidator);
         model.put("currencyRepository", currencyRepository);
         model.put("availableCurrencyNames", availableCurrencyNames);
+        model.put("dataValidator", dataValidator);
         model.put("chosenCurrencyName", chosenCurrencyName);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
+        model.put("localExtremum", localExtremum);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
         model.put("logged", userName);

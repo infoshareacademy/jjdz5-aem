@@ -1,5 +1,7 @@
 package com.isa.aem;
 
+import com.isa.aem.exchange.rate.CurrentCurrency;
+
 public class MenuInformation {
     public void programInformation() {
         System.out.println("    ****************************************");

@@ -5,8 +5,5 @@ public class Main {
 
         MenuProject menu = new MenuProject();
         menu.menuPanel();
-        FileContentReader fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
     }
 }
