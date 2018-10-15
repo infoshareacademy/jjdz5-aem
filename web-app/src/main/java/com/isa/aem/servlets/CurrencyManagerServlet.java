@@ -8,6 +8,7 @@ import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +23,9 @@ import java.util.*;
 public class CurrencyManagerServlet extends HttpServlet {
 
     private Score score = new Score();
-    private AvailableCurrencyTable availableCurrencyTable=new AvailableCurrencyTable();
-    private ScoreResult scoreResult=new ScoreResult();
-    CurrencyRepository currencyRepository=new CurrencyRepository();
+    private AvailableCurrencyTable availableCurrencyTable = new AvailableCurrencyTable();
+    private ScoreResult scoreResult = new ScoreResult();
+    CurrencyRepository currencyRepository = new CurrencyRepository();
     String currencyInTable;
 
     @Inject
@@ -45,35 +46,35 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         List<Currency> singleCurrency = score.getSingleCurrency();
 
-        if(score.getAmount()==null){
+        if (score.getAmount() == null) {
             score.setAmount(100.00);
         }
 
-        if(score.getCurrencyHave()==null){
+        if (score.getCurrencyHave() == null) {
             score.setCurrencyHave("PLN");
 
         }
 
-        if (score.getCurrencyWant()==null){
+        if (score.getCurrencyWant() == null) {
             score.setCurrencyWant("EUR");
         }
 
-        if (score.getDateExchange()==null){
-            LocalDate dateHaveMax= currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
+        if (score.getDateExchange() == null) {
+            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
             score.setDateExchange(dateHaveMax);
         }
 
-        if(score.getMaxDate()==null){
+        if (score.getMaxDate() == null) {
             score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
         }
 
-        if(score.getMinDate()==null){
+        if (score.getMinDate() == null) {
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
         }
 
         if (currencyInTable == null) {
-            currencyInTable="PLN";
-            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable.availableCurrencyObjects(currencyInTable);
+            currencyInTable = "PLN";
+            availableCurrencyTable.tableListCurrencyObject = availableCurrencyTable.availableCurrencyObjects(currencyInTable);
         }
 
         Template template = templateProvider
@@ -108,17 +109,17 @@ public class CurrencyManagerServlet extends HttpServlet {
             String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
             String[] calculatorCurrencyWantTable = reqWant.split(" - ");
             String haveCurrency = calculatorCurrencyHaveTable[0];
-            LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
-            score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
+            LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
+            score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
             score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
 
         } else if ("rangeCurrency".equals(action)) {
-            AvailableCurrencyTable availableCurrencyTable1=new AvailableCurrencyTable();
-            String currencyInTableNames=req.getParameter("currency_table");
+            AvailableCurrencyTable availableCurrencyTable1 = new AvailableCurrencyTable();
+            String currencyInTableNames = req.getParameter("currency_table");
             String[] currencyInTableName = currencyInTableNames.split(" - ");
-            currencyInTable=currencyInTableName[0];
-            availableCurrencyTable.tableListCurrencyObject= availableCurrencyTable1.availableCurrencyObjects(currencyInTable);
+            currencyInTable = currencyInTableName[0];
+            availableCurrencyTable.tableListCurrencyObject = availableCurrencyTable1.availableCurrencyObjects(currencyInTable);
 
         }
         doGet(req, resp);

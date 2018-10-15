@@ -1,16 +1,17 @@
 package com.isa.aem.calculatorMethod;
 
 import com.isa.aem.CurrencyNameCountryFlags;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class AvailableCurrencyObject {
-   private LocalDate dateMin;
-   private LocalDate dateMax;
-   private String currencyRange;
-   private String name;
-   private BigDecimal value;
-   private CurrencyNameCountryFlags currencyNameCountryFlags;
+    private LocalDate dateMin;
+    private LocalDate dateMax;
+    private String currencyRange;
+    private String name;
+    private BigDecimal value;
+    private CurrencyNameCountryFlags currencyNameCountryFlags;
 
     public AvailableCurrencyObject(LocalDate dateMin, LocalDate dateMax, String currencyRange, String name, BigDecimal value, CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.dateMin = dateMin;
