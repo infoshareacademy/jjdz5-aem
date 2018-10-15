@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvailableCurrencyTable {
-    AvailableCurrencyMethod availableCurrencyMethod = new AvailableCurrencyMethod();
-    public LocalDate maxDate;
-    public List<AvailableCurrencyObject> tableListCurrencyObject = new ArrayList<>();
-    CurrencyRepository currencyRepository = new CurrencyRepository();
-    LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+    private AvailableCurrencyMethod availableCurrencyMethod = new AvailableCurrencyMethod();
+    private LocalDate maxDate;
+    public List<AvailableCurrency> tableListCurrencyObject = new ArrayList<>();
+    private CurrencyRepository currencyRepository = new CurrencyRepository();
+    private LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
 
-    public List<AvailableCurrencyObject> availableCurrencyObjects(String nameOfCurrency) {
+    public List<AvailableCurrency> availableCurrencyObjects(String nameOfCurrency) {
         this.maxDate = availableCurrencyMethod.getMaxDateForSelectedCurrency(nameOfCurrency);
         availableCurrencyMethod.getSingleCurrencyWithMaxDate(maxDate);
 
@@ -25,7 +25,7 @@ public class AvailableCurrencyTable {
             String range = availableCurrencyMethod.getRangeOfSelectedCurrency(nameCurrencyWant.getName());
             String name = nameCurrencyWant.getName();
             nameCurrencyWant.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(nameCurrencyWant.getName()));
-            tableListCurrencyObject.add(new AvailableCurrencyObject(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
+            tableListCurrencyObject.add(new AvailableCurrency(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
 
         }
 

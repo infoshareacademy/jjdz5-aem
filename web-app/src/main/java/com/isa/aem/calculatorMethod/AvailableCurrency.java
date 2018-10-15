@@ -5,7 +5,7 @@ import com.isa.aem.CurrencyNameCountryFlags;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class AvailableCurrencyObject {
+public class AvailableCurrency {
     private LocalDate dateMin;
     private LocalDate dateMax;
     private String currencyRange;
@@ -13,7 +13,7 @@ public class AvailableCurrencyObject {
     private BigDecimal value;
     private CurrencyNameCountryFlags currencyNameCountryFlags;
 
-    public AvailableCurrencyObject(LocalDate dateMin, LocalDate dateMax, String currencyRange, String name, BigDecimal value, CurrencyNameCountryFlags currencyNameCountryFlags) {
+    public AvailableCurrency(LocalDate dateMin, LocalDate dateMax, String currencyRange, String name, BigDecimal value, CurrencyNameCountryFlags currencyNameCountryFlags) {
         this.dateMin = dateMin;
         this.dateMax = dateMax;
         this.currencyRange = currencyRange;
@@ -22,7 +22,7 @@ public class AvailableCurrencyObject {
         this.currencyNameCountryFlags = currencyNameCountryFlags;
     }
 
-    public AvailableCurrencyObject() {
+    public AvailableCurrency() {
 
     }
 

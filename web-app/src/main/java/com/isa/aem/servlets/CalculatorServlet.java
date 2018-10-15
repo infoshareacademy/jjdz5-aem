@@ -4,7 +4,6 @@ import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
-import com.isa.aem.calculatorMethod.AvailableCurrencyObject;
 import com.isa.aem.calculatorMethod.AvailableCurrencyTable;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
