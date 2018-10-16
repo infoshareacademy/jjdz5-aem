@@ -36,7 +36,7 @@ public class CurrencyRepository {
                 .anyMatch(currency -> currency.equals(date));
     }
 
-    public LocalDate getMostRecentAvailableDateForChosenCurrency(String nameOfCurrency) {
+    public LocalDate getMostRecentDateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
@@ -44,7 +44,7 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public LocalDate getOldestAvailableDateForChosenCurrency(String nameOfCurrency) {
+    public LocalDate getOldestDateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
@@ -52,7 +52,7 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public Double getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
+    public Double getMostRecentExchangedRateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))

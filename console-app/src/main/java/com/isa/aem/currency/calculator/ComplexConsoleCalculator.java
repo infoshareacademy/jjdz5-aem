@@ -54,9 +54,9 @@ public class ComplexConsoleCalculator {
                 .getCurrencySelectedByUserOfConsole(consolePrinter.enterSecondCurrency());
         getAmountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
         Double rateOfFirstCurrencyNameSelectedByUser = currencyRepository
-                .getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser);
+                .getMostRecentExchangedRateForChosenCurrencyName(getFirstNameOfCurrencySelectedByUser);
         Double rateOfSecondCurrencyNameSelectedByUser = currencyRepository
-                .getMostCurrentExchangedRateOfSelectedCurrencyFromTheFile(getSecondNameOfCurrencySelectedByUser);
+                .getMostRecentExchangedRateForChosenCurrencyName(getSecondNameOfCurrencySelectedByUser);
         exchangingRate = algorithmCurrencyConversion
                 .currencyConversionAlgorithm(
                         getAmountGivenByUser, rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
@@ -106,7 +106,7 @@ public class ComplexConsoleCalculator {
                         exchangingRate + " " +
                         getSecondNameOfCurrencySelectedByUser + " by date: " +
                         currencyRepository
-                                .getMostRecentAvailableDateForChosenCurrency(getFirstNameOfCurrencySelectedByUser));
+                                .getMostRecentDateForChosenCurrencyName(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printRate() {
@@ -115,7 +115,7 @@ public class ComplexConsoleCalculator {
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
                         currencyRepository
-                                .getMostRecentAvailableDateForChosenCurrency(getFirstNameOfCurrencySelectedByUser));
+                                .getMostRecentDateForChosenCurrencyName(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printExchangingRateWithDate() {
