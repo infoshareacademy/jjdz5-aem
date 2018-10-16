@@ -28,7 +28,6 @@ public class LocalExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private LocalExtremum localExtremum = new LocalExtremum();
-    private DataValidator dataValidator = new DataValidator();
     private LocalDate dateFrom;
     private LocalDate dateTo;
 
@@ -52,8 +51,13 @@ public class LocalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
-        String chosenCurrencyName = "EUR";
+        String chosenCurrencyName;
 
+        if (currencyRepository.containsCurrencyNameInCurrencyList("EUR")) {
+            chosenCurrencyName = "EUR";
+        } else {
+            chosenCurrencyName = currencyRepository.getFirstAvailableCurrencyName();
+        }
         if (req.getParameter("chosenCurrencyName") != null) {
             chosenCurrencyName = req.getParameter("chosenCurrencyName");
         }
@@ -61,13 +65,13 @@ public class LocalExtremumServlet extends HttpServlet {
         if (req.getParameter("dateFrom") != null) {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
         } else {
-            dateFrom = currencyRepository.getPastMonthDateFromRepository();
+            dateFrom = currencyRepository.getMostRecentDateMinusOneMonthForChosenCurrencyName(chosenCurrencyName);
         }
 
         if (req.getParameter("dateTo") != null) {
             dateTo = LocalDate.parse(req.getParameter("dateTo"));
         } else {
-            dateTo = currencyRepository.getLastDateFromRepository();
+            dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(chosenCurrencyName);
         }
 
         List<Currency> minExtremum = localExtremum.getMinExtremum(chosenCurrencyName, dateFrom, dateTo);
@@ -77,7 +81,6 @@ public class LocalExtremumServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
         model.put("availableCurrencyNames", availableCurrencyNames);
-        model.put("dataValidator", dataValidator);
         model.put("chosenCurrencyName", chosenCurrencyName);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
