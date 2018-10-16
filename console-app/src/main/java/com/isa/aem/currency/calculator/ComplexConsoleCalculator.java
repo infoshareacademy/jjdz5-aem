@@ -106,7 +106,7 @@ public class ComplexConsoleCalculator {
                         exchangingRate + " " +
                         getSecondNameOfCurrencySelectedByUser + " by date: " +
                         currencyRepository
-                                .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                                .getMostRecentAvailableDateForChosenCurrency(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printRate() {
@@ -115,7 +115,7 @@ public class ComplexConsoleCalculator {
                         getFirstNameOfCurrencySelectedByUser + " = " +
                         rate + " by date: " +
                         currencyRepository
-                                .getMostCurrentDateOfSelectedCurrencyFromTheFile(getFirstNameOfCurrencySelectedByUser));
+                                .getMostRecentAvailableDateForChosenCurrency(getFirstNameOfCurrencySelectedByUser));
     }
 
     private void printExchangingRateWithDate() {

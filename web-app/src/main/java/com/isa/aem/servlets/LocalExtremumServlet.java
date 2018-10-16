@@ -62,7 +62,6 @@ public class LocalExtremumServlet extends HttpServlet {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
         } else {
             dateFrom = currencyRepository.getPastMonthDateFromRepository();
-            System.out.println(dateFrom);
         }
 
         if (req.getParameter("dateTo") != null) {

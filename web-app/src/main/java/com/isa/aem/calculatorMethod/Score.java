@@ -124,7 +124,7 @@ public class Score {
             LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
             return date;
         }
-        return currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
+        return currencyRepository.getMostRecentAvailableDateForChosenCurrency(haveCurrency);
     }
 
     public Boolean isDateExistInCurrencyWithGivenDate(String haveCurrency, String wantCurrency, LocalDate date) {

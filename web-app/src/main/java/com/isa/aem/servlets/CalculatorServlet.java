@@ -61,16 +61,16 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
+            LocalDate dateHaveMax = currencyRepository.getMostRecentAvailableDateForChosenCurrency("PLN");
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMaxDate(currencyRepository.getMostRecentAvailableDateForChosenCurrency("PLN"));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMinDate(currencyRepository.getOldestAvailableDateForChosenCurrency("PLN"));
         }
 
         Template template = templateProvider
@@ -101,8 +101,8 @@ public class CalculatorServlet extends HttpServlet {
         LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
 
         score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
+        score.setMaxDate(currencyRepository.getMostRecentAvailableDateForChosenCurrency(haveCurrency));
+        score.setMinDate(currencyRepository.getOldestAvailableDateForChosenCurrency(haveCurrency));
 
         doGet(req, resp);
     }
