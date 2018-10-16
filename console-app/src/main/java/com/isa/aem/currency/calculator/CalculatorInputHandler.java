@@ -7,7 +7,7 @@ import com.isa.aem.tools.DataValidator;
 
 import java.time.LocalDate;
 
-public class DataTransducerIntroducedByConsole {
+public class CalculatorInputHandler {
 
     private ConsoleReader consoleReader = new ConsoleReader();
     private ConsolePrinter consolePrinter = new ConsolePrinter();
@@ -39,12 +39,12 @@ public class DataTransducerIntroducedByConsole {
         do {
             strValue = consoleReader.getString(consolePrinter.enterAmount()).trim();
             replace = strValue.replace(',', '.');
-            if (checkIfItIsANumber(replace)) {
+            if (isNumber(replace)) {
                 amountGivenByUser = Double.parseDouble(replace);
             } else {
                 System.out.println(consolePrinter.numberUnexist());
             }
-        } while (!checkIfItIsANumber(replace));
+        } while (!isNumber(replace));
         return amountGivenByUser;
     }
 
@@ -63,7 +63,7 @@ public class DataTransducerIntroducedByConsole {
         return date;
     }
 
-    public boolean checkIfItIsANumber(String strValue) {
+    public boolean isNumber(String strValue) {
         return strValue.matches("[0-9 .]+");
     }
 

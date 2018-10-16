@@ -15,7 +15,7 @@ public class ComplexConsoleCalculator {
     private ConsolePrinter printer = new ConsolePrinter();
     private ConsoleReader consoleReader = new ConsoleReader();
     private MenuInformation menuInformation = new MenuInformation();
-    private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
+    private CalculatorInputHandler calculatorInputHandler = new CalculatorInputHandler();
     private ConsolePrinter consolePrinter = new ConsolePrinter();
     private AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -48,11 +48,11 @@ public class ComplexConsoleCalculator {
 
     private void foldingTheSimpleCalculator() {
         System.out.println(currencyRepository.listAvailableCurrency());
-        getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+        getFirstNameOfCurrencySelectedByUser = calculatorInputHandler
                 .getCurrencySelectedByUserOfConsole(consolePrinter.enterFirstCurrency());
-        getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+        getSecondNameOfCurrencySelectedByUser = calculatorInputHandler
                 .getCurrencySelectedByUserOfConsole(consolePrinter.enterSecondCurrency());
-        getAmountGivenByUser = dataTransducerIntroducedByConsole.amountGivenByUserService();
+        getAmountGivenByUser = calculatorInputHandler.amountGivenByUserService();
         Double rateOfFirstCurrencyNameSelectedByUser = currencyRepository
                 .getMostRecentExchangedRateForChosenCurrencyName(getFirstNameOfCurrencySelectedByUser);
         Double rateOfSecondCurrencyNameSelectedByUser = currencyRepository
@@ -68,13 +68,13 @@ public class ComplexConsoleCalculator {
 
     private void foldingTheCalculatorWithData() {
         System.out.println(currencyRepository.listAvailableCurrency());
-        getFirstNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+        getFirstNameOfCurrencySelectedByUser = calculatorInputHandler
                 .getCurrencySelectedByUserOfConsole(
                         consolePrinter.enterFirstCurrency());
-        getSecondNameOfCurrencySelectedByUser = dataTransducerIntroducedByConsole
+        getSecondNameOfCurrencySelectedByUser = calculatorInputHandler
                 .getCurrencySelectedByUserOfConsole(
                         consolePrinter.enterSecondCurrency());
-        getAmountGivenByUser = dataTransducerIntroducedByConsole
+        getAmountGivenByUser = calculatorInputHandler
                 .amountGivenByUserService();
         checkIfDateExist();
         Double rateOfFirstCurrencyNameSelectedByUserWithDate = currencyRepository
@@ -157,21 +157,21 @@ public class ComplexConsoleCalculator {
 
     private void checkIfDateExist() {
         do {
-            date = dataTransducerIntroducedByConsole.dataService();
+            date = calculatorInputHandler.dataService();
             if ((currencyRepository.checkIfExistCurrencyWithGivenDate(getFirstNameOfCurrencySelectedByUser, date) == false)) {
                 System.out.println(getFirstNameOfCurrencySelectedByUser + " have no date: " + date);
             }
             if ((currencyRepository.checkIfExistCurrencyWithGivenDate(getSecondNameOfCurrencySelectedByUser, date) == false)) {
                 System.out.println(getSecondNameOfCurrencySelectedByUser + " have no date: " + date);
             }
-            if (dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
+            if (calculatorInputHandler.checkIfCurrencyNameSelectedByUserContainsGivenDate(
                     getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, this.date)) {
                 break;
             } else {
                 System.out.println(consolePrinter.unexistDate());
                 checkIfDateExist();
             }
-        } while (!(dataTransducerIntroducedByConsole.checkIfCurrencyNameSelectedByUserContainsGivenDate(
+        } while (!(calculatorInputHandler.checkIfCurrencyNameSelectedByUserContainsGivenDate(
                 getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, date)));
     }
 

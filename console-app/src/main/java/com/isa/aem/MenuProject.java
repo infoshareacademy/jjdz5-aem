@@ -2,7 +2,7 @@ package com.isa.aem;
 
 import com.isa.aem.currency.calculator.ComplexConsoleCalculator;
 import com.isa.aem.global.extremum.GlobalExtremum;
-import com.isa.aem.local.extremum.LocalExtremumConsole;
+import com.isa.aem.local.extremum.LocalExtremumConsoleHandler;
 import com.isa.aem.tools.ConsolePrinter;
 
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class MenuProject {
 
     ConsolePrinter consolePrinter = new ConsolePrinter();
-    LocalExtremumConsole localExtremumConsole = new LocalExtremumConsole();
+    LocalExtremumConsoleHandler localExtremumConsoleHandler = new LocalExtremumConsoleHandler();
 
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
@@ -50,7 +50,7 @@ public class MenuProject {
                         break;
                     case 4:
                         consolePrinter.printLocalExtremumWelcome();
-                        localExtremumConsole.run();
+                        localExtremumConsoleHandler.run();
                         break;
                     case 5:
                         menuInformation.programInformation();

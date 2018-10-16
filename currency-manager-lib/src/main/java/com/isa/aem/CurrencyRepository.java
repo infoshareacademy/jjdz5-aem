@@ -121,7 +121,6 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-
     public LocalDate getFirstDateFromRepository() {
         return currencies.get(0).getDate();
     }
@@ -150,4 +149,4 @@ public class CurrencyRepository {
                 .get();
         return firstAvailableCurrencyName;
     }
-    }
+}

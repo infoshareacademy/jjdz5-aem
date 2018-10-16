@@ -75,15 +75,13 @@ public class LocalExtremum {
     public Boolean isDateFromAfterDateTo(LocalDate dateFrom, LocalDate dateTo) {
         if (dateFrom.isAfter(dateTo)) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     public Boolean isDateToBeforeDateFrom(LocalDate dateFrom, LocalDate dateTo) {
         if (dateTo.isBefore(dateFrom)) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 }
 

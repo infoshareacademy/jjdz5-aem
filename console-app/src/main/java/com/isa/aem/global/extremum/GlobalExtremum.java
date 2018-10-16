@@ -11,7 +11,7 @@ public class GlobalExtremum {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private MenuInformation menuInformation = new MenuInformation();
     private ConsolePrinter consolePrinter = new ConsolePrinter();
-    private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole = new DataTransducerIntroducedByConsole();
+    private GlobalExtremumInputHandler globalExtremumInputHandler = new GlobalExtremumInputHandler();
 
     private static final String BACK_TO_MENU_STR = "0";
     private static final String BACK_TO_CURRENCY_SELECTION = "1";
@@ -34,13 +34,13 @@ public class GlobalExtremum {
     private void selectedCurrencyOrOptionsOfMenuGlobalExtremum() {
         do {
             optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurCom()).trim().toUpperCase();
-            chcekerIfCommandOfUserIsTrue(optionGivenByUser);
-        } while (dataTransducerIntroducedByConsole.containCurrencyAndNumber(optionGivenByUser));
+            checkIfCommandOfUserIsTrue(optionGivenByUser);
+        } while (globalExtremumInputHandler.containCurrencyAndNumber(optionGivenByUser));
     }
 
-    private void chcekerIfCommandOfUserIsTrue(String commandOfUser) {
+    private void checkIfCommandOfUserIsTrue(String commandOfUser) {
         if (currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)) {
-            dataTransducerIntroducedByConsole.printExtremeMenu(commandOfUser);
+            globalExtremumInputHandler.printExtremeMenu(commandOfUser);
             selectedCurrencyOrOptionsOfMenuGlobalExtremum();
         } else if (BACK_TO_CURRENCY_SELECTION.equals(commandOfUser)) {
             System.out.println(consolePrinter.doubleNextLine());

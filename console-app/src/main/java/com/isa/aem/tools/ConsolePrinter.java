@@ -77,7 +77,7 @@ public class ConsolePrinter {
                 "*************************************************\n";
     }
 
-    public String bakcCurSel() {
+    public String backCurSel() {
         return
                 "                                || 1: back to currency selection \n\n";
     }

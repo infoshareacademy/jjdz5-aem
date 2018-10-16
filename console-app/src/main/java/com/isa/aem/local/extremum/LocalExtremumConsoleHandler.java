@@ -10,7 +10,7 @@ import com.isa.aem.tools.DataValidator;
 import java.time.LocalDate;
 import java.util.List;
 
-public class LocalExtremumConsole {
+public class LocalExtremumConsoleHandler {
 
     private String chosenCurrencyName;
     private String typedDateString;
