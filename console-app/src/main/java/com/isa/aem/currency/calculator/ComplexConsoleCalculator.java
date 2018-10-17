@@ -151,7 +151,7 @@ public class ComplexConsoleCalculator {
             foldingTheCalculatorWithData();
             selectionOptionsInMenuOfCalculator();
         } else {
-            System.out.println(printer.unknowCommand());
+            System.out.println(printer.unknownCommand());
         }
     }
 
@@ -168,7 +168,7 @@ public class ComplexConsoleCalculator {
                     getFirstNameOfCurrencySelectedByUser, getSecondNameOfCurrencySelectedByUser, this.date)) {
                 break;
             } else {
-                System.out.println(consolePrinter.unexistDate());
+                System.out.println(consolePrinter.rateDoesNotExistForThisDate());
                 checkIfDateExist();
             }
         } while (!(calculatorInputHandler.checkIfCurrencyNameSelectedByUserContainsGivenDate(

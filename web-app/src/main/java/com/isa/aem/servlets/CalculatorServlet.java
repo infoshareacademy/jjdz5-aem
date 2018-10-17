@@ -29,6 +29,10 @@ public class CalculatorServlet extends HttpServlet {
     private Score score = new Score();
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
+    private static final String DEFAULT_CURRENCY_HAVE = "PLN";
+    private static final String DEFAULT_CURRENCY_WANT = "EUR";
+    private static final Double DEFAULT_AMOUNT = 100.00;
+
 
     @Inject
     private TemplateProvider templateProvider;
@@ -49,28 +53,28 @@ public class CalculatorServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(100.00);
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
         if (score.getCurrencyHave() == null) {
-            score.setCurrencyHave("PLN");
+            score.setCurrencyHave(DEFAULT_CURRENCY_HAVE);
         }
 
         if (score.getCurrencyWant() == null) {
-            score.setCurrencyWant("EUR");
+            score.setCurrencyWant(DEFAULT_CURRENCY_WANT);
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName("PLN");
+            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName("PLN"));
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName("PLN"));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
         }
 
         Template template = templateProvider

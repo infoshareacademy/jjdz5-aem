@@ -26,14 +26,14 @@ public class GlobalExtremum {
     }
 
     private void searchExtremum() {
-        System.out.println(consolePrinter.listAvailableCurrency());
+        System.out.println(consolePrinter.listAvailableCurrencies());
         System.out.println(currencyRepository.listAvailableCurrency());
         selectedCurrencyOrOptionsOfMenuGlobalExtremum();
     }
 
     private void selectedCurrencyOrOptionsOfMenuGlobalExtremum() {
         do {
-            optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurCom()).trim().toUpperCase();
+            optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurrencyOrCommand()).trim().toUpperCase();
             checkIfCommandOfUserIsTrue(optionGivenByUser);
         } while (globalExtremumInputHandler.containCurrencyAndNumber(optionGivenByUser));
     }
@@ -58,7 +58,7 @@ public class GlobalExtremum {
                             consolePrinter.error() +
                             consolePrinter.backToMenu() +
                             consolePrinter.nextLine() +
-                            consolePrinter.curComUnexist());
+                            consolePrinter.currencyOrCommandDoesNotExist());
         }
     }
 }

@@ -30,6 +30,8 @@ public class LocalExtremumServlet extends HttpServlet {
     private LocalExtremum localExtremum = new LocalExtremum();
     private LocalDate dateFrom;
     private LocalDate dateTo;
+    private String chosenCurrencyName;
+    private static final String DEFAULT_CURRENCY_NAME = "EUR";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -51,15 +53,13 @@ public class LocalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
-        String chosenCurrencyName;
-
-        if (currencyRepository.containsCurrencyNameInCurrencyList("EUR")) {
-            chosenCurrencyName = "EUR";
+        if (currencyRepository.containsCurrencyNameInCurrencyList(DEFAULT_CURRENCY_NAME)) {
+            chosenCurrencyName = DEFAULT_CURRENCY_NAME;
         } else {
             chosenCurrencyName = currencyRepository.getFirstAvailableCurrencyName();
         }
-        if (req.getParameter("chosenCurrencyName") != null) {
-            chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        if (req.getParameter(chosenCurrencyName) != null) {
+            chosenCurrencyName = req.getParameter(chosenCurrencyName);
         }
 
         if (req.getParameter("dateFrom") != null) {

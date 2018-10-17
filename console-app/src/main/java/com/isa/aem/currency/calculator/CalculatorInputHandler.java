@@ -26,7 +26,7 @@ public class CalculatorInputHandler {
                 return commandByUser;
 
             } else {
-                System.out.println(consolePrinter.currencyUnexist());
+                System.out.println(consolePrinter.currencyDoesNotExist());
             }
         } while (!currencyRepository.containsCurrencyNameInCurrencyList(commandByUser));
         return null;
@@ -42,7 +42,7 @@ public class CalculatorInputHandler {
             if (isNumber(replace)) {
                 amountGivenByUser = Double.parseDouble(replace);
             } else {
-                System.out.println(consolePrinter.numberUnexist());
+                System.out.println(consolePrinter.numberDoesNotExist());
             }
         } while (!isNumber(replace));
         return amountGivenByUser;

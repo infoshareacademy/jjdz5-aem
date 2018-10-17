@@ -1,12 +1,15 @@
 package com.isa.aem.servlets;
 
-import com.isa.aem.*;
 import com.isa.aem.Currency;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.FileContentReader;
+import com.isa.aem.LoadCurrencyNameCountryFlags;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +18,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends HttpServlet {
 
     private Score score = new Score();
-    private ScoreResult scoreResult=new ScoreResult();
-    CurrencyRepository currencyRepository=new CurrencyRepository();
+    private ScoreResult scoreResult = new ScoreResult();
+    CurrencyRepository currencyRepository = new CurrencyRepository();
+    private static final String DEFAULT_CURRENCY_HAVE = "PLN";
+    private static final String DEFAULT_CURRENCY_WANT = "EUR";
+    private static final Double DEFAULT_AMOUNT = 100.00;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -42,29 +50,29 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         List<Currency> singleCurrency = score.getSingleCurrency();
 
-        if(score.getAmount()==null){
-            score.setAmount(100.00);
+        if (score.getAmount() == null) {
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
-        if(score.getCurrencyHave()==null){
-            score.setCurrencyHave("PLN");
+        if (score.getCurrencyHave() == null) {
+            score.setCurrencyHave(DEFAULT_CURRENCY_HAVE);
         }
 
-        if (score.getCurrencyWant()==null){
-            score.setCurrencyWant("EUR");
+        if (score.getCurrencyWant() == null) {
+            score.setCurrencyWant(DEFAULT_CURRENCY_WANT);
         }
 
-        if (score.getDateExchange()==null){
-            LocalDate dateHaveMax= currencyRepository.getMostRecentDateForChosenCurrencyName("PLN");
+        if (score.getDateExchange() == null) {
+            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE);
             score.setDateExchange(dateHaveMax);
         }
 
-        if(score.getMaxDate()==null){
-            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName("PLN"));
+        if (score.getMaxDate() == null) {
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
         }
 
-        if(score.getMinDate()==null){
-            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName("PLN"));
+        if (score.getMinDate() == null) {
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
         }
 
         Template template = templateProvider
@@ -95,9 +103,9 @@ public class CurrencyManagerServlet extends HttpServlet {
         String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
-        LocalDate date= score.scoreDate(reqDate,haveCurrency,calculatorCurrencyWantTable[0]);
+        LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
 
-        score=scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
+        score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
         score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
         score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 

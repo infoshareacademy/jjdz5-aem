@@ -14,8 +14,8 @@ public class CurrentCurrency {
 
     CurrentVariable currentVariable = new CurrentVariable();
 
-    private List<com.isa.aem.Currency> readFile() {
-        for (com.isa.aem.Currency currency : CurrencyRepository.getCurrencies()) {
+    private List<Currency> readFile() {
+        for (Currency currency : CurrencyRepository.getCurrencies()) {
             currentVariable.dateCurrency.add(currency);
         }
         return currentVariable.dateCurrency;
@@ -33,20 +33,17 @@ public class CurrentCurrency {
         System.out.println("        Currency              Value         ");
         System.out.println("                                            ");
 
-        for (com.isa.aem.Currency currency : currentVariable.dateCurrency) {
+        for (Currency currency : currentVariable.dateCurrency) {
 
             if (currency.getDate().toString().equals(currentVariable.dateCurrent)) {
                 currentVariable.listCurrency.add(currency);
-
-
             }
-
         }
 
         //sort currency by name ascending
         currentVariable.listCurrency.sort(new SortCurrency());
 
-        for (com.isa.aem.Currency current : currentVariable.listCurrency) {
+        for (Currency current : currentVariable.listCurrency) {
             System.out.println("        " + current.getName() + "                  " + current.getClose());
         }
 
@@ -54,7 +51,6 @@ public class CurrentCurrency {
         if (currentVariable.listCurrency.isEmpty()) {
             System.out.println("The file does not contain currency rate for the selected day");
         }
-
         MenuProject menuProject = new MenuProject();
         menuProject.menuPanel();
     }
@@ -96,10 +92,7 @@ public class CurrentCurrency {
             default:
                 currentVariable.dateCurrent = currentVariable.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
                 break;
-
-
         }
-
         return currentVariable.dateCurrent;
     }
 
@@ -125,14 +118,9 @@ public class CurrentCurrency {
                 if (current.equalsIgnoreCase(currentVariable.dateCurrency.get(i).getName()) && currentVariable.dateCurrency.get(i).getDate().isAfter(dateMax)) {
                     dateMax = currentVariable.dateCurrency.get(i).getDate();
                 }
-
             }
-
             contenerDateCurrencies.add(new ContenerDateCurrency(current, dateMin, dateMax));
         }
         return contenerDateCurrencies;
-
     }
-
-
 }

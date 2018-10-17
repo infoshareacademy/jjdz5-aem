@@ -20,7 +20,7 @@ public class GlobalExtremumInputHandler {
     }
 
     protected void printExtremeMenu(String nameOfCurrency) {
-        System.out.println(consolePrinter.backToMenu() + consolePrinter.backCurSel());
+        System.out.println(consolePrinter.backToMenu() + consolePrinter.backToCurrencySelection());
         System.out.println(consolePrinter.extreme());
         System.out.println(consolePrinter.nextLine() + consolePrinter.min());
         Double minRateOFExtremum = currencyRepository.getMinRateOfExtremum(nameOfCurrency);
