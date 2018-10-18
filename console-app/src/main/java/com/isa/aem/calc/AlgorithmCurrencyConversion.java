@@ -14,10 +14,9 @@ public class AlgorithmCurrencyConversion {
         BigDecimal secondRate = new BigDecimal(secondRateOfCurrencyGivenByUser);
         BigDecimal division = firstRate.setScale(SCALE_ROUND, RoundingMode.HALF_UP)
                 .divide(secondRate, BigDecimal.ROUND_HALF_UP).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
-        BigDecimal multiplication = division.setScale(SCALE_ROUND, RoundingMode.HALF_UP)
-                .multiply(amount).setScale(SCALE_ROUND, RoundingMode.HALF_UP);
-
-        return multiplication;
+         return division.setScale(SCALE_ROUND, RoundingMode.HALF_UP)
+                .multiply(amount).setScale(SCALE_ROUND, RoundingMode.HALF_UP)
+                .setScale(SCALE_ROUND, RoundingMode.HALF_UP);
     }
 
     public BigDecimal calculateCourseAlgorithm(Double firstCourseOfCurrencyGivenByUser,

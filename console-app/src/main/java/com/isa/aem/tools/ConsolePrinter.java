@@ -1,8 +1,6 @@
 package com.isa.aem.tools;
 
-import javax.enterprise.inject.Default;
 
-@Default
 public class ConsolePrinter {
 
     public void printLn(String message) {

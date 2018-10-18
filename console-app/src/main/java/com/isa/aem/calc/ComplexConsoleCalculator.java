@@ -42,7 +42,7 @@ public class ComplexConsoleCalculator {
         do {
             strCommand = consoleReader.getString(printer.backToMenu() + printer.simpleCalculator() +
                     printer.calculatorWithDate() + printer.command());
-            chcekerIfCommandOfUserIsTrue(strCommand);
+            checkIfCommandOfUserIsTrue(strCommand);
         } while (!command.contains(strCommand));
     }
 
@@ -136,7 +136,7 @@ public class ComplexConsoleCalculator {
                         date);
     }
 
-    private void chcekerIfCommandOfUserIsTrue(String strCommand) {
+    private void checkIfCommandOfUserIsTrue(String strCommand) {
         if (BACK_TO_MENU.equals(strCommand)) {
             System.out.print(
                     printer.doubleNextLine() +

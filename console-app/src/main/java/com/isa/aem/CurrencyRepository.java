@@ -1,12 +1,9 @@
 package com.isa.aem;
 
-import javax.enterprise.inject.Default;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
-@Default
 public class CurrencyRepository {
 
     private static List<Currency> currencies = new ArrayList<>();

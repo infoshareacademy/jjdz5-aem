@@ -16,9 +16,10 @@ public class DataTransducerIntroducedByConsole {
 
     private static final String CORRECT_DATE_FORM = "^\\d{4}(0?[1-9]|1[012])(0?[1-9]|[12][0-9]|3[01])$";
     private static final String ONLY_EIGHT_DIGITS = "[0-9]{8}";
+    private static final String ONLY_DIGITS = "[0-9 .]+";
     private String preparedDate;
 
-    protected String getCurrencySelectedByUserOfConsole(String commandForUser) {
+    public String getCurrencySelectedByUserOfConsole(String commandForUser) {
         String commandByUser = null;
         do {
             commandByUser = consoleReader.getString(commandForUser).trim().toUpperCase();
@@ -32,7 +33,7 @@ public class DataTransducerIntroducedByConsole {
         return null;
     }
 
-    protected double amountGivenByUserService() {
+    public double amountGivenByUserService() {
         String strValue;
         String replace;
         Double amountGivenByUser = null;
@@ -48,32 +49,32 @@ public class DataTransducerIntroducedByConsole {
         return amountGivenByUser;
     }
 
-    protected LocalDate dataService() {
+    public LocalDate dataService() {
         String strDate;
         LocalDate date = null;
         do {
             strDate = consoleReader.getString(consolePrinter.enterDate()).trim();
             preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
-            if (checkIfItIsCorrectDataFormatAndOnlyEightDigits()) {
+            if (checkIfItIsCorrectDataFormatAndOnlyEightDigits(preparedDate)) {
                 date = dataService.dataParse(preparedDate);
             } else {
                 System.out.println(consolePrinter.wrongDate());
             }
-        } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits()));
+        } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits(preparedDate)));
         return date;
     }
 
     public boolean checkIfItIsANumber(String strValue) {
-        return strValue.matches("[0-9 .]+");
+        return strValue.matches(ONLY_DIGITS);
     }
 
-    protected boolean checkIfCurrencyNameSelectedByUserContainsGivenDate(
+    public boolean checkIfCurrencyNameSelectedByUserContainsGivenDate(
             String firstNameOfCurrency, String secondNameOfCurrency, LocalDate date) {
         return currencyRepository.checkIfExistCurrencyWithGivenDate(firstNameOfCurrency, date)
                 && currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrency, date);
     }
 
-    private Boolean checkIfItIsCorrectDataFormatAndOnlyEightDigits() {
+    public Boolean checkIfItIsCorrectDataFormatAndOnlyEightDigits(String preparedDate) {
         return (preparedDate.matches(CORRECT_DATE_FORM)
                 && preparedDate.matches(ONLY_EIGHT_DIGITS));
     }
