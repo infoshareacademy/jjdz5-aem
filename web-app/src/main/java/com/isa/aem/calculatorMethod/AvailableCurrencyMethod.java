@@ -17,12 +17,12 @@ public class AvailableCurrencyMethod {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public LocalDate getMaxDateForSelectedCurrency(String nameOfCurrency) {
-        dateMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
+        dateMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency.toUpperCase());
         return dateMax;
     }
 
     public LocalDate getMinDateForSelectedCurrency(String nameOfCurrency) {
-        dateMin = currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
+        dateMin = currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency.toUpperCase());
         return dateMin;
     }
 

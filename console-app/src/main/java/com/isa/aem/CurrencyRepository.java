@@ -43,7 +43,7 @@ public class CurrencyRepository {
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .max((o1, o2) -> o1.compareTo(o2))
-                .get();
+                .orElse(LocalDate.of(4000, 01,01));
     }
 
     public LocalDate getMinCurrentDateOfSelectedCurrencyFromTheFile(String nameOfCurrency) {
@@ -51,7 +51,7 @@ public class CurrencyRepository {
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .min((o1, o2) -> o1.compareTo(o2))
-                .get();
+                .orElse(LocalDate.of(1900, 01,01));
     }
 
 
