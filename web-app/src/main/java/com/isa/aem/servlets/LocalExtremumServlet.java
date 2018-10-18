@@ -7,7 +7,6 @@ import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
-import com.isa.aem.tools.DataValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
