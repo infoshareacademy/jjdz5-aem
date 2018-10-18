@@ -139,7 +139,7 @@ public class AvailableCurrencyMethodTest {
         // act
         BigDecimal result = availableCurrencyMethod.getExchangeValue(currencyHave, currencyWant, dateMax);
         // assert
-        assertEquals(4.30503, result);
+        assertEquals(BigDecimal.valueOf(4.2945), result);
     }
 
     @Test
