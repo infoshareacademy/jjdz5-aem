@@ -11,9 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Validation input date")
+@DisplayName("Validation input data")
 class DataTransducerIntroducedByConsoleTest {
-
 
     private DataTransducerIntroducedByConsole dataTransducerIntroducedByConsole;
     private FileContentReader fileContentReader;
@@ -27,7 +26,6 @@ class DataTransducerIntroducedByConsoleTest {
 
         fileContentReader.readFile();
     }
-
 
     @Test
     @DisplayName("Should return correct currency name from list")
@@ -57,8 +55,6 @@ class DataTransducerIntroducedByConsoleTest {
     @Test
     @DisplayName("Should return truth when currency contains given date")
     void currencyContainsDate() {
-
-
         String firstCurrencyName = "AUD";
         String secondCurrencyName = "EUR";
         String containsDateStr = "20140317";

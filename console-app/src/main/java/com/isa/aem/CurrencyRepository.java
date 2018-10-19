@@ -9,7 +9,6 @@ public class CurrencyRepository {
     private static List<Currency> currencies = new ArrayList<>();
     private static List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
 
-
     public static List<Currency> getCurrencies() {
         return currencies;
     }
