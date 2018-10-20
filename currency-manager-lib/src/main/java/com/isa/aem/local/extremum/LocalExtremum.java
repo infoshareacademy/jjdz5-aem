@@ -10,28 +10,22 @@ import java.util.stream.Collectors;
 
 public class LocalExtremum {
 
-    private List<Currency> minExtremum;
-    private List<Currency> maxExtremum;
-    private List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange;
-    private Double firstMinExtremum;
-    private Double firstMaxExtremum;
-
     public List<Currency> getMinExtremum(String chosenCurrencyName, LocalDate chosenDateFrom, LocalDate chosenDateTo) {
-        repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
-        findFirstMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
-        minExtremum = findDuplicatedExtremums(firstMinExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        Double firstMinExtremum = findFirstMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> minExtremum = findDuplicatedExtremums(firstMinExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
         return minExtremum;
     }
 
     public List<Currency> getMaxExtremum(String chosenCurrencyName, LocalDate chosenDateFrom, LocalDate chosenDateTo) {
-        repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
-        findFirstMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
-        maxExtremum = findDuplicatedExtremums(firstMaxExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        Double firstMaxExtremum = findFirstMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
+        List<Currency> maxExtremum = findDuplicatedExtremums(firstMaxExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
         return maxExtremum;
     }
 
     public List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
-        return repositoryWithChosenCurrencyWithinChosenDateRange = CurrencyRepository.getCurrencies().stream()
+        return CurrencyRepository.getCurrencies().stream()
                 .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
                 .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))
                 .filter(currency -> currency.getDate().isBefore(dateTo) || currency.getDate().equals(dateTo))
@@ -39,14 +33,14 @@ public class LocalExtremum {
     }
 
     public Double findFirstMinExtremum(List<Currency> currencies) {
-        return firstMinExtremum = currencies.stream()
+        return currencies.stream()
                 .min(Comparator.comparingDouble(Currency::getClose))
                 .get()
                 .getClose();
     }
 
     public Double findFirstMaxExtremum(List<Currency> currencies) {
-        return firstMaxExtremum = currencies.stream()
+        return currencies.stream()
                 .max(Comparator.comparingDouble(Currency::getClose))
                 .get()
                 .getClose();
