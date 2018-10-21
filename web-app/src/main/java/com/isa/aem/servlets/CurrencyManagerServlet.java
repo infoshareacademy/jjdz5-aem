@@ -5,6 +5,7 @@ import com.isa.aem.Currency;
 import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -78,7 +79,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         }
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "currency-manager-converter");
+                .getTemplate(getServletContext(), TemplateName.CURRENCY_MANAGER.getName());
 
         Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();

@@ -5,6 +5,7 @@ import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
 import com.isa.aem.tools.DataValidator;
@@ -50,7 +51,7 @@ public class LocalExtremumServlet extends HttpServlet {
         List<String> availableCurrencyNames = CurrencyRepository.getAvailableCurrencyNames();
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "local-extremum");
+                .getTemplate(getServletContext(), TemplateName.LOCAL_EXTREMUM.getName());
 
         String chosenCurrencyName = "EUR";
 
