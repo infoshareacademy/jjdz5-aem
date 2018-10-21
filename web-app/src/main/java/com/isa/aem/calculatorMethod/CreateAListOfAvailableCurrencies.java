@@ -10,11 +10,11 @@ import java.util.List;
 public class CreateAListOfAvailableCurrencies {
     private AvailableCurrencyMethod availableCurrencyMethod = new AvailableCurrencyMethod();
     private LocalDate maxDate;
-    public List<AvailableCurrency> tableListCurrencyObject = new ArrayList<>();
+    public List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
 
-    public List<AvailableCurrency> availableCurrencyObjects(String nameOfCurrency) {
+    public List<CurrencyExchangeRate> availableCurrencyObjects(String nameOfCurrency) {
         this.maxDate = availableCurrencyMethod.getMaxDateForSelectedCurrency(nameOfCurrency);
         availableCurrencyMethod.getSingleCurrencyWithMaxDate(maxDate);
 
@@ -25,7 +25,7 @@ public class CreateAListOfAvailableCurrencies {
             String range = availableCurrencyMethod.getRangeOfSelectedCurrency(nameCurrencyWant.getName());
             String name = nameCurrencyWant.getName();
             nameCurrencyWant.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(nameCurrencyWant.getName()));
-            tableListCurrencyObject.add(new AvailableCurrency(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
+            tableListCurrencyObject.add(new CurrencyExchangeRate(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
 
         }
 

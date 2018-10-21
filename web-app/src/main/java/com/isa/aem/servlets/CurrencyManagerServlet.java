@@ -28,6 +28,12 @@ public class CurrencyManagerServlet extends HttpServlet {
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
     String currencyInTable;
+    private static final Double DEFAULT_AMOUNT = 100.00;
+    private static final String DEFAULT_CURRENCY_HAVE = "PLN";
+    private static final String DEFAULT_CURRENCY_WANT = "EUR";
+    private static final String ACTION_BATTON = "action";
+    private static final String ACTION_BUTTON_CALCULATOR= "calculator";
+    private static final String ACTION_BUTTON_RANGE_CURRENCY= "rangeCurrency";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -48,33 +54,33 @@ public class CurrencyManagerServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(100.00);
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
         if (score.getCurrencyHave() == null) {
-            score.setCurrencyHave("PLN");
+            score.setCurrencyHave(DEFAULT_CURRENCY_HAVE);
 
         }
 
         if (score.getCurrencyWant() == null) {
-            score.setCurrencyWant("EUR");
+            score.setCurrencyWant(DEFAULT_CURRENCY_WANT);
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
+            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE));
         }
 
         if (currencyInTable == null) {
-            currencyInTable = "PLN";
+            currencyInTable = DEFAULT_CURRENCY_HAVE;
             createAListOfAvailableCurrencies.tableListCurrencyObject = createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
         }
 
@@ -99,9 +105,9 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
+        String action = req.getParameter(ACTION_BATTON);
 
-        if ("calculator".equals(action)) {
+        if (ACTION_BUTTON_CALCULATOR.equals(action)) {
             String reqAmount = req.getParameter("amount");
             String reqHave = req.getParameter("have");
             String reqWant = req.getParameter("want");
@@ -115,7 +121,7 @@ public class CurrencyManagerServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
             score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
 
-        } else if ("rangeCurrency".equals(action)) {
+        } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
             String currencyInTableNames = req.getParameter("currency_table");
             String[] currencyInTableName = currencyInTableNames.split(" - ");
