@@ -1,9 +1,6 @@
 package com.isa.aem.servlets;
 
-import com.isa.aem.Currency;
-import com.isa.aem.CurrencyRepository;
-import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.*;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
 import com.isa.aem.freemarker.TemplateProvider;
@@ -28,9 +25,9 @@ public class CurrencyManagerServlet extends HttpServlet {
     private Score score = new Score();
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    private static final String DEFAULT_CURRENCY_HAVE = "PLN";
-    private static final String DEFAULT_CURRENCY_WANT = "EUR";
-    private static final Double DEFAULT_AMOUNT = 100.00;
+    private String defaultCurrencyNameHave;
+    private String defaultCurrencyNameWant;
+    private Double defaultAmount = 100.00;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -43,6 +40,10 @@ public class CurrencyManagerServlet extends HttpServlet {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        defaultCurrencyNameHave = appProperties.getCurrencyNamePln();
+        defaultCurrencyNameWant = appProperties.getCurrencyNameEur();
     }
 
     @Override
@@ -51,28 +52,28 @@ public class CurrencyManagerServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(DEFAULT_AMOUNT);
+            score.setAmount(defaultAmount);
         }
 
         if (score.getCurrencyHave() == null) {
-            score.setCurrencyHave(DEFAULT_CURRENCY_HAVE);
+            score.setCurrencyHave(defaultCurrencyNameHave);
         }
 
         if (score.getCurrencyWant() == null) {
-            score.setCurrencyWant(DEFAULT_CURRENCY_WANT);
+            score.setCurrencyWant(defaultCurrencyNameWant);
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE);
+            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(DEFAULT_CURRENCY_HAVE));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         Template template = templateProvider

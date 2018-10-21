@@ -1,10 +1,7 @@
 package com.isa.aem.servlets;
 
 
-import com.isa.aem.Currency;
-import com.isa.aem.CurrencyRepository;
-import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.*;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
 import freemarker.template.Template;
@@ -30,7 +27,8 @@ public class LocalExtremumServlet extends HttpServlet {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String currencyName;
-    private static final String DEFAULT_CURRENCY_NAME = "EUR";
+    private String defaultCurrencyName;
+
 
     @Inject
     private TemplateProvider templateProvider;
@@ -42,6 +40,9 @@ public class LocalExtremumServlet extends HttpServlet {
         fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        defaultCurrencyName = appProperties.getCurrencyNameEur();
     }
 
     @Override
@@ -52,8 +53,8 @@ public class LocalExtremumServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "local-extremum");
 
-        if (currencyRepository.containsCurrencyNameInCurrencyList(DEFAULT_CURRENCY_NAME)) {
-            currencyName = DEFAULT_CURRENCY_NAME;
+        if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
+            currencyName = defaultCurrencyName;
         } else {
             currencyName = currencyRepository.getFirstAvailableCurrencyName();
         }
