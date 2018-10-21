@@ -23,6 +23,7 @@ import java.util.*;
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends HttpServlet {
 
+    public static final String AMOUNT_PARAMETER = "amount";
     private Score score = new Score();
     private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
     private ScoreResult scoreResult = new ScoreResult();
@@ -81,7 +82,7 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         if (currencyInTable == null) {
             currencyInTable = DEFAULT_CURRENCY_HAVE;
-            createAListOfAvailableCurrencies.tableListCurrencyObject = createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable));
         }
 
         Template template = templateProvider
@@ -93,7 +94,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         model.put("score", score);
         model.put("logged", userName);
         model.put("currencyInTable", currencyInTable);
-        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.tableListCurrencyObject);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.getTableListCurrencyObject());
 
         try {
             template.process(model, resp.getWriter());
@@ -108,7 +109,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         String action = req.getParameter(ACTION_BATTON);
 
         if (ACTION_BUTTON_CALCULATOR.equals(action)) {
-            String reqAmount = req.getParameter("amount");
+            String reqAmount = req.getParameter(AMOUNT_PARAMETER);
             String reqHave = req.getParameter("have");
             String reqWant = req.getParameter("want");
             String reqDate = req.getParameter("date");
@@ -126,7 +127,7 @@ public class CurrencyManagerServlet extends HttpServlet {
             String currencyInTableNames = req.getParameter("currency_table");
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
-            createAListOfAvailableCurrencies.tableListCurrencyObject = createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable);
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
 
         }
         doGet(req, resp);

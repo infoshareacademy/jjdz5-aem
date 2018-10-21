@@ -78,7 +78,7 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         if (currencyInTable == null) {
-            currencyInTable="PLN";
+            currencyInTable = "PLN";
         }
 
         Template template = templateProvider

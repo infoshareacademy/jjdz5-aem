@@ -10,7 +10,7 @@ import java.util.List;
 public class CreateAListOfAvailableCurrencies {
     private AvailableCurrencyMethod availableCurrencyMethod = new AvailableCurrencyMethod();
     private LocalDate maxDate;
-    public List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();
+    private List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
 
@@ -18,6 +18,12 @@ public class CreateAListOfAvailableCurrencies {
         this.maxDate = availableCurrencyMethod.getMaxDateForSelectedCurrency(nameOfCurrency);
         availableCurrencyMethod.getSingleCurrencyWithMaxDate(maxDate);
 
+        addCurrencyObject(nameOfCurrency);
+
+        return tableListCurrencyObject;
+    }
+
+    private void addCurrencyObject(String nameOfCurrency) {
         for (Currency nameCurrencyWant : availableCurrencyMethod.getSingleCurrencyWithMaxDate(maxDate)) {
             BigDecimal value = availableCurrencyMethod.getExchangeValue(nameOfCurrency, nameCurrencyWant.getName(), maxDate);
             LocalDate dateMax = availableCurrencyMethod.getMaxDateForSelectedCurrency(nameCurrencyWant.getName());
@@ -28,7 +34,13 @@ public class CreateAListOfAvailableCurrencies {
             tableListCurrencyObject.add(new CurrencyExchangeRate(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
 
         }
+    }
 
+    public List<CurrencyExchangeRate> getTableListCurrencyObject() {
         return tableListCurrencyObject;
+    }
+
+    public void setTableListCurrencyObject(List<CurrencyExchangeRate> tableListCurrencyObject) {
+        this.tableListCurrencyObject = tableListCurrencyObject;
     }
 }
