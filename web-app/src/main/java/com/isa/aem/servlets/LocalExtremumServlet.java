@@ -57,8 +57,8 @@ public class LocalExtremumServlet extends HttpServlet {
         } else {
             chosenCurrencyName = currencyRepository.getFirstAvailableCurrencyName();
         }
-        if (req.getParameter(chosenCurrencyName) != null) {
-            chosenCurrencyName = req.getParameter(chosenCurrencyName);
+        if (req.getParameter("chosenCurrencyName") != null) {
+            chosenCurrencyName = req.getParameter("chosenCurrencyName");
         }
 
         if (req.getParameter("dateFrom") != null) {
