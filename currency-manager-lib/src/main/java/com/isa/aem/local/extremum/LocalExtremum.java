@@ -10,23 +10,23 @@ import java.util.stream.Collectors;
 
 public class LocalExtremum {
 
-    public List<Currency> getMinExtremum(String chosenCurrencyName, LocalDate chosenDateFrom, LocalDate chosenDateTo) {
-        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+    public List<Currency> getMinExtremum(String currencyName, LocalDate dateFrom, LocalDate dateTo) {
+        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(currencyName, dateFrom, dateTo);
         Double firstMinExtremum = findFirstMinExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
         List<Currency> minExtremum = findDuplicatedExtremums(firstMinExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
         return minExtremum;
     }
 
-    public List<Currency> getMaxExtremum(String chosenCurrencyName, LocalDate chosenDateFrom, LocalDate chosenDateTo) {
-        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+    public List<Currency> getMaxExtremum(String currencyName, LocalDate dateFrom, LocalDate dateTo) {
+        List<Currency> repositoryWithChosenCurrencyWithinChosenDateRange = limitRepositoryToChosenCurrencyWithinChosenDateRange(currencyName, dateFrom, dateTo);
         Double firstMaxExtremum = findFirstMaxExtremum(repositoryWithChosenCurrencyWithinChosenDateRange);
         List<Currency> maxExtremum = findDuplicatedExtremums(firstMaxExtremum, repositoryWithChosenCurrencyWithinChosenDateRange);
         return maxExtremum;
     }
 
-    public List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String chosenCurrencyName, LocalDate dateFrom, LocalDate dateTo) {
+    public List<Currency> limitRepositoryToChosenCurrencyWithinChosenDateRange(String currencyName, LocalDate dateFrom, LocalDate dateTo) {
         return CurrencyRepository.getCurrencies().stream()
-                .filter(currency -> currency.getName().equalsIgnoreCase(chosenCurrencyName))
+                .filter(currency -> currency.getName().equalsIgnoreCase(currencyName))
                 .filter(currency -> currency.getDate().equals(dateFrom) || currency.getDate().isAfter(dateFrom))
                 .filter(currency -> currency.getDate().isBefore(dateTo) || currency.getDate().equals(dateTo))
                 .collect(Collectors.toList());
