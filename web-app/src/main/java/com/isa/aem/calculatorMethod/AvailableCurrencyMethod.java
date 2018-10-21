@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AvailableCurrencyMethod {
-    public List<Currency> currencyInMaxDate;
+    private List<Currency> currencyInMaxDate;
     private LocalDate dateMax;
     private LocalDate dateMin;
     private CurrencyRepository currencyRepository = new CurrencyRepository();
