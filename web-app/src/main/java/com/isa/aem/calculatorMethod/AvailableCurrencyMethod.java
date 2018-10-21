@@ -22,10 +22,7 @@ public class AvailableCurrencyMethod {
     }
 
     public LocalDate getMinDateForSelectedCurrency(String nameOfCurrency) {
-        LocalDate date = currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String date1 = date.format(dateTimeFormatter);
-        dateMin = LocalDate.parse(date1, dateTimeFormatter);
+        dateMin = currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
         return dateMin;
     }
 
