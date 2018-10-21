@@ -29,7 +29,7 @@ public class LocalExtremumServlet extends HttpServlet {
     private LocalExtremum localExtremum = new LocalExtremum();
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    private String chosenCurrencyName;
+    private String currencyName;
     private static final String DEFAULT_CURRENCY_NAME = "EUR";
 
     @Inject
@@ -53,34 +53,34 @@ public class LocalExtremumServlet extends HttpServlet {
                 .getTemplate(getServletContext(), "local-extremum");
 
         if (currencyRepository.containsCurrencyNameInCurrencyList(DEFAULT_CURRENCY_NAME)) {
-            chosenCurrencyName = DEFAULT_CURRENCY_NAME;
+            currencyName = DEFAULT_CURRENCY_NAME;
         } else {
-            chosenCurrencyName = currencyRepository.getFirstAvailableCurrencyName();
+            currencyName = currencyRepository.getFirstAvailableCurrencyName();
         }
-        if (req.getParameter("chosenCurrencyName") != null) {
-            chosenCurrencyName = req.getParameter("chosenCurrencyName");
+        if (req.getParameter("currencyName") != null) {
+            currencyName = req.getParameter("currencyName");
         }
 
         if (req.getParameter("dateFrom") != null) {
             dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
         } else {
-            dateFrom = currencyRepository.getMostRecentDateMinusOneMonthForChosenCurrencyName(chosenCurrencyName);
+            dateFrom = currencyRepository.getMostRecentDateMinusOneMonthForChosenCurrencyName(currencyName);
         }
 
         if (req.getParameter("dateTo") != null) {
             dateTo = LocalDate.parse(req.getParameter("dateTo"));
         } else {
-            dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(chosenCurrencyName);
+            dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(currencyName);
         }
 
-        List<Currency> minExtremum = localExtremum.getMinExtremum(chosenCurrencyName, dateFrom, dateTo);
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(chosenCurrencyName, dateFrom, dateTo);
+        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
 
         Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
         model.put("availableCurrencyNames", availableCurrencyNames);
-        model.put("chosenCurrencyName", chosenCurrencyName);
+        model.put("currencyName", currencyName);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
         model.put("localExtremum", localExtremum);

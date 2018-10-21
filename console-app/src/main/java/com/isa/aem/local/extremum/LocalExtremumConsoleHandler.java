@@ -12,10 +12,10 @@ import java.util.List;
 
 public class LocalExtremumConsoleHandler {
 
-    private String chosenCurrencyName;
+    private String currencyName;
     private String typedDateString;
-    private LocalDate chosenDateFrom;
-    private LocalDate chosenDateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     private String typedMenuOptionString;
     ConsoleReader consoleReader = new ConsoleReader();
     ConsolePrinter consolePrinter = new ConsolePrinter();
@@ -43,7 +43,7 @@ public class LocalExtremumConsoleHandler {
             consolePrinter.printLn("Currency " + "\"" + typedCurrency + "\"" + " does not exist. Try again");
             typedCurrency = consoleReader.getString();
         }
-        chosenCurrencyName = typedCurrency;
+        currencyName = typedCurrency;
     }
 
     public boolean currencyDoesNotExists(List<Currency> list, String typedCurrency) {
@@ -57,13 +57,13 @@ public class LocalExtremumConsoleHandler {
     public void runDatesSelection() {
         consolePrinter.printLn("\nLimit the date range for the currency of your choice. ");
         chooseDateFrom();
-        while (dataValidator.isNotWithinRange(chosenDateFrom)) {
+        while (dataValidator.isNotWithinRange(dateFrom)) {
             consolePrinter.printLn("The date you provide is out of range. Choose date between: " +
                     currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateFrom();
         }
         chooseDateTo();
-        while (dataValidator.isNotWithinRange(chosenDateTo)) {
+        while (dataValidator.isNotWithinRange(dateTo)) {
             consolePrinter.printLn("The date you provide is out of repository range. Choose date between: " +
                     currencyRepository.getFirstDateFromRepository() + " and " + currencyRepository.getLastDateFromRepository());
             chooseDateTo();
@@ -76,7 +76,7 @@ public class LocalExtremumConsoleHandler {
             consolePrinter.printLn("The date you provide has incorrect format. Please use format yyyy-MM-dd: ");
             typedDateString = consoleReader.getString("Choose Date From: ");
         }
-        return chosenDateFrom = LocalDate.parse(typedDateString);
+        return dateFrom = LocalDate.parse(typedDateString);
     }
 
     public LocalDate chooseDateTo() {
@@ -85,17 +85,17 @@ public class LocalExtremumConsoleHandler {
             consolePrinter.printLn("The date you provide has incorrect format. Please use format yyyy-MM-dd: ");
             typedDateString = consoleReader.getString("Choose Date To: ");
         }
-        return chosenDateTo = LocalDate.parse(typedDateString);
+        return dateTo = LocalDate.parse(typedDateString);
     }
 
 
     public void runExtremum() {
-        List<Currency> minExtremum = localExtremum.getMinExtremum(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
         consolePrinter.printLn("\nMIN");
         minExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
         consolePrinter.printLn("MAX");
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(chosenCurrencyName, chosenDateFrom, chosenDateTo);
+        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
         maxExtremum.stream()
                 .forEach(currency -> System.out.println("  " + currency.getName() + ": " + currency.getClose() + " [" + currency.getDate() + "]"));
     }
