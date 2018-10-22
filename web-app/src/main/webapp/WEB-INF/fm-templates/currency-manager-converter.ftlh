@@ -36,11 +36,17 @@
 
         .container h5{
             font-family: inherit;
-            font-size: 1.2rem;
+            font-size: 1.2em;
             font-weight: bold;
             color: gray;
             padding: 1.0em;
         }
+            .container h6{
+                font-size: 0.8em;
+                font-family: inherit;
+                color: gray;
+                padding-left: 1.0em;
+            }
 
         .container .col-7#main_currency, .container .col-7#table_remining{
 
@@ -219,6 +225,7 @@
                   </form>
                 </div>
             <h5>Main Currencies</h5>
+            <h6>date: ${availableCurrencyTable[0].getDateMax()}</h6>
             <table class="tabela2" cellspacing='0'>
                 <thead>
                 <tr>
