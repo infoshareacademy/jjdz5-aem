@@ -4,6 +4,7 @@ package com.isa.aem.servlets;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -36,7 +37,7 @@ public class GlobalExtremumServlet extends HttpServlet {
         List<String> availableCurrencyNames = currencyRepository.getAvailableCurrencyNames();
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "global-extremum");
+                .getTemplate(getServletContext(), TemplateName.GLOBAL_EXTREMUM.getName());
 
         Object userName = req.getSession().getAttribute("userName");
         Map<String, Object> model = new HashMap<>();

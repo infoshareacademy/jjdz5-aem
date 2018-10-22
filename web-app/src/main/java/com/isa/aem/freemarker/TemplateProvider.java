@@ -14,6 +14,7 @@ public class TemplateProvider {
     private static final String TEMPLATE_DIRECTORY_PATH = "WEB-INF/fm-templates";
     private static final String TEMPLATE_EXTENSION = ".ftlh";
 
+
     public Template getTemplate(ServletContext servletContext, String templateName)
             throws IOException {
         final Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
