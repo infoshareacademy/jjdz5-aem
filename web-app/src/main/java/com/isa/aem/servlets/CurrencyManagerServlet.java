@@ -27,7 +27,13 @@ public class CurrencyManagerServlet extends HttpServlet {
     CurrencyRepository currencyRepository = new CurrencyRepository();
     private String defaultCurrencyNameHave;
     private String defaultCurrencyNameWant;
-    private Double defaultAmount = 100.00;
+    private static final Double DEFAULT_AMOUNT = 100.00;
+    private static final String AMOUNT_PARAMETER = "amount";
+    private static final String HAVE_PARAMETER = "have";
+    private static final String WANT_PARAMETER = "want";
+    private static final String DATE_PARAMETER = "date";
+    private static final String USER_NAME_PARAMETER = "userName";
+
 
     @Inject
     private TemplateProvider templateProvider;
@@ -52,7 +58,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(defaultAmount);
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
         if (score.getCurrencyHave() == null) {
@@ -79,7 +85,7 @@ public class CurrencyManagerServlet extends HttpServlet {
         Template template = templateProvider
                 .getTemplate(getServletContext(), "currency-manager-converter");
 
-        Object userName = req.getSession().getAttribute("userName");
+        Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
@@ -96,10 +102,10 @@ public class CurrencyManagerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String reqAmount = req.getParameter("amount");
-        String reqHave = req.getParameter("have");
-        String reqWant = req.getParameter("want");
-        String reqDate = req.getParameter("date");
+        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+        String reqHave = req.getParameter(HAVE_PARAMETER);
+        String reqWant = req.getParameter(WANT_PARAMETER);
+        String reqDate = req.getParameter(DATE_PARAMETER);
         Double calculatorAmount = Double.parseDouble(reqAmount);
         String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");

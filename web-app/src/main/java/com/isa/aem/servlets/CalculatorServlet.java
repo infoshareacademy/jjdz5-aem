@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @WebServlet(urlPatterns = "/calculator")
 public class CalculatorServlet extends HttpServlet {
 
@@ -33,7 +32,6 @@ public class CalculatorServlet extends HttpServlet {
     private static final String HAVE_PARAMETER = "have";
     private static final String WANT_PARAMETER = "want";
     private static final String DATE_PARAMETER = "date";
-
 
     @Inject
     private TemplateProvider templateProvider;

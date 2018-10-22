@@ -1,6 +1,5 @@
 package com.isa.aem.servlets;
 
-
 import com.isa.aem.*;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
@@ -32,7 +31,6 @@ public class LocalExtremumServlet extends HttpServlet {
     private static final String DATE_FROM_PARAMETER = "dateFrom";
     private static final String DATE_TO_PARAMETER = "dateTo";
     private static final String USER_NAME_PARAMETER = "userName";
-
 
     @Inject
     private TemplateProvider templateProvider;
