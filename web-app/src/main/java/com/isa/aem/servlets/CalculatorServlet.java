@@ -82,7 +82,7 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), TemplateName.CURRENCY_LOG.getName());
+                .getTemplate(getServletContext(), TemplateName.CURRENCY_CONVERTER.getName());
 
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);

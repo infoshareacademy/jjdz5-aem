@@ -36,7 +36,7 @@ public class CurrencyManagerServlet extends HttpServlet {
     private static final Double DEFAULT_AMOUNT = 100.00;
     private static final String DEFAULT_CURRENCY_HAVE = "PLN";
     private static final String DEFAULT_CURRENCY_WANT = "EUR";
-    private static final String ACTION_BATTON = "action";
+    private static final String ACTION_BUTTON = "action";
     private static final String ACTION_BUTTON_CALCULATOR = "calculator";
     private static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
 
@@ -110,7 +110,7 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(ACTION_BATTON);
+        String action = req.getParameter(ACTION_BUTTON);
 
         if (ACTION_BUTTON_CALCULATOR.equals(action)) {
             String reqAmount = req.getParameter(AMOUNT_PARAMETER);
