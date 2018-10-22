@@ -23,7 +23,11 @@ import java.util.*;
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends HttpServlet {
 
-    public static final String AMOUNT_PARAMETER = "amount";
+    private static final String AMOUNT_PARAMETER = "amount";
+    private static final String HAVE_PARAMETER = "have";
+    private static final String WANT_PARAMETER = "want";
+    private static final String DATE_PARAMETER = "date";
+    private static final String CURRENCY_TABLE_PARAMETER = "currency_table";
     private Score score = new Score();
     private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
     private ScoreResult scoreResult = new ScoreResult();
@@ -33,8 +37,8 @@ public class CurrencyManagerServlet extends HttpServlet {
     private static final String DEFAULT_CURRENCY_HAVE = "PLN";
     private static final String DEFAULT_CURRENCY_WANT = "EUR";
     private static final String ACTION_BATTON = "action";
-    private static final String ACTION_BUTTON_CALCULATOR= "calculator";
-    private static final String ACTION_BUTTON_RANGE_CURRENCY= "rangeCurrency";
+    private static final String ACTION_BUTTON_CALCULATOR = "calculator";
+    private static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -110,9 +114,9 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         if (ACTION_BUTTON_CALCULATOR.equals(action)) {
             String reqAmount = req.getParameter(AMOUNT_PARAMETER);
-            String reqHave = req.getParameter("have");
-            String reqWant = req.getParameter("want");
-            String reqDate = req.getParameter("date");
+            String reqHave = req.getParameter(HAVE_PARAMETER);
+            String reqWant = req.getParameter(WANT_PARAMETER);
+            String reqDate = req.getParameter(DATE_PARAMETER);
             Double calculatorAmount = Double.parseDouble(reqAmount);
             String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
             String[] calculatorCurrencyWantTable = reqWant.split(" - ");
@@ -124,7 +128,7 @@ public class CurrencyManagerServlet extends HttpServlet {
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
-            String currencyInTableNames = req.getParameter("currency_table");
+            String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
             createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
