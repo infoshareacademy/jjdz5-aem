@@ -28,7 +28,11 @@ public class CalculatorServlet extends HttpServlet {
     CurrencyRepository currencyRepository = new CurrencyRepository();
     private String defaultCurrencyNameHave;
     private String defaultCurrencyNameWant;
-    private Double defaultAmount = 100.00;
+    private static final Double DEFAULT_AMOUNT = 100.00;
+    private static final String AMOUNT_PARAMETER = "amount";
+    private static final String HAVE_PARAMETER = "have";
+    private static final String WANT_PARAMETER = "want";
+    private static final String DATE_PARAMETER = "date";
 
 
     @Inject
@@ -54,7 +58,7 @@ public class CalculatorServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(defaultAmount);
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
         if (score.getCurrencyHave() == null) {
@@ -94,10 +98,10 @@ public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String reqAmount = req.getParameter("amount");
-        String reqHave = req.getParameter("have");
-        String reqWant = req.getParameter("want");
-        String reqDate = req.getParameter("date");
+        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+        String reqHave = req.getParameter(HAVE_PARAMETER);
+        String reqWant = req.getParameter(WANT_PARAMETER);
+        String reqDate = req.getParameter(DATE_PARAMETER);
         Double calculatorAmount = Double.parseDouble(reqAmount);
         String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");

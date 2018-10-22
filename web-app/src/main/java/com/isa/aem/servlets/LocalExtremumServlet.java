@@ -28,6 +28,10 @@ public class LocalExtremumServlet extends HttpServlet {
     private LocalDate dateTo;
     private String currencyName;
     private String defaultCurrencyName;
+    private static final String CURRENCY_NAME_PARAMETER = "currencyName";
+    private static final String DATE_FROM_PARAMETER = "dateFrom";
+    private static final String DATE_TO_PARAMETER = "dateTo";
+    private static final String USER_NAME_PARAMETER = "userName";
 
 
     @Inject
@@ -58,18 +62,18 @@ public class LocalExtremumServlet extends HttpServlet {
         } else {
             currencyName = currencyRepository.getFirstAvailableCurrencyName();
         }
-        if (req.getParameter("currencyName") != null) {
-            currencyName = req.getParameter("currencyName");
+        if (req.getParameter(CURRENCY_NAME_PARAMETER) != null) {
+            currencyName = req.getParameter(CURRENCY_NAME_PARAMETER);
         }
 
-        if (req.getParameter("dateFrom") != null) {
-            dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
+        if (req.getParameter(DATE_FROM_PARAMETER) != null) {
+            dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
         } else {
             dateFrom = currencyRepository.getMostRecentDateMinusOneMonthForChosenCurrencyName(currencyName);
         }
 
-        if (req.getParameter("dateTo") != null) {
-            dateTo = LocalDate.parse(req.getParameter("dateTo"));
+        if (req.getParameter(DATE_TO_PARAMETER) != null) {
+            dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
         } else {
             dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(currencyName);
         }
@@ -77,7 +81,7 @@ public class LocalExtremumServlet extends HttpServlet {
         List<Currency> minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
         List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
 
-        Object userName = req.getSession().getAttribute("userName");
+        Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
         model.put("availableCurrencyNames", availableCurrencyNames);
