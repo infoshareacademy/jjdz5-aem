@@ -1,6 +1,7 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.local.extremum.LocalExtremum;
 import freemarker.template.Template;
@@ -53,7 +54,7 @@ public class LocalExtremumServlet extends HttpServlet {
         List<String> availableCurrencyNames = currencyRepository.getAvailableCurrencyNames();
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), "local-extremum");
+                .getTemplate(getServletContext(), TemplateName.LOCAL_EXTREMUM.getName());
 
         if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
             currencyName = defaultCurrencyName;

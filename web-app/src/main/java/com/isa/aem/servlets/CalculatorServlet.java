@@ -1,8 +1,10 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
+import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -32,6 +34,8 @@ public class CalculatorServlet extends HttpServlet {
     private static final String HAVE_PARAMETER = "have";
     private static final String WANT_PARAMETER = "want";
     private static final String DATE_PARAMETER = "date";
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+    String currencyInTable;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -80,12 +84,18 @@ public class CalculatorServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
+        if (currencyInTable == null) {
+            currencyInTable = "PLN";
+        }
+
         Template template = templateProvider
-                .getTemplate(getServletContext(), "currency-converter");
+                .getTemplate(getServletContext(), TemplateName.CURRENCY_CONVERTER.getName());
 
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
+        model.put("currencyInTable", currencyInTable);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -104,12 +114,14 @@ public class CalculatorServlet extends HttpServlet {
         String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
+        currencyInTable = req.getParameter("currency_table");
 
         LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
 
         score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
         score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
         score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
+        createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
 
         doGet(req, resp);
     }

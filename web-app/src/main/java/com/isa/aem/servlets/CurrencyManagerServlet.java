@@ -1,8 +1,10 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
+import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
+import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -32,8 +34,13 @@ public class CurrencyManagerServlet extends HttpServlet {
     private static final String HAVE_PARAMETER = "have";
     private static final String WANT_PARAMETER = "want";
     private static final String DATE_PARAMETER = "date";
+    private static final String CURRENCY_TABLE_PARAMETER = "currency_table";
     private static final String USER_NAME_PARAMETER = "userName";
-
+    String currencyInTable;
+    private static final String ACTION_BUTTON = "action";
+    private static final String ACTION_BUTTON_CALCULATOR = "calculator";
+    private static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
 
     @Inject
     private TemplateProvider templateProvider;
@@ -82,14 +89,21 @@ public class CurrencyManagerServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
+        if (currencyInTable == null) {
+            currencyInTable = defaultCurrencyNameHave;
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable));
+        }
+
         Template template = templateProvider
-                .getTemplate(getServletContext(), "currency-manager-converter");
+                .getTemplate(getServletContext(), TemplateName.CURRENCY_MANAGER.getName());
 
         Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
         model.put("logged", userName);
+        model.put("currencyInTable", currencyInTable);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.getTableListCurrencyObject());
 
         try {
             template.process(model, resp.getWriter());
@@ -101,21 +115,29 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter(ACTION_BUTTON);
 
-        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
-        String reqHave = req.getParameter(HAVE_PARAMETER);
-        String reqWant = req.getParameter(WANT_PARAMETER);
-        String reqDate = req.getParameter(DATE_PARAMETER);
-        Double calculatorAmount = Double.parseDouble(reqAmount);
-        String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
-        String[] calculatorCurrencyWantTable = reqWant.split(" - ");
-        String haveCurrency = calculatorCurrencyHaveTable[0];
-        LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
+        if (ACTION_BUTTON_CALCULATOR.equals(action)) {
+            String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+            String reqHave = req.getParameter(HAVE_PARAMETER);
+            String reqWant = req.getParameter(WANT_PARAMETER);
+            String reqDate = req.getParameter(DATE_PARAMETER);
+            Double calculatorAmount = Double.parseDouble(reqAmount);
+            String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
+            String[] calculatorCurrencyWantTable = reqWant.split(" - ");
+            String haveCurrency = calculatorCurrencyHaveTable[0];
+            LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
+            score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
-        score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
-        score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
-
+        } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
+            CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
+            String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
+            String[] currencyInTableName = currencyInTableNames.split(" - ");
+            currencyInTable = currencyInTableName[0];
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
+        }
         doGet(req, resp);
     }
 }
