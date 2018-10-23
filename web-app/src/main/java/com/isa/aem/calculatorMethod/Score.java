@@ -3,7 +3,7 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyNameCountryFlags;
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.calc.AlgorithmCurrencyConversion;
+import com.isa.aem.currency.calculator.AlgorithmCurrencyConversion;
 import com.isa.aem.tools.DataValidator;
 
 import java.math.BigDecimal;
@@ -124,7 +124,7 @@ public class Score {
             LocalDate date = dataService.dataParse(reqDate.replace("-", ""));
             return date;
         }
-        return currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency);
+        return currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency);
     }
 
     public Boolean isDateExistInCurrencyWithGivenDate(String haveCurrency, String wantCurrency, LocalDate date) {

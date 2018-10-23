@@ -139,10 +139,10 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
-                    <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
+                    <select class="form-control" id="currencyIWant" name="currencyName">
                         <#list availableCurrencyNames as ac>
                             <option
-                                <#if ac == chosenCurrencyName>
+                                <#if ac == currencyName>
                                     selected </#if>>
                                 ${ac}
                             </option>
@@ -175,7 +175,7 @@
                            min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateFrom}
                                    class="form-control"/>
-                    <#if currencyRepository.isDateFromAfterDateTo(dateFrom, dateTo) == true>
+                    <#if localExtremum.isDateFromAfterDateTo(dateFrom, dateTo) == true>
                         <div class="alert alert-error">
                             Date From is after Date To. Try again!
                         </div>

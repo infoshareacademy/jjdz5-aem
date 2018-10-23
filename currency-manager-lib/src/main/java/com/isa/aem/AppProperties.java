@@ -13,10 +13,6 @@ public class AppProperties {
         this.properties = properties;
     }
 
-    public String getVersion() {
-        return properties.getProperty("version");
-    }
-//"sourceFilePath"
     public String getSourceFilePath(String fileName) {
         Pattern pattern = Pattern.compile("^.*\\.(txt|csv)$");
         Matcher matcher = pattern.matcher(properties.getProperty(fileName));
@@ -33,4 +29,14 @@ public class AppProperties {
         }
         return properties.getProperty(fileName);
     }
+
+    public String getCurrencyNamePln() {
+        return properties.getProperty("currencyNamePln");
+    }
+
+    public String getCurrencyNameEur() {
+        return properties.getProperty("currencyNameEur");
+    }
+
+
 }

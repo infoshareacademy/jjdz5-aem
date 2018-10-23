@@ -1,9 +1,6 @@
 package com.isa.aem.servlets;
 
-import com.isa.aem.Currency;
-import com.isa.aem.CurrencyRepository;
-import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.*;
 import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
@@ -24,14 +21,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @WebServlet(urlPatterns = "/calculator")
 public class CalculatorServlet extends HttpServlet {
 
     private Score score = new Score();
     private ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies =new CreateAListOfAvailableCurrencies();
+    private String defaultCurrencyNameHave;
+    private String defaultCurrencyNameWant;
+    private static final Double DEFAULT_AMOUNT = 100.00;
+    private static final String AMOUNT_PARAMETER = "amount";
+    private static final String HAVE_PARAMETER = "have";
+    private static final String WANT_PARAMETER = "want";
+    private static final String DATE_PARAMETER = "date";
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
     String currencyInTable;
 
     @Inject
@@ -45,6 +48,10 @@ public class CalculatorServlet extends HttpServlet {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        defaultCurrencyNameHave = appProperties.getCurrencyNamePln();
+        defaultCurrencyNameWant = appProperties.getCurrencyNameEur();
     }
 
     @Override
@@ -53,28 +60,28 @@ public class CalculatorServlet extends HttpServlet {
         List<Currency> singleCurrency = score.getSingleCurrency();
 
         if (score.getAmount() == null) {
-            score.setAmount(100.00);
+            score.setAmount(DEFAULT_AMOUNT);
         }
 
         if (score.getCurrencyHave() == null) {
-            score.setCurrencyHave("PLN");
+            score.setCurrencyHave(defaultCurrencyNameHave);
         }
 
         if (score.getCurrencyWant() == null) {
-            score.setCurrencyWant("EUR");
+            score.setCurrencyWant(defaultCurrencyNameWant);
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN");
+            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile("PLN"));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (currencyInTable == null) {
@@ -99,21 +106,21 @@ public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String reqAmount = req.getParameter("amount");
-        String reqHave = req.getParameter("have");
-        String reqWant = req.getParameter("want");
-        String reqDate = req.getParameter("date");
+        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+        String reqHave = req.getParameter(HAVE_PARAMETER);
+        String reqWant = req.getParameter(WANT_PARAMETER);
+        String reqDate = req.getParameter(DATE_PARAMETER);
         Double calculatorAmount = Double.parseDouble(reqAmount);
         String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
         String[] calculatorCurrencyWantTable = reqWant.split(" - ");
         String haveCurrency = calculatorCurrencyHaveTable[0];
-        currencyInTable=req.getParameter("currency_table");
+        currencyInTable = req.getParameter("currency_table");
 
         LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
 
         score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-        score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
+        score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
+        score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
         createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
 
         doGet(req, resp);

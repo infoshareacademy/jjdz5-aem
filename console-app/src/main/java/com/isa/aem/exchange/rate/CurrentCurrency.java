@@ -1,4 +1,9 @@
-package com.isa.aem;
+package com.isa.aem.exchange.rate;
+
+import com.isa.aem.Currency;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.MenuProject;
+import com.isa.aem.SortCurrency;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,10 +37,7 @@ public class CurrentCurrency {
 
             if (currency.getDate().toString().equals(currentVariable.dateCurrent)) {
                 currentVariable.listCurrency.add(currency);
-
-
             }
-
         }
 
         //sort currency by name ascending
@@ -49,7 +51,6 @@ public class CurrentCurrency {
         if (currentVariable.listCurrency.isEmpty()) {
             System.out.println("The file does not contain currency rate for the selected day");
         }
-
         MenuProject menuProject = new MenuProject();
         menuProject.menuPanel();
     }
@@ -91,10 +92,7 @@ public class CurrentCurrency {
             default:
                 currentVariable.dateCurrent = currentVariable.localTime1.format(DateTimeFormatter.ISO_LOCAL_DATE);
                 break;
-
-
         }
-
         return currentVariable.dateCurrent;
     }
 
@@ -120,14 +118,9 @@ public class CurrentCurrency {
                 if (current.equalsIgnoreCase(currentVariable.dateCurrency.get(i).getName()) && currentVariable.dateCurrency.get(i).getDate().isAfter(dateMax)) {
                     dateMax = currentVariable.dateCurrency.get(i).getDate();
                 }
-
             }
-
             contenerDateCurrencies.add(new ContenerDateCurrency(current, dateMin, dateMax));
         }
         return contenerDateCurrencies;
-
     }
-
-
 }

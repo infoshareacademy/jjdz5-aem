@@ -2,11 +2,10 @@ package com.isa.aem.calculatorMethod;
 
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.calc.AlgorithmCurrencyConversion;
+import com.isa.aem.currency.calculator.AlgorithmCurrencyConversion;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +16,12 @@ public class AvailableCurrencyMethod {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     public LocalDate getMaxDateForSelectedCurrency(String nameOfCurrency) {
-        dateMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
+        dateMax = currencyRepository.getMostRecentDateForChosenCurrencyName(nameOfCurrency);
         return dateMax;
     }
 
     public LocalDate getMinDateForSelectedCurrency(String nameOfCurrency) {
-        dateMin = currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(nameOfCurrency);
+        dateMin = currencyRepository.getOldestDateForChosenCurrencyName(nameOfCurrency);
         return dateMin;
     }
 

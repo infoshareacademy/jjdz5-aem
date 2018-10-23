@@ -139,7 +139,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
-                    <select class="form-control" id="currencyIWant" name="chosenCurrencyName">
+                    <select class="form-control" id="currencyIWant" name="currencyName">
                                  <#list availableCurrencyNames as ac>
                                      <option>${ac}</option>
                                  </#list>

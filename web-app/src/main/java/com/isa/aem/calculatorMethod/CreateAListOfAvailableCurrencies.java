@@ -1,6 +1,9 @@
 package com.isa.aem.calculatorMethod;
 
-import com.isa.aem.*;
+import com.isa.aem.Currency;
+import com.isa.aem.CurrencyNameCountryFlags;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.LoadCurrencyNameCountryFlags;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

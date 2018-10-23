@@ -6,7 +6,7 @@ import com.isa.aem.tools.ConsolePrinter;
 import java.util.Arrays;
 import java.util.List;
 
-public class DataTransducerIntroducedByConsole {
+public class GlobalExtremumInputHandler {
 
     private ConsolePrinter consolePrinter = new ConsolePrinter();
 
@@ -20,7 +20,7 @@ public class DataTransducerIntroducedByConsole {
     }
 
     protected void printExtremeMenu(String nameOfCurrency) {
-        System.out.println(consolePrinter.backToMenu() + consolePrinter.bakcCurSel());
+        System.out.println(consolePrinter.backToMenu() + consolePrinter.backToCurrencySelection());
         System.out.println(consolePrinter.extreme());
         System.out.println(consolePrinter.nextLine() + consolePrinter.min());
         Double minRateOFExtremum = currencyRepository.getMinRateOfExtremum(nameOfCurrency);

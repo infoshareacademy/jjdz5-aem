@@ -1,7 +1,6 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
-import com.isa.aem.Currency;
 import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import com.isa.aem.calculatorMethod.Score;
 import com.isa.aem.calculatorMethod.ScoreResult;
@@ -18,27 +17,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends HttpServlet {
 
+    private Score score = new Score();
+    private ScoreResult scoreResult = new ScoreResult();
+    CurrencyRepository currencyRepository = new CurrencyRepository();
+    private String defaultCurrencyNameHave;
+    private String defaultCurrencyNameWant;
+    private static final Double DEFAULT_AMOUNT = 100.00;
     private static final String AMOUNT_PARAMETER = "amount";
     private static final String HAVE_PARAMETER = "have";
     private static final String WANT_PARAMETER = "want";
     private static final String DATE_PARAMETER = "date";
     private static final String CURRENCY_TABLE_PARAMETER = "currency_table";
-    private Score score = new Score();
-    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
-    private ScoreResult scoreResult = new ScoreResult();
-    CurrencyRepository currencyRepository = new CurrencyRepository();
+    private static final String USER_NAME_PARAMETER = "userName";
     String currencyInTable;
-    private static final Double DEFAULT_AMOUNT = 100.00;
-    private static final String DEFAULT_CURRENCY_HAVE = "PLN";
-    private static final String DEFAULT_CURRENCY_WANT = "EUR";
     private static final String ACTION_BUTTON = "action";
     private static final String ACTION_BUTTON_CALCULATOR = "calculator";
     private static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
 
     @Inject
     private TemplateProvider templateProvider;
@@ -51,6 +53,10 @@ public class CurrencyManagerServlet extends HttpServlet {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+
+        AppProperties appProperties = PropertiesLoader.loadProperties();
+        defaultCurrencyNameHave = appProperties.getCurrencyNamePln();
+        defaultCurrencyNameWant = appProperties.getCurrencyNameEur();
     }
 
     @Override
@@ -63,36 +69,35 @@ public class CurrencyManagerServlet extends HttpServlet {
         }
 
         if (score.getCurrencyHave() == null) {
-            score.setCurrencyHave(DEFAULT_CURRENCY_HAVE);
-
+            score.setCurrencyHave(defaultCurrencyNameHave);
         }
 
         if (score.getCurrencyWant() == null) {
-            score.setCurrencyWant(DEFAULT_CURRENCY_WANT);
+            score.setCurrencyWant(defaultCurrencyNameWant);
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE);
+            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE));
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (score.getMinDate() == null) {
-            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(DEFAULT_CURRENCY_HAVE));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (currencyInTable == null) {
-            currencyInTable = DEFAULT_CURRENCY_HAVE;
+            currencyInTable = defaultCurrencyNameHave;
             createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable));
         }
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), TemplateName.CURRENCY_MANAGER.getName());
 
-        Object userName = req.getSession().getAttribute("userName");
+        Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
@@ -123,8 +128,8 @@ public class CurrencyManagerServlet extends HttpServlet {
             String haveCurrency = calculatorCurrencyHaveTable[0];
             LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
             score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-            score.setMaxDate(currencyRepository.getMostCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
-            score.setMinDate(currencyRepository.getMinCurrentDateOfSelectedCurrencyFromTheFile(haveCurrency));
+            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
@@ -132,7 +137,6 @@ public class CurrencyManagerServlet extends HttpServlet {
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
             createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
-
         }
         doGet(req, resp);
     }

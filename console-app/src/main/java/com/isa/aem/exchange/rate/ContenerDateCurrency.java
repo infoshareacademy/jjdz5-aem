@@ -1,4 +1,4 @@
-package com.isa.aem;
+package com.isa.aem.exchange.rate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

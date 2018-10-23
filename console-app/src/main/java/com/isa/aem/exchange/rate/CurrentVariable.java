@@ -1,4 +1,6 @@
-package com.isa.aem;
+package com.isa.aem.exchange.rate;
+
+import com.isa.aem.Currency;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

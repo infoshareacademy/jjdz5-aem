@@ -36,7 +36,7 @@ public class ConsolePrinter {
 
     public String simpleCalculator (){
         return
-                "                                || 1: simple calcualtor\n";
+                "                                || 1: simple calculator\n";
     }
 
     public String calculatorWithDate (){
@@ -77,22 +77,22 @@ public class ConsolePrinter {
                 "*************************************************\n";
     }
 
-    public String bakcCurSel() {
+    public String backToCurrencySelection() {
         return
                 "                                || 1: back to currency selection \n\n";
     }
 
-    public String curComUnexist() {
+    public String currencyOrCommandDoesNotExist() {
         return
                 "     CURRENCY OR COMMAND DOES NOT EXIST.\n";
     }
 
-    public String currencyUnexist() {
+    public String currencyDoesNotExist() {
         return
                 "     CURRENCY DOES NOT EXIST.\n";
     }
 
-    public String numberUnexist() {
+    public String numberDoesNotExist() {
         return
                 "     THIS IS NOT NUMBER\n";
     }
@@ -102,8 +102,8 @@ public class ConsolePrinter {
                 "     Extreme: ";
     }
 
-    public String listAvailableCurrency(){
-        return "     List available currency:";
+    public String listAvailableCurrencies(){
+        return "     List available currencies:";
     }
 
 
@@ -122,7 +122,7 @@ public class ConsolePrinter {
                 "     Enter amount: ";
     }
 
-    public String enterCurCom() {
+    public String enterCurrencyOrCommand() {
         return
                 "     Enter currency/command: ";
     }
@@ -132,14 +132,14 @@ public class ConsolePrinter {
                 "     Enter date (yyyymmdd): ";
     }
 
-    public String unknowCommand() {
+    public String unknownCommand() {
         return
                 "     UNKNOWN COMMAND.\n";
     }
 
-    public String unexistDate() {
+    public String rateDoesNotExistForThisDate() {
         return
-                "     We have no curse with this date \n";
+                "     We have no exchange rate for this date \n";
     }
 
     public String wrongDate() {

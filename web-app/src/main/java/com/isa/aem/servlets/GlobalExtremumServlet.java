@@ -45,7 +45,6 @@ public class GlobalExtremumServlet extends HttpServlet {
         model.put("logged", userName);
 
 
-
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
