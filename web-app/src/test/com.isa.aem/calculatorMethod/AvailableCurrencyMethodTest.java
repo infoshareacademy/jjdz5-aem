@@ -16,12 +16,16 @@ public class AvailableCurrencyMethodTest {
     private FileContentReader fileContentReader = new FileContentReader();
     private AvailableCurrencyMethod availableCurrencyMethod;
 
-    @Test
-    @DisplayName("Should return date before or equal Today's date")
-    public void returnsMaxDateInFile() {
+    public void loadFiles(){
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+    }
+
+    @Test
+    @DisplayName("Should return date before or equal Today's date")
+    public void returnsMaxDateInFile() {
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "PLN";
@@ -35,9 +39,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return date before or equal Today's date when currency is in File even though it is saved with a lowercase letter")
     public void returnsMaxDateInFileWhenCurrencyIsInLowerCase() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "pln";
@@ -51,9 +53,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return message \"No value present\" if currency is not on the list")
     public void returnsFourTousendYearWhenCurrencyIsOutsideOfListInMax() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "AA";
@@ -66,9 +66,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return date before or equal Today's date if currency is in File")
     public void returnsMinDateInFile() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "pln";
@@ -82,9 +80,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return '1900-01-01' if currency is not on the list")
     public void returnsMinSystemDateWhenCurrencyIsOutsideOfListInMax() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "AA";
@@ -97,9 +93,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return length>0 if currency is in file")
     public void returnsRangeOfCurrencyDiffrentThenMinAndMaxSystemDate() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "pln";
@@ -112,9 +106,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return \"No value present\" if currency not in file")
     public void returnsRangeMinAndMaxSystemDate() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currency = "aa";
@@ -127,9 +119,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return exchange value if currencyWant and CurrencyHave is not empty")
     public void returnsExhangeValue() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         String currencyHave = "EUR";
@@ -144,9 +134,7 @@ public class AvailableCurrencyMethodTest {
     @Test
     @DisplayName("Should return list with a size greater than zero")
     public void returnsListWithSizeMoreThenNull() {
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
         // arrange
         LocalDate dateMax = LocalDate.of(2018, 07, 27);
