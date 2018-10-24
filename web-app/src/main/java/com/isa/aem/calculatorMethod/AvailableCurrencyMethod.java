@@ -26,13 +26,13 @@ public class AvailableCurrencyMethod {
     }
 
     public String getRangeOfSelectedCurrency(String nameOfCurrency) {
-        return getMinDateForSelectedCurrency(nameOfCurrency) + " - " + getMaxDateForSelectedCurrency(nameOfCurrency);
+        return getMinDateForSelectedCurrency(nameOfCurrency.toUpperCase()) + " - " + getMaxDateForSelectedCurrency(nameOfCurrency.toUpperCase());
     }
 
     public BigDecimal getExchangeValue(String nameOfCurrency, String nameCurrencyWant, LocalDate dateMax) {
         AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
-        Double currencyHave = currencyRepository.getRateOfGivenDate(nameOfCurrency, dateMax);
-        Double currencyWant = currencyRepository.getRateOfGivenDate(nameCurrencyWant, dateMax);
+        Double currencyHave = currencyRepository.getRateOfGivenDate(nameOfCurrency.toUpperCase(), dateMax);
+        Double currencyWant = currencyRepository.getRateOfGivenDate(nameCurrencyWant.toUpperCase(), dateMax);
         BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant, currencyHave);
         return curseValue;
     }

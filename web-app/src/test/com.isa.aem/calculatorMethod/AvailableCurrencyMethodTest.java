@@ -5,12 +5,11 @@ import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 public class AvailableCurrencyMethodTest {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -50,7 +49,7 @@ public class AvailableCurrencyMethodTest {
     }
 
     @Test
-    @DisplayName("Should return '4000-01-01' if currency is not on the list")
+    @DisplayName("Should return message \"No value present\" if currency is not on the list")
     public void returnsFourTousendYearWhenCurrencyIsOutsideOfListInMax() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
@@ -59,9 +58,9 @@ public class AvailableCurrencyMethodTest {
         // arrange
         String currency = "AA";
         // act
-        LocalDate result = availableCurrencyMethod.getMaxDateForSelectedCurrency(currency);
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> availableCurrencyMethod.getMaxDateForSelectedCurrency(currency));
         // assert
-        assertEquals(LocalDate.of(4000, 01, 01), result);
+        assertEquals("No value present", exception.getMessage());
     }
 
     @Test
@@ -90,13 +89,13 @@ public class AvailableCurrencyMethodTest {
         // arrange
         String currency = "AA";
         // act
-        LocalDate result = availableCurrencyMethod.getMinDateForSelectedCurrency(currency);
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> availableCurrencyMethod.getMinDateForSelectedCurrency(currency));
         // assert
-        assertEquals(LocalDate.of(1900, 01, 01), result);
+        assertEquals("No value present", exception.getMessage());
     }
 
     @Test
-    @DisplayName("Should return range diffrent from \"1900-01-01 - 4000-01-01\" if currency is in file")
+    @DisplayName("Should return length>0 if currency is in file")
     public void returnsRangeOfCurrencyDiffrentThenMinAndMaxSystemDate() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
@@ -105,13 +104,13 @@ public class AvailableCurrencyMethodTest {
         // arrange
         String currency = "pln";
         // act
-        Boolean result = availableCurrencyMethod.getRangeOfSelectedCurrency(currency).equalsIgnoreCase("1900-01-01 - 4000-01-01");
+        Boolean result = availableCurrencyMethod.getRangeOfSelectedCurrency(currency).length()>0;
         // assert
-        assertEquals(false, result);
+        assertEquals(true, result);
     }
 
     @Test
-    @DisplayName("Should return range \"1900-01-01 - 4000-01-01\" if currency not in file")
+    @DisplayName("Should return \"No value present\" if currency not in file")
     public void returnsRangeMinAndMaxSystemDate() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
@@ -120,9 +119,9 @@ public class AvailableCurrencyMethodTest {
         // arrange
         String currency = "aa";
         // act
-        Boolean result = availableCurrencyMethod.getRangeOfSelectedCurrency(currency).equalsIgnoreCase("1900-01-01 - 4000-01-01");
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> availableCurrencyMethod.getRangeOfSelectedCurrency(currency));
         // assert
-        assertEquals(true, result);
+        assertEquals("No value present", exception.getMessage());
     }
 
     @Test
