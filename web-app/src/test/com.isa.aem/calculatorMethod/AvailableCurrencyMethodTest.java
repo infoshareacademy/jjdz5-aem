@@ -5,8 +5,10 @@ import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
@@ -16,7 +18,7 @@ public class AvailableCurrencyMethodTest {
     private FileContentReader fileContentReader = new FileContentReader();
     private AvailableCurrencyMethod availableCurrencyMethod;
 
-    public void loadFiles(){
+    public void loadFiles() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
@@ -64,7 +66,7 @@ public class AvailableCurrencyMethodTest {
     }
 
     @Test
-    @DisplayName("Should return date before or equal Today's date if currency is in File")
+    @DisplayName("Should return date before 1900-01-01 if currency is in File")
     public void returnsMinDateInFile() {
         loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
@@ -78,7 +80,7 @@ public class AvailableCurrencyMethodTest {
     }
 
     @Test
-    @DisplayName("Should return '1900-01-01' if currency is not on the list")
+    @DisplayName("Should return \"No value present\" if currency is not on the list")
     public void returnsMinSystemDateWhenCurrencyIsOutsideOfListInMax() {
         loadFiles();
         availableCurrencyMethod = new AvailableCurrencyMethod();
@@ -98,7 +100,7 @@ public class AvailableCurrencyMethodTest {
         // arrange
         String currency = "pln";
         // act
-        Boolean result = availableCurrencyMethod.getRangeOfSelectedCurrency(currency).length()>0;
+        Boolean result = availableCurrencyMethod.getRangeOfSelectedCurrency(currency).length() > 0;
         // assert
         assertEquals(true, result);
     }
@@ -129,6 +131,51 @@ public class AvailableCurrencyMethodTest {
         BigDecimal result = availableCurrencyMethod.getExchangeValue(currencyHave, currencyWant, dateMax);
         // assert
         assertEquals(BigDecimal.valueOf(4.2945), result);
+    }
+
+    @Test
+    @DisplayName("Should return \"No value present\" if currencyWant is not in file")
+    public void returnsThrowsWhenCurrencyWantNotInFile() {
+        loadFiles();
+        availableCurrencyMethod = new AvailableCurrencyMethod();
+        // arrange
+        String currencyHave = "EUR";
+        String currencyWant = "aa";
+        LocalDate dateMax = LocalDate.of(2018, 07, 27);
+        // act
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> availableCurrencyMethod.getExchangeValue(currencyHave, currencyWant, dateMax));
+        // assert
+        assertEquals("No value present", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Should return \"No value present\" if currencyHave is not in file")
+    public void returnsThrowsWhenCurrencyHaveNotInFile() {
+        loadFiles();
+        availableCurrencyMethod = new AvailableCurrencyMethod();
+        // arrange
+        String currencyHave = "aa";
+        String currencyWant = "PLN";
+        LocalDate dateMax = LocalDate.of(2018, 07, 27);
+        // act
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> availableCurrencyMethod.getExchangeValue(currencyHave, currencyWant, dateMax));
+        // assert
+        assertEquals("No value present", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Should return Throws null if LocalDate is empty")
+    public void returnsThrowsWhenLocalDateIsEmpty() {
+        loadFiles();
+        availableCurrencyMethod = new AvailableCurrencyMethod();
+        // arrange
+        String currencyHave = "EUR";
+        String currencyWant = "PLN";
+        LocalDate dateMax = null;
+        // act
+        Throwable exception = assertThrows(NullPointerException.class, () -> availableCurrencyMethod.getExchangeValue(currencyHave, currencyWant, dateMax));
+        // assert
+        assertEquals(null, exception.getMessage());
     }
 
     @Test
