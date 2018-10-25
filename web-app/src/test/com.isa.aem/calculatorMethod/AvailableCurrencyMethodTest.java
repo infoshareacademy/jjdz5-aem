@@ -190,4 +190,17 @@ public class AvailableCurrencyMethodTest {
         // assert
         assertEquals(true, result);
     }
+
+    @Test
+    @DisplayName("Should return list with a size equals zero when date is not in file")
+    public void returnsListWithSizeEquelsNull() {
+        loadFiles();
+        availableCurrencyMethod = new AvailableCurrencyMethod();
+        // arrange
+        LocalDate dateMax = LocalDate.of(100, 07, 27);
+        // act
+        Boolean result = availableCurrencyMethod.getSingleCurrencyWithMaxDate(dateMax).size() == 0;
+        // assert
+        assertEquals(true, result);
+    }
 }

@@ -26,7 +26,11 @@ public class CreateAListOfAvailableCurrencies {
         return tableListCurrencyObject;
     }
 
-    private void addCurrencyObject(String nameOfCurrency) {
+    public void setAvailableCurrencyMethod(AvailableCurrencyMethod availableCurrencyMethod) {
+        this.availableCurrencyMethod = availableCurrencyMethod;
+    }
+
+    void addCurrencyObject(String nameOfCurrency) {
         for (Currency nameCurrencyWant : availableCurrencyMethod.getSingleCurrencyWithMaxDate(maxDate)) {
             BigDecimal value = availableCurrencyMethod.getExchangeValue(nameOfCurrency, nameCurrencyWant.getName(), maxDate);
             LocalDate dateMax = availableCurrencyMethod.getMaxDateForSelectedCurrency(nameCurrencyWant.getName());
