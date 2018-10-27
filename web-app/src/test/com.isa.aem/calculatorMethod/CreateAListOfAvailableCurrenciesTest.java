@@ -32,7 +32,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return list on size more then zero when currency is correct")
 
     public void returnsListWithSizeMorThenZeroIfCurrencyExist() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "PLN";
@@ -46,7 +45,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return list on size more then zero when currency is correct and write in lower case")
 
     public void returnsListWithSizeMorThenZeroIfCurrencyExistAndWhenIsWriteInLowerCase() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "pln";
@@ -60,12 +58,11 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return throw when currency have not correct name")
 
     public void returnsThrowIfCurrencyIsNotInTheFile() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "ww";
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () ->createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
         // assert
         assertEquals("No value present", exception.getMessage());
     }
@@ -74,12 +71,11 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should throw when currency name is null")
 
     public void returnsThrowIfCurrencyNameIsEmpty() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = null;
         // act
-        Throwable exception = assertThrows(NullPointerException.class, () ->createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
+        Throwable exception = assertThrows(NullPointerException.class, () -> createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
         // assert
         assertEquals(null, exception.getMessage());
     }
@@ -88,7 +84,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return list where size equals zero when currency is not on the list")
 
     public void returnsListWithSizeZeroIfCurrencyNotExist() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "zz";
@@ -103,7 +98,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return list where size equals zero when currency is null")
 
     public void returnsListWithSizeZeroIfCurrencyNotIsNull() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = null;
@@ -118,7 +112,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     @DisplayName("Should return list where size is more then zero when currency is correct")
 
     public void returnsListWithSizeMoreThenZeroIfCurrencyIsCorrect() {
-        loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "EUR";
