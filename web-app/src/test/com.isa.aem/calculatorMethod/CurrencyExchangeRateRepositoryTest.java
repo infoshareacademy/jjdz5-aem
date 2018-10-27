@@ -100,7 +100,7 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return \"No value present\" if currency is not on the list")
+    @DisplayName("Should return \"No value present\" if currency is not in the File")
 
     public void returnsThrowWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
