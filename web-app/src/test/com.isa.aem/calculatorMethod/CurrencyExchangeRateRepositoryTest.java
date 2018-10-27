@@ -72,7 +72,7 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before 1900-01-01 if currency is in File")
+    @DisplayName("Should return date after 1900-01-01 if currency is in File")
 
     public void returnsMinDateForCorrectCurrencyName() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
@@ -115,7 +115,7 @@ public class CurrencyExchangeRateRepositoryTest {
     @Test
     @DisplayName("Should return length>0 if currency is in file")
 
-    public void returnsNotEmptyListWhenCurrencyIsInFile() {
+    public void returnsNotEmptyListWhenCurrencyIsInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
@@ -156,7 +156,7 @@ public class CurrencyExchangeRateRepositoryTest {
     @Test
     @DisplayName("Should return \"No value present\" if currencyWant is not in file")
 
-    public void returnsThrowsWhenCurrencyWantIsNotInFile() {
+    public void returnsThrowsWhenCurrencyWantIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
@@ -199,7 +199,7 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return list with a size greater than zero")
+    @DisplayName("Should return list with a size more then zero")
 
     public void returnsListWithSizeMoreThenNullWhenDateIsInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
@@ -212,7 +212,7 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return list with a size equals zero when date is not in file")
+    @DisplayName("Should return list with a size equals zero when date is not in the file")
 
     public void returnsListWithSizeZeroWhenDateIsNotInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();

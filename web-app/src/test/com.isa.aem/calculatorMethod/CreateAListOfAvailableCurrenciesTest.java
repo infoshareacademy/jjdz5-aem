@@ -97,7 +97,7 @@ public class CreateAListOfAvailableCurrenciesTest {
     @Test
     @DisplayName("Should return list where size equals zero when currency is null")
 
-    public void returnsListWithSizeZeroIfCurrencyNotIsNull() {
+    public void returnsListWithSizeZeroIfCurrencyIsNull() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = null;
