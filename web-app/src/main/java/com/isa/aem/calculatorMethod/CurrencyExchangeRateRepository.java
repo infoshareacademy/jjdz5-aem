@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AvailableCurrencyMethod {
+public class CurrencyExchangeRateRepository {
     private List<Currency> currencyInMaxDate;
     private LocalDate dateMax;
     private LocalDate dateMin;

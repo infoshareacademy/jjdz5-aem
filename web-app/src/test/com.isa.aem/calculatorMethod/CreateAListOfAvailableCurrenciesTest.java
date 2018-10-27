@@ -3,6 +3,7 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -13,6 +14,11 @@ public class CreateAListOfAvailableCurrenciesTest {
     private FileContentReader fileContentReader = new FileContentReader();
     private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies;
 
+    @Before
+    public void init() {
+        loadFiles();
+    }
+
     public void loadFiles() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
@@ -21,6 +27,7 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     @DisplayName("Should return list where size is more then zero")
+
     public void returnsListWithSizeMorThenZeroIfCurrencyExist() {
         loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
@@ -34,6 +41,7 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     @DisplayName("Should return list where size equals zero when currency is not on the list")
+
     public void returnsListWithSizeZeroIfCurrencyNotExist() {
         loadFiles();
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
