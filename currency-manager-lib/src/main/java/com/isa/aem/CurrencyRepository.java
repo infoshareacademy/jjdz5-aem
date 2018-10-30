@@ -152,7 +152,7 @@ public class CurrencyRepository {
 
     public List<Currency> getCurrenciesWithFullNameAndFlag() {
         Set<Currency> currencyNameAndCountry = new HashSet<>();
-        for (Currency cc : CurrencyRepository.getCurrencies()) {
+        for (Currency cc : getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
             currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
         }
