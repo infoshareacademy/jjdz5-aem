@@ -175,11 +175,6 @@
                            min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateFrom}
                                    class="form-control"/>
-                    <#if isDateFromAfterDateTo>
-                        <div class="alert alert-error">
-                            Date From is after Date To. Try again!
-                        </div>
-                    </#if>
                 </div>
             </div>
             <div class="col-4">
@@ -200,6 +195,17 @@
             <div class="col-3">
                 <div class="form-group">
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <#if isDateFromAfterDateTo>
+                    <div class="alert alert-danger">
+                        Date From is after Date To. Try again!
+                    </div>
+                </#if>
+            </div>
+            <div class="col-4">
             </div>
         </div>
     </form>
