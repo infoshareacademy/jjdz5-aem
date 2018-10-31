@@ -30,6 +30,7 @@ public class LocalExtremumServlet extends HttpServlet {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String currencyName;
+    private Boolean isDateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
     List<Currency> minExtremum;
     List<Currency> maxExtremum;
@@ -77,8 +78,11 @@ public class LocalExtremumServlet extends HttpServlet {
             dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(currencyName);
         }
 
-        minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-        maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        isDateFromAfterDateTo = localExtremum.isDateFromAfterDateTo(dateFrom, dateTo);
+        if (!isDateFromAfterDateTo) {
+            minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        }
 
         Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
@@ -89,6 +93,7 @@ public class LocalExtremumServlet extends HttpServlet {
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
         model.put("localExtremum", localExtremum);
+        model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
         model.put("logged", userName);
@@ -109,8 +114,11 @@ public class LocalExtremumServlet extends HttpServlet {
         dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
         dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
 
-        minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-        maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        isDateFromAfterDateTo = localExtremum.isDateFromAfterDateTo(dateFrom, dateTo);
+        if (!isDateFromAfterDateTo) {
+            minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        }
 
         doGet(req, resp);
     }
