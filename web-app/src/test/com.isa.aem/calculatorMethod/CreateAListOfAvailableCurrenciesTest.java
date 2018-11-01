@@ -19,10 +19,6 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Before
     public void init() {
-        loadFiles();
-    }
-
-    public void loadFiles() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
         LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
