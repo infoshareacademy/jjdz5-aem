@@ -54,7 +54,7 @@ public class CurrencyExchangeRateRepositoryTest {
                 .isBeforeOrEqualTo(LocalDate.now());
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return message \"No value present\" if currency is not on the list")
 
     public void returnsThrowWhenCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
@@ -62,9 +62,8 @@ public class CurrencyExchangeRateRepositoryTest {
         // arrange
         String currency = "AA";
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> currencyExchangeRateRepository.getMaxDateForSelectedCurrency(currency));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        currencyExchangeRateRepository.getMaxDateForSelectedCurrency(currency);
+
     }
 
     @Test
@@ -95,7 +94,7 @@ public class CurrencyExchangeRateRepositoryTest {
                 .isAfterOrEqualTo(LocalDate.of(1900, 01, 01));
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return \"No value present\" if currency is not in the File")
 
     public void returnsThrowWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
@@ -103,9 +102,8 @@ public class CurrencyExchangeRateRepositoryTest {
         // arrange
         String currency = "AA";
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> currencyExchangeRateRepository.getMinDateForSelectedCurrency(currency));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        currencyExchangeRateRepository.getMinDateForSelectedCurrency(currency);
+
     }
 
     @Test
@@ -121,7 +119,7 @@ public class CurrencyExchangeRateRepositoryTest {
         assertEquals(true, result);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return \"No value present\" if currency not in file")
 
     public void returnsThrowWhenCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
@@ -129,9 +127,7 @@ public class CurrencyExchangeRateRepositoryTest {
         // arrange
         String currency = "aa";
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> currencyExchangeRateRepository.getRangeOfSelectedCurrency(currency));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        currencyExchangeRateRepository.getRangeOfSelectedCurrency(currency);
     }
 
     @Test
@@ -149,7 +145,7 @@ public class CurrencyExchangeRateRepositoryTest {
         assertEquals(BigDecimal.valueOf(4.2945), result);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return \"No value present\" if currencyWant is not in file")
 
     public void returnsThrowsWhenCurrencyWantIsNotInTheFile() {
@@ -159,12 +155,10 @@ public class CurrencyExchangeRateRepositoryTest {
         String currencyWant = "aa";
         LocalDate dateMax = LocalDate.of(2018, 07, 27);
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return \"No value present\" if currencyHave is not in file")
 
     public void returnsThrowsWhenCurrencyHaveIsNotInTheFile() {
@@ -174,12 +168,10 @@ public class CurrencyExchangeRateRepositoryTest {
         String currencyWant = "PLN";
         LocalDate dateMax = LocalDate.of(2018, 07, 27);
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     @DisplayName("Should return Throws null if LocalDate is empty")
 
     public void returnsThrowsWhenLocalDateIsEmpty() {
@@ -189,9 +181,7 @@ public class CurrencyExchangeRateRepositoryTest {
         String currencyWant = "PLN";
         LocalDate dateMax = null;
         // act
-        Throwable exception = assertThrows(NullPointerException.class, () -> currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax));
-        // assert
-        assertEquals(null, exception.getMessage());
+        currencyExchangeRateRepository.getExchangeValue(currencyHave, currencyWant, dateMax);
     }
 
     @Test

@@ -9,8 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;;
 
 public class CreateAListOfAvailableCurrenciesTest {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -50,7 +49,7 @@ public class CreateAListOfAvailableCurrenciesTest {
         assertEquals(true, result);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @DisplayName("Should return throw when currency have not correct name")
 
     public void returnsThrowIfCurrencyIsNotInTheFile() {
@@ -58,12 +57,10 @@ public class CreateAListOfAvailableCurrenciesTest {
         // arrange
         String currency = "ww";
         // act
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
-        // assert
-        assertEquals("No value present", exception.getMessage());
+        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     @DisplayName("Should throw when currency name is null")
 
     public void returnsThrowIfCurrencyNameIsEmpty() {
@@ -71,9 +68,7 @@ public class CreateAListOfAvailableCurrenciesTest {
         // arrange
         String currency = null;
         // act
-        Throwable exception = assertThrows(NullPointerException.class, () -> createAListOfAvailableCurrencies.availableCurrencyObjects(currency));
-        // assert
-        assertEquals(null, exception.getMessage());
+        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
     }
 
     @Test
@@ -115,7 +110,7 @@ public class CreateAListOfAvailableCurrenciesTest {
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
         createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() >0;
+        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() > 0;
         // assert
         assertEquals(true, result);
     }
