@@ -208,14 +208,14 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return list with a size equals zero when date is not in the file")
+    @DisplayName("Should return empty list when LocalDate don't exists")
 
-    public void returnsListWithSizeZeroWhenDateIsNotInThFile() {
+    public void returnsEmptyListWhenDateIsNotInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         LocalDate dateMax = LocalDate.of(100, 07, 27);
         // act
-        Boolean result = currencyExchangeRateRepository.getSingleCurrencyWithMaxDate(dateMax).size() == 0;
+        Boolean result = currencyExchangeRateRepository.getSingleCurrencyWithMaxDate(dateMax).isEmpty();
         // assert
         assertEquals(true, result);
     }

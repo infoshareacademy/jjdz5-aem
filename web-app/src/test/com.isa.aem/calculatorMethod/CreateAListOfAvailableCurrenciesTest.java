@@ -77,7 +77,7 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return list where size equals zero when currency is not on the list")
+    @DisplayName("Should return empty list when currency not exists")
 
     public void returnsListWithSizeZeroIfCurrencyNotExist() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
@@ -85,21 +85,21 @@ public class CreateAListOfAvailableCurrenciesTest {
         String currency = "zz";
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() == 0;
+        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().isEmpty();
         // assert
         assertEquals(true, result);
     }
 
     @Test
-    @DisplayName("Should return list where size equals zero when currency is null")
+    @DisplayName("Should return empty list where size equals zero when currency is null")
 
-    public void returnsListWithSizeZeroIfCurrencyIsNull() {
+    public void returnsEmptyListIfCurrencyIsNull() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = null;
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() == 0;
+        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().isEmpty();
         // assert
         assertEquals(true, result);
     }
@@ -109,11 +109,13 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     public void returnsListWithSizeMoreThenZeroIfCurrencyIsCorrect() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
-        String currency = "EUR";
+        String currency = "PLN";
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() == 0;
+        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
+        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() >0;
         // assert
         assertEquals(true, result);
     }
