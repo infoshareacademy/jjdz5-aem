@@ -54,12 +54,12 @@ public class CalculatorInputHandler {
         do {
             strDate = consoleReader.getString(consolePrinter.enterDate()).trim();
             preparedDate = dataService.preparingDateRemovingPunctuationMarks(strDate);
-            if (checkIfItIsCorrectDataFormatAndOnlyEightDigits()) {
+            if (checkIfItIsCorrectDataFormatAndOnlyEightDigits(preparedDate)) {
                 date = dataService.dataParse(preparedDate);
             } else {
                 System.out.println(consolePrinter.wrongDate());
             }
-        } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits()));
+        } while (!(checkIfItIsCorrectDataFormatAndOnlyEightDigits(preparedDate)));
         return date;
     }
 
@@ -67,13 +67,14 @@ public class CalculatorInputHandler {
         return strValue.matches("[0-9 .]+");
     }
 
-    protected boolean checkIfCurrencyNameSelectedByUserContainsGivenDate(
-            String firstNameOfCurrency, String secondNameOfCurrency, LocalDate date) {
+    protected boolean checkIfCurrencyNameSelectedByUserContainsGivenDate(String firstNameOfCurrency,
+                                                                         String secondNameOfCurrency,
+                                                                         LocalDate date) {
         return currencyRepository.checkIfExistCurrencyWithGivenDate(firstNameOfCurrency, date)
                 && currencyRepository.checkIfExistCurrencyWithGivenDate(secondNameOfCurrency, date);
     }
 
-    private Boolean checkIfItIsCorrectDataFormatAndOnlyEightDigits() {
+    public Boolean checkIfItIsCorrectDataFormatAndOnlyEightDigits(String preparedDate) {
         return (preparedDate.matches(CORRECT_DATE_FORM)
                 && preparedDate.matches(ONLY_EIGHT_DIGITS));
     }
