@@ -24,8 +24,8 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return list on size more then zero when currency is correct")
-    public void returnsListWithSizeMorThenZeroIfCurrencyExist() {
+    @DisplayName("Should return list on size more than zero when currency is correct")
+    public void returnsListWithSizeMorThanZeroIfCurrencyExist() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "PLN";
@@ -38,8 +38,8 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return list on size more then zero when currency is correct and write in lower case")
-    public void returnsListWithSizeMorThenZeroIfCurrencyExistAndWhenIsWriteInLowerCase() {
+    @DisplayName("Should return list on size more than zero when currency is correct and provided in lower case")
+    public void returnsListWithSizeMorThanZeroIfCurrencyExistAndWhenIsProvidedInLowerCase() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "pln";
@@ -104,8 +104,8 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return list where size is more then zero when currency is correct")
-    public void returnsListWithSizeMoreThenZeroIfCurrencyIsCorrect() {
+    @DisplayName("Should return list where size is more than zero when currency is correct")
+    public void returnsListWithSizeMoreThanZeroIfCurrencyIsCorrect() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "PLN";

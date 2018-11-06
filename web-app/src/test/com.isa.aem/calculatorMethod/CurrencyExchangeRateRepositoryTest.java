@@ -42,8 +42,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before or equal Today's date when currency is in File even though it is write with a lowercase letter")
-    public void returnsMaxDateForCorrectCurrencyWhenIsWriteInLowerCase() {
+    @DisplayName("Should return date before or equal Today's date when currency is in File even though it is provided with a lowercase letter")
+    public void returnsMaxDateForCorrectCurrencyWhenIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
@@ -85,8 +85,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before 1900-01-01  when currency is in File even though it is write with a lowercase letter")
-    public void returnsMinDateForCorrectCurrencyWhenIsWriteInLowerCase() {
+    @DisplayName("Should return date before 1900-01-01  when currency is in File even though it is provided with a lowercase letter")
+    public void returnsMinDateForCorrectCurrencyWhenIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
@@ -192,8 +192,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return list with a size more then zero")
-    public void returnsListWithSizeMoreThenNullWhenDateIsInThFile() {
+    @DisplayName("Should return list with a size more than zero")
+    public void returnsListWithSizeMoreThanNullWhenDateIsInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         LocalDate dateMax = LocalDate.of(2018, 07, 27);
@@ -206,7 +206,7 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when LocalDate don't exists")
+    @DisplayName("Should return empty list when LocalDate doesn't exist")
     public void returnsEmptyListWhenDateIsNotInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
