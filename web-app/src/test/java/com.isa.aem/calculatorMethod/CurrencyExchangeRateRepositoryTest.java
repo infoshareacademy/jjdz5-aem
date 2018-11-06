@@ -44,7 +44,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test
     @DisplayName("Should return date before or equal Today's date when currency is in File even though it is provided with a lowercase letter")
-    public void returnsMaxDateForCorrectCurrencyWhenIsProvidedInLowerCase() {
+    public void returnsDateBeforeTodayForCorrectCurrencyWhenIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
@@ -59,7 +59,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     @DisplayName("Should throw exception NoSuchElementException if currency is not on the list")
-    public void throwExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
+    public void throwsExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
         // arrange
@@ -87,7 +87,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test
     @DisplayName("Should return date before 1900-01-01  when currency is in File even though it is provided with a lowercase letter")
-    public void returnsMinDateForCorrectCurrencyWhenIsProvidedInLowerCase() {
+    public void returnsDateBefore19000101ForCorrectCurrencyWhenIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
@@ -102,7 +102,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     @DisplayName("Should throw exception NoSuchElementException if currency is not in the File")
-    public void throwExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
+    public void throwsExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "AA";
@@ -128,7 +128,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     @DisplayName("Should throw exception NoSuchElementException if currency not in file")
-    public void throwExceptionNoSuchElementExceptionWhenCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
+    public void throwsExceptionNoSuchElementExceptionWhenCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "aa";
@@ -155,7 +155,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     @DisplayName("Should throw exception NoSuchElementException if currencyWant is not in file")
-    public void throwExceptionNoSuchElementExceptionWhenCurrencyWantIsNotInTheFile() {
+    public void throwsExceptionNoSuchElementExceptionWhenCurrencyWantIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
@@ -168,7 +168,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     @DisplayName("Should throw exception NoSuchElementException if currencyHave is not in file")
-    public void throwExceptionNoSuchElementExceptionWhenCurrencyHaveIsNotInTheFile() {
+    public void throwsExceptionNoSuchElementExceptionWhenCurrencyHaveIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "aa";
@@ -181,7 +181,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test(expected = NullPointerException.class)
     @DisplayName("Should throw exception NullPointerException if LocalDate is empty")
-    public void throwExceptionNullPointerExceptionWhenLocalDateIsEmpty() {
+    public void throwsExceptionNullPointerExceptionWhenLocalDateIsEmpty() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
