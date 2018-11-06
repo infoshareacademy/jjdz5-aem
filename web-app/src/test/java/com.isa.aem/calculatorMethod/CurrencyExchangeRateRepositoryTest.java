@@ -72,7 +72,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test
     @DisplayName("Should return date after 1900-01-01 if currency is in File")
-    public void returnsMinDateForCorrectCurrencyName() {
+    public void returnsDateAfter19000101ForCorrectCurrencyName() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "PLN";
@@ -86,8 +86,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before 1900-01-01  when currency is in File even though it is provided with a lowercase letter")
-    public void returnsDateBefore19000101ForCorrectCurrencyWhenIsProvidedInLowerCase() {
+    @DisplayName("Should return date after 1900-01-01  when currency is in File even though it is provided with a lowercase letter")
+    public void returnsDateAfter19000101ForCorrectCurrencyWhenIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "pln";
