@@ -3,6 +3,7 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;

@@ -3,6 +3,7 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -153,8 +154,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return \"No value present\" if currencyWant is not in file")
-    public void returnsThrowsWhenCurrencyWantIsNotInTheFile() {
+    @DisplayName("Should throw NoSuchElementException if currencyWant is not in file")
+    public void throwNoSuchElementExceptionWhenCurrencyWantIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
@@ -166,8 +167,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return \"No value present\" if currencyHave is not in file")
-    public void returnsThrowsWhenCurrencyHaveIsNotInTheFile() {
+    @DisplayName("Should throw NoSuchElementException if currencyHave is not in file")
+    public void throwNoSuchElementExceptionWhenCurrencyHaveIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "aa";
@@ -179,8 +180,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @DisplayName("Should return Throws null if LocalDate is empty")
-    public void returnsThrowsWhenLocalDateIsEmpty() {
+    @DisplayName("Should throw NullPointerException if LocalDate is empty")
+    public void ThrowNullPointerExceptionWhenLocalDateIsEmpty() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
@@ -193,7 +194,7 @@ public class CurrencyExchangeRateRepositoryTest {
 
     @Test
     @DisplayName("Should return list with a size more than zero")
-    public void returnsListWithSizeMoreThanNullWhenDateIsInThFile() {
+    public void returnsListWithSizeMoreThanZeroWhenDateIsInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         LocalDate dateMax = LocalDate.of(2018, 07, 27);
