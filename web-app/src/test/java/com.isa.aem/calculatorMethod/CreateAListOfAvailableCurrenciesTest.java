@@ -53,8 +53,8 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return throw when currency have not correct name")
-    public void returnsThrowIfCurrencyIsNotInTheFile() {
+    @DisplayName("Should throw NoSuchElementException when currency have not correct name")
+    public void throwNoSuchElementExceptionIfCurrencyIsNotInTheFile() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = "ww";
@@ -64,8 +64,8 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @DisplayName("Should throw when currency name is null")
-    public void returnsThrowIfCurrencyNameIsEmpty() {
+    @DisplayName("Should throw exception NullPointerException when currency name is null")
+    public void throwExceptionNoSuchElementExceptionIfCurrencyNameIsEmpty() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
         // arrange
         String currency = null;

@@ -58,8 +58,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return message \"No value present\" if currency is not on the list")
-    public void returnsThrowWhenCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
+    @DisplayName("Should throw exception NoSuchElementException if currency is not on the list")
+    public void throwExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
         // arrange
@@ -101,8 +101,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return \"No value present\" if currency is not in the File")
-    public void returnsThrowWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
+    @DisplayName("Should throw exception NoSuchElementException if currency is not in the File")
+    public void throwExceptionNoSuchElementExceptionWhenCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "AA";
@@ -127,8 +127,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should return \"No value present\" if currency not in file")
-    public void returnsThrowWhenCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
+    @DisplayName("Should throw exception NoSuchElementException if currency not in file")
+    public void throwExceptionNoSuchElementExceptionWhenCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currency = "aa";
@@ -154,8 +154,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw NoSuchElementException if currencyWant is not in file")
-    public void throwNoSuchElementExceptionWhenCurrencyWantIsNotInTheFile() {
+    @DisplayName("Should throw exception NoSuchElementException if currencyWant is not in file")
+    public void throwExceptionNoSuchElementExceptionWhenCurrencyWantIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
@@ -167,8 +167,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw NoSuchElementException if currencyHave is not in file")
-    public void throwNoSuchElementExceptionWhenCurrencyHaveIsNotInTheFile() {
+    @DisplayName("Should throw exception NoSuchElementException if currencyHave is not in file")
+    public void throwExceptionNoSuchElementExceptionWhenCurrencyHaveIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "aa";
@@ -180,8 +180,8 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @DisplayName("Should throw NullPointerException if LocalDate is empty")
-    public void ThrowNullPointerExceptionWhenLocalDateIsEmpty() {
+    @DisplayName("Should throw exception NullPointerException if LocalDate is empty")
+    public void throwExceptionNullPointerExceptionWhenLocalDateIsEmpty() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
         String currencyHave = "EUR";
