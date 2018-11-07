@@ -3,14 +3,15 @@ package com.isa.aem.calculatorMethod;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
 import com.isa.aem.LoadCurrencyNameCountryFlags;
-import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;;
 
 public class CreateAListOfAvailableCurrenciesTest {
     private CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -25,37 +26,40 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return list on size more than zero when currency is correct")
-    public void returnsListWithSizeMorThanZeroIfCurrencyExist() {
+    @DisplayName("Should return a non-empty list if currency exist")
+    public void returnsNonEmptyListIfCurrencyExist() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = "PLN";
 
         // act
-        Boolean result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency).size() > 0;
+        List result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
 
         // assert
-        assertEquals(true, result);
+        assertFalse(result.isEmpty());
     }
 
     @Test
-    @DisplayName("Should return list on size more than zero when currency is correct and provided in lower case")
-    public void returnsListWithSizeMorThanZeroIfCurrencyExistAndWhenIsProvidedInLowerCase() {
+    @DisplayName("Should return a non-empty list if currency is correct and provided in lower case")
+    public void returnsNonEmptyListIfCurrencyExistAndWhenIsProvidedInLowerCase() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = "pln";
 
         // act
-        Boolean result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency).size() > 0;
+        List result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
 
         // assert
-        assertEquals(true, result);
+        assertFalse(result.isEmpty());
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw NoSuchElementException when currency have not correct name")
+    @DisplayName("Should throw NoSuchElementException if currency is not in the file")
     public void throwsNoSuchElementExceptionIfCurrencyIsNotInTheFile() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = "ww";
 
@@ -64,9 +68,10 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @DisplayName("Should throw exception NullPointerException when currency name is null")
+    @DisplayName("Should throw exception NullPointerException if currency name is empty")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyNameIsEmpty() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = null;
 
@@ -75,48 +80,51 @@ public class CreateAListOfAvailableCurrenciesTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when currency not exists")
-    public void returnsListWithSizeZeroIfCurrencyNotExist() {
+    @DisplayName("Should return empty list if currency not exists")
+    public void returnsListEmptyListIfCurrencyNotExist() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = "zz";
 
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().isEmpty();
+        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
 
         // assert
-        assertEquals(true, result);
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    @DisplayName("Should return empty list where size equals zero when currency is null")
+    @DisplayName("Should return empty list if currency is null")
     public void returnsEmptyListIfCurrencyIsNull() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = null;
 
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().isEmpty();
+        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
 
         // assert
-        assertEquals(true, result);
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    @DisplayName("Should return list where size is more than zero when currency is correct")
-    public void returnsListWithSizeMoreThanZeroIfCurrencyIsCorrect() {
+    @DisplayName("Should return a non-empty list if currency is correct")
+    public void returnsNonEmptyListIfCurrencyIsCorrect() {
         createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+
         // arrange
         String currency = "PLN";
 
         // act
         createAListOfAvailableCurrencies.addCurrencyObject(currency);
         createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
-        Boolean result = createAListOfAvailableCurrencies.getTableListCurrencyObject().size() > 0;
+        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
 
         // assert
-        assertEquals(true, result);
+        assertFalse(result.isEmpty());
     }
 }
