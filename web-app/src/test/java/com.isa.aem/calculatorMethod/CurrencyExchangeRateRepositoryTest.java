@@ -1,8 +1,6 @@
 package com.isa.aem.calculatorMethod;
 
-import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class CurrencyExchangeRateRepositoryTest {
-    private CurrencyRepository currencyRepository = new CurrencyRepository();
     private FileContentReader fileContentReader = new FileContentReader();
     private CurrencyExchangeRateRepository currencyExchangeRateRepository;
 
@@ -25,7 +22,6 @@ public class CurrencyExchangeRateRepositoryTest {
     public void init() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
     }
 
     @Test

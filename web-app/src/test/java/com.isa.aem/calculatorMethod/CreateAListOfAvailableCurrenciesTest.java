@@ -1,8 +1,6 @@
 package com.isa.aem.calculatorMethod;
 
-import com.isa.aem.CurrencyRepository;
 import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;;
 
 public class CreateAListOfAvailableCurrenciesTest {
-    private CurrencyRepository currencyRepository = new CurrencyRepository();
+
     private FileContentReader fileContentReader = new FileContentReader();
     private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies;
 
@@ -22,7 +20,6 @@ public class CreateAListOfAvailableCurrenciesTest {
     public void init() {
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
-        LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
     }
 
     @Test
