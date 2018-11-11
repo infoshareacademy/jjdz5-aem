@@ -4,7 +4,6 @@ import com.isa.aem.FileContentReader;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +24,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before or equal Today's date")
     public void returnsDateBeforeOrEqualTodayDateForCorrectCurrencyName() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
         // arrange
@@ -40,7 +38,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date before or equal Today's date if currency is in File even though it is provided with a lowercase letter")
     public void returnsDateBeforeOrEqualTodayDateForCorrectCurrencyIfIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -56,7 +53,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw exception NoSuchElementException if currency is not on the list")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyNotInTheFileForMethodGetMaxDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -68,7 +64,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date after 1900-01-01 if currency is in File")
     public void returnsDateAfter19000101ForCorrectCurrencyName() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -84,7 +79,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return date after 1900-01-01 if currency is in File even though it is provided with a lowercase letter")
     public void returnsDateAfter19000101ForCorrectCurrencyIfIsProvidedInLowerCase() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -100,7 +94,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw exception NoSuchElementException if currency is not in the File")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyNotInTheFileForMethodGetMinDateForSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -112,7 +105,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return length more than zero if currency is in file")
     public void returnsLengthMoreThanZeroIfCurrencyIsInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -127,7 +119,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw exception NoSuchElementException if currency not in file")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyIsNotInTheFileForMethodGetRangeOfSelectedCurrency() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -139,7 +130,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return exchange value if currencyWant and CurrencyHave is not empty and is in File")
     public void returnsExchangeValueIfCurrencyAndDateIsCorrect() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -156,7 +146,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw exception NoSuchElementException if currencyWant is not in file")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyWantIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -170,7 +159,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    @DisplayName("Should throw exception NoSuchElementException if currencyHave is not in file")
     public void throwsExceptionNoSuchElementExceptionIfCurrencyHaveIsNotInTheFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -184,7 +172,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @DisplayName("Should throw exception NullPointerException if LocalDate is empty")
     public void throwsExceptionNullPointerExceptionIfLocalDateIsEmpty() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -198,7 +185,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return a non-empty list if date is in the file")
     public void returnsNonEmptyListIfDateIsInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
@@ -213,7 +199,6 @@ public class CurrencyExchangeRateRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when LocalDate doesn't exist in the file")
     public void returnsEmptyListWhenDateIsNotInThFile() {
         currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
 
