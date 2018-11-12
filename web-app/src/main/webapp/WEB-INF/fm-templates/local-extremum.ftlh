@@ -140,11 +140,11 @@
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
                     <select class="form-control" id="currencyIWant" name="currencyName">
-                        <#list availableCurrencyNames as ac>
+                        <#list currenciesWithFullNameAndFlag as ac>
                             <option
-                                <#if ac == currencyName>
+                                <#if ac.getName() == currencyName>
                                     selected </#if>>
-                                ${ac}
+                                ${ac.getName()} - ${ac.getCurrencyNameCountryFlags().getCurrency()}
                             </option>
                         </#list>
                     </select>
@@ -175,11 +175,6 @@
                            min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
                            value=${dateFrom}
                                    class="form-control"/>
-                    <#if localExtremum.isDateFromAfterDateTo(dateFrom, dateTo) == true>
-                        <div class="alert alert-error">
-                            Date From is after Date To. Try again!
-                        </div>
-                    </#if>
                 </div>
             </div>
             <div class="col-4">
@@ -202,6 +197,17 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-8">
+                <#if isDateFromAfterDateTo>
+                    <div class="alert alert-danger">
+                        Date From is after Date To. Try again!
+                    </div>
+                </#if>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
     </form>
 
     <div class="row">
@@ -212,18 +218,27 @@
             <table class="tabela2" cellspacing='0'>
                 <thead>
                 <tr>
-                    <th scope="col">Currency Code</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country</th>
                     <th scope="col">Minimum Value</th>
                     <th scope="col">Dates of Occurence</th>
                 </tr>
                 </thead>
                 <tbody>
-                <#list minExtremum as minCur>
+                <#list currenciesWithFullNameAndFlag as ac>
                 <tr>
-                    <td>${minCur.getName()}
-                    </td>
-                    <td>${minCur.getClose()}</td>
-                    <td>${minCur.getDate()}</td>
+                    <#if ac.getName() == currencyName>
+                        <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
+                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}
+                        </td>
+                        <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
+                        <td>${ac.getCurrencyNameCountryFlags().getCountry()}</td>
+                        <#list minExtremum as minCur>
+                            <td>${minCur.getClose()}</td>
+                            <td>${minCur.getDate()}</td>
+                        </#list>
+                    </#if>
                 </tr>
                 </#list>
                 </tbody>
@@ -239,18 +254,27 @@
             <table class="tabela2" cellspacing='0'>
                 <thead>
                 <tr>
-                    <th scope="col">Currency Code</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country</th>
                     <th scope="col">Maximum Value</th>
                     <th scope="col">Dates of Occurence</th>
                 </tr>
                 </thead>
                 <tbody>
-                <#list maxExtremum as maxCur>
+                <#list currenciesWithFullNameAndFlag as ac>
                 <tr>
-                    <td>${maxCur.getName()}
-                    </td>
-                    <td>${maxCur.getClose()}</td>
-                    <td>${maxCur.getDate()}</td>
+                    <#if ac.getName() == currencyName>
+                        <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
+                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}
+                        </td>
+                        <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
+                        <td>${ac.getCurrencyNameCountryFlags().getCountry()}</td>
+                        <#list maxExtremum as maxCur>
+                            <td>${maxCur.getClose()}</td>
+                            <td>${maxCur.getDate()}</td>
+                        </#list>
+                    </#if>
                 </tr>
                 </#list>
                 </tbody>

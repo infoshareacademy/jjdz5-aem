@@ -1,16 +1,11 @@
 package com.isa.aem.calculatorMethod;
 
-import com.isa.aem.Currency;
-import com.isa.aem.CurrencyNameCountryFlags;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.currency.calculator.AlgorithmCurrencyConversion;
 import com.isa.aem.tools.DataValidator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 public class Score {
@@ -40,7 +35,7 @@ public class Score {
         this.maxDate = maxDate;
     }
 
-    CurrencyRepository currencyRepository = new CurrencyRepository();
+    public CurrencyRepository currencyRepository = new CurrencyRepository();
     AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
     DataValidator dataService = new DataValidator();
 
@@ -146,12 +141,4 @@ public class Score {
         return new Score(score1, haveCurrency, wantCurrency, date, curseValue, calculatorAmount);
     }
 
-    public List<Currency> getSingleCurrency() {
-        Set<Currency> currencyNameAndCountry = new HashSet<>();
-        for (Currency cc : CurrencyRepository.getCurrencies()) {
-            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
-        }
-        return currencyRepository.getSortedCurrencySet(currencyNameAndCountry);
-    }
 }

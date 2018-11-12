@@ -149,4 +149,13 @@ public class CurrencyRepository {
                 .get();
         return firstAvailableCurrencyName;
     }
+
+    public List<Currency> getCurrenciesWithFullNameAndFlag() {
+        Set<Currency> currencyNameAndCountry = new HashSet<>();
+        for (Currency cc : getCurrencies()) {
+            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
+        }
+        return getSortedCurrencySet(currencyNameAndCountry);
+    }
 }

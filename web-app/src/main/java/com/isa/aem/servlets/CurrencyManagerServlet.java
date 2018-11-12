@@ -62,7 +62,7 @@ public class CurrencyManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Currency> singleCurrency = score.getSingleCurrency();
+        List<Currency> singleCurrency = currencyRepository.getCurrenciesWithFullNameAndFlag();
 
         if (score.getAmount() == null) {
             score.setAmount(DEFAULT_AMOUNT);
