@@ -1,6 +1,6 @@
 package com.isa.aem;
 
-import com.isa.aem.exchange.rate.CurrentCurrency;
+import com.isa.aem.currency_list_rates.CurrentCurrency;
 
 public class MenuInformation {
     public void programInformation() {
@@ -35,7 +35,7 @@ public class MenuInformation {
         System.out.println("    ****************************************");
         System.out.println("    *                 MENU                 *");
         System.out.println("    ****************************************\n");
-        System.out.println("    1. Wyświetl dostępne  waluty i aktualny kurs na dzień wskazany przez użytkownika");
+        System.out.println("    1. Wyświetl dostępne waluty i aktualny kurs na dzień wskazany przez użytkownika");
         System.out.println("    2. Kalkulator walut");
         System.out.println("    3. Wyświetl ekstrema globalne");
         System.out.println("    4. Wyświetl ekstrema lokalne");
