@@ -29,6 +29,4 @@ public class GlobalExtremum {
                 .filter(currency -> currency.getName().equalsIgnoreCase(currencyName))
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -32,7 +32,5 @@ public class LocalExtremum {
                 .filter(currency -> currency.getDate().isBefore(dateTo) || currency.getDate().equals(dateTo))
                 .collect(Collectors.toList());
     }
-
-
 }
 

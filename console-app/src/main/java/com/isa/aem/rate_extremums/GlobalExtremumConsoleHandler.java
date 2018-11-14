@@ -6,7 +6,6 @@ import com.isa.aem.MenuInformation;
 import com.isa.aem.helpers.ConsolePrinter;
 import com.isa.aem.helpers.ConsoleReader;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class GlobalExtremumConsoleHandler {
@@ -16,7 +15,6 @@ public class GlobalExtremumConsoleHandler {
     private MenuInformation menuInformation = new MenuInformation();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private GlobalExtremum globalExtremum = new GlobalExtremum();
-    private List<String> menuCommand = Arrays.asList("0", "1");
     private static final String BACK_TO_MENU_STR = "0";
     private static final String BACK_TO_CURRENCY_SELECTION = "1";
     private String optionGivenByUser;
@@ -39,7 +37,7 @@ public class GlobalExtremumConsoleHandler {
         do {
             optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurrencyOrCommand()).trim().toUpperCase();
             checkIfCommandOfUserIsTrue(optionGivenByUser);
-        } while (containCurrencyAndNumber(optionGivenByUser));
+        } while (containCurrencyOrNumber(optionGivenByUser));
     }
 
     private void checkIfCommandOfUserIsTrue(String commandOfUser) {
@@ -66,9 +64,9 @@ public class GlobalExtremumConsoleHandler {
         }
     }
 
-    protected boolean containCurrencyAndNumber(String commandOfUser) {
+    protected boolean containCurrencyOrNumber(String commandOfUser) {
         return !(currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)
-                || menuCommand.contains(commandOfUser));
+                || BACK_TO_MENU_STR.equals(commandOfUser) || BACK_TO_CURRENCY_SELECTION.equals(commandOfUser));
     }
 
     protected void printExtremeMenu(String nameOfCurrency) {
