@@ -29,10 +29,10 @@ public class CurrencyExchangeRateRepository {
     }
 
     public BigDecimal getExchangeValue(String nameOfCurrency, String nameCurrencyWant, LocalDate dateMax) {
-        AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
+        CurrencyConverter currencyConverter = new CurrencyConverter();
         Double currencyHave = currencyRepository.getExchangeRateForGivenDate(nameOfCurrency.toUpperCase(), dateMax);
         Double currencyWant = currencyRepository.getExchangeRateForGivenDate(nameCurrencyWant.toUpperCase(), dateMax);
-        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant, currencyHave);
+        BigDecimal curseValue = currencyConverter.calculateCourseAlgorithm(currencyWant, currencyHave);
         return curseValue;
     }
 

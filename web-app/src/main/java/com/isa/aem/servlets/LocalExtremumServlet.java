@@ -9,8 +9,8 @@ import com.isa.aem.data_loaders.FileContentReader;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
-import com.isa.aem.rate_extremums.ExtremumHelper;
-import com.isa.aem.rate_extremums.LocalExtremum;
+import com.isa.aem.rate_extremums.ExchangeRateExtremum;
+import com.isa.aem.utils.DataValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -30,12 +30,12 @@ import java.util.Map;
 public class LocalExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
-    private LocalExtremum localExtremum = new LocalExtremum();
-    private ExtremumHelper extremumHelper = new ExtremumHelper();
-    CurrencyNameCountryFlags currencyNameCountryFlags = new CurrencyNameCountryFlags();
+    private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
+    private CurrencyNameCountryFlags currencyNameCountryFlags = new CurrencyNameCountryFlags();
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String currencyName;
+    private DataValidator dataValidator = new DataValidator();
     private Boolean isDateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
     List<Currency> minExtremum;
@@ -84,10 +84,10 @@ public class LocalExtremumServlet extends HttpServlet {
             dateTo = currencyRepository.getNewestDateForChosenCurrencyName(currencyName);
         }
 
-        isDateFromAfterDateTo = extremumHelper.isDateFromAfterDateTo(dateFrom, dateTo);
+        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
         if (!isDateFromAfterDateTo) {
-            minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-            maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
         }
 
         Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
@@ -98,7 +98,7 @@ public class LocalExtremumServlet extends HttpServlet {
         model.put("currencyNameCountryFlags", currencyNameCountryFlags);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
-        model.put("localExtremum", localExtremum);
+        model.put("exchangeRateExtremum", exchangeRateExtremum);
         model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
@@ -120,10 +120,10 @@ public class LocalExtremumServlet extends HttpServlet {
         dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
         dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
 
-        isDateFromAfterDateTo = extremumHelper.isDateFromAfterDateTo(dateFrom, dateTo);
+        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
         if (!isDateFromAfterDateTo) {
-            minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-            maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
         }
 
         doGet(req, resp);

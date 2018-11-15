@@ -2,7 +2,7 @@ package com.isa.aem;
 
 import com.isa.aem.currency_calculator.ComplexConsoleCalculator;
 import com.isa.aem.data_loaders.FileContentReader;
-import com.isa.aem.helpers.ConsolePrinter;
+import com.isa.aem.utils.ConsolePrinter;
 import com.isa.aem.rate_extremums.GlobalExtremumConsoleHandler;
 import com.isa.aem.rate_extremums.LocalExtremumConsoleHandler;
 

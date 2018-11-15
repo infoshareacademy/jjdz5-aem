@@ -1,7 +1,7 @@
 package com.isa.aem.currency_calculator;
 
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.helpers.DataValidator;
+import com.isa.aem.utils.DataValidator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class Score {
     }
 
     public CurrencyRepository currencyRepository = new CurrencyRepository();
-    AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
+    CurrencyConverter currencyConverter = new CurrencyConverter();
     DataValidator dataService = new DataValidator();
 
     @Override
@@ -135,8 +135,8 @@ public class Score {
         CurrencyRepository currencyRepository = new CurrencyRepository();
         Double currencyHave = currencyRepository.getExchangeRateForGivenDate(haveCurrency, date);
         Double currencyWant = currencyRepository.getExchangeRateForGivenDate(wantCurrency, date);
-        BigDecimal score1 = algorithmCurrencyConversion.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
-        BigDecimal curseValue = algorithmCurrencyConversion.calculateCourseAlgorithm(currencyWant, currencyHave);
+        BigDecimal score1 = currencyConverter.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
+        BigDecimal curseValue = currencyConverter.calculateCourseAlgorithm(currencyWant, currencyHave);
         return new Score(score1, haveCurrency, wantCurrency, date, curseValue, calculatorAmount);
     }
 

@@ -1,4 +1,4 @@
-package com.isa.aem.helpers;
+package com.isa.aem.utils;
 
 import java.util.Scanner;
 

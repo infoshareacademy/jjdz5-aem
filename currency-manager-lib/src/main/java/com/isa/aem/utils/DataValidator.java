@@ -1,4 +1,4 @@
-package com.isa.aem.helpers;
+package com.isa.aem.utils;
 
 import com.isa.aem.CurrencyRepository;
 
@@ -54,5 +54,9 @@ public class DataValidator {
         } else {
             return false;
         }
+    }
+
+    public Boolean isDateFromAfterDateTo(LocalDate dateFrom, LocalDate dateTo) {
+        return dateFrom.isAfter(dateTo);
     }
 }

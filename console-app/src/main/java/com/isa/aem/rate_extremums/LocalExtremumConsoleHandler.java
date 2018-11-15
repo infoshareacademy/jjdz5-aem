@@ -3,9 +3,9 @@ package com.isa.aem.rate_extremums;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
-import com.isa.aem.helpers.ConsolePrinter;
-import com.isa.aem.helpers.ConsoleReader;
-import com.isa.aem.helpers.DataValidator;
+import com.isa.aem.utils.ConsolePrinter;
+import com.isa.aem.utils.ConsoleReader;
+import com.isa.aem.utils.DataValidator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +20,7 @@ public class LocalExtremumConsoleHandler {
     ConsoleReader consoleReader = new ConsoleReader();
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataValidator dataValidator = new DataValidator();
-    LocalExtremum localExtremum = new LocalExtremum();
+    ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
     MenuInformation menuInformation = new MenuInformation();
     CurrencyRepository currencyRepository = new CurrencyRepository();
 
@@ -90,12 +90,12 @@ public class LocalExtremumConsoleHandler {
 
 
     public void runExtremum() {
-        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+        List<Currency> minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
         consolePrinter.printLn("\nMIN " + currencyName.toUpperCase() + ": ");
         minExtremum.stream()
                 .forEach(currency -> System.out.println("    " + currency.getClose() + " [" + currency.getDate() + "]"));
         consolePrinter.printLn("MAX " + currencyName.toUpperCase() + ": ");
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        List<Currency> maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
         maxExtremum.stream()
                 .forEach(currency -> System.out.println("    " + currency.getClose() + " [" + currency.getDate() + "]"));
     }

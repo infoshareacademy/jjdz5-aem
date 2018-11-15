@@ -1,9 +1,9 @@
 package com.isa.aem.currency_calculator;
 
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.helpers.ConsolePrinter;
-import com.isa.aem.helpers.ConsoleReader;
-import com.isa.aem.helpers.DataValidator;
+import com.isa.aem.utils.ConsolePrinter;
+import com.isa.aem.utils.ConsoleReader;
+import com.isa.aem.utils.DataValidator;
 
 import java.time.LocalDate;
 

@@ -3,7 +3,7 @@ package com.isa.aem.currency_list_rates;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuProject;
-import com.isa.aem.helpers.SortCurrency;
+import com.isa.aem.utils.CurrencySorter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +41,7 @@ public class CurrentCurrency {
         }
 
         //sort currency by name ascending
-        currentVariable.listCurrency.sort(new SortCurrency());
+        currentVariable.listCurrency.sort(new CurrencySorter());
 
         for (Currency current : currentVariable.listCurrency) {
             System.out.println("        " + current.getName() + "                  " + current.getClose());

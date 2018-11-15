@@ -3,7 +3,7 @@ package com.isa.aem.currency_calculator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class AlgorithmCurrencyConversion {
+public class CurrencyConverter {
 
     private static final Integer SCALE_ROUND = 4;
 

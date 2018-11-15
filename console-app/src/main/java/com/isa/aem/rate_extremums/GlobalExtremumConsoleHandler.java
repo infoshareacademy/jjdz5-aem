@@ -3,8 +3,8 @@ package com.isa.aem.rate_extremums;
 import com.isa.aem.Currency;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
-import com.isa.aem.helpers.ConsolePrinter;
-import com.isa.aem.helpers.ConsoleReader;
+import com.isa.aem.utils.ConsolePrinter;
+import com.isa.aem.utils.ConsoleReader;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class GlobalExtremumConsoleHandler {
     private ConsolePrinter consolePrinter = new ConsolePrinter();
     private MenuInformation menuInformation = new MenuInformation();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
-    private GlobalExtremum globalExtremum = new GlobalExtremum();
+    private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
     private static final String BACK_TO_MENU_STR = "0";
     private static final String BACK_TO_CURRENCY_SELECTION = "1";
     private String optionGivenByUser;
@@ -37,7 +37,7 @@ public class GlobalExtremumConsoleHandler {
         do {
             optionGivenByUser = consoleReader.getString(consolePrinter.nextLine() + consolePrinter.enterCurrencyOrCommand()).trim().toUpperCase();
             checkIfCommandOfUserIsTrue(optionGivenByUser);
-        } while (containCurrencyOrNumber(optionGivenByUser));
+        } while (containsCurrencyOrNumber(optionGivenByUser));
     }
 
     private void checkIfCommandOfUserIsTrue(String commandOfUser) {
@@ -64,7 +64,7 @@ public class GlobalExtremumConsoleHandler {
         }
     }
 
-    protected boolean containCurrencyOrNumber(String commandOfUser) {
+    protected boolean containsCurrencyOrNumber(String commandOfUser) {
         return !(currencyRepository.containsCurrencyNameInCurrencyList(commandOfUser)
                 || BACK_TO_MENU_STR.equals(commandOfUser) || BACK_TO_CURRENCY_SELECTION.equals(commandOfUser));
     }
@@ -73,12 +73,12 @@ public class GlobalExtremumConsoleHandler {
         System.out.println(consolePrinter.backToMenu() + consolePrinter.backToCurrencySelection());
 
         System.out.println(consolePrinter.min() + " " + nameOfCurrency.toUpperCase() + ":");
-        List<Currency> minRateOFExtremum = globalExtremum.getGlobalMinExtremum(nameOfCurrency);
+        List<Currency> minRateOFExtremum = exchangeRateExtremum.getMinExtremum(nameOfCurrency, null, null);
         minRateOFExtremum.stream()
                 .forEach(currency -> System.out.println("         " + currency.getClose() + " [" + currency.getDate() + "]"));
 
         System.out.println(consolePrinter.nextLine() + consolePrinter.max() + " " + nameOfCurrency.toUpperCase() + ":");
-        List<Currency> maxRateOFExtremum = globalExtremum.getGlobalMaxExtremum(nameOfCurrency);
+        List<Currency> maxRateOFExtremum = exchangeRateExtremum.getMaxExtremum(nameOfCurrency, null, null);
         maxRateOFExtremum.stream()
                 .forEach(currency -> System.out.println("         " + currency.getClose() + " [" + currency.getDate() + "]"));
     }

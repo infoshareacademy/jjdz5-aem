@@ -2,8 +2,8 @@ package com.isa.aem.currency_calculator;
 
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.MenuInformation;
-import com.isa.aem.helpers.ConsolePrinter;
-import com.isa.aem.helpers.ConsoleReader;
+import com.isa.aem.utils.ConsolePrinter;
+import com.isa.aem.utils.ConsoleReader;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class ComplexConsoleCalculator {
     private MenuInformation menuInformation = new MenuInformation();
     private CalculatorInputHandler calculatorInputHandler = new CalculatorInputHandler();
     private ConsolePrinter consolePrinter = new ConsolePrinter();
-    private AlgorithmCurrencyConversion algorithmCurrencyConversion = new AlgorithmCurrencyConversion();
+    private CurrencyConverter currencyConverter = new CurrencyConverter();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
 
     private static final List<String> command = Arrays.asList("0", "1", "2");
@@ -57,10 +57,10 @@ public class ComplexConsoleCalculator {
                 .getNewestExchangeRateForChosenCurrencyName(getFirstNameOfCurrencySelectedByUser);
         Double rateOfSecondCurrencyNameSelectedByUser = currencyRepository
                 .getNewestExchangeRateForChosenCurrencyName(getSecondNameOfCurrencySelectedByUser);
-        exchangingRate = algorithmCurrencyConversion
+        exchangingRate = currencyConverter
                 .currencyConversionAlgorithm(
                         getAmountGivenByUser, rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
-        rate = algorithmCurrencyConversion
+        rate = currencyConverter
                 .calculateCourseAlgorithm(rateOfFirstCurrencyNameSelectedByUser, rateOfSecondCurrencyNameSelectedByUser);
         printExchangingRate();
         printRate();
@@ -85,12 +85,12 @@ public class ComplexConsoleCalculator {
                 .getExchangeRateForGivenDate(
                         getSecondNameOfCurrencySelectedByUser,
                         date);
-        exchangingRate = algorithmCurrencyConversion
+        exchangingRate = currencyConverter
                 .currencyConversionAlgorithm(
                         getAmountGivenByUser,
                         rateOfFirstCurrencyNameSelectedByUserWithDate,
                         rateOfSecondCurrencyNameSelectedByUserWithDate);
-        rate = algorithmCurrencyConversion
+        rate = currencyConverter
                 .calculateCourseAlgorithm(
                         rateOfFirstCurrencyNameSelectedByUserWithDate,
                         rateOfSecondCurrencyNameSelectedByUserWithDate);
