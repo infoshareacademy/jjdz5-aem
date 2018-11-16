@@ -1,9 +1,12 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
-import com.isa.aem.calculatorMethod.CreateAListOfAvailableCurrencies;
-import com.isa.aem.calculatorMethod.Score;
-import com.isa.aem.calculatorMethod.ScoreResult;
+import com.isa.aem.currency_calculator.CreateAListOfAvailableCurrencies;
+import com.isa.aem.currency_calculator.Score;
+import com.isa.aem.currency_calculator.ScoreResult;
+import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
+import com.isa.aem.data_loaders.FileContentReader;
+import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
@@ -40,14 +43,14 @@ public class CalculatorServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
     public FileContentReader fileContentReader;
-    public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
+    public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
 
     @Override
     public void init() throws ServletException {
         fileContentReader = new FileContentReader();
         fileContentReader.readFile();
         fileContentReader.addPLNToListCurrency();
-        loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyNameHave = appProperties.getCurrencyNamePln();
@@ -72,12 +75,12 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         if (score.getDateExchange() == null) {
-            LocalDate dateHaveMax = currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave);
+            LocalDate dateHaveMax = currencyRepository.getNewestDateForChosenCurrencyName(defaultCurrencyNameHave);
             score.setDateExchange(dateHaveMax);
         }
 
         if (score.getMaxDate() == null) {
-            score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(defaultCurrencyNameHave));
+            score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(defaultCurrencyNameHave));
         }
 
         if (score.getMinDate() == null) {
@@ -119,7 +122,7 @@ public class CalculatorServlet extends HttpServlet {
         LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
 
         score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getMostRecentDateForChosenCurrencyName(haveCurrency));
+        score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
         score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
         createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
 

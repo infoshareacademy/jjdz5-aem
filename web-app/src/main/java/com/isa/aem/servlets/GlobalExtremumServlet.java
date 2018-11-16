@@ -2,8 +2,8 @@ package com.isa.aem.servlets;
 
 
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.FileContentReader;
-import com.isa.aem.LoadCurrencyNameCountryFlags;
+import com.isa.aem.data_loaders.FileContentReader;
+import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import freemarker.template.Template;
@@ -26,7 +26,7 @@ public class GlobalExtremumServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
     public FileContentReader fileContentReader;
-    public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
+    public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
     public CurrencyRepository currencyRepository;
 
     @Override
