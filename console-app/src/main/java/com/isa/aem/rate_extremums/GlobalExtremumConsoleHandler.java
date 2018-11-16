@@ -75,11 +75,11 @@ public class GlobalExtremumConsoleHandler {
         System.out.println(consolePrinter.min() + " " + nameOfCurrency.toUpperCase() + ":");
         List<Currency> minRateOFExtremum = exchangeRateExtremum.getMinExtremum(nameOfCurrency, null, null);
         minRateOFExtremum.stream()
-                .forEach(currency -> System.out.println("         " + currency.getClose() + " [" + currency.getDate() + "]"));
+                .forEach(currency -> System.out.println(consolePrinter.emptySpace() + consolePrinter.emptySpace() + currency.getClose() + " [" + currency.getDate() + "]"));
 
         System.out.println(consolePrinter.nextLine() + consolePrinter.max() + " " + nameOfCurrency.toUpperCase() + ":");
         List<Currency> maxRateOFExtremum = exchangeRateExtremum.getMaxExtremum(nameOfCurrency, null, null);
         maxRateOFExtremum.stream()
-                .forEach(currency -> System.out.println("         " + currency.getClose() + " [" + currency.getDate() + "]"));
+                .forEach(currency -> System.out.println(consolePrinter.emptySpace() + consolePrinter.emptySpace() + currency.getClose() + " [" + currency.getDate() + "]"));
     }
 }

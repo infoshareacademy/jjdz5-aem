@@ -24,7 +24,6 @@ public class LocalExtremumConsoleHandler {
     MenuInformation menuInformation = new MenuInformation();
     CurrencyRepository currencyRepository = new CurrencyRepository();
 
-
     public void run() {
         runCurrencySelection();
         runDatesSelection();
