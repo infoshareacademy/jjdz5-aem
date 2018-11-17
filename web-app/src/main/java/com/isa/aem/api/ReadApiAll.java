@@ -18,7 +18,7 @@ public class ReadApiAll {
 
     {
         try {
-            url = new URL("http://api.nbp.pl/api/exchangerates/tables/A/2018-07-11?format=json");
+            url = new URL(" http://api.nbp.pl/api/exchangerates/tables/A/2018-05-01/2018-07-11?format=json");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

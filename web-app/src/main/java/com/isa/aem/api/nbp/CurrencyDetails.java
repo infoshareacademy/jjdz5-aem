@@ -1,38 +1,59 @@
 package com.isa.aem.api.nbp;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class CurrencyDetails {
-    private String table = null;
-    private String no = null;
-    private String effectiveDate = null;
-    private List<CurrencyRate> rates = new ArrayList<>();
+    @JsonProperty
+    private String currency;
+    @JsonProperty
+    private String code;
+    @JsonProperty("mid")
+    private BigDecimal rate;
 
-    void setTable(String table) {
-        this.table = table;
+    public CurrencyDetails() {
     }
 
-    void setNo(String no) {
-        this.no = no;
+    public CurrencyDetails(String currency, String code, BigDecimal rate) {
+        this.currency = currency;
+        this.code = code;
+        this.rate = rate;
     }
 
-    void setEffectiveDate(String effectiveDate) {
-        this.effectiveDate = effectiveDate;
+    public String getCurrency() {
+        return currency;
     }
 
-    List<CurrencyRate> getRates() {
-        return rates;
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     @Override
     public String toString() {
         return "CurrencyDetails{" +
-                "table='" + table + '\'' +
-                ", no='" + no + '\'' +
-                ", effectiveDate='" + effectiveDate + '\'' +
-                ", rates=" + rates +
+                "currency='" + currency + '\'' +
+                ", code='" + code + '\'' +
+                ", rate=" + rate +
                 '}';
     }
 }
