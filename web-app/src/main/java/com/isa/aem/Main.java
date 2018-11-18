@@ -1,10 +1,14 @@
 package com.isa.aem;
 
-import com.isa.aem.api.ReadApiNbp;
+import com.isa.aem.api.HistoryReaderNbp;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(ReadApiNbp.callREST());
+        HistoryReaderNbp historyReaderNbp=new HistoryReaderNbp();
+        historyReaderNbp.loadHistoryCurrencyFromMod();
+
+        System.out.println(historyReaderNbp.historyListNbp);
     }
 }
