@@ -19,7 +19,7 @@ public class ReadApiNbpTest {
     }
 
     @Test
-    public void shouldGetAllCurrency() {
+    public void shouldGetAllStates() {
         List<CurrencyRates> states = client.callREST();
         states.forEach(s-> System.out.println(s.getRates()));
 
