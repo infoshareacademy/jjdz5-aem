@@ -125,16 +125,16 @@
 </head>
 
 <body>
-<h6 align="right">User: ${logged}</h6>
+<#--<h6 align="right">User: ${logged}</h6>-->
 <#include "manager-menu.html">
 
 <div class="container">
     <div class="row">
         <div class="col-12" id="main">
-            <h4>Local Extremum</h4>
+            <h4>Exchange Rate Extremums</h4>
         </div>
     </div>
-    <form method="post" action="/local-extremum">
+    <form method="post" action="/local-extremum" class="needs-validation">
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
@@ -154,13 +154,23 @@
                 <div class="form-group">
                 </div>
             </div>
-            <div class="col-1">
-                <div class="form-group">
+            <div class="col-2">
+                <div class="form-group" id=show-extremums">
+                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremum</button>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="form-group" id=show-extremums">
-                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremums</button>
+            <div class="col-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                        Global Extremum
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios2" value="option2">
+                        Local Extremum
+                    </label>
                 </div>
             </div>
         </div>
@@ -169,23 +179,37 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date From</label>
-                    <input id="date"
-                           type="date"
-                           name="dateFrom"
-                           min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
-                           value=${dateFrom}
-                                   class="form-control"/>
+                    <#if isDateFromAfterDateTo == false>
+                        <input type="date" class="form-control" id="date" name="dateFrom"
+                               min=${currencyRepository.getFirstDateFromRepository()}
+                               max=${currencyRepository.getLastDateFromRepository()}
+                               value=${dateFrom}>
+                    <#else>
+                        <input type="date" class="form-control is-invalid" id="date" name="dateFrom"
+                               min=${currencyRepository.getFirstDateFromRepository()}
+                               max=${currencyRepository.getLastDateFromRepository()}
+                               value=${dateFrom}>
+                            <div class="invalid-feedback">
+                                <b>Date From</b> is after <b>Date To</b>. Please correct and try again!
+                            </div>
+                    </#if>
                 </div>
+
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date To</label>
-                    <input id="date"
-                           type="date"
-                           name="dateTo"
-                           min=${currencyRepository.getFirstDateFromRepository()} max=${currencyRepository.getLastDateFromRepository()}
-                           value=${dateTo}
-                                   class="form-control"/>
+                    <#if isDateFromAfterDateTo == false>
+                        <input type="date" class="form-control" id="date" name="dateTo"
+                                min=${currencyRepository.getFirstDateFromRepository()}
+                                max=${currencyRepository.getLastDateFromRepository()}
+                                value=${dateTo}>
+                    <#else>
+                        <input type="date" class="form-control is-invalid" id="date" name="dateTo"
+                               min=${currencyRepository.getFirstDateFromRepository()}
+                               max=${currencyRepository.getLastDateFromRepository()}
+                               value=${dateTo}>
+                    </#if>
                 </div>
             </div>
             <div class="col-1">
@@ -197,19 +221,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-8">
-                <#if isDateFromAfterDateTo>
-                    <div class="alert alert-danger">
-                        Date From is after Date To. Try again!
-                    </div>
-                </#if>
-            </div>
-            <div class="col-4">
-            </div>
-        </div>
     </form>
-
+    
     <div class="row">
         <div class="col-12" id="main_currency">
 
@@ -282,7 +295,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

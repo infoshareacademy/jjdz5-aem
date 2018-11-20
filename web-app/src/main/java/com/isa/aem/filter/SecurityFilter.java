@@ -1,3 +1,4 @@
+/*
 package com.isa.aem.filter;
 
 import javax.servlet.FilterChain;
@@ -21,3 +22,4 @@ public class SecurityFilter extends HttpFilter {
 		chain.doFilter(request, res);
 	}
 }
+*/
