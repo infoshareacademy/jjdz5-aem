@@ -224,7 +224,7 @@
                    <button type="submit" class="btn btn-primary" name="action" value="rangeCurrency">Show</button>
                   </form>
                 </div>
-            <h5>Main Currencies</h5>
+            <h5>Currencies</h5>
             <h6>date: ${availableCurrencyTable[0].getDateMax()}</h6>
             <table class="tabela2" cellspacing='0'>
                 <thead>

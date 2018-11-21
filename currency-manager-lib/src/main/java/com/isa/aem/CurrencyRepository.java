@@ -29,14 +29,14 @@ public class CurrencyRepository {
                 .anyMatch(currency -> currency.getName().equals(name));
     }
 
-    public Boolean checkIfExistCurrencyWithGivenDate(String name, LocalDate date) {
+    public Boolean existCurrencyWithGivenDate(String name, LocalDate date) {
         return currencies.stream()
                 .filter(currency -> name.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .anyMatch(currency -> currency.equals(date));
     }
 
-    public LocalDate getMostRecentDateForChosenCurrencyName(String nameOfCurrency) {
+    public LocalDate getNewestDateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
@@ -44,12 +44,16 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public LocalDate getMostRecentDateMinusOneMonthForChosenCurrencyName(String nameOfCurrency) {
+    public LocalDate getNewestDateMinusOneMonthForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
                 .map(currency -> currency.getDate())
                 .max((o1, o2) -> o1.compareTo(o2))
                 .get().minusMonths(1);
+    }
+
+    public LocalDate getNewestDateMinusOneMonth() {
+        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate().minusDays(30);
     }
 
     public LocalDate getOldestDateForChosenCurrencyName(String nameOfCurrency) {
@@ -60,7 +64,7 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public Double getMostRecentExchangedRateForChosenCurrencyName(String nameOfCurrency) {
+    public Double getNewestExchangeRateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
@@ -68,7 +72,7 @@ public class CurrencyRepository {
                 .getClose();
     }
 
-    public Double getRateOfGivenDate(String nameOfCurrency, LocalDate dateOfCurrency) {
+    public Double getExchangeRateForGivenDate(String nameOfCurrency, LocalDate dateOfCurrency) {
         return currencies.stream()
                 .filter(currency -> currency.getName().equals(nameOfCurrency))
                 .filter(currency -> dateOfCurrency.equals(currency.getDate()))
@@ -77,12 +81,20 @@ public class CurrencyRepository {
                 .getClose();
     }
 
-    public List<String> listAvailableCurrency() {
+    public List<String> getAvailableCurrencyNames() {
         return currencies.stream()
+                .sorted(Comparator.comparing(Currency::getName))
                 .map(currency -> currency.getName())
                 .distinct()
-                .sorted((o1, o2) -> o1.compareTo(o2))
                 .collect(Collectors.toList());
+    }
+
+    public String getFirstAvailableCurrencyName() {
+        String firstAvailableCurrencyName = currencies.stream()
+                .map(currency -> currency.getName())
+                .findFirst()
+                .get();
+        return firstAvailableCurrencyName;
     }
 
     public List<Currency> getSortedCurrencySet(Set<Currency> SetOfCurrencyObject) {
@@ -92,29 +104,7 @@ public class CurrencyRepository {
                 .collect(Collectors.toList());
     }
 
-    public Double getMinRateOfExtremum(String nameOfCurrency) {
-        return currencies.stream()
-                .filter(currency -> currency.getName().equals(nameOfCurrency))
-                .min((o1, o2) -> o1.getClose().compareTo(o2.getClose()))
-                .get().getClose();
-    }
-
-    public List<LocalDate> findDuplicate(Double value) {
-        return currencies.stream()
-                .filter(currency -> currency.getClose().equals(value))
-                .map(currency -> currency.getDate())
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
-    public Double getMaxRateOfExtremum(String nameOfCurrency) {
-        return currencies.stream()
-                .filter(currency -> currency.getName().equals(nameOfCurrency))
-                .max((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
-                .get().getClose();
-    }
-
-    public List<LocalDate> getEverySingleDateOfFile() {
+    public List<LocalDate> getEverySingleDateFromFile() {
         return currencies.stream()
                 .map(currency -> currency.getDate())
                 .distinct()
@@ -129,24 +119,12 @@ public class CurrencyRepository {
         return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate();
     }
 
-    public LocalDate getPastMonthDateFromRepository() {
-        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate().minusDays(30);
-    }
-
-    public List<String> getAvailableCurrencyNames() {
-        List<String> availableCurrencyNames = currencies.stream()
-                .sorted(Comparator.comparing(Currency::getName))
-                .map(currency -> currency.getName())
-                .distinct()
-                .collect(Collectors.toList());
-        return availableCurrencyNames;
-    }
-
-    public String getFirstAvailableCurrencyName() {
-        String firstAvailableCurrencyName = currencies.stream()
-                .map(currency -> currency.getName())
-                .findFirst()
-                .get();
-        return firstAvailableCurrencyName;
+    public List<Currency> getCurrenciesWithFullNameAndFlag() {
+        Set<Currency> currencyNameAndCountry = new HashSet<>();
+        for (Currency cc : getCurrencies()) {
+            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
+        }
+        return getSortedCurrencySet(currencyNameAndCountry);
     }
 }

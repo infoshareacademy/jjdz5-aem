@@ -1,9 +1,16 @@
 package com.isa.aem.servlets;
 
-import com.isa.aem.*;
+import com.isa.aem.AppProperties;
+import com.isa.aem.Currency;
+import com.isa.aem.CurrencyNameCountryFlags;
+import com.isa.aem.CurrencyRepository;
+import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
+import com.isa.aem.data_loaders.FileContentReader;
+import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
-import com.isa.aem.local.extremum.LocalExtremum;
+import com.isa.aem.rate_extremums.ExchangeRateExtremum;
+import com.isa.aem.utils.DataValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -23,11 +30,16 @@ import java.util.Map;
 public class LocalExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
-    private LocalExtremum localExtremum = new LocalExtremum();
+    private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
+    private CurrencyNameCountryFlags currencyNameCountryFlags = new CurrencyNameCountryFlags();
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String currencyName;
+    private DataValidator dataValidator = new DataValidator();
+    private Boolean isDateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
+    List<Currency> minExtremum;
+    List<Currency> maxExtremum;
     private static final String CURRENCY_NAME_PARAMETER = "currencyName";
     private static final String DATE_FROM_PARAMETER = "dateFrom";
     private static final String DATE_TO_PARAMETER = "dateTo";
@@ -36,13 +48,13 @@ public class LocalExtremumServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
     public FileContentReader fileContentReader;
-    public LoadCurrencyNameCountryFlags loadCurrencyNameCountryFlags;
+    public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
 
     @Override
     public void init() throws ServletException {
         fileContentReader = new FileContentReader();
         fileContentReader.readFile();
-        loadCurrencyNameCountryFlags = new LoadCurrencyNameCountryFlags();
+        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyName = appProperties.getCurrencyNameEur();
@@ -51,43 +63,43 @@ public class LocalExtremumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<String> availableCurrencyNames = currencyRepository.getAvailableCurrencyNames();
+        List<Currency> currenciesWithFullNameAndFlag = currencyRepository.getCurrenciesWithFullNameAndFlag();
 
         Template template = templateProvider
                 .getTemplate(getServletContext(), TemplateName.LOCAL_EXTREMUM.getName());
 
-        if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
-            currencyName = defaultCurrencyName;
-        } else {
-            currencyName = currencyRepository.getFirstAvailableCurrencyName();
-        }
-        if (req.getParameter(CURRENCY_NAME_PARAMETER) != null) {
-            currencyName = req.getParameter(CURRENCY_NAME_PARAMETER);
-        }
-
-        if (req.getParameter(DATE_FROM_PARAMETER) != null) {
-            dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
-        } else {
-            dateFrom = currencyRepository.getMostRecentDateMinusOneMonthForChosenCurrencyName(currencyName);
+        if (currencyName == null) {
+            if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
+                currencyName = defaultCurrencyName;
+            } else {
+                currencyName = currencyRepository.getFirstAvailableCurrencyName();
+            }
         }
 
-        if (req.getParameter(DATE_TO_PARAMETER) != null) {
-            dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
-        } else {
-            dateTo = currencyRepository.getMostRecentDateForChosenCurrencyName(currencyName);
+        if (dateFrom == null) {
+            dateFrom = currencyRepository.getNewestDateMinusOneMonthForChosenCurrencyName(currencyName);
         }
 
-        List<Currency> minExtremum = localExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-        List<Currency> maxExtremum = localExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        if (dateTo == null) {
+            dateTo = currencyRepository.getNewestDateForChosenCurrencyName(currencyName);
+        }
+
+        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
+        if (!isDateFromAfterDateTo) {
+            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        }
 
         Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
-        model.put("availableCurrencyNames", availableCurrencyNames);
         model.put("currencyName", currencyName);
+        model.put("currenciesWithFullNameAndFlag", currenciesWithFullNameAndFlag);
+        model.put("currencyNameCountryFlags", currencyNameCountryFlags);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
-        model.put("localExtremum", localExtremum);
+        model.put("exchangeRateExtremum", exchangeRateExtremum);
+        model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
         model.put("logged", userName);
@@ -101,6 +113,19 @@ public class LocalExtremumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String currencyNameParam = req.getParameter(CURRENCY_NAME_PARAMETER);
+        String[] currencyNameTab = currencyNameParam.split(" - ");
+        currencyName = currencyNameTab[0];
+        dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
+        dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
+
+        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
+        if (!isDateFromAfterDateTo) {
+            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
+            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+        }
+
         doGet(req, resp);
     }
 }
