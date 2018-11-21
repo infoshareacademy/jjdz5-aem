@@ -9,7 +9,7 @@
             border: 20%;
         }
 
-        .container .row #main, .container .row #main1{
+        .container .row #main{
             background-color: dimgrey;
             color: white;
             padding: 5px 15px;
@@ -17,7 +17,26 @@
             text-align: center;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
             margin: 1.0em;
+            margin-left: 0em;
+            margin-right: 0em;
+            position: relative;
+            right: 2px;
         }
+
+        .container .row #main1{
+            background-color: dimgrey;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 2px;
+            text-align: center;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            margin: 1.0em;
+            margin-left: 0em;
+            margin-right: 0em;
+            position: relative;
+            left: 6px;
+        }
+
         .container .row #main h4, .container .row #main1 h4{
             font-family: inherit;
             font-size: 1.2rem;
@@ -39,7 +58,7 @@
             font-size: 1.2em;
             font-weight: bold;
             color: gray;
-            padding: 1.0em;
+            padding-left: 0.6em;
         }
             .container h6{
                 font-size: 0.8em;
@@ -59,7 +78,7 @@
         .tabela2 {
             font-family:Arial, Helvetica, sans-serif;
             color:#666;
-            font-size:12px;
+            font-size:16px;
             text-shadow: 1px 1px 0px #fff;
             background:#eaebec;
             margin:10px;
@@ -135,14 +154,13 @@
             <h4>Currency Converter</h4>
         </div>
 
-        <div class="col-7" id="main1">
+        <div class="col-8" id="main1">
             <h4>Exchange Rate</h4>
         </div>
     </div>
 
     <div class="row" >
-                 <div class="col-4">
-
+         <div class="col-4">
             <form method="post" action="/currency-manager" NAME="form1">
                 <div class="form-group">
                     <label for="amount">Amount</label>
@@ -205,8 +223,8 @@
                 </div>
                  </#if>
             </form>
-            </div>
-         <div class="col-7" id="main_currency">
+        </div>
+         <div class="col-8" id="main_currency">
             <form method="post" action="/currency-manager" NAME="form2">
                 <div class="form-group">
 
@@ -252,7 +270,7 @@
     </div>
 </div>
 <div class="row" id="footer">
-    <div class="col-11" >
+    <div class="col-12" >
         <h5></h5>
     </div>
 </div>

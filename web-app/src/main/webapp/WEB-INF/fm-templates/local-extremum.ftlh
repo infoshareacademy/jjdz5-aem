@@ -5,18 +5,32 @@
     <title>Local Extremum</title>
     <style>
 
-        .container .row #main, .container .row #main1 {
-
+        .container .row #main{
             background-color: dimgrey;
-
             color: white;
             padding: 5px 15px;
-
             border-radius: 2px;
             text-align: center;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
             margin: 1.0em;
+            margin-left: 0em;
+            margin-right: 0em;
+            position: relative;
+            right: 2px;
+        }
 
+        .container .row #main1{
+            background-color: dimgrey;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 2px;
+            text-align: center;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            margin: 1.0em;
+            margin-left: 0em;
+            margin-right: 0em;
+            position: relative;
+            left: 2px;
         }
 
         .container .row #main h4, .container .row #main1 h4 {
@@ -39,7 +53,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: gray;
-            padding: 1.0em;
+            padding-left: 0.6em;
         }
 
         .container .col-7#main_currency, .container .col-7#table_remining {
@@ -54,7 +68,7 @@
         .tabela2 {
             font-family: Arial, Helvetica, sans-serif;
             color: #666;
-            font-size: 12px;
+            font-size: 16px;
             text-shadow: 1px 1px 0px #fff;
             background: #eaebec;
             margin: 10px;
@@ -134,6 +148,7 @@
             <h4>Exchange Rate Extremums</h4>
         </div>
     </div>
+
     <form method="post" action="/local-extremum" class="needs-validation">
         <div class="row">
             <div class="col-4">
@@ -155,14 +170,9 @@
                 </div>
             </div>
             <div class="col-2">
-                <div class="form-group" id=show-extremums">
-                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremum</button>
-                </div>
-            </div>
-            <div class="col-2">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios1" value="option1" onclick="disableDates()" checked>
                         Global Extremum
                     </label>
                 </div>
@@ -171,6 +181,11 @@
                         <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios2" value="option2">
                         Local Extremum
                     </label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group" id=show-extremums">
+                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremum</button>
                 </div>
             </div>
         </div>
@@ -185,7 +200,7 @@
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date" name="dateFrom"
+                        <input type="date" class="form-control is-invalid" id="date-invalid" name="dateFrom"
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
@@ -194,7 +209,6 @@
                             </div>
                     </#if>
                 </div>
-
             </div>
             <div class="col-4">
                 <div class="form-group">
@@ -205,24 +219,16 @@
                                 max=${currencyRepository.getLastDateFromRepository()}
                                 value=${dateTo}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date" name="dateTo"
+                        <input type="date" class="form-control is-invalid" id="date-invalid" name="dateTo"
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateTo}>
                     </#if>
                 </div>
             </div>
-            <div class="col-1">
-                <div class="form-group">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                </div>
-            </div>
         </div>
     </form>
-    
+
     <div class="row">
         <div class="col-12" id="main_currency">
 
