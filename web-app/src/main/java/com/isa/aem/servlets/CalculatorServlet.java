@@ -37,8 +37,12 @@ public class CalculatorServlet extends HttpServlet {
     private static final String HAVE_PARAMETER = "have";
     private static final String WANT_PARAMETER = "want";
     private static final String DATE_PARAMETER = "date";
-    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+    private static final String CURRENCY_TABLE_PARAMETER = "currency_table";
     String currencyInTable;
+    private static final String ACTION_BUTTON = "action";
+    private static final String ACTION_BUTTON_CALCULATOR = "calculator";
+    private static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
+    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
 
     @Inject
     private TemplateProvider templateProvider;
@@ -88,7 +92,8 @@ public class CalculatorServlet extends HttpServlet {
         }
 
         if (currencyInTable == null) {
-            currencyInTable = "PLN";
+            currencyInTable = defaultCurrencyNameHave;
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable));
         }
 
         Template template = templateProvider
@@ -98,7 +103,8 @@ public class CalculatorServlet extends HttpServlet {
         model.put("singleCurrency", singleCurrency);
         model.put("score", score);
         model.put("currencyInTable", currencyInTable);
-        model.put("availableCurrencyTable", createAListOfAvailableCurrencies);
+        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.getTableListCurrencyObject());
+
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -107,25 +113,31 @@ public class CalculatorServlet extends HttpServlet {
     }
 
     @Override
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter(ACTION_BUTTON);
 
-        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
-        String reqHave = req.getParameter(HAVE_PARAMETER);
-        String reqWant = req.getParameter(WANT_PARAMETER);
-        String reqDate = req.getParameter(DATE_PARAMETER);
-        Double calculatorAmount = Double.parseDouble(reqAmount);
-        String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
-        String[] calculatorCurrencyWantTable = reqWant.split(" - ");
-        String haveCurrency = calculatorCurrencyHaveTable[0];
-        currencyInTable = req.getParameter("currency_table");
+        if (ACTION_BUTTON_CALCULATOR.equals(action)) {
+            String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+            String reqHave = req.getParameter(HAVE_PARAMETER);
+            String reqWant = req.getParameter(WANT_PARAMETER);
+            String reqDate = req.getParameter(DATE_PARAMETER);
+            Double calculatorAmount = Double.parseDouble(reqAmount);
+            String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
+            String[] calculatorCurrencyWantTable = reqWant.split(" - ");
+            String haveCurrency = calculatorCurrencyHaveTable[0];
+            LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
+            score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
+            score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
-        LocalDate date = score.scoreDate(reqDate, haveCurrency, calculatorCurrencyWantTable[0]);
-
-        score = scoreResult.getScoreResult(haveCurrency, calculatorCurrencyWantTable[0], date, calculatorAmount);
-        score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
-        score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
-        createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable);
-
+        } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
+            CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
+            String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
+            String[] currencyInTableName = currencyInTableNames.split(" - ");
+            currencyInTable = currencyInTableName[0];
+            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
+        }
         doGet(req, resp);
     }
 }
