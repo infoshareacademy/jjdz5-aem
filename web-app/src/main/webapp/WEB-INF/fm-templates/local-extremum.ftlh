@@ -302,6 +302,34 @@
     </div>
 </div>
 
+
+<p>This example uses the addEventListener() method to attach a "click" event to a p element.</p>
+
+<p id="demo">Click me.</p>
+
+<script>
+    document.getElementById("demo").addEventListener("click", myFunction);
+
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+    }
+</script>
+
+
+
+<script>
+    document.getElementById("exampleRadios1").addEventListener("click", disableDates)
+
+    function disableDates() {
+        if ((document.getElementById("exampleRadios1").checked = true)) {
+            document.getElementById("date").readonly = true;
+        } else {
+            document.getElementById("date").readonly = false;
+        }
+
+    }
+</script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
