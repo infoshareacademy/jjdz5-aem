@@ -1,6 +1,5 @@
 package com.isa.aem.api.nbp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,7 +15,7 @@ public class CurrencyRates {
     @JsonProperty
     private String no;
     @JsonProperty("rates")
-    private  List<CurrencyDetails> rates;
+    private List<CurrencyDetails> rates;
 
     public List<CurrencyDetails> getRates() {
         return rates;

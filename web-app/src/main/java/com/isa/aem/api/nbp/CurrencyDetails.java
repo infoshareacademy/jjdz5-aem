@@ -1,6 +1,5 @@
 package com.isa.aem.api.nbp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

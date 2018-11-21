@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonReaderNbpApi {
+public class JsonSchemeReaderNbpApi {
     private static final String BASE_URL =
             "http://api.nbp.pl/api/exchangerates/tables/A/{dateStart}/{dateEnd}";
     private static final String WEB_SLASH = "/";

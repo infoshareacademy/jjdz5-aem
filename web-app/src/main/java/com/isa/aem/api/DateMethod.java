@@ -9,13 +9,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DateMethod {
     public static final LocalDate MIN_DATE_NBP_API = LocalDate.of(2002, 01, 01);
-    public static final Integer MAX_RANGE_NBP_API = 93;
-    public static final Integer ZOOM_FOR_ONE_DAY = 1;
+    public static final Integer MAX_DATE_RANGE_NBP_API = 93;
+    public static final Integer ZOOM_END_DAY = 1;
 
-    private JsonReaderNbpApi jsonReaderNbpApi = new JsonReaderNbpApi();
+    private JsonSchemeReaderNbpApi jsonSchemeReaderNbpApi = new JsonSchemeReaderNbpApi();
 
     public LocalDate readActualDateOnNbp() {
-        LocalDate date = LocalDate.parse(jsonReaderNbpApi.loadActualJson().get(0).getEffectiveDate());
+        LocalDate date = LocalDate.parse(jsonSchemeReaderNbpApi.loadActualJson().get(0).getEffectiveDate());
         return date;
     }
 
@@ -25,11 +25,11 @@ public class DateMethod {
     }
 
     public Long countTheNumberOfRepetitionsMaxRangeNbp() {
-        return countDaysOfNbpHistory() / MAX_RANGE_NBP_API;
+        return countDaysOfNbpHistory() / MAX_DATE_RANGE_NBP_API;
     }
 
-    public LocalDate nextDayStart( LocalDate dateEnd) {
-        return dateEnd.plusDays(ZOOM_FOR_ONE_DAY);
+    public LocalDate nextDayStart(LocalDate dateEnd) {
+        return dateEnd.plusDays(ZOOM_END_DAY);
     }
 
     public LocalDate nextDayEndAddRangeTheRest(Long daysToDownload, LocalDate dateStart) {
@@ -37,17 +37,14 @@ public class DateMethod {
     }
 
     public void checkIfTheRestIsSmallerThenMaxRangeNbpApi(Long daysToDownload, LocalDate dateStart, LocalDate dateEnd, List<List<CurrencyRates>> historyListNbp) {
-        if (daysToDownload < MAX_RANGE_NBP_API) {
-            dateStart=nextDayStart(dateEnd);
-            dateEnd=nextDayEndAddRangeTheRest(daysToDownload, dateStart);
-            historyListNbp.add(jsonReaderNbpApi.loadJsonToListWithTwoDates(dateStart.toString(), dateEnd.toString()));
+        if (daysToDownload < MAX_DATE_RANGE_NBP_API) {
+            dateStart = nextDayStart(dateEnd);
+            dateEnd = nextDayEndAddRangeTheRest(daysToDownload, dateStart);
+            historyListNbp.add(jsonSchemeReaderNbpApi.loadJsonToListWithTwoDates(dateStart.toString(), dateEnd.toString()));
         }
-        }
-
-    public Long countRangeTheCheck( LocalDate dateEnd){
-        return   countDaysOfNbpHistory()-DAYS.between(MIN_DATE_NBP_API, dateEnd.plusDays(1));
-
     }
 
-
+    public Long countRangeToDownload(LocalDate dateEnd) {
+        return countDaysOfNbpHistory() - DAYS.between(MIN_DATE_NBP_API, dateEnd.plusDays(1));
+    }
 }
