@@ -29,7 +29,7 @@ public class UserBin extends DataBaseTemplate<User, UserBin> {
     }
 
     @Override
-    public void databaseSupport(String request, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void databaseSupport(String request, HttpServletRequest req, HttpServletResponse resp) throws Exception {
         super.databaseSupport(request, req, resp);
     }
 
@@ -46,21 +46,31 @@ public class UserBin extends DataBaseTemplate<User, UserBin> {
     }
 
     @Override
-    public void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Long id = Long.valueOf(req.getParameter("id"));
-        LOG.info("Removing user: {}, with id: {}", );
+    public void delete(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        Long id = getUserIdByParameter(req);
+        String name = getName(req);
+        LOG.info("Removing user: {}, with id: {}", name, id);
         userDao.delete(id);
         super.delete(req, resp);
     }
 
     @Override
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Long id = getUserIdByParameter(req);
+        User user = userDao.findById(id);
+
+        user.s
         super.update(req, resp);
     }
 
     @Override
     public void findAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         super.findAll(req, resp);
+    }
+
+    @Override
+    public Long getUserIdByParameter(HttpServletRequest req) {
+        return super.getUserIdByParameter(req);
     }
 
     private Boolean isAdmin(String admin, String parameter) {

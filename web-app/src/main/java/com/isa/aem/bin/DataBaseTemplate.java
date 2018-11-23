@@ -34,7 +34,7 @@ public class DataBaseTemplate<T, E> extends HttpServlet {
         return action;
     }
 
-    public void databaseSupport(String request, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void databaseSupport(String request, HttpServletRequest req, HttpServletResponse resp) throws Exception {
         if (addToDatabase(request)) {
             add(req, resp);
         } else if (deleteFromDatabase(request)) {
@@ -53,7 +53,7 @@ public class DataBaseTemplate<T, E> extends HttpServlet {
     }
 
     public void delete(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+            throws Exception {
         findAll(req, resp);
     }
 
@@ -68,6 +68,10 @@ public class DataBaseTemplate<T, E> extends HttpServlet {
         for (T t : result) {
             resp.getWriter().write(result.toString() + "\n");
         }
+    }
+
+    public Long getUserIdByParameter(HttpServletRequest req) {
+        return Long.valueOf(req.getParameter("id"));
     }
 
     private void checkIfNullOrEmpty(HttpServletResponse resp) throws IOException {
