@@ -14,6 +14,8 @@ public class DaoTemplate<T> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    Object T;
+
     public Long save(T t) {
         entityManager.persist(t);
         return null;
@@ -23,12 +25,12 @@ public class DaoTemplate<T> {
         return entityManager.merge(t);
     }
 
-    public T findById(Long id, Class<T> clazz) {
-        return (T) entityManager.find(clazz.getClass(), id);
+    public T findById(Long id) {
+        return (T) entityManager.find(T.getClass(), id);
     }
 
-    public void delete(Long id, Class<T> clazz) {
-        T tId = findById(id, clazz);
+    public void delete(Long id) {
+        T tId = findById(id);
         if (tId != null) {
             entityManager.remove(tId);
         }

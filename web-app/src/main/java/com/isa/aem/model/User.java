@@ -13,6 +13,10 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "user")
+    @NotNull
+    private String userName;
+
     @Column(name = "email")
     @NotNull
     private String email;
@@ -25,9 +29,10 @@ public class User {
 
     }
 
-    public User(@NotNull String email, @NotNull Boolean isAdmin) {
+    public User(String userName, @NotNull String email, @NotNull Boolean isAdmin) {
         this.email = email;
         this.isAdmin = isAdmin;
+        this.userName = userName;
     }
 
     public Long getId() {
@@ -52,5 +57,13 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
