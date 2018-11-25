@@ -172,13 +172,13 @@
             <div class="col-2">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios1" value="option1" onclick="disableDates()" checked>
+                        <input type="radio" class="form-check-input" name="extremumRadios" id="global-extremum-radio" value="option1" checked>
                         Global Extremum
                     </label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <input type="radio" class="form-check-input" name="extremumRadios" id="local-extremum-radio" value="option2">
                         Local Extremum
                     </label>
                 </div>
@@ -190,17 +190,38 @@
             </div>
         </div>
 
+        <script>
+            document.getElementById("global-extremum-radio").addEventListener("click", disableDates);
+            document.getElementById("local-extremum-radio").addEventListener("click", enableDates);
+
+            function disableDates() {
+                if (document.getElementById("global-extremum-radio").checked = true) {
+                    document.getElementById("date-from").readOnly = true;
+                    document.getElementById("date-to").readOnly = true;
+                } else return false;
+            }
+
+            function enableDates() {
+                if (document.getElementById("local-extremum-radio").checked = true) {
+                    document.getElementById("date-from").readOnly = false;
+                    document.getElementById("date-to").readOnly = false;
+                } else {
+                    return false;
+                }
+            }
+        </script>
+
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date From</label>
                     <#if isDateFromAfterDateTo == false>
-                        <input type="date" class="form-control" id="date" name="dateFrom"
+                        <input type="date" class="form-control" id="date-from" name="dateFrom" readonly
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date-invalid" name="dateFrom"
+                        <input type="date" class="form-control is-invalid" id="date-from-invalid" name="dateFrom"
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
@@ -214,12 +235,12 @@
                 <div class="form-group">
                     <label for="date">Date To</label>
                     <#if isDateFromAfterDateTo == false>
-                        <input type="date" class="form-control" id="date" name="dateTo"
+                        <input type="date" class="form-control" id="date-to" name="dateTo" readonly
                                 min=${currencyRepository.getFirstDateFromRepository()}
                                 max=${currencyRepository.getLastDateFromRepository()}
                                 value=${dateTo}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date-invalid" name="dateTo"
+                        <input type="date" class="form-control is-invalid" id="date-to-invalid" name="dateTo"
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateTo}>
@@ -303,32 +324,6 @@
 </div>
 
 
-<p>This example uses the addEventListener() method to attach a "click" event to a p element.</p>
-
-<p id="demo">Click me.</p>
-
-<script>
-    document.getElementById("demo").addEventListener("click", myFunction);
-
-    function myFunction() {
-        document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
-    }
-</script>
-
-
-
-<script>
-    document.getElementById("exampleRadios1").addEventListener("click", disableDates)
-
-    function disableDates() {
-        if ((document.getElementById("exampleRadios1").checked = true)) {
-            document.getElementById("date").readonly = true;
-        } else {
-            document.getElementById("date").readonly = false;
-        }
-
-    }
-</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
