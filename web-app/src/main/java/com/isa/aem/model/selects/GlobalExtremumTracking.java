@@ -1,12 +1,10 @@
 package com.isa.aem.model.selects;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
-public class Select {
+@Entity
+@Table(name = "GLOBAL")
+public class GlobalExtremumTracking {
 
     private static final String UNIQUE_ID = "id";
     private static final String NAME_OF_CURRENCY = "currencyName";
@@ -27,13 +25,13 @@ public class Select {
     @Column(name = DATA_AND_TIME_WHEN_USER_SELECTED_OPTION)
     private LocalDateTime localDateTime;
 
-    public Select(String currencyName, Double amount, LocalDateTime localDateTime) {
+    public GlobalExtremumTracking(String currencyName, Double amount, LocalDateTime localDateTime) {
         this.currencyName = currencyName;
         this.amount = amount;
         this.localDateTime = localDateTime;
     }
 
-    public Select() {
+    public GlobalExtremumTracking() {
     }
 
     public Long getId() {
