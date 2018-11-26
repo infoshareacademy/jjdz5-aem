@@ -267,19 +267,18 @@
                 </thead>
                 <tbody>
                 <#list currenciesWithFullNameAndFlag as ac>
+                <#list minExtremum as minCur>
                 <tr>
                     <#if ac.getName() == currencyName>
                         <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}
-                        </td>
+                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCountry()}</td>
-                        <#list minExtremum as minCur>
-                            <td>${minCur.getClose()}</td>
-                            <td>${minCur.getDate()}</td>
-                        </#list>
+                        <td>${minCur.getClose()}</td>
+                        <td>${minCur.getDate()}</td>
                     </#if>
                 </tr>
+                </#list>
                 </#list>
                 </tbody>
             </table>
@@ -303,19 +302,18 @@
                 </thead>
                 <tbody>
                 <#list currenciesWithFullNameAndFlag as ac>
+                <#list maxExtremum as maxCur>
                 <tr>
                     <#if ac.getName() == currencyName>
                         <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
-                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}
-                        </td>
+                                 src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCountry()}</td>
-                        <#list maxExtremum as maxCur>
-                            <td>${maxCur.getClose()}</td>
-                            <td>${maxCur.getDate()}</td>
-                        </#list>
+                        <td>${maxCur.getClose()}</td>
+                        <td>${maxCur.getDate()}</td>
                     </#if>
                 </tr>
+                </#list>
                 </#list>
                 </tbody>
             </table>
