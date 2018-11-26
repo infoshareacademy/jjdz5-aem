@@ -4,18 +4,19 @@ import com.isa.aem.dao.DaoTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+@Stateless
+public class DataBaseTemplate<T> extends HttpServlet {
 
-public class DataBaseTemplate<T, E> extends HttpServlet {
 
-
-    private Object E;
-    Logger LOG = LoggerFactory.getLogger(E.getClass());
+//    private Object E;
+//    Logger LOG = LoggerFactory.getLogger(E.getClass());
     @Inject
     DaoTemplate<T> daoTemplate;
 
@@ -29,7 +30,7 @@ public class DataBaseTemplate<T, E> extends HttpServlet {
 
     public String parameterAction(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String action = req.getParameter(ACTION);
-        LOG.info("Requested action: {}", action);
+//        LOG.info("Requested action: {}", action);
         checkIfNullOrEmpty(resp);
         return action;
     }
@@ -64,7 +65,7 @@ public class DataBaseTemplate<T, E> extends HttpServlet {
     public void findAll(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         final List<T> result = daoTemplate.findAll();
-        LOG.info("Found {} objects", result.size());
+//        LOG.info("Found {} objects", result.size());
         for (T t : result) {
             resp.getWriter().write(result.toString() + "\n");
         }

@@ -1,23 +1,20 @@
 package com.isa.aem.bin;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.isa.aem.dao.UserDao;
 import com.isa.aem.model.User;
 import com.isa.aem.servlets.IdTokenVerifierAndParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-public class UserBin extends DataBaseTemplate<User, UserBin> {
+@Stateless
+public class UserBin extends DataBaseTemplate<User> {
 
     Logger LOG = LoggerFactory.getLogger(UserBin.class);
-
-    @Inject
-    UserDao userDao;
 
     private static final String ID_TOKEN_PARAMETER = "id_token";
     private static final String NAME_PARAMETER = "name";
@@ -40,7 +37,7 @@ public class UserBin extends DataBaseTemplate<User, UserBin> {
         Boolean isAdmin = isAdmin(ADMIN_EMAIL, name);
 
         final User user = new User(name, email, isAdmin);
-        userDao.save(user);
+        daoTemplate.save(user);
 
         super.add(req, resp);
     }
@@ -50,16 +47,16 @@ public class UserBin extends DataBaseTemplate<User, UserBin> {
         Long id = getUserIdByParameter(req);
         String name = getName(req);
         LOG.info("Removing user: {}, with id: {}", name, id);
-        userDao.delete(id);
+        daoTemplate.delete(id);
         super.delete(req, resp);
     }
 
     @Override
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id = getUserIdByParameter(req);
-        User user = userDao.findById(id);
+        User user = daoTemplate.findById(id);
 
-        user.s
+//        user.s
         super.update(req, resp);
     }
 
