@@ -34,6 +34,8 @@ public class LocalExtremumServlet extends HttpServlet {
     private CurrencyNameCountryFlags currencyNameCountryFlags = new CurrencyNameCountryFlags();
     private LocalDate dateFrom;
     private LocalDate dateTo;
+    private LocalDate firstDateFromRepository;
+    private LocalDate lastDateFromRepository;
     private String currencyName;
     private DataValidator dataValidator = new DataValidator();
     private Boolean isDateFromAfterDateTo = Boolean.FALSE;
@@ -77,11 +79,13 @@ public class LocalExtremumServlet extends HttpServlet {
         }
 
         if (dateFrom == null) {
-            dateFrom = currencyRepository.getNewestDateMinusOneMonthForChosenCurrencyName(currencyName);
+            firstDateFromRepository = currencyRepository.getFirstDateFromRepository();
+            dateFrom = firstDateFromRepository;
         }
 
         if (dateTo == null) {
-            dateTo = currencyRepository.getNewestDateForChosenCurrencyName(currencyName);
+            lastDateFromRepository = currencyRepository.getLastDateFromRepository();
+            dateTo = lastDateFromRepository;
         }
 
         isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
@@ -98,6 +102,8 @@ public class LocalExtremumServlet extends HttpServlet {
         model.put("currencyNameCountryFlags", currencyNameCountryFlags);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
+        model.put("firstDateFromRepository", firstDateFromRepository);
+        model.put("lastDateFromRepository", lastDateFromRepository);
         model.put("exchangeRateExtremum", exchangeRateExtremum);
         model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
         model.put("minExtremum", minExtremum);

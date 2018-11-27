@@ -185,7 +185,7 @@
             </div>
             <div class="col-2">
                 <div class="form-group" id=show-extremums">
-                    <button type="submit" class="btn btn-primary" value="extremums">Show Extremum</button>
+                    <button type="submit" class="btn btn-primary" id="submit-button" value="extremums" onsubmit="setDatesOnSubmit()">Show Extremum</button>
                 </div>
             </div>
         </div>
@@ -194,11 +194,14 @@
             document.getElementById("global-extremum-radio").addEventListener("click", disableDates);
             document.getElementById("local-extremum-radio").addEventListener("click", enableDates);
 
+
             function disableDates() {
                 if (document.getElementById("global-extremum-radio").checked = true) {
                     document.getElementById("date-from").readOnly = true;
                     document.getElementById("date-to").readOnly = true;
-                } else return false;
+                } else {
+                    return false;
+                }
             }
 
             function enableDates() {
@@ -208,6 +211,32 @@
                 } else {
                     return false;
                 }
+            }
+        </script>
+
+        <p id="demo">Tutaj</p>
+
+        <script>
+            var dateFrom = "something";
+            var dateTo = "${dateTo}";
+            var firstDateFromRepository = "${firstDateFromRepository}";
+            var lastDateFromRepository = "${lastDateFromRepository}";
+
+            function setDatesOnSubmit() {
+                document.getElementById("demo").innerHTML = "The value of dateFrom is: " + dateFrom;
+                document.getElementById("demo").innerHTML = "The value of dateTo is: " + dateTo;
+                document.getElementById("demo").innerHTML = "The value of firstDateFromRepository is: " + firstDateFromRepository;
+                document.getElementById("demo").innerHTML = "The value of lastDateFromRepository is: " + lastDateFromRepository;
+
+                if (document.getElementById("local-extremum-radio").checked = true {
+                    document.getElementById("date-from").value = dateFrom;
+                    document.getElementById("date-to").value = dateTo;
+                } else if (document.getElementById("global-extremum-radio").checked = true) {
+                    document.getElementById("date-from").value = firstDateFromRepository;
+                    document.getElementById("date-to").value = lastDateFromRepository;
+                )
+            } else {
+                })
             }
         </script>
 
