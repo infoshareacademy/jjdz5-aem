@@ -119,12 +119,17 @@ public class CurrencyManagerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter(ACTION_BUTTON);
+        calculatorSupport(action, req);
+        doGet(req, resp);
+    }
 
+    private void calculatorSupport(String action, HttpServletRequest req) {
         if (ACTION_BUTTON_CALCULATOR.equals(action)) {
             String reqAmount = req.getParameter(AMOUNT_PARAMETER);
             String reqHave = req.getParameter(HAVE_PARAMETER);
             String reqWant = req.getParameter(WANT_PARAMETER);
             String reqDate = req.getParameter(DATE_PARAMETER);
+
             Double calculatorAmount = Double.parseDouble(reqAmount);
             String[] calculatorCurrencyHaveTable = reqHave.split(" - ");
             String[] calculatorCurrencyWantTable = reqWant.split(" - ");
@@ -141,6 +146,5 @@ public class CurrencyManagerServlet extends HttpServlet {
             currencyInTable = currencyInTableName[0];
             createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
         }
-        doGet(req, resp);
     }
 }
