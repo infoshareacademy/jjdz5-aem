@@ -19,15 +19,36 @@
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
-            <a href="calculator" onclick="signOut();">Sign out</a>
+            <a href="logout" onclick="signOut();">Sign out</a>
+            <!--<script>-->
+                <!--function signOut() {-->
+                    <!--var auth2 = gapi.auth2.getAuthInstance();-->
+                    <!--auth2.signOut().then(function () {-->
+                        <!--console.log('User signed out.');-->
+                    <!--});-->
+                <!--}-->
+            <!--</script>-->
             <script>
                 function signOut() {
-                    var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.signOut().then(function () {
-                        console.log('User signed out.');
-                    });
+                    console.log("logging out ...");
+                    gapi.auth.authorize(
+                        {
+                            'client_id': "926732976801-63jco5oge4dhrqb490m6e9k7357khl28.apps.googleusercontent.com",
+                            'scope': "profile email",
+                            'immediate': false,
+                            cookie_policy: 'single_host_origin',
+                            response_type: 'token id_token'
+                        },
+                        function (authResult) {
+                            gapi.auth.signOut();
+                            gapi.auth.disconnect();
+                        }
+                    );
+                    console.log("redirecting to logout servlet");
+                    window.location.href = '/logout';
                 }
             </script>
+
         </form>
 
     </div>
