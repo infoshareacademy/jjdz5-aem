@@ -3,6 +3,7 @@ package com.isa.aem.model;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "USERS")
@@ -24,6 +25,10 @@ public class User {
     @Column(name = "status")
     @NotNull
     private Boolean isAdmin;
+
+    @Column(name = "date_time")
+    private LocalDate localDate;
+
 
     public User() {
 

@@ -1,24 +1,23 @@
-package com.isa.aem.bin;
+package com.isa.aem.servlets.database;
 
-import com.isa.aem.dao.DaoTemplate;
+import com.isa.aem.dao.GenericDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-@Stateless
-public class DataBaseTemplate<T> extends HttpServlet {
 
+public class GenericServlet<T> extends HttpServlet {
+    public Class<T> E;
 
-//    private Object E;
-//    Logger LOG = LoggerFactory.getLogger(E.getClass());
+    Logger LOG = LoggerFactory.getLogger(E.getClass());
+
     @Inject
-    DaoTemplate<T> daoTemplate;
+    GenericDao<T> daoTemplate;
 
     private static final String ACTION = "action";
     private static final String ADD_OBJECT = "add";
@@ -30,8 +29,8 @@ public class DataBaseTemplate<T> extends HttpServlet {
 
     public String parameterAction(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String action = req.getParameter(ACTION);
-//        LOG.info("Requested action: {}", action);
-        checkIfNullOrEmpty(resp);
+        LOG.info("Requested action: {}", action);
+        checkActionIfNullOrEmpty(resp);
         return action;
     }
 
@@ -65,17 +64,17 @@ public class DataBaseTemplate<T> extends HttpServlet {
     public void findAll(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         final List<T> result = daoTemplate.findAll();
-//        LOG.info("Found {} objects", result.size());
+        LOG.info("Found {} objects", result.size());
         for (T t : result) {
             resp.getWriter().write(result.toString() + "\n");
         }
     }
 
-    public Long getUserIdByParameter(HttpServletRequest req) {
+    public Long getIdByParameter(HttpServletRequest req) {
         return Long.valueOf(req.getParameter("id"));
     }
 
-    private void checkIfNullOrEmpty(HttpServletResponse resp) throws IOException {
+    private void checkActionIfNullOrEmpty(HttpServletResponse resp) throws IOException {
         if (actionIsNull() || actionIsEmpty()) {
             resp.getWriter().write(EMPTY_ACTION_PARAMETER);
             return;

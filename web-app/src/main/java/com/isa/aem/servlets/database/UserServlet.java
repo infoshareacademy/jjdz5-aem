@@ -1,33 +1,38 @@
-package com.isa.aem.bin;
+package com.isa.aem.servlets.database;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.isa.aem.dao.GenericDao;
 import com.isa.aem.model.User;
 import com.isa.aem.servlets.IdTokenVerifierAndParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Stateless
-public class UserBin extends DataBaseTemplate<User> {
 
-    Logger LOG = LoggerFactory.getLogger(UserBin.class);
+@WebServlet(urlPatterns = "/user")
+public class UserServlet extends GenericServlet<User> {
 
     private static final String ID_TOKEN_PARAMETER = "id_token";
     private static final String NAME_PARAMETER = "name";
     private static final String ADMIN_EMAIL = "currencymanager2018@gmail.com";
 
-    @Override
-    public String parameterAction(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        return super.parameterAction(req, resp);
-    }
+    @Inject
+    GenericDao<User> userDao;
 
     @Override
-    public void databaseSupport(String request, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        super.databaseSupport(request, req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String request = parameterAction(req, resp);
+        try {
+            databaseSupport(request, req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -40,34 +45,20 @@ public class UserBin extends DataBaseTemplate<User> {
         daoTemplate.save(user);
 
         super.add(req, resp);
+        super.add(req, resp);
     }
 
     @Override
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Long id = getUserIdByParameter(req);
-        String name = getName(req);
-        LOG.info("Removing user: {}, with id: {}", name, id);
-        daoTemplate.delete(id);
+        Long id = getIdByParameter(req);
+        userDao.delete(id);
+
         super.delete(req, resp);
     }
 
     @Override
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Long id = getUserIdByParameter(req);
-        User user = daoTemplate.findById(id);
-
-//        user.s
         super.update(req, resp);
-    }
-
-    @Override
-    public void findAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        super.findAll(req, resp);
-    }
-
-    @Override
-    public Long getUserIdByParameter(HttpServletRequest req) {
-        return super.getUserIdByParameter(req);
     }
 
     private Boolean isAdmin(String admin, String parameter) {
@@ -89,6 +80,4 @@ public class UserBin extends DataBaseTemplate<User> {
         GoogleIdToken.Payload payLoad = googleSupport(req);
         return payLoad.getEmail();
     }
-
-
 }

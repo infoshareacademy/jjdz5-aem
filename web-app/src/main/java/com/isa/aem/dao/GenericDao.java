@@ -1,18 +1,20 @@
 package com.isa.aem.dao;
 
-
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
-@Stateless
-public class DaoTemplate<T> {
+@Default
+@Any
+public class GenericDao<T> {
+
+    public Class<T> C;
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    Object T;
 
     public Long save(T t) {
         entityManager.persist(t);
@@ -24,7 +26,7 @@ public class DaoTemplate<T> {
     }
 
     public T findById(Long id) {
-        return (T) entityManager.find(T.getClass(), id);
+        return entityManager.find(C, id);
     }
 
     public void delete(Long id) {
@@ -35,8 +37,7 @@ public class DaoTemplate<T> {
     }
 
     public List<T> findAll() {
-//        final Query query = entityManager.createQuery("SELECT s FROM T s");
-////        return query.getResultList();
-        return null;
+        final Query query = entityManager.createQuery("SELECT s FROM" + C + " s");
+        return query.getResultList();
     }
 }
