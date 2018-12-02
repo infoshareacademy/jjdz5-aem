@@ -17,13 +17,13 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setHeader("Content-Type", "text/html; charset=utf-8");
-        resp.setContentType("text/html;charset=UTF-8 pageEncoding=\"UTF-8");
+        //resp.setHeader("Content-Type", "text/html; charset=utf-8");
+        //resp.setContentType("text/html;charset=UTF-8 pageEncoding=\"UTF-8");
 
         try {
             HttpSession session = req.getSession();
             session.invalidate();
-            eraseCookie(req, resp);
+            //eraseCookie(req, resp);
 
 
             LOG.info("Wylogowanie ze strony. Powrót do strony głównej.");
