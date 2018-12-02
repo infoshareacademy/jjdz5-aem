@@ -115,11 +115,11 @@ public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter(ACTION_BUTTON);
-        calculatorSupport(action, req);
+        calculateExchangeRate(action, req);
         doGet(req, resp);
     }
 
-    private void calculatorSupport(String action, HttpServletRequest req) {
+    private void calculateExchangeRate(String action, HttpServletRequest req) {
         if (ACTION_BUTTON_CALCULATOR.equals(action)) {
             String reqAmount = req.getParameter(AMOUNT_PARAMETER);
             String reqHave = req.getParameter(HAVE_PARAMETER);
