@@ -136,10 +136,11 @@
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
 
+
 </head>
 
 <body>
-<#--<h6 align="right">User: ${logged}</h6>-->
+<h6 align="right">User: ${logged}</h6>
 <#include "manager-menu.html">
 
 <div class="container">
@@ -149,7 +150,7 @@
         </div>
     </div>
 
-    <form method="post" action="/local-extremum" class="needs-validation">
+    <form method="post" action="/extremum" class="needs-validation" id="form-extremum" name="formExtremum" onsubmit=setRadiosOnSubmit()>
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
@@ -165,92 +166,48 @@
                     </select>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <div class="form-group">
                 </div>
             </div>
-            <div class="col-2">
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="extremumRadios" id="global-extremum-radio" value="option1" checked>
-                        Global Extremum
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="extremumRadios" id="local-extremum-radio" value="option2">
-                        Local Extremum
-                    </label>
-                </div>
-            </div>
-            <div class="col-2">
+            <div class="col-3">
                 <div class="form-group" id=show-extremums">
                     <button type="submit" class="btn btn-primary" id="submit-button" value="extremums" onsubmit="setDatesOnSubmit()">Show Extremum</button>
                 </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" name="extremumRadios" id="globalRadio" value="globalRadioChecked">
+                    <label class="custom-control-label" for="globalRadio">Global Date Range</label>
+                    <div style="font-size: 16px">
+                        <i class="fas fa-question-circle fa:2x" style="margin-left:10px" data-toggle="tooltip" data-placement="right"
+                           title="Exchange rate extremums from within range of dates covering the whole history. Dates cannot be modified in this mode"
+                           trigger="click hover">
+                        </i>
+                    </div>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" >
+                    <input type="radio" class="custom-control-input" name="extremumRadios" id="localRadio" value="localRadioChecked">
+                    <label class="custom-control-label" for="localRadio">Local Date Range</label>
+                    <div style="font-size: 16px">
+                        <i class="fas fa-question-circle fa:2x" style="margin-left:18px" data-toggle="tooltip" data-placement="right"
+                           title="Exchange rate extremums from within range of dates chosen by the user"
+                           trigger="click hover">
+                        </i>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <script>
-            document.getElementById("global-extremum-radio").addEventListener("click", disableDates);
-            document.getElementById("local-extremum-radio").addEventListener("click", enableDates);
-
-
-            function disableDates() {
-                if (document.getElementById("global-extremum-radio").checked = true) {
-                    document.getElementById("date-from").readOnly = true;
-                    document.getElementById("date-to").readOnly = true;
-                } else {
-                    return false;
-                }
-            }
-
-            function enableDates() {
-                if (document.getElementById("local-extremum-radio").checked = true) {
-                    document.getElementById("date-from").readOnly = false;
-                    document.getElementById("date-to").readOnly = false;
-                } else {
-                    return false;
-                }
-            }
-        </script>
-
-        <p id="demo">Tutaj</p>
-
-        <script>
-            var dateFrom = "something";
-            var dateTo = "${dateTo}";
-            var firstDateFromRepository = "${firstDateFromRepository}";
-            var lastDateFromRepository = "${lastDateFromRepository}";
-
-            function setDatesOnSubmit() {
-                document.getElementById("demo").innerHTML = "The value of dateFrom is: " + dateFrom;
-                document.getElementById("demo").innerHTML = "The value of dateTo is: " + dateTo;
-                document.getElementById("demo").innerHTML = "The value of firstDateFromRepository is: " + firstDateFromRepository;
-                document.getElementById("demo").innerHTML = "The value of lastDateFromRepository is: " + lastDateFromRepository;
-
-                if (document.getElementById("local-extremum-radio").checked = true {
-                    document.getElementById("date-from").value = dateFrom;
-                    document.getElementById("date-to").value = dateTo;
-                } else if (document.getElementById("global-extremum-radio").checked = true) {
-                    document.getElementById("date-from").value = firstDateFromRepository;
-                    document.getElementById("date-to").value = lastDateFromRepository;
-                )
-            } else {
-                })
-            }
-        </script>
 
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date From</label>
                     <#if isDateFromAfterDateTo == false>
-                        <input type="date" class="form-control" id="date-from" name="dateFrom" readonly
+                        <input type="date" class="form-control" id="date-from" name="dateFrom" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date-from-invalid" name="dateFrom"
+                        <input type="date" class="form-control is-invalid" id="date-from-invalid" name="dateFrom" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateFrom}>
@@ -264,12 +221,12 @@
                 <div class="form-group">
                     <label for="date">Date To</label>
                     <#if isDateFromAfterDateTo == false>
-                        <input type="date" class="form-control" id="date-to" name="dateTo" readonly
+                        <input type="date" class="form-control" id="date-to" name="dateTo" required
                                 min=${currencyRepository.getFirstDateFromRepository()}
                                 max=${currencyRepository.getLastDateFromRepository()}
                                 value=${dateTo}>
                     <#else>
-                        <input type="date" class="form-control is-invalid" id="date-to-invalid" name="dateTo"
+                        <input type="date" class="form-control is-invalid" id="date-to-invalid" name="dateTo" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
                                value=${dateTo}>
@@ -350,13 +307,58 @@
     </div>
 </div>
 
+<script>
+    var dateFrom = "${dateFrom}";
+    var dateTo = "${dateTo}";
+    var firstDateFromRepository = "${firstDateFromRepository}";
+    var lastDateFromRepository = "${lastDateFromRepository}";
+    var radioChecked = "${radioChecked}";
 
+    document.getElementById("globalRadio").addEventListener("click", prepareFormOnGlobalClick);
+    document.getElementById("localRadio").addEventListener("click", prepareFormOnLocalClick);
+    window.onload = prepareFormOnLoad();
+
+    function prepareFormOnLoad() {
+        if (radioChecked === "globalRadioChecked") {
+            document.getElementById("globalRadio").checked = true;
+            setDatesReadOnlyTrue();
+        } else {
+            document.getElementById("localRadio").checked = true;
+            setDatesReadOnlyFalse();
+        }
+    }
+
+    function prepareFormOnGlobalClick() {
+        setDatesReadOnlyTrue();
+        document.getElementById("date-from").value = firstDateFromRepository;
+        document.getElementById("date-to").value = lastDateFromRepository;
+    }
+
+    function prepareFormOnLocalClick() {
+        setDatesReadOnlyFalse();
+        document.getElementById("date-from").value = dateFrom;
+        document.getElementById("date-to").value = dateTo;
+    }
+
+    function setDatesReadOnlyTrue() {
+        document.getElementById("date-from").readOnly = true;
+        document.getElementById("date-to").readOnly = true;
+    }
+
+    function setDatesReadOnlyFalse() {
+        document.getElementById("date-from").readOnly = false;
+        document.getElementById("date-to").readOnly = false;
+    }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-<script src="scripts.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
 <#include "footer.html">
 </body>
 </html>

@@ -11,6 +11,7 @@ import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
+import com.sun.javafx.collections.MappingChange;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -26,8 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/local-extremum")
-public class LocalExtremumServlet extends HttpServlet {
+@WebServlet("/extremum")
+public class ExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
@@ -40,12 +41,14 @@ public class LocalExtremumServlet extends HttpServlet {
     private DataValidator dataValidator = new DataValidator();
     private Boolean isDateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
-    List<Currency> minExtremum;
-    List<Currency> maxExtremum;
+    private List<Currency> minExtremum;
+    private List<Currency> maxExtremum;
+    private String radioChecked = "globalRadioChecked";
     private static final String CURRENCY_NAME_PARAMETER = "currencyName";
     private static final String DATE_FROM_PARAMETER = "dateFrom";
     private static final String DATE_TO_PARAMETER = "dateTo";
     private static final String USER_NAME_PARAMETER = "userName";
+    private static final String EXTREMUM_RADIOS_PARAMETER = "extremumRadios";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -108,6 +111,7 @@ public class LocalExtremumServlet extends HttpServlet {
         model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
+        model.put("radioChecked", radioChecked);
         model.put("logged", userName);
 
         try {
@@ -125,6 +129,9 @@ public class LocalExtremumServlet extends HttpServlet {
         currencyName = currencyNameTab[0];
         dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
         dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
+
+        String[] radioStates = req.getParameterValues(EXTREMUM_RADIOS_PARAMETER);
+        radioChecked = radioStates[0];
 
         isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
         if (!isDateFromAfterDateTo) {

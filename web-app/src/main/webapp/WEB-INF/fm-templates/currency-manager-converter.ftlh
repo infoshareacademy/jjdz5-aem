@@ -145,7 +145,7 @@
 </head>
 
 <body>
-    <#--<h6 align="right">User: ${logged}</h6>-->
+<h6 align="right">User: ${logged}</h6>
 <#include "manager-menu.html">
 
 <div class="container" >
@@ -208,6 +208,7 @@
                     <input id="date"
                            type="date"
                            name="date"
+                           required
                            min=${score.getMinDate()} max=${score.getMaxDate()}
                            value=${score.getDateExchange()}
                                    class="form-control" />
