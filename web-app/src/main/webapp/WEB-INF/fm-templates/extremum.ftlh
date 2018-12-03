@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="col-5">
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info" role="alert" style="padding-top: 6px; padding-bottom: 6px">
                     <i class="fas fa-info-circle" style="margin-right:5px"></i>
                     1 PLN is the base unit for all the values shown below
                 </div>
@@ -234,6 +234,8 @@
                                value=${dateTo}>
                     </#if>
                 </div>
+            </div>
+            <div class="col-4">
             </div>
         </div>
     </form>
