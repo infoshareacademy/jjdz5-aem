@@ -167,7 +167,9 @@
                 </div>
             </div>
             <div class="col-5">
-                <div class="form-group">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle" style="margin-right:5px"></i>
+                    1 PLN is the base unit for all the values shown below
                 </div>
             </div>
             <div class="col-3">
@@ -188,7 +190,7 @@
                     <input type="radio" class="custom-control-input" name="extremumRadios" id="localRadio" value="localRadioChecked">
                     <label class="custom-control-label" for="localRadio">Local Date Range</label>
                     <div style="font-size: 16px">
-                        <i class="fas fa-question-circle fa:2x" style="margin-left:18px" data-toggle="tooltip" data-placement="right"
+                        <i class="fas fa-question-circle fa:2x" style="margin-left:19px" data-toggle="tooltip" data-placement="right"
                            title="Exchange rate extremums from within range of dates chosen by the user"
                            trigger="click hover">
                         </i>
