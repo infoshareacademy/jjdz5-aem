@@ -17,7 +17,6 @@ public class ConversionApiOnCurrencyObject {
     DataValidator dataValidator = new DataValidator();
 
     public void importCurrencyFromApiToTheStaticList() {
-        HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
         historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
         parseApiTableOnCurrencyTable();
         CurrencyRepository currencyRepository = new CurrencyRepository();
