@@ -2,6 +2,11 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+          content="926732976801-63jco5oge4dhrqb490m6e9k7357khl28.apps.googleusercontent.com">
     <title>Currency Manager</title>
     <style>
         .container .row #footer {
