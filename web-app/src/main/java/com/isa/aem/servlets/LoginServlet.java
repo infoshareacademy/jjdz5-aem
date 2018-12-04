@@ -35,8 +35,6 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute(USER_NAME_PARAMETER, name);
             resp.sendRedirect("/currency-manager");
-//            req.getServletContext()
-//                    .getRequestDispatcher("/currency-manager").forward(req, resp);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

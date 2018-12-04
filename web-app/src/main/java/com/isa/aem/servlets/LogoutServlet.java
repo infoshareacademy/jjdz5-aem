@@ -19,13 +19,10 @@ public class LogoutServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.invalidate();
 
-
-            LOG.info("Wylogowanie ze strony. Powrót do strony głównej.");
+            LOG.info("Logout, return to main site.");
             resp.sendRedirect("/calculator");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }
