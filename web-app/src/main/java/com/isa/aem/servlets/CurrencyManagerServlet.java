@@ -27,6 +27,10 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends CalculatorComponents {
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

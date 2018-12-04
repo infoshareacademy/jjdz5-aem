@@ -18,6 +18,11 @@ import java.util.Map;
 public class CalculatorServlet extends CalculatorComponents {
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Currency> singleCurrency = currencyRepository.getCurrenciesWithFullNameAndFlag();
 
