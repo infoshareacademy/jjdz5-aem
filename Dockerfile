@@ -2,11 +2,10 @@ FROM jboss/wildfly:13.0.0.Final
 
 LABEL maintainer="adam.smakulski@gamil.com"
 
-COPY web-app/target/web-app.war /opt/jboss/wildfly/standalone/deployments/
+COPY /web-app/target/web-app.war /opt/jboss/wildfly/standalone/deployments/
 COPY /.currencyDataFiles /opt/jboss/.currencyDataFiles
 RUN /opt/jboss/wildfly/bin/add-user.sh cm pass123 --silent
 
-CMD ["mvn clean package"]
 CMD ["echo Waiting 5 seconds"]
 CMD ["sleep", "5"]
 CMD ["echo Starting Wildfly"]
