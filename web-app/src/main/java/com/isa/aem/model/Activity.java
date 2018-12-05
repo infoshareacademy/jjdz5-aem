@@ -1,6 +1,11 @@
 package com.isa.aem.model;
 
+import com.isa.aem.model.selects.CalculatorTracking;
+import com.isa.aem.model.selects.GlobalExtremumTracking;
+import com.isa.aem.model.selects.LocalExtremumTracking;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ACTIVITIES")
@@ -16,19 +21,31 @@ public class Activity {
     @Column(name = UNIQU_ID)
     private Long id;
 
-    @Column(name = LOCAL_EXTREME_COLUMN)
-    private String local;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = GLOBAL_EXTREME_COLUMN)
-    private String global;
+    @OneToMany
+    @JoinColumn(name = "calculator_id")
+    private List<CalculatorTracking> calculatorTracking;
 
-    @Column(name = CALCULATOR)
-    private String calculator;
+    @OneToMany
+    @JoinColumn(name = "global_extremum_id")
+    private List<GlobalExtremumTracking> globalTracking;
 
-    public Activity(String local, String global, String calculator) {
-        this.local = local;
-        this.global = global;
-        this.calculator = calculator;
+    @OneToMany
+    @JoinColumn
+    private List<LocalExtremumTracking> localTracking;
+
+    public Activity(
+            User user,
+            List<CalculatorTracking> calculatorTracking,
+            List<GlobalExtremumTracking> globalTracking,
+            List<LocalExtremumTracking> localTracking) {
+        this.user = user;
+        this.calculatorTracking = calculatorTracking;
+        this.globalTracking = globalTracking;
+        this.localTracking = localTracking;
     }
 
     public Activity() {
@@ -42,27 +59,35 @@ public class Activity {
         this.id = id;
     }
 
-    public String getLocal() {
-        return local;
+    public List<CalculatorTracking> getCalculatorTracking() {
+        return calculatorTracking;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setCalculatorTracking(List<CalculatorTracking> calculatorTracking) {
+        this.calculatorTracking = calculatorTracking;
     }
 
-    public String getGlobal() {
-        return global;
+    public List<GlobalExtremumTracking> getGlobalTracking() {
+        return globalTracking;
     }
 
-    public void setGlobal(String global) {
-        this.global = global;
+    public void setGlobalTracking(List<GlobalExtremumTracking> globalTracking) {
+        this.globalTracking = globalTracking;
     }
 
-    public String getCalculator() {
-        return calculator;
+    public List<LocalExtremumTracking> getLocalTracking() {
+        return localTracking;
     }
 
-    public void setCalculator(String calculator) {
-        this.calculator = calculator;
+    public void setLocalTracking(List<LocalExtremumTracking> localTracking) {
+        this.localTracking = localTracking;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

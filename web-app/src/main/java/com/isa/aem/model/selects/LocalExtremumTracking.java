@@ -1,5 +1,7 @@
 package com.isa.aem.model.selects;
 
+import com.isa.aem.model.Activity;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -26,10 +28,18 @@ public class LocalExtremumTracking {
     @Column(name = DATA_AND_TIME_WHEN_USER_SELECTED_OPTION)
     private LocalDateTime localDateTime;
 
-    public LocalExtremumTracking(String currencyName, Double amount, LocalDateTime localDateTime) {
+    @ManyToOne
+    @JoinColumn(name = "activity")
+    private Activity activity;
+
+    public LocalExtremumTracking(String currencyName,
+                                 Double amount,
+                                 LocalDateTime localDateTime,
+                                 Activity activity) {
         this.currencyName = currencyName;
         this.amount = amount;
         this.localDateTime = localDateTime;
+        this.activity = activity;
     }
 
     public LocalExtremumTracking() {
@@ -65,5 +75,13 @@ public class LocalExtremumTracking {
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 }
