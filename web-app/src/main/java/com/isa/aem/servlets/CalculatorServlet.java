@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/calculator")
-public class CalculatorServlet extends CalculatorComponents {
+public class CalculatorServlet extends CalculatorComponentsServlet {
 
     @Override
     public void init() throws ServletException {

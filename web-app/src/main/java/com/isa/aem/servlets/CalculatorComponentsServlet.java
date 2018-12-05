@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
-@WebServlet
-public class CalculatorComponents extends HttpServlet {
+
+public class CalculatorComponentsServlet extends HttpServlet {
 
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
