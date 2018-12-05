@@ -12,11 +12,13 @@ import com.isa.aem.freemarker.TemplateProvider;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
+@WebServlet
 public class CalculatorComponents extends HttpServlet {
 
     protected Score score = new Score();
@@ -36,7 +38,6 @@ public class CalculatorComponents extends HttpServlet {
     protected static final String ACTION_BUTTON_CALCULATOR = "calculator";
     protected static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
     protected CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
-
 
     @Inject
     public TemplateProvider templateProvider;
