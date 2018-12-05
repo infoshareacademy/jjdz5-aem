@@ -11,21 +11,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConversionApiOnCurrencyObject {
+public class CurrencyApiTranslator {
     HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
     public List<Currency> dateTable = new ArrayList<>();
     DataValidator dataValidator = new DataValidator();
 
     public void importCurrencyFromApiToTheStaticList() {
         historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
-        parseApiTableOnCurrencyTable();
+        parseApiTableToCurrencyTable();
         CurrencyRepository currencyRepository = new CurrencyRepository();
         currencyRepository.setCurrencies(dateTable);
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.addPLNToListCurrency();
     }
 
-    public List<Currency> parseApiTableOnCurrencyTable() {
+    public List<Currency> parseApiTableToCurrencyTable() {
         historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
         for (int iterator = 0; iterator < historyLoaderNbp.historyListNbp.size(); iterator++) {
             for (CurrencyRates currencyRates : historyLoaderNbp.historyListNbp.get(iterator)) {
