@@ -7,7 +7,7 @@ services:
       - MYSQL_ROOT_PASSWORD=pass123
       - MYSQL_DATABASE=currency_manager_db
       - MYSQL_USER=cm
-      - MYSQL_PASSWORD=cm
+      - MYSQL_PASSWORD=pass123
       - TZ=Europe/Warsaw
     ports:
       - 4262:3306
