@@ -49,16 +49,15 @@ public class GenericServlet<T> extends HttpServlet {
     }
 
     public void add(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        findAll(req, resp);
+
     }
 
     public void delete(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
-        findAll(req, resp);
+
     }
 
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        findAll(req, resp);
     }
 
     public void findAll(HttpServletRequest req, HttpServletResponse resp)

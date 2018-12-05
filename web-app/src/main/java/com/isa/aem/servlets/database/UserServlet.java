@@ -44,8 +44,7 @@ public class UserServlet extends GenericServlet<User> {
         final User user = new User(name, email, isAdmin);
         daoTemplate.save(user);
 
-        super.add(req, resp);
-        super.add(req, resp);
+        findAll(req, resp);
     }
 
     @Override
@@ -53,12 +52,12 @@ public class UserServlet extends GenericServlet<User> {
         Long id = getIdByParameter(req);
         userDao.delete(id);
 
-        super.delete(req, resp);
+        findAll(req, resp);
     }
 
     @Override
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        super.update(req, resp);
+        findAll(req, resp);
     }
 
     private Boolean isAdmin(String admin, String parameter) {
