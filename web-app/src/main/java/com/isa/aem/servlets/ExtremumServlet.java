@@ -11,7 +11,6 @@ import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
-import com.sun.javafx.collections.MappingChange;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -32,14 +31,11 @@ public class ExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
-    private CurrencyNameCountryFlags currencyNameCountryFlags = new CurrencyNameCountryFlags();
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    private LocalDate firstDateFromRepository;
-    private LocalDate lastDateFromRepository;
     private String currencyName;
     private DataValidator dataValidator = new DataValidator();
-    private Boolean isDateFromAfterDateTo = Boolean.FALSE;
+    private Boolean dateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
     private List<Currency> minExtremum;
     private List<Currency> maxExtremum;
@@ -71,44 +67,21 @@ public class ExtremumServlet extends HttpServlet {
         List<Currency> currenciesWithFullNameAndFlag = currencyRepository.getCurrenciesWithFullNameAndFlag();
 
         Template template = templateProvider
-                .getTemplate(getServletContext(), TemplateName.LOCAL_EXTREMUM.getName());
+                .getTemplate(getServletContext(), TemplateName.EXTREMUM.getName());
 
-        if (currencyName == null) {
-            if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
-                currencyName = defaultCurrencyName;
-            } else {
-                currencyName = currencyRepository.getFirstAvailableCurrencyName();
-            }
-        }
-
-        if (dateFrom == null) {
-            firstDateFromRepository = currencyRepository.getFirstDateFromRepository();
-            dateFrom = firstDateFromRepository;
-        }
-
-        if (dateTo == null) {
-            lastDateFromRepository = currencyRepository.getLastDateFromRepository();
-            dateTo = lastDateFromRepository;
-        }
-
-        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
-        if (!isDateFromAfterDateTo) {
-            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
-        }
+        setDefaultCurrency();
+        setDefaultDates();
+        calculateExtremum();
 
         Object userName = req.getSession().getAttribute(USER_NAME_PARAMETER);
+
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
         model.put("currencyName", currencyName);
         model.put("currenciesWithFullNameAndFlag", currenciesWithFullNameAndFlag);
-        model.put("currencyNameCountryFlags", currencyNameCountryFlags);
         model.put("dateFrom", dateFrom);
         model.put("dateTo", dateTo);
-        model.put("firstDateFromRepository", firstDateFromRepository);
-        model.put("lastDateFromRepository", lastDateFromRepository);
-        model.put("exchangeRateExtremum", exchangeRateExtremum);
-        model.put("isDateFromAfterDateTo", isDateFromAfterDateTo);
+        model.put("dateFromAfterDateTo", dateFromAfterDateTo);
         model.put("minExtremum", minExtremum);
         model.put("maxExtremum", maxExtremum);
         model.put("radioChecked", radioChecked);
@@ -133,12 +106,36 @@ public class ExtremumServlet extends HttpServlet {
         String[] radioStates = req.getParameterValues(EXTREMUM_RADIOS_PARAMETER);
         radioChecked = radioStates[0];
 
-        isDateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
-        if (!isDateFromAfterDateTo) {
+        calculateExtremum();
+
+        doGet(req, resp);
+    }
+
+    private void setDefaultCurrency() {
+        if (currencyName == null) {
+            if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
+                currencyName = defaultCurrencyName;
+            } else {
+                currencyName = currencyRepository.getFirstAvailableCurrencyName();
+            }
+        }
+    }
+
+    private void setDefaultDates() {
+        if (dateFrom == null) {
+            dateFrom = currencyRepository.getFirstDateFromRepository();
+        }
+
+        if (dateTo == null) {
+            dateTo = currencyRepository.getLastDateFromRepository();
+        }
+    }
+
+    private void calculateExtremum() {
+        dateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
+        if (!dateFromAfterDateTo) {
             minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
             maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
         }
-
-        doGet(req, resp);
     }
 }

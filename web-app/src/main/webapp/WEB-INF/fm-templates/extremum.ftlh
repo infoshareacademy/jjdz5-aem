@@ -203,7 +203,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date From</label>
-                    <#if isDateFromAfterDateTo == false>
+                    <#if dateFromAfterDateTo == false>
                         <input type="date" class="form-control" id="date-from" name="dateFrom" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
@@ -222,7 +222,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="date">Date To</label>
-                    <#if isDateFromAfterDateTo == false>
+                    <#if dateFromAfterDateTo == false>
                         <input type="date" class="form-control" id="date-to" name="dateTo" required
                                 min=${currencyRepository.getFirstDateFromRepository()}
                                 max=${currencyRepository.getLastDateFromRepository()}
@@ -236,6 +236,7 @@
                 </div>
             </div>
             <div class="col-4">
+                <p id="demo"></p>
             </div>
         </div>
     </form>
@@ -314,8 +315,6 @@
 <script>
     var dateFrom = "${dateFrom}";
     var dateTo = "${dateTo}";
-    var firstDateFromRepository = "${firstDateFromRepository}";
-    var lastDateFromRepository = "${lastDateFromRepository}";
     var radioChecked = "${radioChecked}";
 
     document.getElementById("globalRadio").addEventListener("click", prepareFormOnGlobalClick);
@@ -334,8 +333,8 @@
 
     function prepareFormOnGlobalClick() {
         setDatesReadOnlyTrue();
-        document.getElementById("date-from").value = firstDateFromRepository;
-        document.getElementById("date-to").value = lastDateFromRepository;
+        document.getElementById("date-from").value = dateFrom;
+        document.getElementById("date-to").value = dateTo;
     }
 
     function prepareFormOnLocalClick() {
