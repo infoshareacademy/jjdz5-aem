@@ -12,12 +12,12 @@ public class CurrencyDetails {
     @JsonProperty
     private String code;
     @JsonProperty("mid")
-    private BigDecimal rate;
+    private Double rate;
 
     public CurrencyDetails() {
     }
 
-    public CurrencyDetails(String currency, String code, BigDecimal rate) {
+    public CurrencyDetails(String currency, String code, Double rate) {
         this.currency = currency;
         this.code = code;
         this.rate = rate;
@@ -39,11 +39,11 @@ public class CurrencyDetails {
         this.code = code;
     }
 
-    public BigDecimal getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
