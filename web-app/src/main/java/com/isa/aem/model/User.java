@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user")
+    @Column(name = "name")
     @NotNull
     private String userName;
 
@@ -23,12 +24,18 @@ public class User {
     @NotNull
     private String email;
 
-    @Column(name = "status")
+    @Column(name = "is_admin")
     @NotNull
     private Boolean isAdmin;
 
-    @Column(name = "date_time")
-    private LocalDate localDate;
+    @Column(name = "logged_in")
+    private LocalDateTime loggedIn;
+
+    @Column(name = "logged_out")
+    private LocalDateTime loggedOut;
+
+    @Column(name = "is_logged")
+    private Boolean isLogged;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Activity> activities;
