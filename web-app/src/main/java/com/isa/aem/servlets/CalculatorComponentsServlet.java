@@ -47,7 +47,6 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        fileContentReader = new FileContentReader();
         currencyApiTranslator.importCurrencyFromApiToTheStaticList();
         currencyRepository.getCurrencies();
         currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
