@@ -13,7 +13,6 @@ import com.isa.aem.freemarker.TemplateProvider;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +23,9 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
-    CurrencyApiTranslator currencyApiTranslator=new CurrencyApiTranslator();
     CurrencyRepository currencyRepository = new CurrencyRepository();
+    FileContentReader fileContentReader = new FileContentReader();
+    CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
     protected String defaultCurrencyNameHave;
     protected String defaultCurrencyNameWant;
     protected static final Double DEFAULT_AMOUNT = 100.00;
@@ -43,16 +43,13 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Inject
     public TemplateProvider templateProvider;
-  //  public FileContentReader fileContentReader;
     public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
 
     @Override
     public void init() throws ServletException {
+        fileContentReader = new FileContentReader();
         currencyApiTranslator.importCurrencyFromApiToTheStaticList();
         currencyRepository.getCurrencies();
-//        fileContentReader = new FileContentReader();
-//        fileContentReader.readFile();
-//        fileContentReader.addPLNToListCurrency();
         currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 
         AppProperties appProperties = PropertiesLoader.loadProperties();

@@ -123,8 +123,8 @@ public class CurrencyRepository {
         Set<Currency> currencyNameAndCountry = new HashSet<>();
         for (Currency cc : getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            Optional<CurrencyNameCountryFlags> currencyNameAndCountryOptional= currencyNameAndCountryOptional=Optional.ofNullable(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            if(currencyNameAndCountryOptional.isPresent()){
+            Optional<CurrencyNameCountryFlags> currencyNameAndCountryOptional = currencyNameAndCountryOptional = Optional.ofNullable(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            if (currencyNameAndCountryOptional.isPresent()) {
                 currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
             }
         }

@@ -8,7 +8,9 @@ import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CreateAListOfAvailableCurrencies {
     private CurrencyExchangeRateRepository currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
@@ -39,12 +41,13 @@ public class CreateAListOfAvailableCurrencies {
             String name = nameCurrencyWant.getName();
             nameCurrencyWant.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(nameCurrencyWant.getName()));
             tableListCurrencyObject.add(new CurrencyExchangeRate(dateMin, dateMax, range, name, value, nameCurrencyWant.getCurrencyNameCountryFlags()));
-
         }
     }
 
     public List<CurrencyExchangeRate> getTableListCurrencyObject() {
-        return tableListCurrencyObject;
+        return tableListCurrencyObject.stream()
+                .sorted(Comparator.comparing(CurrencyExchangeRate::getName))
+                .collect(Collectors.toList());
     }
 
     public void setTableListCurrencyObject(List<CurrencyExchangeRate> tableListCurrencyObject) {
