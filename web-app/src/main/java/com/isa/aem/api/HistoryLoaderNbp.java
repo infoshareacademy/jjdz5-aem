@@ -13,7 +13,7 @@ public class HistoryLoaderNbp {
     LocalDate dateStart = dateMethod.MIN_DATE_NBP_API;
     LocalDate dateEnd = dateStart.plusDays(dateMethod.MAX_DATE_RANGE_NBP_API);
 
-    public void loadAllCurrencyHistoryFromNbpApi() {
+    public List<List<CurrencyRates>> loadAllCurrencyHistoryFromNbpApi() {
         Integer iCount = 1;
         Long daysToDownload = dateMethod.countDaysOfNbpHistory();
         while (iCount < dateMethod.countTheNumberOfRepetitionsMaxRangeNbp()) {
@@ -26,5 +26,6 @@ public class HistoryLoaderNbp {
             daysToDownload = dateMethod.countRangeToDownload(dateEnd);
             iCount++;
         }
+        return historyListNbp;
     }
 }
