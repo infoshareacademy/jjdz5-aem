@@ -15,6 +15,7 @@ public class Activity {
     private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
     private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
     private static final String DATE_TO_GIVEN_BY_USER = "date_to";
+    private static final String CALCULATOR_DATE_GIVEN_BY_USER = "calculator_date";
     private static final String DATE_WHEN_USER_MADE_ACTION = "action_date";
     private static final String ACTION_TYPE_BY_USER = "type";
 
@@ -41,6 +42,9 @@ public class Activity {
     @Column(name = DATE_TO_GIVEN_BY_USER)
     private LocalDate dateTo;
 
+    @Column(name = CALCULATOR_DATE_GIVEN_BY_USER)
+    private LocalDate calculatorDate;
+
     @Column(name = DATE_WHEN_USER_MADE_ACTION)
     private LocalDateTime actionDate;
 
@@ -54,6 +58,7 @@ public class Activity {
                     Double amount,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
+                    LocalDate calculatorDate,
                     LocalDateTime actionDate,
                     ActionType actionType) {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
@@ -62,6 +67,7 @@ public class Activity {
         this.amount = amount;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
+        this.calculatorDate = calculatorDate;
         this.actionDate = actionDate;
         this.actionType = actionType;
     }
@@ -139,5 +145,13 @@ public class Activity {
 
     public void setExtremumCurrency(String extremumCurrency) {
         this.extremumCurrency = extremumCurrency;
+    }
+
+    public LocalDate getCalculatorDate() {
+        return calculatorDate;
+    }
+
+    public void setCalculatorDate(LocalDate calculatorDate) {
+        this.calculatorDate = calculatorDate;
     }
 }
