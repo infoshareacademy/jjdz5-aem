@@ -32,10 +32,10 @@ public class Activity {
     private Double amount;
 
     @Column(name = DATE_FROM_GIVEN_BY_USER)
-    private LocalDate calculatorDateFrom;
+    private LocalDate dateFrom;
 
     @Column(name = DATE_TO_GIVEN_BY_USER)
-    private LocalDate calculatorDateTo;
+    private LocalDate dateTo;
 
     @Column(name = DATE_WHEN_USER_MADE_ACTION)
     private LocalDateTime actionDate;
@@ -54,8 +54,8 @@ public class Activity {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
         this.calculatorCurrencySecond = calculatorCurrencySecond;
         this.amount = amount;
-        this.calculatorDateFrom = calculatorDateFrom;
-        this.calculatorDateTo = calculatorDateTo;
+        this.dateFrom = calculatorDateFrom;
+        this.dateTo = calculatorDateTo;
         this.actionDate = actionDate;
         this.actionType = actionType;
     }
@@ -95,20 +95,20 @@ public class Activity {
         this.amount = amount;
     }
 
-    public LocalDate getCalculatorDateFrom() {
-        return calculatorDateFrom;
+    public LocalDate getDateFrom() {
+        return dateFrom;
     }
 
-    public void setCalculatorDateFrom(LocalDate calculatoDateFrom) {
-        this.calculatorDateFrom = calculatoDateFrom;
+    public void setDateFrom(LocalDate calculatoDateFrom) {
+        this.dateFrom = calculatoDateFrom;
     }
 
-    public LocalDate getCalculatorDateTo() {
-        return calculatorDateTo;
+    public LocalDate getDateTo() {
+        return dateTo;
     }
 
-    public void setCalculatorDateTo(LocalDate calculatoDateTo) {
-        this.calculatorDateTo = calculatoDateTo;
+    public void setDateTo(LocalDate calculatoDateTo) {
+        this.dateTo = calculatoDateTo;
     }
 
     public LocalDateTime getActionDate() {

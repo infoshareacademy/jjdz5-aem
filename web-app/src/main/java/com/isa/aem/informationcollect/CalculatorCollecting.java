@@ -4,7 +4,6 @@ import com.isa.aem.model.ActionType;
 import com.isa.aem.model.Activity;
 import com.isa.aem.model.User;
 
-import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,8 +28,8 @@ public class CalculatorCollecting {
         activity.setAmount(amount);
         activity.setCalculatorCurrencyFirst(firstCurrency);
         activity.setCalculatorCurrencySecond(secondCurrency);
-        activity.setCalculatorDateFrom(dateFrom);
-        activity.setCalculatorDateTo(dateTo);
+        activity.setDateFrom(dateFrom);
+        activity.setDateTo(dateTo);
         activity.setActionType(ActionType.CALCUALTOR);
         activity.setActionDate(LocalDateTime.now());
 
@@ -39,7 +38,9 @@ public class CalculatorCollecting {
 
     public Activity createLocalExtremeumActivity() {
         Activity activity = new Activity();
-        activity.s
+        activity.setDateFrom(dateFrom);
+        activity.setDateTo(dateTo);
+        activity
 
     }
 }
