@@ -1,54 +1,60 @@
 package com.isa.aem.model;
 
-import javax.ejb.Stateless;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "USERS")
 public class User {
 
+    private static final String UNIQUE_ID = "id";
+    private static final String UNIQUE_ID_BY_ACTIVITY = "activity_id";
+    private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
+    private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "name";
+    private static final String IS_ADMIN = "is_admin";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = UNIQUE_ID)
     private Long id;
 
-    @Column(name = "name")
-    @NotNull
+    @Column(name = USER_NAME_GIVEN_BY_GOOGLE)
     private String userName;
 
-    @Column(name = "email")
-    @NotNull
+    @Column(name = USER_EMAIL_GIVEN_BY_GOOGLE)
     private String email;
 
-    @Column(name = "is_admin")
-    @NotNull
+    @Column(name = IS_ADMIN)
     private Boolean isAdmin;
 
-    @Column(name = "logged_in")
+    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_IN)
     private LocalDateTime loggedIn;
 
-    @Column(name = "logged_out")
+    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_OUT)
     private LocalDateTime loggedOut;
 
-    @Column(name = "is_logged")
-    private Boolean isLogged;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Activity> activities;
+    @OneToOne
+    @JoinColumn(name = UNIQUE_ID_BY_ACTIVITY, unique = true)
+    private Activity activity;
 
     public User() {
 
     }
 
-    public User(String userName, @NotNull String email, @NotNull Boolean isAdmin, List<Activity> activities) {
+    public User(String userName,
+                String email,
+                Boolean isAdmin,
+                LocalDateTime loggedIn,
+                LocalDateTime loggedOut,
+                Activity activity) {
+        this.userName = userName;
         this.email = email;
         this.isAdmin = isAdmin;
-        this.userName = userName;
-        this.activities = activities;
+        this.loggedIn = loggedIn;
+        this.loggedOut = loggedOut;
+        this.activity = activity;
     }
 
     public Long getId() {
@@ -57,6 +63,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -75,11 +89,27 @@ public class User {
         isAdmin = admin;
     }
 
-    public String getUserName() {
-        return userName;
+    public LocalDateTime getLoggedIn() {
+        return loggedIn;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setLoggedIn(LocalDateTime loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public LocalDateTime getLoggedOut() {
+        return loggedOut;
+    }
+
+    public void setLoggedOut(LocalDateTime loggedOut) {
+        this.loggedOut = loggedOut;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 }

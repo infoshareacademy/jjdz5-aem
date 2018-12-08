@@ -8,17 +8,18 @@ import java.time.LocalDateTime;
 @Table(name = "ACTIVITIES")
 public class Activity {
 
-    private static final String UNIQU_ID = "id";
+    private static final String UNIQUE_ID = "id";
     private static final String FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_first";
     private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_second";
-    private static final String AMOUNT_GIVEN_BY_USET_TO_CALCULATOR = "amount";
+    private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
     private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
     private static final String DATE_TO_GIVEN_BY_USER = "date_to";
     private static final String DATE_WHEN_USER_MADE_ACTION = "action_date";
+    private static final String ACTION_TYPE_BY_USER = "type";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = UNIQU_ID)
+    @Column(name = UNIQUE_ID)
     private Long id;
 
     @Column(name = FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR)
@@ -27,32 +28,36 @@ public class Activity {
     @Column(name = SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR)
     private String calculatorCurrencySecond;
 
-    @Column(name = AMOUNT_GIVEN_BY_USET_TO_CALCULATOR)
+    @Column(name = AMOUNT_GIVEN_BY_USER_TO_CALCULATOR)
     private Double amount;
 
     @Column(name = DATE_FROM_GIVEN_BY_USER)
-    private LocalDate calculatoDateFrom;
+    private LocalDate calculatorDateFrom;
 
     @Column(name = DATE_TO_GIVEN_BY_USER)
-    private LocalDate calculatoDateTo;
+    private LocalDate calculatorDateTo;
 
     @Column(name = DATE_WHEN_USER_MADE_ACTION)
     private LocalDateTime actionDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = ACTION_TYPE_BY_USER)
+    private ActionType actionType;
 
-    public Activity(
-            String calculatorCurrencyFirst,
-            String calculatorCurrencySecond,
-            Double amount,
-            LocalDate calculatoDateFrom,
-            LocalDate calculatoDateTo,
-            LocalDateTime actionDate) {
+    public Activity(String calculatorCurrencyFirst,
+                    String calculatorCurrencySecond,
+                    Double amount,
+                    LocalDate calculatorDateFrom,
+                    LocalDate calculatorDateTo,
+                    LocalDateTime actionDate,
+                    ActionType actionType) {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
         this.calculatorCurrencySecond = calculatorCurrencySecond;
         this.amount = amount;
-        this.calculatoDateFrom = calculatoDateFrom;
-        this.calculatoDateTo = calculatoDateTo;
+        this.calculatorDateFrom = calculatorDateFrom;
+        this.calculatorDateTo = calculatorDateTo;
         this.actionDate = actionDate;
+        this.actionType = actionType;
     }
 
     public Activity() {
@@ -90,20 +95,20 @@ public class Activity {
         this.amount = amount;
     }
 
-    public LocalDate getCalculatoDateFrom() {
-        return calculatoDateFrom;
+    public LocalDate getCalculatorDateFrom() {
+        return calculatorDateFrom;
     }
 
-    public void setCalculatoDateFrom(LocalDate calculatoDateFrom) {
-        this.calculatoDateFrom = calculatoDateFrom;
+    public void setCalculatorDateFrom(LocalDate calculatoDateFrom) {
+        this.calculatorDateFrom = calculatoDateFrom;
     }
 
-    public LocalDate getCalculatoDateTo() {
-        return calculatoDateTo;
+    public LocalDate getCalculatorDateTo() {
+        return calculatorDateTo;
     }
 
-    public void setCalculatoDateTo(LocalDate calculatoDateTo) {
-        this.calculatoDateTo = calculatoDateTo;
+    public void setCalculatorDateTo(LocalDate calculatoDateTo) {
+        this.calculatorDateTo = calculatoDateTo;
     }
 
     public LocalDateTime getActionDate() {
@@ -112,5 +117,13 @@ public class Activity {
 
     public void setActionDate(LocalDateTime actionDate) {
         this.actionDate = actionDate;
+    }
+
+    public ActionType getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(ActionType actionType) {
+        this.actionType = actionType;
     }
 }
