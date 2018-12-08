@@ -51,4 +51,6 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
         calculateExchangeRate(req, resp);
         doGet(req, resp);
     }
+
+    private void
 }

@@ -9,14 +9,23 @@ import java.time.LocalDateTime;
 
 public class CalculatorCollecting {
 
-    public void addUser() {
+    public User createUser(String name,
+                           String email,
+                           LocalDateTime loginTime,
+                           LocalDateTime logoutTime,
+                           Boolean isAdmin,
+                           Activity activity
+                           ) {
         User user = new User();
+
         user.setName(name);
         user.setEmail(email);
         user.setLoggedIn(loginTime);
         user.setLoggedOut(logoutTime);
         user.setAdmin(isAdmin);
         user.setActivity(activity);
+
+        return user;
     }
 
     public Activity createCalculatorActivity(Double amount,
@@ -36,11 +45,30 @@ public class CalculatorCollecting {
         return activity;
     }
 
-    public Activity createLocalExtremeumActivity() {
+    public Activity createLocalExtremeumActivity(LocalDate dateFrom,
+                                                 LocalDate dateTo,
+                                                 String currencyName) {
         Activity activity = new Activity();
+
         activity.setDateFrom(dateFrom);
         activity.setDateTo(dateTo);
-        activity
+        activity.setExtremumCurrency(currencyName);
+        activity.setActionType(ActionType.LOCAL);
+        activity.setActionDate(LocalDateTime.now());
 
+        return activity;
+    }
+
+    public Activity createGlobalExtremeumActivity(LocalDate dateFrom,
+                                                  String currencyName) {
+        Activity activity = new Activity();
+
+        activity.setDateFrom(dateFrom);
+        activity.setDateTo(LocalDate.now());
+        activity.setExtremumCurrency(currencyName);
+        activity.setActionType(ActionType.GLOBAL);
+        activity.setActionDate(LocalDateTime.now());
+
+        return activity;
     }
 }
