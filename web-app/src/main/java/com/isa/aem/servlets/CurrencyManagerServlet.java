@@ -1,10 +1,14 @@
 package com.isa.aem.servlets;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.*;
 import com.isa.aem.freemarker.TemplateName;
+import com.isa.aem.informationcollect.RecordCreator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import javax.inject.Inject;
+import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,9 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends CalculatorComponentsServlet {
+
+    @Inject
+    RecordCreator recordCreator;
 
     @Override
     public void init() throws ServletException {
@@ -53,11 +60,21 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
     }
 
     private void trackingUser(HttpServletRequest req) {
+        String idToken = req.getParameter(ID_TOKEN_PARAMETER);
+        GoogleIdToken.Payload payLoad = null;
+        try {
+            payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String name = (String) payLoad.get(NAME_PARAMETER);
+        String email = payLoad.getEmail();
+        long creationTime = req.getSession().getCreationTime();
         String reqAmount = req.getParameter(AMOUNT_PARAMETER);
         String reqHave = req.getParameter(HAVE_PARAMETER);
         String reqWant = req.getParameter(WANT_PARAMETER);
         String reqDate = req.getParameter(DATE_PARAMETER);
 
-
+        recordCreator.createUser(name,email,  )
     }
 }

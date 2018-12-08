@@ -7,7 +7,7 @@ import com.isa.aem.model.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class CalculatorCollecting {
+public class RecordCreator {
 
     public User createUser(String name,
                            String email,
@@ -31,14 +31,12 @@ public class CalculatorCollecting {
     public Activity createCalculatorActivity(Double amount,
                                              String firstCurrency,
                                              String secondCurrency,
-                                             LocalDate dateFrom,
-                                             LocalDate dateTo) {
+                                             LocalDate calculatorDate) {
         Activity activity = new Activity();
         activity.setAmount(amount);
         activity.setCalculatorCurrencyFirst(firstCurrency);
         activity.setCalculatorCurrencySecond(secondCurrency);
-        activity.setDateFrom(dateFrom);
-        activity.setDateTo(dateTo);
+        activity.setCalculatorDate(calculatorDate);
         activity.setActionType(ActionType.CALCUALTOR);
         activity.setActionDate(LocalDateTime.now());
 
