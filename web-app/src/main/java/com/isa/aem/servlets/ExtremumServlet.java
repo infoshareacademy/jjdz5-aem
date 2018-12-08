@@ -1,14 +1,11 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.AppProperties;
-import com.isa.aem.Currency;
-import com.isa.aem.CurrencyNameCountryFlags;
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
-import com.isa.aem.data_loaders.FileContentReader;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
+import com.isa.aem.model.ExtremumObject;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
 import freemarker.template.Template;
@@ -23,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/extremum")
@@ -31,14 +27,10 @@ public class ExtremumServlet extends HttpServlet {
 
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private ExchangeRateExtremum exchangeRateExtremum = new ExchangeRateExtremum();
-    private LocalDate dateFrom;
-    private LocalDate dateTo;
-    private String currencyName;
+    private ExtremumObject extremumObject = new ExtremumObject();
     private DataValidator dataValidator = new DataValidator();
     private Boolean dateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
-    private List<Currency> minExtremum;
-    private List<Currency> maxExtremum;
     private String radioChecked = "globalRadioChecked";
     private static final String CURRENCY_NAME_PARAMETER = "currencyName";
     private static final String DATE_FROM_PARAMETER = "dateFrom";
@@ -48,24 +40,15 @@ public class ExtremumServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
-    public FileContentReader fileContentReader;
-    public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
 
     @Override
     public void init() throws ServletException {
-        fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
-        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
-
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyName = appProperties.getCurrencyNameEur();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<Currency> currenciesWithFullNameAndFlag = currencyRepository.getCurrenciesWithFullNameAndFlag();
-
         Template template = templateProvider
                 .getTemplate(getServletContext(), TemplateName.EXTREMUM.getName());
 
@@ -77,13 +60,8 @@ public class ExtremumServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
         model.put("currencyRepository", currencyRepository);
-        model.put("currencyName", currencyName);
-        model.put("currenciesWithFullNameAndFlag", currenciesWithFullNameAndFlag);
-        model.put("dateFrom", dateFrom);
-        model.put("dateTo", dateTo);
+        model.put("extremumObject", extremumObject);
         model.put("dateFromAfterDateTo", dateFromAfterDateTo);
-        model.put("minExtremum", minExtremum);
-        model.put("maxExtremum", maxExtremum);
         model.put("radioChecked", radioChecked);
         model.put("logged", userName);
 
@@ -96,12 +74,11 @@ public class ExtremumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String currencyNameParam = req.getParameter(CURRENCY_NAME_PARAMETER);
         String[] currencyNameTab = currencyNameParam.split(" - ");
-        currencyName = currencyNameTab[0];
-        dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
-        dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
+        extremumObject.setCurrencyName(currencyNameTab[0]);
+        extremumObject.setDateFrom(LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER)));
+        extremumObject.setDateTo(LocalDate.parse(req.getParameter(DATE_TO_PARAMETER)));
 
         String[] radioStates = req.getParameterValues(EXTREMUM_RADIOS_PARAMETER);
         radioChecked = radioStates[0];
@@ -112,30 +89,30 @@ public class ExtremumServlet extends HttpServlet {
     }
 
     private void setDefaultCurrency() {
-        if (currencyName == null) {
+        if (extremumObject.getCurrencyName() == null) {
             if (currencyRepository.containsCurrencyNameInCurrencyList(defaultCurrencyName)) {
-                currencyName = defaultCurrencyName;
+                extremumObject.setCurrencyName(defaultCurrencyName);
             } else {
-                currencyName = currencyRepository.getFirstAvailableCurrencyName();
+                extremumObject.setCurrencyName(currencyRepository.getFirstAvailableCurrencyName());
             }
         }
     }
 
     private void setDefaultDates() {
-        if (dateFrom == null) {
-            dateFrom = currencyRepository.getFirstDateFromRepository();
+        if (extremumObject.getDateFrom() == null) {
+            extremumObject.setDateFrom(currencyRepository.getFirstDateFromRepository());
         }
 
-        if (dateTo == null) {
-            dateTo = currencyRepository.getLastDateFromRepository();
+        if (extremumObject.getDateTo() == null) {
+            extremumObject.setDateTo(currencyRepository.getLastDateFromRepository());
         }
     }
 
     private void calculateExtremum() {
-        dateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(dateFrom, dateTo);
+        dateFromAfterDateTo = dataValidator.isDateFromAfterDateTo(extremumObject.getDateFrom(), extremumObject.getDateTo());
         if (!dateFromAfterDateTo) {
-            minExtremum = exchangeRateExtremum.getMinExtremum(currencyName, dateFrom, dateTo);
-            maxExtremum = exchangeRateExtremum.getMaxExtremum(currencyName, dateFrom, dateTo);
+            extremumObject.setMinExtremum(exchangeRateExtremum.getMinExtremum(extremumObject.getCurrencyName(), extremumObject.getDateFrom(), extremumObject.getDateTo()));
+            extremumObject.setMaxExtremum(exchangeRateExtremum.getMaxExtremum(extremumObject.getCurrencyName(), extremumObject.getDateFrom(), extremumObject.getDateTo()));
         }
     }
 }

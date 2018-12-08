@@ -156,9 +156,9 @@
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
                     <select class="form-control" id="currencyIWant" name="currencyName">
-                        <#list currenciesWithFullNameAndFlag as ac>
+                        <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
                             <option
-                                <#if ac.getName() == currencyName>
+                                <#if ac.getName() == extremumObject.getCurrencyName()>
                                     selected </#if>>
                                 ${ac.getName()} - ${ac.getCurrencyNameCountryFlags().getCurrency()}
                             </option>
@@ -207,12 +207,12 @@
                         <input type="date" class="form-control" id="date-from" name="dateFrom" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
-                               value=${dateFrom}>
+                               value=${extremumObject.getDateFrom()}>
                     <#else>
                         <input type="date" class="form-control is-invalid" id="date-from-invalid" name="dateFrom" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
-                               value=${dateFrom}>
+                               value=${extremumObject.getDateFrom()}>
                             <div class="invalid-feedback">
                                 <b>Date From</b> is after <b>Date To</b>. Please correct and try again!
                             </div>
@@ -226,12 +226,12 @@
                         <input type="date" class="form-control" id="date-to" name="dateTo" required
                                 min=${currencyRepository.getFirstDateFromRepository()}
                                 max=${currencyRepository.getLastDateFromRepository()}
-                                value=${dateTo}>
+                                value=${extremumObject.getDateTo()}>
                     <#else>
                         <input type="date" class="form-control is-invalid" id="date-to-invalid" name="dateTo" required
                                min=${currencyRepository.getFirstDateFromRepository()}
                                max=${currencyRepository.getLastDateFromRepository()}
-                               value=${dateTo}>
+                               value=${extremumObject.getDateTo()}>
                     </#if>
                 </div>
             </div>
@@ -257,10 +257,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list currenciesWithFullNameAndFlag as ac>
-                <#list minExtremum as minCur>
+                <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
+                <#list extremumObject.getMinExtremum() as minCur>
                 <tr>
-                    <#if ac.getName() == currencyName>
+                    <#if ac.getName() == extremumObject.getCurrencyName()>
                         <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
                                  src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
@@ -292,10 +292,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list currenciesWithFullNameAndFlag as ac>
-                <#list maxExtremum as maxCur>
+                <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
+                <#list extremumObject.getMaxExtremum() as maxCur>
                 <tr>
-                    <#if ac.getName() == currencyName>
+                    <#if ac.getName() == extremumObject.getCurrencyName()>
                         <td><img class="FlagImage-f4dhzl-0 dhyaOy Image-uvbiv3-0 hdHPqe"
                                  src=" ${ac.getCurrencyNameCountryFlags().getUrl()}" width="20" alt=""> ${ac.getName()}</td>
                         <td>${ac.getCurrencyNameCountryFlags().getCurrency()}</td>
@@ -313,8 +313,8 @@
 </div>
 
 <script>
-    var dateFrom = "${dateFrom}";
-    var dateTo = "${dateTo}";
+    var dateFrom = "${extremumObject.getDateFrom()}";
+    var dateTo = "${extremumObject.getDateTo()}";
     var radioChecked = "${radioChecked}";
 
     document.getElementById("globalRadio").addEventListener("click", prepareFormOnGlobalClick);
@@ -333,8 +333,8 @@
 
     function prepareFormOnGlobalClick() {
         setDatesReadOnlyTrue();
-        document.getElementById("date-from").value = dateFrom;
-        document.getElementById("date-to").value = dateTo;
+        document.getElementById("date-from").value = "${currencyRepository.getFirstDateFromRepository()}";
+        document.getElementById("date-to").value = "${currencyRepository.getLastDateFromRepository()}";
     }
 
     function prepareFormOnLocalClick() {
