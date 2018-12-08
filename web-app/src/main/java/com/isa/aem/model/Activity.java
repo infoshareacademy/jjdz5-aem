@@ -11,6 +11,7 @@ public class Activity {
     private static final String UNIQUE_ID = "id";
     private static final String FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_first";
     private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_second";
+    private static final String CURRENCY_GIVEN_BY_USER_IN_EXTREMUM = "extremum_currency";
     private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
     private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
     private static final String DATE_TO_GIVEN_BY_USER = "date_to";
@@ -27,6 +28,9 @@ public class Activity {
 
     @Column(name = SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR)
     private String calculatorCurrencySecond;
+
+    @Column(name = CURRENCY_GIVEN_BY_USER_IN_EXTREMUM)
+    private String extremumCurrency;
 
     @Column(name = AMOUNT_GIVEN_BY_USER_TO_CALCULATOR)
     private Double amount;
@@ -46,6 +50,7 @@ public class Activity {
 
     public Activity(String calculatorCurrencyFirst,
                     String calculatorCurrencySecond,
+                    String extremumCurrency,
                     Double amount,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
@@ -53,6 +58,7 @@ public class Activity {
                     ActionType actionType) {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
         this.calculatorCurrencySecond = calculatorCurrencySecond;
+        this.extremumCurrency = extremumCurrency;
         this.amount = amount;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
@@ -125,5 +131,13 @@ public class Activity {
 
     public void setActionType(ActionType actionType) {
         this.actionType = actionType;
+    }
+
+    public String getExtremumCurrency() {
+        return extremumCurrency;
+    }
+
+    public void setExtremumCurrency(String extremumCurrency) {
+        this.extremumCurrency = extremumCurrency;
     }
 }
