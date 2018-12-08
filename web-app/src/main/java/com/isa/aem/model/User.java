@@ -21,7 +21,7 @@ public class User {
     private Long id;
 
     @Column(name = USER_NAME_GIVEN_BY_GOOGLE)
-    private String userName;
+    private String name;
 
     @Column(name = USER_EMAIL_GIVEN_BY_GOOGLE)
     private String email;
@@ -49,7 +49,7 @@ public class User {
                 LocalDateTime loggedIn,
                 LocalDateTime loggedOut,
                 Activity activity) {
-        this.userName = userName;
+        this.name = userName;
         this.email = email;
         this.isAdmin = isAdmin;
         this.loggedIn = loggedIn;
@@ -65,12 +65,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String userName) {
+        this.name = userName;
     }
 
     public String getEmail() {
