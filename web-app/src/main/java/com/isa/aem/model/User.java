@@ -10,7 +10,7 @@ public class User {
     private static final String UNIQUE_ID = "id";
     private static final String UNIQUE_ID_BY_ACTIVITY = "activity_id";
     private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
-    private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "name";
+    private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "email";
     private static final String IS_ADMIN = "is_admin";
     private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in";
     private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out";
