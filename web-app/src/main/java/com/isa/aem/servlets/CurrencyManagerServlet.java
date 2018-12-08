@@ -52,5 +52,12 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
         doGet(req, resp);
     }
 
-    private void
+    private void trackingUser(HttpServletRequest req) {
+        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
+        String reqHave = req.getParameter(HAVE_PARAMETER);
+        String reqWant = req.getParameter(WANT_PARAMETER);
+        String reqDate = req.getParameter(DATE_PARAMETER);
+
+
+    }
 }
