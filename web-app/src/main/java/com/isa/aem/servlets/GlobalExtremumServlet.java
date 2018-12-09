@@ -43,8 +43,6 @@ public class GlobalExtremumServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         model.put("availableCurrencyNames", availableCurrencyNames);
         model.put("logged", userName);
-
-
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {

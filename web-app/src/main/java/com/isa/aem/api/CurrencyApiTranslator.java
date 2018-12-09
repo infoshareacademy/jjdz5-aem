@@ -10,22 +10,24 @@ import com.isa.aem.utils.DataValidator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CurrencyApiTranslator {
     HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
-    public List<Currency> dateTable = new ArrayList<>();
+    private List<Currency> dateTable = new ArrayList<>();
+    public List<Currency> dateTableSingle = new ArrayList<>();
     DataValidator dataValidator = new DataValidator();
 
     public void importCurrencyFromApiToTheStaticList() {
-        historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
         parseApiTableToCurrencyTable();
         CurrencyRepository currencyRepository = new CurrencyRepository();
-        currencyRepository.setCurrencies(dateTable);
+        currencyRepository.setCurrencies(dateTableSingle);
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.addPLNToListCurrency();
     }
 
     public List<Currency> parseApiTableToCurrencyTable() {
+        HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
         historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
         for (int iterator = 0; iterator < historyLoaderNbp.historyListNbp.size(); iterator++) {
             for (CurrencyRates currencyRates : historyLoaderNbp.historyListNbp.get(iterator)) {
@@ -35,6 +37,6 @@ public class CurrencyApiTranslator {
                 }
             }
         }
-        return dateTable;
+        return dateTableSingle=dateTable.stream().distinct().collect(Collectors.toList());
     }
 }

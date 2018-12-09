@@ -64,6 +64,11 @@ public class CurrencyNameCountryFlags {
         this.url = url;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, currency, country, url);
+    }
+
     public CurrencyNameCountryFlags(String name, String currency, String country, String url) {
         this.name = name;
         this.currency = currency;
@@ -83,6 +88,4 @@ public class CurrencyNameCountryFlags {
     public static void setCurrencies(Map<String, CurrencyNameCountryFlags> currencies) {
         CurrencyNameCountryFlags.currencies = currencies;
     }
-
-
 }
