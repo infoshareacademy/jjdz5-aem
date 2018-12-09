@@ -44,18 +44,6 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public LocalDate getNewestDateMinusOneMonthForChosenCurrencyName(String nameOfCurrency) {
-        return currencies.stream()
-                .filter(currency -> nameOfCurrency.equals(currency.getName()))
-                .map(currency -> currency.getDate())
-                .max((o1, o2) -> o1.compareTo(o2))
-                .get().minusMonths(1);
-    }
-
-    public LocalDate getNewestDateMinusOneMonth() {
-        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate().minusDays(30);
-    }
-
     public LocalDate getOldestDateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
