@@ -114,7 +114,7 @@
 
             <h5>Mimimum</h5>
 
-            <table class="tabela2" cellspacing='0'>
+            <table class="table2" cellspacing='0'>
                 <thead>
                 <tr>
                     <th scope="col">Currency</th>
@@ -149,7 +149,7 @@
 
             <h5>Maximum</h5>
 
-            <table class="tabela2" cellspacing='0'>
+            <table class="table2" cellspacing='0'>
                 <thead>
                 <tr>
                     <th scope="col">Currency</th>

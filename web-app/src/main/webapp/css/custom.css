@@ -49,6 +49,10 @@
     padding-left: 0.6em;
 }
 
+.container h6 {
+    padding-left: 0.6em;
+}
+
 .container .col-7#main_currency, .container .col-7#table_remining {
 
     margin-left: 2em;

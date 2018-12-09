@@ -113,8 +113,8 @@
             </form>
         </div>
         <h5>Currencies</h5>
-        <h6>date: ${availableCurrencyTable[0].getDateMax()}</h6>
-        <table class="tabela2" cellspacing='0'>
+        <h6>Date: ${availableCurrencyTable[0].getDateMax()}</h6>
+        <table class="table2" cellspacing='0'>
             <thead>
             <tr>
                 <th scope="col">Currency</th>
