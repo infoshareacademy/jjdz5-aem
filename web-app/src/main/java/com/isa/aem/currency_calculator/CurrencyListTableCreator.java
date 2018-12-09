@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CreateAListOfAvailableCurrencies {
+public class CurrencyListTableCreator {
     private CurrencyExchangeRateRepository currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
     private LocalDate maxDate;
     private List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();

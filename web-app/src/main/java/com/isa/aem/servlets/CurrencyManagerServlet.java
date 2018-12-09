@@ -37,7 +37,7 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
         model.put("score", score);
         model.put("logged", userName);
         model.put("currencyInTable", currencyInTable);
-        model.put("availableCurrencyTable", createAListOfAvailableCurrencies.getTableListCurrencyObject());
+        model.put("availableCurrencyTable", currencyListTableCreator.getTableListCurrencyObject());
 
         try {
             template.process(model, resp.getWriter());
