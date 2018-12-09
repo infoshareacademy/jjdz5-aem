@@ -127,4 +127,16 @@ public class CurrencyRepository {
         }
         return getSortedCurrencySet(currencyNameAndCountry);
     }
+
+    public List<Currency> getCurrenciesWithFullNameAndFlagWithoutPln() {
+        Set<Currency> currencyNameAndCountry = new HashSet<>();
+        List<Currency> currenciesFiltered = currencies.stream()
+                .filter(currency -> !currency.getName().equals("PLN"))
+                .collect(Collectors.toList());
+        for (Currency cc : currenciesFiltered) {
+            cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
+        }
+        return getSortedCurrencySet(currencyNameAndCountry);
+    }
 }

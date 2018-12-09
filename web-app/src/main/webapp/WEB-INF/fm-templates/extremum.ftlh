@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="currencyIWant">Currency Selection</label>
                     <select class="form-control" id="currencyIWant" name="currencyName">
-                        <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
+                        <#list currencyRepository.getCurrenciesWithFullNameAndFlagWithoutPln() as ac>
                             <option
                                 <#if ac.getName() == extremumObject.getCurrencyName()>
                                     selected </#if>>
@@ -125,7 +125,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
+                <#list currencyRepository.getCurrenciesWithFullNameAndFlagWithoutPln() as ac>
                 <#list extremumObject.getMinExtremum() as minCur>
                 <tr>
                     <#if ac.getName() == extremumObject.getCurrencyName()>
@@ -160,7 +160,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list currencyRepository.getCurrenciesWithFullNameAndFlag() as ac>
+                <#list currencyRepository.getCurrenciesWithFullNameAndFlagWithoutPln() as ac>
                 <#list extremumObject.getMaxExtremum() as maxCur>
                 <tr>
                     <#if ac.getName() == extremumObject.getCurrencyName()>
