@@ -2,18 +2,19 @@ package com.isa.aem.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
 public class User {
 
     private static final String UNIQUE_ID = "id";
-    private static final String UNIQUE_ID_BY_ACTIVITY = "activity_id";
+    private static final String USER_MAPPED = "user";
     private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
     private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "email";
     private static final String IS_ADMIN = "is_admin";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in_date_time";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out_date_time";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +36,8 @@ public class User {
     @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_OUT)
     private LocalDateTime loggedOut;
 
-    @OneToOne
-    @JoinColumn(name = UNIQUE_ID_BY_ACTIVITY, unique = true)
-    private Activity activity;
+    @OneToMany(mappedBy = USER_MAPPED, fetch = FetchType.LAZY)
+    private List<Activity> activity;
 
     public User() {
 
@@ -47,14 +47,12 @@ public class User {
                 String email,
                 Boolean isAdmin,
                 LocalDateTime loggedIn,
-                LocalDateTime loggedOut,
-                Activity activity) {
+                LocalDateTime loggedOut) {
         this.userName = userName;
         this.email = email;
         this.isAdmin = isAdmin;
         this.loggedIn = loggedIn;
         this.loggedOut = loggedOut;
-        this.activity = activity;
     }
 
     public Long getId() {
@@ -105,11 +103,11 @@ public class User {
         this.loggedOut = loggedOut;
     }
 
-    public Activity getActivity() {
+    public List<Activity> getActivity() {
         return activity;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(List<Activity> activity) {
         this.activity = activity;
     }
 }
