@@ -2,6 +2,7 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
+import com.isa.aem.api.CurrencyApiTranslator;
 import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
@@ -23,6 +24,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
+    FileContentReader fileContentReader = new FileContentReader();
+    CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
     protected String defaultCurrencyNameHave;
     protected String defaultCurrencyNameWant;
     protected static final Double DEFAULT_AMOUNT = 100.00;
@@ -36,18 +39,16 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected static final String ACTION_BUTTON = "action";
     protected static final String ACTION_BUTTON_CALCULATOR = "calculator";
     protected static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
-    protected CurrencyListTableCreator createAListOfAvailableCurrencies = new CurrencyListTableCreator();
+    protected CurrencyListTableCreator currencyListTableCreator = new CurrencyListTableCreator();
 
     @Inject
     public TemplateProvider templateProvider;
-    public FileContentReader fileContentReader;
     public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
 
     @Override
     public void init() throws ServletException {
-        fileContentReader = new FileContentReader();
-        fileContentReader.readFile();
-        fileContentReader.addPLNToListCurrency();
+        currencyApiTranslator.importCurrencyFromApiToTheStaticList();
+        currencyRepository.getCurrencies();
         currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
@@ -84,7 +85,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         if (currencyInTable == null) {
             currencyInTable = defaultCurrencyNameHave;
-            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies.availableCurrencyObjects(currencyInTable));
+            currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator.availableCurrencyObjects(currencyInTable));
         }
     }
 
@@ -106,11 +107,11 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
-            CurrencyListTableCreator createAListOfAvailableCurrencies1 = new CurrencyListTableCreator();
+            CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
             String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
-            createAListOfAvailableCurrencies.setTableListCurrencyObject(createAListOfAvailableCurrencies1.availableCurrencyObjects(currencyInTable));
+            currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
         }
     }
 }
