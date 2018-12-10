@@ -18,17 +18,17 @@ public class CurrencyApiTranslator {
     public List<Currency> dateTableSingle = new ArrayList<>();
     DataValidator dataValidator = new DataValidator();
 
-    public void importCurrencyFromApiToTheStaticList() {
-        parseApiTableToCurrencyTable();
+    public void importCurrencyFromApiToTheStaticList(LocalDate dataStart) {
+        parseApiTableToCurrencyTable(dataStart);
         CurrencyRepository currencyRepository = new CurrencyRepository();
         currencyRepository.setCurrencies(dateTableSingle);
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.addPLNToListCurrency();
     }
 
-    public List<Currency> parseApiTableToCurrencyTable() {
+    public List<Currency> parseApiTableToCurrencyTable(LocalDate dataStart) {
         HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
-        historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
+        historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi(dataStart);
         for (int iterator = 0; iterator < historyLoaderNbp.historyListNbp.size(); iterator++) {
             for (CurrencyRates currencyRates : historyLoaderNbp.historyListNbp.get(iterator)) {
                 for (CurrencyDetails currencyDetails : currencyRates.getRates()) {

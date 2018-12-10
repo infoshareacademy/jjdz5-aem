@@ -8,6 +8,7 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DateMethod {
+    public static final LocalDate MIN_DATE_NBP_API_ONE_YEAR = LocalDate.of(2018, 01, 01);
     public static final LocalDate MIN_DATE_NBP_API = LocalDate.of(2002, 01, 01);
     public static final Integer MAX_DATE_RANGE_NBP_API = 93;
     public static final Integer ZOOM_END_DAY = 1;
@@ -19,13 +20,13 @@ public class DateMethod {
         return date;
     }
 
-    public Long countDaysOfNbpHistory() {
+    public Long countDaysOfNbpHistory(LocalDate dataStart) {
         LocalDate actualDateNbp = readActualDateOnNbp();
-        return DAYS.between(MIN_DATE_NBP_API, actualDateNbp);
+        return DAYS.between(dataStart, actualDateNbp);
     }
 
-    public Long countTheNumberOfRepetitionsMaxRangeNbp() {
-        return countDaysOfNbpHistory() / MAX_DATE_RANGE_NBP_API;
+    public Long countTheNumberOfRepetitionsMaxRangeNbp(LocalDate dataStart) {
+        return countDaysOfNbpHistory(dataStart) / MAX_DATE_RANGE_NBP_API;
     }
 
     public LocalDate nextDayStart(LocalDate dateEnd) {
@@ -44,7 +45,7 @@ public class DateMethod {
         }
     }
 
-    public Long countRangeToDownload(LocalDate dateEnd) {
-        return countDaysOfNbpHistory() - DAYS.between(MIN_DATE_NBP_API, dateEnd.plusDays(1));
+    public Long countRangeToDownload(LocalDate dataStart, LocalDate dateEnd) {
+        return countDaysOfNbpHistory(dataStart) - DAYS.between(dataStart, dateEnd.plusDays(1));
     }
 }

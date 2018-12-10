@@ -3,6 +3,7 @@ package com.isa.aem.servlets;
 import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.api.CurrencyApiTranslator;
+import com.isa.aem.api.DateMethod;
 import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
@@ -26,6 +27,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
     CurrencyRepository currencyRepository = new CurrencyRepository();
     FileContentReader fileContentReader = new FileContentReader();
     CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
+    DateMethod dateMethod=new DateMethod();
     protected String defaultCurrencyNameHave;
     protected String defaultCurrencyNameWant;
     protected static final Double DEFAULT_AMOUNT = 100.00;
@@ -47,7 +49,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        currencyApiTranslator.importCurrencyFromApiToTheStaticList();
+        currencyApiTranslator.importCurrencyFromApiToTheStaticList(dateMethod.MIN_DATE_NBP_API_ONE_YEAR);
         currencyRepository.getCurrencies();
         currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 
