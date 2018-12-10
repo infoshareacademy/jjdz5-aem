@@ -10,10 +10,10 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;;
 
-public class CreateAListOfAvailableCurrenciesTest {
+public class CurrencyListTableCreatorTest {
 
     private FileContentReader fileContentReader = new FileContentReader();
-    private CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies;
+    private CurrencyListTableCreator currencyListTableCreator;
 
     @Before
     public void init() {
@@ -23,13 +23,13 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     public void returnsNonEmptyListIfCurrencyExist() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = "PLN";
 
         // act
-        List result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
+        List result = currencyListTableCreator.availableCurrencyObjects(currency);
 
         // assert
         assertFalse(result.isEmpty());
@@ -37,13 +37,13 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     public void returnsNonEmptyListIfCurrencyExistAndWhenIsProvidedInLowerCase() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = "pln";
 
         // act
-        List result = createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
+        List result = currencyListTableCreator.availableCurrencyObjects(currency);
 
         // assert
         assertFalse(result.isEmpty());
@@ -51,36 +51,36 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test(expected = NoSuchElementException.class)
     public void throwsNoSuchElementExceptionIfCurrencyIsNotInTheFile() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = "ww";
 
         // act
-        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
+        currencyListTableCreator.availableCurrencyObjects(currency);
     }
 
     @Test(expected = NullPointerException.class)
     public void throwsExceptionNoSuchElementExceptionIfCurrencyNameIsEmpty() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = null;
 
         // act
-        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
+        currencyListTableCreator.availableCurrencyObjects(currency);
     }
 
     @Test
     public void returnsListEmptyListIfCurrencyNotExist() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = "zz";
 
         // act
-        createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
+        currencyListTableCreator.addCurrencyObject(currency);
+        List result = currencyListTableCreator.getTableListCurrencyObject();
 
         // assert
         assertTrue(result.isEmpty());
@@ -88,14 +88,14 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     public void returnsEmptyListIfCurrencyIsNull() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = null;
 
         // act
-        createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
+        currencyListTableCreator.addCurrencyObject(currency);
+        List result = currencyListTableCreator.getTableListCurrencyObject();
 
         // assert
         assertTrue(result.isEmpty());
@@ -103,15 +103,15 @@ public class CreateAListOfAvailableCurrenciesTest {
 
     @Test
     public void returnsNonEmptyListIfCurrencyIsCorrect() {
-        createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+        currencyListTableCreator = new CurrencyListTableCreator();
 
         // arrange
         String currency = "PLN";
 
         // act
-        createAListOfAvailableCurrencies.addCurrencyObject(currency);
-        createAListOfAvailableCurrencies.availableCurrencyObjects(currency);
-        List result = createAListOfAvailableCurrencies.getTableListCurrencyObject();
+        currencyListTableCreator.addCurrencyObject(currency);
+        currencyListTableCreator.availableCurrencyObjects(currency);
+        List result = currencyListTableCreator.getTableListCurrencyObject();
 
         // assert
         assertFalse(result.isEmpty());

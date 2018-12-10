@@ -44,18 +44,6 @@ public class CurrencyRepository {
                 .get();
     }
 
-    public LocalDate getNewestDateMinusOneMonthForChosenCurrencyName(String nameOfCurrency) {
-        return currencies.stream()
-                .filter(currency -> nameOfCurrency.equals(currency.getName()))
-                .map(currency -> currency.getDate())
-                .max((o1, o2) -> o1.compareTo(o2))
-                .get().minusMonths(1);
-    }
-
-    public LocalDate getNewestDateMinusOneMonth() {
-        return currencies.get(CurrencyRepository.getCurrencies().size() - 1).getDate().minusDays(30);
-    }
-
     public LocalDate getOldestDateForChosenCurrencyName(String nameOfCurrency) {
         return currencies.stream()
                 .filter(currency -> nameOfCurrency.equals(currency.getName()))
@@ -123,8 +111,18 @@ public class CurrencyRepository {
         Set<Currency> currencyNameAndCountry = new HashSet<>();
         for (Currency cc : getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
+            Optional<CurrencyNameCountryFlags> currencyNameAndCountryOptional = Optional.ofNullable(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            if (currencyNameAndCountryOptional.isPresent()) {
+                currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
+            }
         }
         return getSortedCurrencySet(currencyNameAndCountry);
+    }
+
+    public Set<Currency> getCurrenciesWithFullNameAndFlagWithoutPln() {
+        return  getCurrenciesWithFullNameAndFlag().stream()
+                .filter(s -> !s.getName().equals("PLN"))
+                .sorted(Comparator.comparing(Currency::getName))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }

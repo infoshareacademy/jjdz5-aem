@@ -49,17 +49,22 @@ public class Currency implements Comparable<Currency> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
+        if (this == o) return true;
         if (!(o instanceof Currency)) return false;
         Currency currency = (Currency) o;
-        return Objects.equals(currencyNameCountryFlags, currency.currencyNameCountryFlags);
+        return Objects.equals(name, currency.name) &&
+                Objects.equals(date, currency.date) &&
+                Objects.equals(open, currency.open) &&
+                Objects.equals(high, currency.high) &&
+                Objects.equals(low, currency.low) &&
+                Objects.equals(close, currency.close) &&
+                Objects.equals(volume, currency.volume) &&
+                Objects.equals(currencyNameCountryFlags, currency.currencyNameCountryFlags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currencyNameCountryFlags);
+        return Objects.hash(name, date, open, high, low, close, volume, currencyNameCountryFlags);
     }
 
     public Currency(String name, CurrencyNameCountryFlags currencyNameCountryFlags) {
