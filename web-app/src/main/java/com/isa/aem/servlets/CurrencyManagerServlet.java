@@ -1,6 +1,7 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.Activity;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +25,9 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
 
     @Inject
     RecordCreator recordCreator;
+
+    @Inject
+    UserDao userDao;
 
     @Override
     public void init() throws ServletException {
@@ -62,6 +65,12 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
     }
 
     private void trackingUser(HttpServletRequest req) {
+
+        String emailByGoogle = recordCreator.getEmailByGoogle(req);
+        List<String> idStr = userDao.findIdByEmail(emailByGoogle);
+        Long id = recordCreator.parseToLong(idStr);
+
+        User user = userDao.findById(id);
 
         Double amount  = Double.valueOf(req.getParameter(AMOUNT_PARAMETER));
 

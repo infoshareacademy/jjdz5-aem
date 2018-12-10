@@ -55,14 +55,12 @@ public class LoginServlet extends HttpServlet {
     private void addUser(HttpServletRequest req) {
         String nameByGoogle = recordCreator.getNameByGoogle(req);
         String emailByGoogle = recordCreator.getEmailByGoogle(req);
-        LocalDateTime loginDateTimeFromSession = recordCreator.getLoginDateTimeFromSession(req);
 
         Boolean isAdmin = recordCreator.isAdmin(emailByGoogle);
 
         User user = recordCreator.createUser(
                 nameByGoogle,
                 emailByGoogle,
-                loginDateTimeFromSession,
                 isAdmin);
 
         userDao.save(user);

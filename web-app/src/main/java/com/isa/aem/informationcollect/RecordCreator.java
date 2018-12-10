@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 public class RecordCreator {
 
@@ -23,16 +24,13 @@ public class RecordCreator {
 
     public User createUser(String name,
                            String email,
-                           LocalDateTime loginTime,
-                           Boolean isAdmin
-    ) {
+                           Boolean isAdmin) {
+
         User user = new User();
 
         user.setUserName(name);
         user.setEmail(email);
-        user.setLoggedIn(loginTime);
         user.setAdmin(isAdmin);
-        user.setActivity(activity);
 
         return user;
     }
@@ -41,7 +39,9 @@ public class RecordCreator {
                                              String firstCurrency,
                                              String secondCurrency,
                                              LocalDate calculatorDate) {
+
         Activity activity = new Activity();
+
         activity.setAmount(amount);
         activity.setCalculatorCurrencyFirst(firstCurrency);
         activity.setCalculatorCurrencySecond(secondCurrency);
@@ -52,7 +52,26 @@ public class RecordCreator {
         return activity;
     }
 
+    public Activity logInTime(LocalDateTime loginTime) {
+
+        Activity activity = new Activity();
+
+        activity.setLoggedInTime(loginTime);
+
+        return activity;
+    }
+
+    public Activity logOutTime(LocalDateTime logOutTime) {
+
+        Activity activity = new Activity();
+
+        activity.setLoggedOutTime(logOutTime);
+
+        return activity;
+    }
+
     public Activity createExchangeRateActivity(BigDecimal rate) {
+
         Activity activity = new Activity();
 
         activity.setExchangeRate(rate);
@@ -65,6 +84,7 @@ public class RecordCreator {
     public Activity createLocalExtremeumActivity(LocalDate dateFrom,
                                                  LocalDate dateTo,
                                                  String currencyName) {
+
         Activity activity = new Activity();
 
         activity.setDateFrom(dateFrom);
@@ -78,6 +98,7 @@ public class RecordCreator {
 
     public Activity createGlobalExtremeumActivity(LocalDate dateFrom,
                                                   String currencyName) {
+
         Activity activity = new Activity();
 
         activity.setDateFrom(dateFrom);
@@ -90,6 +111,7 @@ public class RecordCreator {
     }
 
     public LocalDateTime getLoginDateTimeFromSession(HttpServletRequest req) {
+
         HttpSession session = req.getSession();
         return LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(
@@ -98,29 +120,42 @@ public class RecordCreator {
     }
 
     public String getNameByGoogle(HttpServletRequest req) {
+
         String idToken = req.getParameter(ID_TOKEN_PARAMETER);
         GoogleIdToken.Payload payLoad = null;
+
         try {
             payLoad = IdTokenVerifierAndParser.getPayload(idToken);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return (String) payLoad.get(NAME_PARAMETER);
     }
 
     public String getEmailByGoogle(HttpServletRequest req) {
+
         String idToken = req.getParameter(ID_TOKEN_PARAMETER);
         GoogleIdToken.Payload payLoad = null;
+
         try {
             payLoad = IdTokenVerifierAndParser.getPayload(idToken);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return payLoad.getEmail();
     }
 
     public Boolean isAdmin(String email) {
         return ADMIN_EMAIL.equals(email);
+    }
+
+    public Long parseToLong(List<String> id) {
+        return id.stream()
+                .map(s -> Long.parseLong(s))
+                .findFirst()
+                .get();
     }
 
 }
