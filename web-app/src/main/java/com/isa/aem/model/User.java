@@ -13,8 +13,6 @@ public class User {
     private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
     private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "email";
     private static final String IS_ADMIN = "is_admin";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in_date_time";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out_date_time";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +27,6 @@ public class User {
 
     @Column(name = IS_ADMIN)
     private Boolean isAdmin = false;
-
-    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_IN)
-    private LocalDateTime loggedIn;
-
-    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_OUT)
-    private LocalDateTime loggedOut;
 
     @OneToMany(mappedBy = USER_MAPPED, fetch = FetchType.LAZY)
     private List<Activity> activity;
@@ -51,8 +43,6 @@ public class User {
         this.userName = userName;
         this.email = email;
         this.isAdmin = isAdmin;
-        this.loggedIn = loggedIn;
-        this.loggedOut = loggedOut;
     }
 
     public Long getId() {
@@ -87,21 +77,6 @@ public class User {
         isAdmin = admin;
     }
 
-    public LocalDateTime getLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(LocalDateTime loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    public LocalDateTime getLoggedOut() {
-        return loggedOut;
-    }
-
-    public void setLoggedOut(LocalDateTime loggedOut) {
-        this.loggedOut = loggedOut;
-    }
 
     public List<Activity> getActivity() {
         return activity;
