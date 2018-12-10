@@ -13,18 +13,18 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 
 public class RecordCreator {
 
-    protected static final String ID_TOKEN_PARAMETER = "id_token";
-    protected static final String NAME_PARAMETER = "name";
+    private static final String ID_TOKEN_PARAMETER = "id_token";
+    private static final String NAME_PARAMETER = "name";
+    private static final String ADMIN_EMAIL = "currencymanager2018@gmail.com";
+
 
     public User createUser(String name,
                            String email,
                            LocalDateTime loginTime,
-                           Boolean isAdmin,
-                           List<Activity> activity
+                           Boolean isAdmin
     ) {
         User user = new User();
 
@@ -117,6 +117,10 @@ public class RecordCreator {
             e.printStackTrace();
         }
         return payLoad.getEmail();
-
     }
+
+    public Boolean isAdmin(String email) {
+        return ADMIN_EMAIL.equals(email);
+    }
+
 }

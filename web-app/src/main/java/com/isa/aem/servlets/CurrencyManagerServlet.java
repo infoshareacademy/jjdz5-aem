@@ -1,23 +1,21 @@
 package com.isa.aem.servlets;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.*;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.informationcollect.RecordCreator;
+import com.isa.aem.model.Activity;
+import com.isa.aem.model.User;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,21 +63,21 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
 
     private void trackingUser(HttpServletRequest req) {
 
-        LocalDateTime loginDateTimeFromSession = recordCreator.getLoginDateTimeFromSession(req);
+        Double amount  = Double.valueOf(req.getParameter(AMOUNT_PARAMETER));
 
-        String reqAmount = req.getParameter(AMOUNT_PARAMETER);
-        String reqHave = req.getParameter(HAVE_PARAMETER);
-        String reqWant = req.getParameter(WANT_PARAMETER);
-        String reqDate = req.getParameter(DATE_PARAMETER);
+        String currencyHave = req.getParameter(HAVE_PARAMETER);
+        String currencyWant = req.getParameter(WANT_PARAMETER);
+        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
 
-        recordCreator.createUser(
-                name,
-                email,
-                loginDateTimeFromSession,
-                )
+        Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                amount,
+                currencyHave,
+                currencyWant,
+                dateOfExchange);
+
     }
 
+    private void reqParameterToUser(HttpServletRequest req) {
 
-
-
+    }
 }

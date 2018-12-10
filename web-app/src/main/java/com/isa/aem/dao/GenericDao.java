@@ -14,7 +14,7 @@ public class GenericDao<T> {
     public Class<T> C;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public Long save(T t) {
         entityManager.persist(t);

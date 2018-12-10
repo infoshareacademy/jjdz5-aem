@@ -2,7 +2,7 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
-import com.isa.aem.currency_calculator.CreateAListOfAvailableCurrencies;
+import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
@@ -12,7 +12,6 @@ import com.isa.aem.freemarker.TemplateProvider;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +36,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected static final String ACTION_BUTTON = "action";
     protected static final String ACTION_BUTTON_CALCULATOR = "calculator";
     protected static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
-    protected CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
+    protected CurrencyListTableCreator createAListOfAvailableCurrencies = new CurrencyListTableCreator();
 
     @Inject
     public TemplateProvider templateProvider;
@@ -107,7 +106,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
-            CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies1 = new CreateAListOfAvailableCurrencies();
+            CurrencyListTableCreator createAListOfAvailableCurrencies1 = new CurrencyListTableCreator();
             String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
