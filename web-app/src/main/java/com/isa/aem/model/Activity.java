@@ -1,6 +1,7 @@
 package com.isa.aem.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -9,15 +10,17 @@ import java.time.LocalDateTime;
 public class Activity {
 
     private static final String UNIQUE_ID = "id";
-    private static final String FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_first";
-    private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_second";
+    private static final String UNIQUE_ID_OF_USER = "user_id";
+    private static final String FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_have";
+    private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_wont";
     private static final String CURRENCY_GIVEN_BY_USER_IN_EXTREMUM = "extremum_currency";
     private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
+    private static final String EXCHANGE_RATE_BY_PLN = "exchange_rate_by_pln";
     private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
     private static final String DATE_TO_GIVEN_BY_USER = "date_to";
     private static final String CALCULATOR_DATE_GIVEN_BY_USER = "calculator_date";
     private static final String DATE_WHEN_USER_MADE_ACTION = "action_date";
-    private static final String ACTION_TYPE_BY_USER = "type";
+    private static final String ACTION_TYPE = "action_type";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +39,9 @@ public class Activity {
     @Column(name = AMOUNT_GIVEN_BY_USER_TO_CALCULATOR)
     private Double amount;
 
+    @Column(name = EXCHANGE_RATE_BY_PLN)
+    private BigDecimal exchangeRate;
+
     @Column(name = DATE_FROM_GIVEN_BY_USER)
     private LocalDate dateFrom;
 
@@ -49,27 +55,35 @@ public class Activity {
     private LocalDateTime actionDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = ACTION_TYPE_BY_USER)
+    @Column(name = ACTION_TYPE)
     private ActionType actionType;
+
+    @ManyToOne
+    @JoinColumn(name = UNIQUE_ID_OF_USER)
+    private User user;
 
     public Activity(String calculatorCurrencyFirst,
                     String calculatorCurrencySecond,
                     String extremumCurrency,
                     Double amount,
+                    BigDecimal exchangeRate,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
                     LocalDate calculatorDate,
                     LocalDateTime actionDate,
-                    ActionType actionType) {
+                    ActionType actionType,
+                    User user) {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
         this.calculatorCurrencySecond = calculatorCurrencySecond;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
+        this.exchangeRate = exchangeRate;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
         this.calculatorDate = calculatorDate;
         this.actionDate = actionDate;
         this.actionType = actionType;
+        this.user = user;
     }
 
     public Activity() {
@@ -153,5 +167,21 @@ public class Activity {
 
     public void setCalculatorDate(LocalDate calculatorDate) {
         this.calculatorDate = calculatorDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public BigDecimal getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(BigDecimal exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 }
