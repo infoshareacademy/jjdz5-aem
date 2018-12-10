@@ -86,8 +86,4 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
 
         user.addActivity(calculatorActivity);
     }
-
-    private void reqParameterToUser(HttpServletRequest req) {
-
-    }
 }
