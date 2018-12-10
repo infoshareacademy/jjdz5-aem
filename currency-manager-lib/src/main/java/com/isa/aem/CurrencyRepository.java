@@ -111,7 +111,7 @@ public class CurrencyRepository {
         Set<Currency> currencyNameAndCountry = new HashSet<>();
         for (Currency cc : getCurrencies()) {
             cc.setCurrencyNameCountryFlags(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
-            Optional<CurrencyNameCountryFlags> currencyNameAndCountryOptional = currencyNameAndCountryOptional = Optional.ofNullable(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
+            Optional<CurrencyNameCountryFlags> currencyNameAndCountryOptional = Optional.ofNullable(CurrencyNameCountryFlags.getCurrencies().get(cc.getName()));
             if (currencyNameAndCountryOptional.isPresent()) {
                 currencyNameAndCountry.add(new Currency(cc.getName(), cc.getCurrencyNameCountryFlags()));
             }
@@ -122,6 +122,7 @@ public class CurrencyRepository {
     public Set<Currency> getCurrenciesWithFullNameAndFlagWithoutPln() {
         return  getCurrenciesWithFullNameAndFlag().stream()
                 .filter(s -> !s.getName().equals("PLN"))
-                .collect(Collectors.toSet());
+                .sorted(Comparator.comparing(Currency::getName))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }
