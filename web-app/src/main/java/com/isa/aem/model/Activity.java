@@ -21,6 +21,8 @@ public class Activity {
     private static final String CALCULATOR_DATE_GIVEN_BY_USER = "calculator_date";
     private static final String DATE_WHEN_USER_MADE_ACTION = "action_date";
     private static final String ACTION_TYPE = "action_type";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in_date_time";
+    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out_date_time";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +56,12 @@ public class Activity {
     @Column(name = DATE_WHEN_USER_MADE_ACTION)
     private LocalDateTime actionDate;
 
+    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_IN)
+    private LocalDateTime loggedInTime;
+
+    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_OUT)
+    private LocalDateTime loggedOutTime;
+
     @Enumerated(EnumType.STRING)
     @Column(name = ACTION_TYPE)
     private ActionType actionType;
@@ -71,6 +79,8 @@ public class Activity {
                     LocalDate calculatorDateTo,
                     LocalDate calculatorDate,
                     LocalDateTime actionDate,
+                    LocalDateTime loggedInTime,
+                    LocalDateTime loggedOutTime,
                     ActionType actionType,
                     User user) {
         this.calculatorCurrencyFirst = calculatorCurrencyFirst;
@@ -82,6 +92,8 @@ public class Activity {
         this.dateTo = calculatorDateTo;
         this.calculatorDate = calculatorDate;
         this.actionDate = actionDate;
+        this.loggedInTime = loggedInTime;
+        this.loggedOutTime = loggedOutTime;
         this.actionType = actionType;
         this.user = user;
     }
@@ -183,5 +195,21 @@ public class Activity {
 
     public void setExchangeRate(BigDecimal exchangeRate) {
         this.exchangeRate = exchangeRate;
+    }
+
+    public LocalDateTime getLoggedInTime() {
+        return loggedInTime;
+    }
+
+    public void setLoggedInTime(LocalDateTime loggedInTime) {
+        this.loggedInTime = loggedInTime;
+    }
+
+    public LocalDateTime getLoggedOutTime() {
+        return loggedOutTime;
+    }
+
+    public void setLoggedOutTime(LocalDateTime loggedOutTime) {
+        this.loggedOutTime = loggedOutTime;
     }
 }
