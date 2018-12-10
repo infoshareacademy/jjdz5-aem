@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     @Column(name = IS_ADMIN)
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
 
     @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_IN)
     private LocalDateTime loggedIn;
