@@ -37,8 +37,6 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected static final String ACTION_BUTTON = "action";
     protected static final String ACTION_BUTTON_CALCULATOR = "calculator";
     protected static final String ACTION_BUTTON_RANGE_CURRENCY = "rangeCurrency";
-    protected static final String ID_TOKEN_PARAMETER = "id_token";
-    protected static final String NAME_PARAMETER = "name";
     protected CreateAListOfAvailableCurrencies createAListOfAvailableCurrencies = new CreateAListOfAvailableCurrencies();
 
     @Inject

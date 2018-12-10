@@ -13,7 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,21 +64,22 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
     }
 
     private void trackingUser(HttpServletRequest req) {
-        String idToken = req.getParameter(ID_TOKEN_PARAMETER);
-        GoogleIdToken.Payload payLoad = null;
-        try {
-            payLoad = IdTokenVerifierAndParser.getPayload(idToken);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String name = (String) payLoad.get(NAME_PARAMETER);
-        String email = payLoad.getEmail();
-        long creationTime = req.getSession().getCreationTime();
+
+        LocalDateTime loginDateTimeFromSession = recordCreator.getLoginDateTimeFromSession(req);
+
         String reqAmount = req.getParameter(AMOUNT_PARAMETER);
         String reqHave = req.getParameter(HAVE_PARAMETER);
         String reqWant = req.getParameter(WANT_PARAMETER);
         String reqDate = req.getParameter(DATE_PARAMETER);
 
-        recordCreator.createUser(name,email,  )
+        recordCreator.createUser(
+                name,
+                email,
+                loginDateTimeFromSession,
+                )
     }
+
+
+
+
 }

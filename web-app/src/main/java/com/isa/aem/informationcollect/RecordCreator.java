@@ -1,27 +1,36 @@
 package com.isa.aem.informationcollect;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.model.ActionType;
 import com.isa.aem.model.Activity;
 import com.isa.aem.model.User;
+import com.isa.aem.servlets.IdTokenVerifierAndParser;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 public class RecordCreator {
+
+    protected static final String ID_TOKEN_PARAMETER = "id_token";
+    protected static final String NAME_PARAMETER = "name";
 
     public User createUser(String name,
                            String email,
                            LocalDateTime loginTime,
-                           LocalDateTime logoutTime,
                            Boolean isAdmin,
-                           Activity activity
-                           ) {
+                           List<Activity> activity
+    ) {
         User user = new User();
 
-        user.setName(name);
+        user.setUserName(name);
         user.setEmail(email);
         user.setLoggedIn(loginTime);
-        user.setLoggedOut(logoutTime);
         user.setAdmin(isAdmin);
         user.setActivity(activity);
 
@@ -39,6 +48,16 @@ public class RecordCreator {
         activity.setCalculatorDate(calculatorDate);
         activity.setActionType(ActionType.CALCUALTOR);
         activity.setActionDate(LocalDateTime.now());
+
+        return activity;
+    }
+
+    public Activity createExchangeRateActivity(BigDecimal rate) {
+        Activity activity = new Activity();
+
+        activity.setExchangeRate(rate);
+        activity.setActionDate(LocalDateTime.now());
+        activity.setActionType(ActionType.CALCUALTOR);
 
         return activity;
     }
@@ -68,5 +87,36 @@ public class RecordCreator {
         activity.setActionDate(LocalDateTime.now());
 
         return activity;
+    }
+
+    public LocalDateTime getLoginDateTimeFromSession(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        return LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(
+                        session.getCreationTime()),
+                        ZoneId.systemDefault());
+    }
+
+    public String getNameByGoogle(HttpServletRequest req) {
+        String idToken = req.getParameter(ID_TOKEN_PARAMETER);
+        GoogleIdToken.Payload payLoad = null;
+        try {
+            payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return (String) payLoad.get(NAME_PARAMETER);
+    }
+
+    public String getEmailByGoogle(HttpServletRequest req) {
+        String idToken = req.getParameter(ID_TOKEN_PARAMETER);
+        GoogleIdToken.Payload payLoad = null;
+        try {
+            payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return payLoad.getEmail();
+
     }
 }
