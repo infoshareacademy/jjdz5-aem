@@ -45,6 +45,10 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
+    public void addActivity(Activity activity) {
+        this.activity.add(activity);
+    }
+
     public Long getId() {
         return id;
     }
