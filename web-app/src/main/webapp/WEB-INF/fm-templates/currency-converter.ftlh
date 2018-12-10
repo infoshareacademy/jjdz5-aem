@@ -1,7 +1,16 @@
 <!doctype html>
 <html lang="pl">
 <head>
-    <#include "set-head.ftlh">
+    <meta charset="UTF-8"/>
+    <title>Currency Manager</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/client.js" async defer></script>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+          content="926732976801-63jco5oge4dhrqb490m6e9k7357khl28.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -13,7 +22,7 @@
             <h4>Currency Converter</h4>
         </div>
 
-        <div class="col-7" id="main1">
+        <div class="col-8" id="main1">
             <h4>Exchange Rate</h4>
         </div>
     </div>
@@ -68,6 +77,7 @@
                     <input id="date"
                            type="date"
                            name="date"
+                           required
                            min=${score.getMinDate()} max=${score.getMaxDate()}
                            value=${score.getDateExchange()}
                                    class="form-control" />
@@ -84,7 +94,7 @@
                  </#if>
             </form>
         </div>
-        <div class="col-7" id="main_currency">
+        <div class="col-8" id="main_currency">
             <form method="post" action="/calculator" NAME="form2">
                 <div class="form-group">
 
@@ -103,8 +113,8 @@
             </form>
         </div>
         <h5>Currencies</h5>
-        <h6>date: ${availableCurrencyTable[0].getDateMax()}</h6>
-        <table class="tabela2" cellspacing='0'>
+        <h6>Date: ${availableCurrencyTable[0].getDateMax()}</h6>
+        <table class="table2" cellspacing='0'>
             <thead>
             <tr>
                 <th scope="col">Currency</th>
@@ -130,7 +140,7 @@
 </div>
 </div>
 <div class="row" id="footer">
-    <div class="col-11" >
+    <div class="col-12" >
         <h5></h5>
     </div>
 </div>
@@ -139,6 +149,5 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="scripts.js"></script>
 </body>
 </html>

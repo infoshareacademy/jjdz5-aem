@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/currency-manager", "/global-extremum", "/local-extremum"})
+@WebFilter(urlPatterns = {"/currency-manager", "/extremum"})
 public class SecurityFilter extends HttpFilter {
-	@Override
-	protected void doFilter(HttpServletRequest request, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-		Object logged = request.getSession().getAttribute("userName");
-		if (logged == null) {
-			res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			return;
-		}
+    @Override
+    protected void doFilter(HttpServletRequest request, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        Object logged = request.getSession().getAttribute("userName");
+        if (logged == null) {
+            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
 
-		chain.doFilter(request, res);
-	}
+        chain.doFilter(request, res);
+    }
 }
