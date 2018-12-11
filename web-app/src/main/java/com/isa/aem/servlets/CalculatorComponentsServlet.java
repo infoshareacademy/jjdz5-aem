@@ -27,7 +27,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
     CurrencyRepository currencyRepository = new CurrencyRepository();
     FileContentReader fileContentReader = new FileContentReader();
     CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
-    DateMethod dateMethod=new DateMethod();
+    DateMethod dateMethod = new DateMethod();
     protected String defaultCurrencyNameHave;
     protected String defaultCurrencyNameWant;
     protected static final Double DEFAULT_AMOUNT = 100.00;

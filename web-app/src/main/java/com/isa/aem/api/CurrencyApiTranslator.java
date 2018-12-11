@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CurrencyApiTranslator {
-    HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
     private List<Currency> dateTable = new ArrayList<>();
     public List<Currency> dateTableSingle = new ArrayList<>();
     DataValidator dataValidator = new DataValidator();
@@ -37,6 +36,6 @@ public class CurrencyApiTranslator {
                 }
             }
         }
-        return dateTableSingle=dateTable.stream().distinct().collect(Collectors.toList());
+        return dateTableSingle = dateTable.stream().distinct().collect(Collectors.toList());
     }
 }

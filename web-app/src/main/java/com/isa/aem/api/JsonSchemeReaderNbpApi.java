@@ -14,7 +14,6 @@ public class JsonSchemeReaderNbpApi {
             "http://api.nbp.pl/api/exchangerates/tables/A/{dateStart}/{dateEnd}";
     private static final String WEB_SLASH = "/";
 
-
     public List<CurrencyRates> loadJsonToListWithTwoDates(String dateStart, String dateEnd) {
         Client client = ClientBuilder.newClient();
         try {
