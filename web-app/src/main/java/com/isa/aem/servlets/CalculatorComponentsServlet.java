@@ -190,6 +190,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 dateOfExchange);
 
         activityDao.save(calculatorActivity);
+        activityDao.findAll();
     }
 
     private void checkLoginAndTrackCalculator(HttpServletRequest req,
