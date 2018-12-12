@@ -6,6 +6,7 @@ import com.isa.aem.api.CurrencyApiTranslator;
 import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
+import com.isa.aem.dao.ActivityDao;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import com.isa.aem.data_loaders.PropertiesLoader;
@@ -53,6 +54,9 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Inject
     private UserDao userDao;
+
+    @Inject
+    private ActivityDao activityDao;
 
     @Override
     public void init() throws ServletException {
@@ -166,13 +170,10 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     private void userLogoutTrackingRate(HttpServletRequest req) {
 
-        User user = new User();
-
         Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
                 currencyInTable);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(exchangeRateActivity);
+        activityDao.save(exchangeRateActivity);
     }
 
     private void userLogoutTrackingCalculator(HttpServletRequest req,
@@ -182,16 +183,13 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
 
-        User user = new User();
-
         Activity calculatorActivity = recordCreator.createCalculatorActivity(
                 calculatorAmount,
                 reqHave,
                 reqWant,
                 dateOfExchange);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(calculatorActivity);
+        activityDao.save(calculatorActivity);
     }
 
     private void checkLoginAndTrackCalculator(HttpServletRequest req,
