@@ -8,7 +8,7 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class OperationsOnDateRanges {
-    public static final LocalDate MIN_DATE_NBP_API_ONE_YEAR = LocalDate.of(2018, 01, 01);
+    public static final LocalDate MIN_DATE_NBP_API_ONE_YEAR = LocalDate.now().minusYears(1);
     public static final LocalDate MIN_DATE_NBP_API = LocalDate.of(2002, 01, 01);
     public static final Integer MAX_DATE_RANGE_NBP_API = 93;
     public static final Integer ZOOM_END_DAY = 1;
