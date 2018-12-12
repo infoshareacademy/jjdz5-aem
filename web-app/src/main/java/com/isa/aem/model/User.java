@@ -8,27 +8,21 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
 
-    private static final String UNIQUE_ID = "id";
-    private static final String USER_MAPPED = "user";
-    private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
-    private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "email";
-    private static final String IS_ADMIN = "is_admin";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = UNIQUE_ID)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = USER_NAME_GIVEN_BY_GOOGLE)
-    private String userName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = USER_EMAIL_GIVEN_BY_GOOGLE)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = IS_ADMIN)
+    @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @OneToMany(mappedBy = USER_MAPPED, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Activity> activity;
 
     public User() {
@@ -40,7 +34,7 @@ public class User {
                 Boolean isAdmin,
                 LocalDateTime loggedIn,
                 LocalDateTime loggedOut) {
-        this.userName = userName;
+        this.name = userName;
         this.email = email;
         this.isAdmin = isAdmin;
     }
@@ -57,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String userName) {
+        this.name = userName;
     }
 
     public String getEmail() {
