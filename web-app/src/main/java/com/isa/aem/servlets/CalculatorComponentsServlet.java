@@ -114,7 +114,12 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
-            trackingCalculator(req, calculatorAmount, reqHave, reqWant);
+            Object logged = req.getSession().getAttribute("userName");
+            if (logged == null) {
+                userLogoutTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+            } else {
+                userLoginTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+            }
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
@@ -123,12 +128,18 @@ public class CalculatorComponentsServlet extends HttpServlet {
             currencyInTable = currencyInTableName[0];
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
 
-            trackingRate(req);
+            Object logged = req.getSession().getAttribute("userName");
+            if (logged == null) {
+                userLoginTrackingRate(req);
+            }else {
+                userLoginTrackingRate(req);
+            }
         }
     }
 
-    private void trackingRate(HttpServletRequest req) {
-        Long id = recordCreator.fingIdformDataBaseByEmail(req);
+    private void userLoginTrackingRate(HttpServletRequest req) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmail(req);
 
         User user = userDao.findById(id);
 
@@ -138,11 +149,12 @@ public class CalculatorComponentsServlet extends HttpServlet {
         user.addActivity(exchangeRateActivity);
     }
 
-    private void trackingCalculator(HttpServletRequest req,
-                                    Double calculatorAmount,
-                                    String reqHave,
-                                    String reqWant) {
-        Long id = recordCreator.fingIdformDataBaseByEmail(req);
+    private void userLoginTrackingCalculator(HttpServletRequest req,
+                                             Double calculatorAmount,
+                                             String reqHave,
+                                             String reqWant) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmail(req);
         LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
 
         User user = userDao.findById(id);
@@ -155,4 +167,33 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         user.addActivity(calculatorActivity);
     }
+
+    private void userLogoutTrackingRate(HttpServletRequest req) {
+
+        User user = new User();
+
+        Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
+                currencyInTable);
+
+        user.addActivity(exchangeRateActivity);
+    }
+
+    private void userLogoutTrackingCalculator(HttpServletRequest req,
+                                             Double calculatorAmount,
+                                             String reqHave,
+                                             String reqWant) {
+
+        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
+
+        User user = new User();
+
+        Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                calculatorAmount,
+                reqHave,
+                reqWant,
+                dateOfExchange);
+
+        user.addActivity(calculatorActivity);
+    }
+
 }

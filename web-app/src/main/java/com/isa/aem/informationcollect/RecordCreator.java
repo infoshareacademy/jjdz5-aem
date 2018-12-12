@@ -115,15 +115,6 @@ public class RecordCreator {
         return activity;
     }
 
-    public LocalDateTime getLoginDateTimeFromSession(HttpServletRequest req) {
-
-        HttpSession session = req.getSession();
-        return LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(
-                        session.getCreationTime()),
-                        ZoneId.systemDefault());
-    }
-
     public String getNameByGoogle(HttpServletRequest req) {
 
         String idToken = req.getParameter(ID_TOKEN_PARAMETER);
@@ -156,7 +147,7 @@ public class RecordCreator {
         return ADMIN_EMAIL.equals(email);
     }
 
-    public Long fingIdformDataBaseByEmail(HttpServletRequest req) {
+    public Long findIdFromDataBaseByEmail(HttpServletRequest req) {
         String emailByGoogle = getEmailByGoogle(req);
         List<String> idStr = userDao.findIdByEmail(emailByGoogle);
         return parseToLong(idStr);

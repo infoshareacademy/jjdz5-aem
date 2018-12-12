@@ -1,9 +1,9 @@
 package com.isa.aem.servlets;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.isa.aem.dao.GenericDao;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.informationcollect.RecordCreator;
+import com.isa.aem.model.Activity;
 import com.isa.aem.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(USER_NAME_PARAMETER, name);
 
             checkAndAddIfNotExistUser(req, email, name);
+            addLoginDateTime(req);
 
             resp.sendRedirect("/currency-manager");
 
@@ -83,13 +84,22 @@ public class LoginServlet extends HttpServlet {
                 emailByGoogle,
                 isAdmin);
 
-
-
         userDao.save(user);
     }
 
     private Boolean isExistUser(String email) {
 
         return userDao.findIdByEmail(email).isEmpty();
+    }
+
+    private void addLoginDateTime(HttpServletRequest req) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+
+        User user = userDao.findById(id);
+
+        Activity loginDataTime = recordCreator.logInTime(LocalDateTime.now());
+
+        user.addActivity(loginDataTime);
     }
 }

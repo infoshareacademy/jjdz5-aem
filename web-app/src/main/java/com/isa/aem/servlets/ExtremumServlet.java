@@ -2,10 +2,14 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
+import com.isa.aem.informationcollect.RecordCreator;
+import com.isa.aem.model.Activity;
 import com.isa.aem.model.ExtremumObject;
+import com.isa.aem.model.User;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
 import freemarker.template.Template;
@@ -38,8 +42,17 @@ public class ExtremumServlet extends HttpServlet {
     private static final String USER_NAME_PARAMETER = "userName";
     private static final String EXTREMUM_RADIOS_PARAMETER = "extremumRadios";
 
+    private static final String GLOBAL_RADIO_CHECK = "globalRadioChecked";
+    private static final String LOCAL_RADIO_CHECK = "localRadioChecked";
+
     @Inject
     private TemplateProvider templateProvider;
+
+    @Inject
+    private RecordCreator recordCreator;
+
+    @Inject
+    private UserDao userDao;
 
     @Override
     public void init() throws ServletException {
@@ -86,6 +99,15 @@ public class ExtremumServlet extends HttpServlet {
         calculateExtremum();
 
         doGet(req, resp);
+
+        LocalDate dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
+        LocalDate dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
+
+        switchLocalGlobalExtremum(radioChecked,
+                req,
+                dateFrom,
+                dateTo,
+                CURRENCY_NAME_PARAMETER);
     }
 
     private void setDefaultCurrency() {
@@ -114,5 +136,63 @@ public class ExtremumServlet extends HttpServlet {
             extremumObject.setMinExtremum(exchangeRateExtremum.getMinExtremum(extremumObject.getCurrencyName(), extremumObject.getDateFrom(), extremumObject.getDateTo()));
             extremumObject.setMaxExtremum(exchangeRateExtremum.getMaxExtremum(extremumObject.getCurrencyName(), extremumObject.getDateFrom(), extremumObject.getDateTo()));
         }
+    }
+
+    private void switchLocalGlobalExtremum(String s,
+                                           HttpServletRequest req,
+                                           LocalDate dateFrom,
+                                           LocalDate dateTo,
+                                           String currencyName) {
+        if (isLocalExtremum(s)){
+            trackingLocalExtremum(req,
+                    dateFrom,
+                    dateTo,
+                    currencyName);
+        } else if (isGlobalExtremum(s)) {
+            trackingGlobalExtremum(req,
+                    dateFrom,
+                    currencyName);
+        }
+
+    }
+
+    private void trackingLocalExtremum(HttpServletRequest req,
+                                       LocalDate dateFrom,
+                                       LocalDate dateTo,
+                                       String currencyName) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+
+        User user = userDao.findById(id);
+
+        Activity localExtremeumActivity = recordCreator
+                .createLocalExtremeumActivity(dateFrom,
+                        dateTo,
+                        currencyName);
+
+        user.addActivity(localExtremeumActivity);
+    }
+
+    private void trackingGlobalExtremum(HttpServletRequest req,
+                                       LocalDate dateFrom,
+                                       String currencyName) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+
+        User user = userDao.findById(id);
+
+        Activity globalExtremeumActivity = recordCreator
+                .createGlobalExtremeumActivity(dateFrom,
+                        currencyName);
+
+        user.addActivity(globalExtremeumActivity);
+    }
+
+    private Boolean isLocalExtremum(String s) {
+        return s.equals(LOCAL_RADIO_CHECK);
+    }
+
+    private Boolean isGlobalExtremum(String s) {
+        return s.equals(GLOBAL_RADIO_CHECK);
     }
 }
