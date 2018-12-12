@@ -29,13 +29,13 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnsOneMinimumWhenFoundGlobally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("GBP", LocalDate.parse("2000-01-01"), 1.0000, 1.0000, 1.0000,4.4444, 0));
         List<Currency> result = exchangeRateExtremum.getMinExtremum("GBP", null, null);
 
         assertAll(() -> {
                     assertEquals(1, result.size());
-                    assertEquals(expectedMinimum, result);
+                    assertEquals(expectedResult, result);
         });
 
     }
@@ -44,13 +44,13 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnsOneMaximumWhenFoundGlobally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("GBP", LocalDate.parse("2010-01-01"), 1.0000, 1.0000, 1.0000,6.6666, 0));
         List<Currency> result = exchangeRateExtremum.getMaxExtremum("GBP", null, null);
 
         assertAll(() -> {
             assertEquals(1, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -58,13 +58,13 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnsOneMinimumWhenFoundOnTheEdgeOfGlobalRange() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("USD", LocalDate.parse("1990-01-01"), 1.0000, 1.0000, 1.0000,3.1234, 0));
         List<Currency> result = exchangeRateExtremum.getMinExtremum("USD", null, null);
 
         assertAll(() -> {
             assertEquals(1, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -72,13 +72,13 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnsOneMaximumWhenFoundOnTheEdgeOfGlobalRange() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("USD", LocalDate.parse("2018-12-31"), 1.0000, 1.0000, 1.0000,7.0000, 0));
         List<Currency> result = exchangeRateExtremum.getMaxExtremum("USD", null, null);
 
         assertAll(() -> {
             assertEquals(1, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -86,7 +86,7 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnMoreThanOneMinimumsWhenFoundGlobally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("AUD", LocalDate.parse("1990-01-01"), 1.0000, 1.0000, 1.0000,1.0000, 0),
                 new Currency("AUD", LocalDate.parse("1990-01-03"), 1.0000, 1.0000, 1.0000,1.0000, 0),
                 new Currency("AUD", LocalDate.parse("1990-01-05"), 1.0000, 1.0000, 1.0000,1.0000, 0));
@@ -94,7 +94,7 @@ public class ExchangeRateExtremumTest {
 
         assertAll(() -> {
             assertEquals(3, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -102,7 +102,7 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnMoreThanOneMaximumWhenFoundGlobally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("EUR", LocalDate.parse("1990-01-04"), 1.0000, 1.0000, 1.0000,9.0000, 0),
                 new Currency("EUR", LocalDate.parse("1990-01-08"), 1.0000, 1.0000, 1.0000,9.0000, 0),
                 new Currency("EUR", LocalDate.parse("1990-01-09"), 1.0000, 1.0000, 1.0000,9.0000, 0));
@@ -110,7 +110,7 @@ public class ExchangeRateExtremumTest {
 
         assertAll(() -> {
             assertEquals(3, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -118,14 +118,14 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnMoreThanOneMinimumsWhenFoundLocally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("AUD", LocalDate.parse("1990-01-03"), 1.0000, 1.0000, 1.0000,1.0000, 0),
                 new Currency("AUD", LocalDate.parse("1990-01-05"), 1.0000, 1.0000, 1.0000,1.0000, 0));
         List<Currency> result = exchangeRateExtremum.getMinExtremum("AUD", LocalDate.parse("1990-01-02"), LocalDate.parse("1990-01-05"));
 
         assertAll(() -> {
             assertEquals(2, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
@@ -133,14 +133,14 @@ public class ExchangeRateExtremumTest {
     @Test
     public void returnMoreThanOneMinimumWhenFoundLocally() {
 
-        List <Currency> expectedMinimum = Arrays.asList(
+        List <Currency> expectedResult = Arrays.asList(
                 new Currency("EUR", LocalDate.parse("1990-01-04"), 1.0000, 1.0000, 1.0000,9.0000, 0),
                 new Currency("EUR", LocalDate.parse("1990-01-08"), 1.0000, 1.0000, 1.0000,9.0000, 0));
         List<Currency> result = exchangeRateExtremum.getMaxExtremum("EUR", LocalDate.parse("1990-01-02"), LocalDate.parse("1990-01-08"));
 
         assertAll(() -> {
             assertEquals(2, result.size());
-            assertEquals(expectedMinimum, result);
+            assertEquals(expectedResult, result);
         });
     }
 
