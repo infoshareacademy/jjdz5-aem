@@ -8,7 +8,6 @@ import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
-import com.isa.aem.data_loaders.FileContentReader;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.informationcollect.RecordCreator;
@@ -28,7 +27,6 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    FileContentReader fileContentReader = new FileContentReader();
     CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
     protected String defaultCurrencyNameHave;
     protected String defaultCurrencyNameWant;
@@ -116,18 +114,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
-            Long id = recordCreator.fingIdformDataBaseByEmail(req);
-            LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
-
-            User user = userDao.findById(id);
-
-            Activity calculatorActivity = recordCreator.createCalculatorActivity(
-                    calculatorAmount,
-                    reqHave,
-                    reqWant,
-                    dateOfExchange);
-
-            user.addActivity(calculatorActivity);
+            trackingCalculator(req, calculatorAmount, reqHave, reqWant);
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
@@ -136,15 +123,36 @@ public class CalculatorComponentsServlet extends HttpServlet {
             currencyInTable = currencyInTableName[0];
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
 
-            Long id = recordCreator.fingIdformDataBaseByEmail(req);
-
-            User user = userDao.findById(id);
-
-            Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
-                    currencyInTable);
-
-            user.addActivity(exchangeRateActivity);
-
+            trackingRate(req);
         }
+    }
+
+    private void trackingRate(HttpServletRequest req) {
+        Long id = recordCreator.fingIdformDataBaseByEmail(req);
+
+        User user = userDao.findById(id);
+
+        Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
+                currencyInTable);
+
+        user.addActivity(exchangeRateActivity);
+    }
+
+    private void trackingCalculator(HttpServletRequest req,
+                                    Double calculatorAmount,
+                                    String reqHave,
+                                    String reqWant) {
+        Long id = recordCreator.fingIdformDataBaseByEmail(req);
+        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
+
+        User user = userDao.findById(id);
+
+        Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                calculatorAmount,
+                reqHave,
+                reqWant,
+                dateOfExchange);
+
+        user.addActivity(calculatorActivity);
     }
 }

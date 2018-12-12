@@ -33,7 +33,7 @@ public class RecordCreator {
 
         User user = new User();
 
-        user.setUserName(name);
+        user.setName(name);
         user.setEmail(email);
         user.setAdmin(isAdmin);
 
@@ -48,8 +48,8 @@ public class RecordCreator {
         Activity activity = new Activity();
 
         activity.setAmount(amount);
-        activity.setCalculatorCurrencyFirst(firstCurrency);
-        activity.setCalculatorCurrencySecond(secondCurrency);
+        activity.setCalculatorCurrencyHave(firstCurrency);
+        activity.setCalculatorCurrencyWant(secondCurrency);
         activity.setCalculatorDate(calculatorDate);
         activity.setActionType(ActionType.CALCUALTOR);
         activity.setActionDate(LocalDateTime.now());

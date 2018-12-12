@@ -26,8 +26,8 @@ public class Activity {
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "exchange_rate_by_pln")
-    private BigDecimal exchangeRate;
+    @Column(name = "currency_name_in_rate")
+    private String currencyNameInRate;
 
     @Column(name = "date_from")
     private LocalDate dateFrom;
@@ -59,7 +59,7 @@ public class Activity {
                     String calculatorCurrencySecond,
                     String extremumCurrency,
                     Double amount,
-                    BigDecimal exchangeRate,
+                    String  exchangeRate,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
                     LocalDate calculatorDate,
@@ -72,7 +72,7 @@ public class Activity {
         this.calculatorCurrencyHave = calculatorCurrencySecond;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
-        this.exchangeRate = exchangeRate;
+        this.currencyNameInRate = exchangeRate;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
         this.calculatorDate = calculatorDate;
@@ -174,12 +174,12 @@ public class Activity {
         this.user = user;
     }
 
-    public BigDecimal getExchangeRate() {
-        return exchangeRate;
+    public String getCurrencyNameInRate() {
+        return currencyNameInRate;
     }
 
-    public void setExchangeRate(BigDecimal exchangeRate) {
-        this.exchangeRate = exchangeRate;
+    public void setCurrencyNameInRate(String exchangeRate) {
+        this.currencyNameInRate = exchangeRate;
     }
 
     public LocalDateTime getLoggedInTime() {
