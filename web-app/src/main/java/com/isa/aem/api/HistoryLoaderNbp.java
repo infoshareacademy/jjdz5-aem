@@ -8,24 +8,24 @@ import java.util.List;
 
 public class HistoryLoaderNbp {
     JsonSchemeReaderNbpApi jsonSchemeReaderNbpApi = new JsonSchemeReaderNbpApi();
-    DateMethod dateMethod = new DateMethod();
+    OperationsOnDateRanges operationsOnDateRanges = new OperationsOnDateRanges();
     public List<List<CurrencyRates>> historyListNbp = new ArrayList<>();
 
 
     public List<List<CurrencyRates>> loadAllCurrencyHistoryFromNbpApi(LocalDate minDateStart) {
-        LocalDate dateStart = minDateStart;
-        LocalDate dateEnd = dateStart.plusDays(dateMethod.MAX_DATE_RANGE_NBP_API);
-        Integer iCount = 0;
-        Long daysToDownload = dateMethod.countDaysOfNbpHistory(minDateStart);
-        while (iCount < dateMethod.countTheNumberOfRepetitionsMaxRangeNbp(minDateStart)) {
-            if (daysToDownload > dateMethod.MAX_DATE_RANGE_NBP_API) {
-                historyListNbp.add(jsonSchemeReaderNbpApi.loadJsonToListWithTwoDates(dateStart.toString(), dateEnd.toString()));
-                dateStart = dateMethod.nextDayStart(dateEnd);
-                dateEnd = dateStart.plusDays(dateMethod.MAX_DATE_RANGE_NBP_API);
+        LocalDate startDate = minDateStart;
+        LocalDate endDate = startDate.plusDays(operationsOnDateRanges.MAX_DATE_RANGE_NBP_API);
+        Integer i = 0;
+        Long daysToDownload = operationsOnDateRanges.countDaysOfNbpHistory(minDateStart);
+        while (i < operationsOnDateRanges.countTheNumberOfRepetitionsMaxRangeNbp(minDateStart)) {
+            if (daysToDownload > operationsOnDateRanges.MAX_DATE_RANGE_NBP_API) {
+                historyListNbp.add(jsonSchemeReaderNbpApi.loadJsonToListWithTwoDates(startDate.toString(), endDate.toString()));
+                startDate = operationsOnDateRanges.nextDayStart(endDate);
+                endDate = startDate.plusDays(operationsOnDateRanges.MAX_DATE_RANGE_NBP_API);
             }
-            dateMethod.checkIfTheRestIsSmallerThenMaxRangeNbpApi(daysToDownload, dateStart, dateEnd, historyListNbp);
-            daysToDownload = dateMethod.countRangeToDownload(minDateStart, dateEnd);
-            iCount++;
+            operationsOnDateRanges.checkIfTheRestIsSmallerThenMaxRangeNbpApi(daysToDownload, startDate, endDate, historyListNbp);
+            daysToDownload = operationsOnDateRanges.countRangeToDownload(minDateStart, endDate);
+            i++;
         }
         return historyListNbp;
     }

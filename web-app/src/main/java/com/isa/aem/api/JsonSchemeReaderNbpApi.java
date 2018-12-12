@@ -11,13 +11,13 @@ import java.util.List;
 
 public class JsonSchemeReaderNbpApi {
     private static final String BASE_URL =
-            "http://api.nbp.pl/api/exchangerates/tables/A/{dateStart}/{dateEnd}";
+            "http://api.nbp.pl/api/exchangerates/tables/A/{startDate}/{endDate}";
     private static final String WEB_SLASH = "/";
 
-    public List<CurrencyRates> loadJsonToListWithTwoDates(String dateStart, String dateEnd) {
+    public List<CurrencyRates> loadJsonToListWithTwoDates(String startDate, String endDate) {
         Client client = ClientBuilder.newClient();
         try {
-            return ClientBuilder.newClient().target(BASE_URL.replace("{dateStart}/{dateEnd}", dateStart + WEB_SLASH + dateEnd))
+            return ClientBuilder.newClient().target(BASE_URL.replace("{startDate}/{endDate}", startDate + WEB_SLASH + endDate))
                     .request()
                     .accept(MediaType.APPLICATION_JSON_TYPE)
                     .get().readEntity(new GenericType<ArrayList<CurrencyRates>>() {
@@ -30,7 +30,7 @@ public class JsonSchemeReaderNbpApi {
     public List<CurrencyRates> loadActualJson() {
         Client client = ClientBuilder.newClient();
         try {
-            return ClientBuilder.newClient().target(BASE_URL.replace("{dateStart}/{dateEnd}", ""))
+            return ClientBuilder.newClient().target(BASE_URL.replace("{startDate}/{endDate}", ""))
                     .request()
                     .accept(MediaType.APPLICATION_JSON_TYPE)
                     .get().readEntity(new GenericType<ArrayList<CurrencyRates>>() {
@@ -39,5 +39,4 @@ public class JsonSchemeReaderNbpApi {
             client.close();
         }
     }
-
 }
