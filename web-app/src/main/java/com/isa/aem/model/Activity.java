@@ -15,10 +15,10 @@ public class Activity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "calculator_currency_have")
+    @Column(name = "calculator_currency_want")
     private String calculatorCurrencyWant;
 
-    @Column(name = "calculator_currency_want")
+    @Column(name = "calculator_currency_have")
     private String calculatorCurrencyHave;
 
     @Column(name = "extremum_currency")
@@ -56,8 +56,8 @@ public class Activity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Activity(String calculatorCurrencyFirst,
-                    String calculatorCurrencySecond,
+    public Activity(String calculatorCurrencyWant,
+                    String calculatorCurrencyHave,
                     String extremumCurrency,
                     Double amount,
                     String  exchangeRate,
@@ -69,8 +69,8 @@ public class Activity {
                     LocalDateTime loggedOutTime,
                     ActionType actionType,
                     User user) {
-        this.calculatorCurrencyWant = calculatorCurrencyFirst;
-        this.calculatorCurrencyHave = calculatorCurrencySecond;
+        this.calculatorCurrencyWant = calculatorCurrencyWant;
+        this.calculatorCurrencyHave = calculatorCurrencyHave;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
         this.currencyNameInRate = exchangeRate;
@@ -87,6 +87,14 @@ public class Activity {
     public Activity() {
     }
 
+    public void setCalculatorCurrencyWant(String calculatorCurrencyWant) {
+        this.calculatorCurrencyWant = calculatorCurrencyWant;
+    }
+
+    public void setCalculatorCurrencyHave(String calculatorCurrencyHave) {
+        this.calculatorCurrencyHave = calculatorCurrencyHave;
+    }
+
     public Long getId() {
         return id;
     }
@@ -99,16 +107,8 @@ public class Activity {
         return calculatorCurrencyWant;
     }
 
-    public void setCalculatorCurrencyWant(String calculatorCurrencyFirst) {
-        this.calculatorCurrencyWant = calculatorCurrencyFirst;
-    }
-
     public String getCalculatorCurrencyHave() {
         return calculatorCurrencyHave;
-    }
-
-    public void setCalculatorCurrencyHave(String calculatorCurrencySecond) {
-        this.calculatorCurrencyHave = calculatorCurrencySecond;
     }
 
     public Double getAmount() {
