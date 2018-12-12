@@ -15,7 +15,7 @@ public class Activity {
     private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_wont";
     private static final String CURRENCY_GIVEN_BY_USER_IN_EXTREMUM = "extremum_currency";
     private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
-    private static final String EXCHANGE_RATE_BY_PLN = "exchange_rate_by_pln";
+    private static final String CURRENCY_NAME_IN_RATE = "currency_name_in_rate";
     private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
     private static final String DATE_TO_GIVEN_BY_USER = "date_to";
     private static final String CALCULATOR_DATE_GIVEN_BY_USER = "calculator_date";
@@ -41,8 +41,8 @@ public class Activity {
     @Column(name = AMOUNT_GIVEN_BY_USER_TO_CALCULATOR)
     private Double amount;
 
-    @Column(name = EXCHANGE_RATE_BY_PLN)
-    private BigDecimal exchangeRate;
+    @Column(name = CURRENCY_NAME_IN_RATE)
+    private String currencyNameInRate;
 
     @Column(name = DATE_FROM_GIVEN_BY_USER)
     private LocalDate dateFrom;
@@ -74,7 +74,7 @@ public class Activity {
                     String calculatorCurrencySecond,
                     String extremumCurrency,
                     Double amount,
-                    BigDecimal exchangeRate,
+                    String currencyNameInRate,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
                     LocalDate calculatorDate,
@@ -87,7 +87,7 @@ public class Activity {
         this.calculatorCurrencySecond = calculatorCurrencySecond;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
-        this.exchangeRate = exchangeRate;
+        this.currencyNameInRate = currencyNameInRate;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
         this.calculatorDate = calculatorDate;
@@ -189,12 +189,12 @@ public class Activity {
         this.user = user;
     }
 
-    public BigDecimal getExchangeRate() {
-        return exchangeRate;
+    public String getCurrencyNameInRate() {
+        return currencyNameInRate;
     }
 
-    public void setExchangeRate(BigDecimal exchangeRate) {
-        this.exchangeRate = exchangeRate;
+    public void setCurrencyNameInRate(String currencyNameInRate) {
+        this.currencyNameInRate = currencyNameInRate;
     }
 
     public LocalDateTime getLoggedInTime() {

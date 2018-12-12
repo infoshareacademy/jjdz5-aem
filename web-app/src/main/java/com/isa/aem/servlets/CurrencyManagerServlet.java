@@ -64,11 +64,9 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
         doGet(req, resp);
     }
 
-    private void trackingUser(HttpServletRequest req) {
+    private void trackingCalculator(HttpServletRequest req) {
 
-        String emailByGoogle = recordCreator.getEmailByGoogle(req);
-        List<String> idStr = userDao.findIdByEmail(emailByGoogle);
-        Long id = recordCreator.parseToLong(idStr);
+        Long id = recordCreator.fingIdformDataBaseByEmail(req);
 
         User user = userDao.findById(id);
 
@@ -85,5 +83,15 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
                 dateOfExchange);
 
         user.addActivity(calculatorActivity);
+    }
+
+    private void trackingExchangeRate(HttpServletRequest req) {
+
+        Long id = recordCreator.fingIdformDataBaseByEmail(req);
+
+        User user = userDao.findById(id);
+
+
+
     }
 }

@@ -1,11 +1,13 @@
 package com.isa.aem.informationcollect;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.model.ActionType;
 import com.isa.aem.model.Activity;
 import com.isa.aem.model.User;
 import com.isa.aem.servlets.IdTokenVerifierAndParser;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -20,6 +22,9 @@ public class RecordCreator {
     private static final String ID_TOKEN_PARAMETER = "id_token";
     private static final String NAME_PARAMETER = "name";
     private static final String ADMIN_EMAIL = "currencymanager2018@gmail.com";
+
+    @Inject
+    UserDao userDao;
 
 
     public User createUser(String name,
@@ -70,11 +75,11 @@ public class RecordCreator {
         return activity;
     }
 
-    public Activity createExchangeRateActivity(BigDecimal rate) {
+    public Activity createExchangeRateActivity(String currencyNameInRate) {
 
         Activity activity = new Activity();
 
-        activity.setExchangeRate(rate);
+        activity.setCurrencyNameInRate(currencyNameInRate);
         activity.setActionDate(LocalDateTime.now());
         activity.setActionType(ActionType.CALCUALTOR);
 
@@ -151,11 +156,18 @@ public class RecordCreator {
         return ADMIN_EMAIL.equals(email);
     }
 
-    public Long parseToLong(List<String> id) {
+    public Long fingIdformDataBaseByEmail(HttpServletRequest req) {
+        String emailByGoogle = getEmailByGoogle(req);
+        List<String> idStr = userDao.findIdByEmail(emailByGoogle);
+        return parseToLong(idStr);
+    }
+
+    private Long parseToLong(List<String> id) {
         return id.stream()
                 .map(s -> Long.parseLong(s))
                 .findFirst()
                 .get();
     }
+
 
 }
