@@ -9,8 +9,14 @@ import java.util.List;
 @Stateless
 public class UserDao extends GenericDao<User> {
 
-    public List findIdByEmail(String email) {
+    public List<String> findIdByEmail(String email) {
         final Query query = entityManager.createNativeQuery("SELECT ID FROM USERS WHERE EMAIL =" + email);
+        return query.getResultList();
+    }
+
+    public List<String> findEmailInDatabase(String email) {
+        final Query query = entityManager.createQuery("SELECT s FROM User s WHERE s.email = :param");
+        query.setParameter("param", email);
         return query.getResultList();
     }
 }

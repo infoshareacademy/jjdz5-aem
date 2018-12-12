@@ -2,8 +2,11 @@ package com.isa.aem.servlets;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.isa.aem.dao.GenericDao;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -25,7 +28,9 @@ public class LoginServlet extends HttpServlet {
     @Inject
     private RecordCreator recordCreator;
     @Inject
-    private GenericDao<User> userDao;
+    private UserDao userDao;
+
+    private Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req,
@@ -39,12 +44,14 @@ public class LoginServlet extends HttpServlet {
             GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
             String name = (String) payLoad.get(NAME_PARAMETER);
             String email = payLoad.getEmail();
-            System.out.println("User name: " + name);
-            System.out.println("User email: " + email);
+            LOG.info("User name: " + name);
+            LOG.info("User email: " + email);
 
             HttpSession session = req.getSession(true);
             session.setAttribute(USER_NAME_PARAMETER, name);
-            addUser(req);
+
+            checkAndAddIfNotExistUser(req, email, name);
+
             resp.sendRedirect("/currency-manager");
 
         } catch (Exception e) {
@@ -52,7 +59,20 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    private void checkAndAddIfNotExistUser(HttpServletRequest req,
+                                           String email,
+                                           String name) {
+
+        if (isExistUser(email)) {
+            addUser(req);
+            LOG.info("Add user : {}", name);
+        } else {
+            LOG.info("User: {}, exist now", name);
+        }
+    }
+
     private void addUser(HttpServletRequest req) {
+
         String nameByGoogle = recordCreator.getNameByGoogle(req);
         String emailByGoogle = recordCreator.getEmailByGoogle(req);
 
@@ -63,6 +83,13 @@ public class LoginServlet extends HttpServlet {
                 emailByGoogle,
                 isAdmin);
 
+
+
         userDao.save(user);
+    }
+
+    private Boolean isExistUser(String email) {
+
+        return userDao.findIdByEmail(email).isEmpty();
     }
 }
