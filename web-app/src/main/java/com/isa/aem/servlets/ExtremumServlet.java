@@ -5,7 +5,7 @@ import com.isa.aem.CurrencyRepository;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
 import com.isa.aem.freemarker.TemplateProvider;
-import com.isa.aem.model.ExtremumObject;
+import com.isa.aem.extremum.ExtremumObject;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
 import freemarker.template.Template;
