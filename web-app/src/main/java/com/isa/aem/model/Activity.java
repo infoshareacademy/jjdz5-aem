@@ -9,65 +9,50 @@ import java.time.LocalDateTime;
 @Table(name = "ACTIVITIES")
 public class Activity {
 
-    private static final String ID = "id";
-    private static final String ID_OF_USER = "user_id";
-    private static final String CURRENCY_HAVE = "calculator_currency_have";
-    private static final String CURRENCY_WANT = "calculator_currency_want";
-    private static final String CURRENCY_GIVEN_BY_USER_IN_EXTREMUM = "extremum_currency";
-    private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
-    private static final String EXCHANGE_RATE_BY_PLN = "exchange_rate_by_pln";
-    private static final String DATE_FROM_GIVEN_BY_USER = "date_from";
-    private static final String DATE_TO_GIVEN_BY_USER = "date_to";
-    private static final String CALCULATOR_DATE_GIVEN_BY_USER = "calculator_date";
-    private static final String DATE_WHEN_USER_MADE_ACTION = "action_date";
-    private static final String ACTION_TYPE = "action_type";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_IN = "logged_in_date_time";
-    private static final String DATE_AND_TIME_WHEN_USER_LOGGED_OUT = "logged_out_date_time";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = ID)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = CURRENCY_HAVE)
+    @Column(name = "calculator_currency_have")
     private String calculatorCurrencyWant;
 
-    @Column(name = CURRENCY_WANT)
+    @Column(name = "calculator_currency_want")
     private String calculatorCurrencyHave;
 
-    @Column(name = CURRENCY_GIVEN_BY_USER_IN_EXTREMUM)
+    @Column(name = "calculator_currency_want")
     private String extremumCurrency;
 
-    @Column(name = AMOUNT_GIVEN_BY_USER_TO_CALCULATOR)
+    @Column(name = "amount")
     private Double amount;
 
-    @Column(name = EXCHANGE_RATE_BY_PLN)
+    @Column(name = "exchange_rate_by_pln")
     private BigDecimal exchangeRate;
 
-    @Column(name = DATE_FROM_GIVEN_BY_USER)
+    @Column(name = "date_from")
     private LocalDate dateFrom;
 
-    @Column(name = DATE_TO_GIVEN_BY_USER)
+    @Column(name = "date_to")
     private LocalDate dateTo;
 
-    @Column(name = CALCULATOR_DATE_GIVEN_BY_USER)
+    @Column(name = "calculator_date")
     private LocalDate calculatorDate;
 
-    @Column(name = DATE_WHEN_USER_MADE_ACTION)
+    @Column(name = "action_date")
     private LocalDateTime actionDate;
 
-    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_IN)
+    @Column(name = "logged_in_date_time")
     private LocalDateTime loggedInTime;
 
-    @Column(name = DATE_AND_TIME_WHEN_USER_LOGGED_OUT)
+    @Column(name = "logged_out_date_time")
     private LocalDateTime loggedOutTime;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = ACTION_TYPE)
+    @Column(name = "action_type")
     private ActionType actionType;
 
     @ManyToOne
-    @JoinColumn(name = ID_OF_USER)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Activity(String calculatorCurrencyFirst,
