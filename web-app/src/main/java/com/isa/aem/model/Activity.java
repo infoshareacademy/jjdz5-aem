@@ -20,7 +20,7 @@ public class Activity {
     @Column(name = "calculator_currency_want")
     private String calculatorCurrencyHave;
 
-    @Column(name = "calculator_currency_want")
+    @Column(name = "extremum_currency")
     private String extremumCurrency;
 
     @Column(name = "amount")
