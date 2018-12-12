@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -100,6 +101,7 @@ public class LoginServlet extends HttpServlet {
 
         Activity loginDataTime = recordCreator.logInTime(LocalDateTime.now());
 
-        user.addActivity(loginDataTime);
+        List<Activity> activities = user.getActivities();
+        activities.add(loginDataTime);
     }
 }

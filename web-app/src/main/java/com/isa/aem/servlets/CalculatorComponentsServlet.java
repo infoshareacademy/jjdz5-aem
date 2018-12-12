@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class CalculatorComponentsServlet extends HttpServlet {
@@ -139,7 +140,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
         Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
                 currencyInTable);
 
-        user.addActivity(exchangeRateActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(exchangeRateActivity);
     }
 
     private void userLoginTrackingCalculator(HttpServletRequest req,
@@ -158,7 +160,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 reqWant,
                 dateOfExchange);
 
-        user.addActivity(calculatorActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(calculatorActivity);
     }
 
     private void userLogoutTrackingRate(HttpServletRequest req) {
@@ -168,7 +171,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
         Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
                 currencyInTable);
 
-        user.addActivity(exchangeRateActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(exchangeRateActivity);
     }
 
     private void userLogoutTrackingCalculator(HttpServletRequest req,
@@ -186,7 +190,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 reqWant,
                 dateOfExchange);
 
-        user.addActivity(calculatorActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(calculatorActivity);
     }
 
     private void checkLoginAndTrackCalculator(HttpServletRequest req,

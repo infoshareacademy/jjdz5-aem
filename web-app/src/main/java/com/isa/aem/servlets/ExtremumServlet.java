@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/extremum")
@@ -170,7 +171,8 @@ public class ExtremumServlet extends HttpServlet {
                         dateTo,
                         currencyName);
 
-        user.addActivity(localExtremeumActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(localExtremeumActivity);
     }
 
     private void trackingGlobalExtremum(HttpServletRequest req,
@@ -185,7 +187,8 @@ public class ExtremumServlet extends HttpServlet {
                 .createGlobalExtremeumActivity(dateFrom,
                         currencyName);
 
-        user.addActivity(globalExtremeumActivity);
+        List<Activity> activities = user.getActivities();
+        activities.add(globalExtremeumActivity);
     }
 
     private Boolean isLocalExtremum(String s) {

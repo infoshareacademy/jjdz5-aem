@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/logout")
 public class LogoutServlet extends HttpServlet {
@@ -47,6 +48,7 @@ public class LogoutServlet extends HttpServlet {
 
         Activity logoutDataTime = recordCreator.logOutTime(LocalDateTime.now());
 
-        user.addActivity(logoutDataTime);
+        List<Activity> activities = user.getActivities();
+        activities.add(logoutDataTime);
     }
 }

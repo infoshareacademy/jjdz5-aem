@@ -53,7 +53,6 @@ public class Activity {
     private ActionType actionType;
 
     @ManyToOne
-    @NotNull
     @JoinColumn(name = "user_id")
     private User user;
 

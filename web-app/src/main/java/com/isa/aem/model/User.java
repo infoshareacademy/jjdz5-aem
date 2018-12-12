@@ -23,7 +23,7 @@ public class User {
     private Boolean isAdmin = false;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Activity> activity;
+    private List<Activity> activities;
 
     public User() {
 
@@ -40,7 +40,7 @@ public class User {
     }
 
     public void addActivity(Activity activity) {
-        this.activity.add(activity);
+        activities.add(activity);
     }
 
     public Long getId() {
@@ -76,11 +76,11 @@ public class User {
     }
 
 
-    public List<Activity> getActivity() {
-        return activity;
+    public List<Activity> getActivities() {
+        return activities;
     }
 
-    public void setActivity(List<Activity> activity) {
-        this.activity = activity;
+    public void setActivities(List<Activity> activity) {
+        this.activities = activity;
     }
 }
