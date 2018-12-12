@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
 
-    private static final String UNIQUE_ID = "id";
+    private static final String ID = "id";
     private static final String USER_MAPPED = "user";
     private static final String USER_NAME_GIVEN_BY_GOOGLE = "name";
     private static final String USER_EMAIL_GIVEN_BY_GOOGLE = "email";
@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = UNIQUE_ID)
+    @Column(name = ID)
     private Long id;
 
     @Column(name = USER_NAME_GIVEN_BY_GOOGLE)

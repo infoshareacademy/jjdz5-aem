@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @Table(name = "ACTIVITIES")
 public class Activity {
 
-    private static final String UNIQUE_ID = "id";
-    private static final String UNIQUE_ID_OF_USER = "user_id";
-    private static final String FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_have";
-    private static final String SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR = "calculator_currency_wont";
+    private static final String ID = "id";
+    private static final String ID_OF_USER = "user_id";
+    private static final String CURRENCY_HAVE = "calculator_currency_have";
+    private static final String CURRENCY_WANT = "calculator_currency_want";
     private static final String CURRENCY_GIVEN_BY_USER_IN_EXTREMUM = "extremum_currency";
     private static final String AMOUNT_GIVEN_BY_USER_TO_CALCULATOR = "amount";
     private static final String EXCHANGE_RATE_BY_PLN = "exchange_rate_by_pln";
@@ -26,14 +26,14 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = UNIQUE_ID)
+    @Column(name = ID)
     private Long id;
 
-    @Column(name = FIRST_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR)
-    private String calculatorCurrencyFirst;
+    @Column(name = CURRENCY_HAVE)
+    private String calculatorCurrencyWant;
 
-    @Column(name = SECOND_CURRENCY_GIVEN_BY_USER_IN_CALCULATOR)
-    private String calculatorCurrencySecond;
+    @Column(name = CURRENCY_WANT)
+    private String calculatorCurrencyHave;
 
     @Column(name = CURRENCY_GIVEN_BY_USER_IN_EXTREMUM)
     private String extremumCurrency;
@@ -67,7 +67,7 @@ public class Activity {
     private ActionType actionType;
 
     @ManyToOne
-    @JoinColumn(name = UNIQUE_ID_OF_USER)
+    @JoinColumn(name = ID_OF_USER)
     private User user;
 
     public Activity(String calculatorCurrencyFirst,
@@ -83,8 +83,8 @@ public class Activity {
                     LocalDateTime loggedOutTime,
                     ActionType actionType,
                     User user) {
-        this.calculatorCurrencyFirst = calculatorCurrencyFirst;
-        this.calculatorCurrencySecond = calculatorCurrencySecond;
+        this.calculatorCurrencyWant = calculatorCurrencyFirst;
+        this.calculatorCurrencyHave = calculatorCurrencySecond;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
         this.exchangeRate = exchangeRate;
@@ -109,20 +109,20 @@ public class Activity {
         this.id = id;
     }
 
-    public String getCalculatorCurrencyFirst() {
-        return calculatorCurrencyFirst;
+    public String getCalculatorCurrencyWant() {
+        return calculatorCurrencyWant;
     }
 
-    public void setCalculatorCurrencyFirst(String calculatorCurrencyFirst) {
-        this.calculatorCurrencyFirst = calculatorCurrencyFirst;
+    public void setCalculatorCurrencyWant(String calculatorCurrencyFirst) {
+        this.calculatorCurrencyWant = calculatorCurrencyFirst;
     }
 
-    public String getCalculatorCurrencySecond() {
-        return calculatorCurrencySecond;
+    public String getCalculatorCurrencyHave() {
+        return calculatorCurrencyHave;
     }
 
-    public void setCalculatorCurrencySecond(String calculatorCurrencySecond) {
-        this.calculatorCurrencySecond = calculatorCurrencySecond;
+    public void setCalculatorCurrencyHave(String calculatorCurrencySecond) {
+        this.calculatorCurrencyHave = calculatorCurrencySecond;
     }
 
     public Double getAmount() {
