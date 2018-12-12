@@ -63,35 +63,4 @@ public class CurrencyManagerServlet extends CalculatorComponentsServlet {
         calculateExchangeRate(req, resp);
         doGet(req, resp);
     }
-
-    private void trackingCalculator(HttpServletRequest req) {
-
-        Long id = recordCreator.fingIdformDataBaseByEmail(req);
-
-        User user = userDao.findById(id);
-
-        Double amount  = Double.valueOf(req.getParameter(AMOUNT_PARAMETER));
-
-        String currencyHave = req.getParameter(HAVE_PARAMETER);
-        String currencyWant = req.getParameter(WANT_PARAMETER);
-        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
-
-        Activity calculatorActivity = recordCreator.createCalculatorActivity(
-                amount,
-                currencyHave,
-                currencyWant,
-                dateOfExchange);
-
-        user.addActivity(calculatorActivity);
-    }
-
-    private void trackingExchangeRate(HttpServletRequest req) {
-
-        Long id = recordCreator.fingIdformDataBaseByEmail(req);
-
-        User user = userDao.findById(id);
-
-
-
-    }
 }

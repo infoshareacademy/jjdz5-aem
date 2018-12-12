@@ -6,10 +6,14 @@ import com.isa.aem.api.CurrencyApiTranslator;
 import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import com.isa.aem.data_loaders.FileContentReader;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateProvider;
+import com.isa.aem.informationcollect.RecordCreator;
+import com.isa.aem.model.Activity;
+import com.isa.aem.model.User;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -44,6 +48,12 @@ public class CalculatorComponentsServlet extends HttpServlet {
     @Inject
     public TemplateProvider templateProvider;
     public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
+
+    @Inject
+    private RecordCreator recordCreator;
+
+    @Inject
+    private UserDao userDao;
 
     @Override
     public void init() throws ServletException {
@@ -106,12 +116,35 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
+            Long id = recordCreator.fingIdformDataBaseByEmail(req);
+            LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
+
+            User user = userDao.findById(id);
+
+            Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                    calculatorAmount,
+                    reqHave,
+                    reqWant,
+                    dateOfExchange);
+
+            user.addActivity(calculatorActivity);
+
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
             String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
+
+            Long id = recordCreator.fingIdformDataBaseByEmail(req);
+
+            User user = userDao.findById(id);
+
+            Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
+                    currencyInTable);
+
+            user.addActivity(exchangeRateActivity);
+
         }
     }
 }
