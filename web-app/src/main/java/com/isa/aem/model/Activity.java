@@ -14,10 +14,10 @@ public class Activity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "calculator_currency_have")
+    @Column(name = "calculator_currency_want")
     private String calculatorCurrencyWant;
 
-    @Column(name = "calculator_currency_want")
+    @Column(name = "calculator_currency_have")
     private String calculatorCurrencyHave;
 
     @Column(name = "extremum_currency")
