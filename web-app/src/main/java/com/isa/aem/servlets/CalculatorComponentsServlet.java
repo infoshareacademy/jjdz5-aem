@@ -114,12 +114,10 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
-            Object logged = req.getSession().getAttribute("userName");
-            if (logged == null) {
-                userLogoutTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
-            } else {
-                userLoginTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
-            }
+            checkLoginAndTrackCalculator(req,
+                    calculatorAmount,
+                    reqHave,
+                    reqWant);
 
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
@@ -128,12 +126,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
             currencyInTable = currencyInTableName[0];
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
 
-            Object logged = req.getSession().getAttribute("userName");
-            if (logged == null) {
-                userLoginTrackingRate(req);
-            }else {
-                userLoginTrackingRate(req);
-            }
+            checkLoginAndTrackRate(req);
         }
     }
 
@@ -194,6 +187,29 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 dateOfExchange);
 
         user.addActivity(calculatorActivity);
+    }
+
+    private void checkLoginAndTrackCalculator(HttpServletRequest req,
+                                              Double calculatorAmount,
+                                              String reqHave,
+                                              String reqWant) {
+
+        Object logged = req.getSession().getAttribute("userName");
+        if (logged == null) {
+            userLogoutTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+        } else {
+            userLoginTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+        }
+    }
+
+    private void checkLoginAndTrackRate(HttpServletRequest req) {
+
+        Object logged = req.getSession().getAttribute("userName");
+        if (logged == null) {
+            userLogoutTrackingRate(req);
+        }else {
+            userLoginTrackingRate(req);
+        }
     }
 
 }
