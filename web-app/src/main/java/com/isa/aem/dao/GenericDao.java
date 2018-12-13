@@ -4,8 +4,6 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.util.List;
 
 @Default
 @Any
@@ -34,10 +32,5 @@ public class GenericDao<T> {
         if (tId != null) {
             entityManager.remove(tId);
         }
-    }
-
-    public List<T> findAll() {
-        final Query query = entityManager.createQuery("SELECT s FROM" + C.getSimpleName() + " s");
-        return query.getResultList();
     }
 }

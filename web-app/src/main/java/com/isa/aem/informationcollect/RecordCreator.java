@@ -26,7 +26,6 @@ public class RecordCreator {
     @Inject
     UserDao userDao;
 
-
     public User createUser(String name,
                            String email,
                            Boolean isAdmin) {

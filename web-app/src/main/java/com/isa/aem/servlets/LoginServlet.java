@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     private RecordCreator recordCreator;
+
     @Inject
     private UserDao userDao;
 
@@ -35,8 +36,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp)
-            throws ServletException, IOException {
+                          HttpServletResponse resp) {
 
         resp.setContentType("text/html");
 
@@ -86,6 +86,7 @@ public class LoginServlet extends HttpServlet {
                 isAdmin);
 
         userDao.save(user);
+        LOG.info("Add new user: {}.", nameByGoogle);
     }
 
     private Boolean isExistUser(String email) {
@@ -103,5 +104,6 @@ public class LoginServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(loginDataTime);
+        LOG.info("Login date and time: {}.", loginDataTime);
     }
 }

@@ -19,4 +19,9 @@ public class UserDao extends GenericDao<User> {
         query.setParameter("param", email);
         return query.getResultList();
     }
+
+    public List<User> findAll() {
+        final Query query = entityManager.createQuery("SELECT u FROM User u");
+        return query.getResultList();
+    }
 }

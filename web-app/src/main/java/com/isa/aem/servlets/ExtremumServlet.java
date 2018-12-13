@@ -113,7 +113,8 @@ public class ExtremumServlet extends HttpServlet {
         LocalDate dateFrom = LocalDate.parse(req.getParameter(DATE_FROM_PARAMETER));
         LocalDate dateTo = LocalDate.parse(req.getParameter(DATE_TO_PARAMETER));
 
-        switchLocalGlobalExtremum(radioChecked,
+        switchLocalGlobalExtremumAndTrack(
+                radioChecked,
                 req,
                 dateFrom,
                 dateTo,
@@ -148,22 +149,24 @@ public class ExtremumServlet extends HttpServlet {
         }
     }
 
-    private void switchLocalGlobalExtremum(String s,
-                                           HttpServletRequest req,
-                                           LocalDate dateFrom,
-                                           LocalDate dateTo,
-                                           String currencyName) {
+    private void switchLocalGlobalExtremumAndTrack(String s,
+                                                   HttpServletRequest req,
+                                                   LocalDate dateFrom,
+                                                   LocalDate dateTo,
+                                                   String currencyName) {
+
         if (isLocalExtremum(s)){
-            trackingLocalExtremum(req,
+            trackingLocalExtremum(
+                    req,
                     dateFrom,
                     dateTo,
                     currencyName);
         } else if (isGlobalExtremum(s)) {
-            trackingGlobalExtremum(req,
+            trackingGlobalExtremum(
+                    req,
                     dateFrom,
                     currencyName);
         }
-
     }
 
     private void trackingLocalExtremum(HttpServletRequest req,
@@ -176,7 +179,8 @@ public class ExtremumServlet extends HttpServlet {
         User user = userDao.findById(id);
 
         Activity localExtremeumActivity = recordCreator
-                .createLocalExtremeumActivity(dateFrom,
+                .createLocalExtremeumActivity(
+                        dateFrom,
                         dateTo,
                         currencyName);
 
@@ -193,7 +197,8 @@ public class ExtremumServlet extends HttpServlet {
         User user = userDao.findById(id);
 
         Activity globalExtremeumActivity = recordCreator
-                .createGlobalExtremeumActivity(dateFrom,
+                .createGlobalExtremeumActivity(
+                        dateFrom,
                         currencyName);
 
         List<Activity> activities = user.getActivities();
