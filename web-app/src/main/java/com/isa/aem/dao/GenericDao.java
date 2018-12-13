@@ -37,7 +37,7 @@ public class GenericDao<T> {
     }
 
     public List<T> findAll() {
-        final Query query = entityManager.createQuery("SELECT s FROM" + C + " s");
+        final Query query = entityManager.createQuery("SELECT s FROM " + this.C.getSimpleName() + " s");
         return query.getResultList();
     }
 }

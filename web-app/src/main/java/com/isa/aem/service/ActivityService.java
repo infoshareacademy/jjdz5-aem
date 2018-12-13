@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Path("/")
 public class ActivityService {
 
     private Logger LOG = LoggerFactory.getLogger(ActivityService.class);
@@ -23,22 +24,9 @@ public class ActivityService {
     @GET
     @Path("/activities")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllLoggedInUsers() {
-        final List<Activity> activities = activityDao.findAllLoggedInUsers();
+    public Response getAllTodaysActivitiesByLoggedInUsers() {
+        final List<Activity> activities = activityDao.findAllTodaysActivitiesByLoggedInUsers();
         LOG.info("Found " + activities.size() + " activities by logged in users");
-
-        if (!activities.isEmpty()) {
-            return Response.ok(activities).build();
-        }
-        return Response.noContent().build();
-    };
-
-    @GET
-    @Path("/activities")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getGuestUsers() {
-        final List<Activity> activities = activityDao.findAllGuestUsers();
-        LOG.info("Found " + activities.size() + " activities by guest users");
 
         if (!activities.isEmpty()) {
             return Response.ok(activities).build();
