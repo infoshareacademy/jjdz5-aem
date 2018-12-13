@@ -2,6 +2,9 @@ package com.isa.aem.servlets;
 
 import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
+import com.isa.aem.api.CurrencyApiTranslator;
+import com.isa.aem.api.OperationsOnDateRanges;
+import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateName;
@@ -36,6 +39,9 @@ public class ExtremumServlet extends HttpServlet {
     private DataValidator dataValidator = new DataValidator();
     private Boolean dateFromAfterDateTo = Boolean.FALSE;
     private String defaultCurrencyName;
+    private CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
+    private CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+    private OperationsOnDateRanges operationsOnDateRanges = new OperationsOnDateRanges();
     private String radioChecked = "globalRadioChecked";
     private static final String CURRENCY_NAME_PARAMETER = "currencyName";
     private static final String DATE_FROM_PARAMETER = "dateFrom";
@@ -57,6 +63,9 @@ public class ExtremumServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
+        currencyRepository.getCurrencies();
+        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyName = appProperties.getCurrencyNameEur();
     }

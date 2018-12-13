@@ -13,22 +13,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CurrencyApiTranslator {
-    HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
     private List<Currency> dateTable = new ArrayList<>();
     public List<Currency> dateTableSingle = new ArrayList<>();
     DataValidator dataValidator = new DataValidator();
 
-    public void importCurrencyFromApiToTheStaticList() {
-        parseApiTableToCurrencyTable();
+    public void importCurrencyFromApiToTheStaticList(LocalDate dataStart) {
+        parseApiTableToCurrencyTable(dataStart);
         CurrencyRepository currencyRepository = new CurrencyRepository();
         currencyRepository.setCurrencies(dateTableSingle);
         FileContentReader fileContentReader = new FileContentReader();
         fileContentReader.addPLNToListCurrency();
     }
 
-    public List<Currency> parseApiTableToCurrencyTable() {
+    public List<Currency> parseApiTableToCurrencyTable(LocalDate dataStart) {
         HistoryLoaderNbp historyLoaderNbp = new HistoryLoaderNbp();
-        historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi();
+        historyLoaderNbp.loadAllCurrencyHistoryFromNbpApi(dataStart);
         for (int iterator = 0; iterator < historyLoaderNbp.historyListNbp.size(); iterator++) {
             for (CurrencyRates currencyRates : historyLoaderNbp.historyListNbp.get(iterator)) {
                 for (CurrencyDetails currencyDetails : currencyRates.getRates()) {
@@ -37,6 +36,6 @@ public class CurrencyApiTranslator {
                 }
             }
         }
-        return dateTableSingle=dateTable.stream().distinct().collect(Collectors.toList());
+        return dateTableSingle = dateTable.stream().distinct().collect(Collectors.toList());
     }
 }
