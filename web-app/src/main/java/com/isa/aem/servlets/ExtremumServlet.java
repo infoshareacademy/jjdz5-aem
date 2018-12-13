@@ -52,10 +52,13 @@ public class ExtremumServlet extends HttpServlet {
 //        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
 //        currencyRepository.getCurrencies();
 //        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
-        if(currencyRepository.currencies.isEmpty()){
-            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API_ONE_YEAR);
+        if(CurrencyRepository.currencies.isEmpty()){
+            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
             currencyRepository.getCurrencies();
             currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+        }else{
+            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
+            CurrencyRepository.setCurrencies(currencyApiTranslator.dateTableSingle);
         }
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyName = appProperties.getCurrencyNameEur();
