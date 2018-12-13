@@ -24,7 +24,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
-    CurrencyRepository currencyRepository = new CurrencyRepository();
+    CurrencyRepository currencyRepository=new CurrencyRepository();
     FileContentReader fileContentReader = new FileContentReader();
     CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
     OperationsOnDateRanges operationsOnDateRanges = new OperationsOnDateRanges();
@@ -49,9 +49,12 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API_ONE_YEAR);
-        currencyRepository.getCurrencies();
-        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+        if(currencyRepository.currencies.isEmpty()){
+            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API_ONE_YEAR);
+            currencyRepository.getCurrencies();
+            currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+        }
+
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyNameHave = appProperties.getCurrencyNamePln();

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Default
 public class CurrencyRepository {
 
-    private static List<Currency> currencies = new ArrayList<>();
+    public static List<Currency> currencies = new ArrayList<>();
 
     public static List<Currency> getCurrencies() {
         return currencies;
