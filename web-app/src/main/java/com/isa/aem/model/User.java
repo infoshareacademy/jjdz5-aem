@@ -1,11 +1,13 @@
 package com.isa.aem.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
+@Transactional
 public class User {
 
     @Id

@@ -1,6 +1,7 @@
 package com.isa.aem.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

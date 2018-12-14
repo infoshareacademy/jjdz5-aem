@@ -1,6 +1,8 @@
 package com.isa.aem.service;
 
 import com.isa.aem.dao.ActivityDao;
+import com.isa.aem.mapper.ActivityToReport;
+import com.isa.aem.mapper.JsonConverter;
 import com.isa.aem.model.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,19 +20,24 @@ public class ActivityService {
 
     @Inject
     private ActivityDao activityDao;
+    private JsonConverter jsonConverter;
 
     @GET
     @Path("/get-todays-members-activities")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTodaysActivitiesByLoggedInUsers() {
-        final List<Activity> activities = activityDao.findAllTodaysActivitiesByLoggedInUsers();
-        LOG.info("Found " + activities.size() + " activities by logged in users");
-
-        if (!activities.isEmpty()) {
-            return Response.ok(activities).build();
-        }
-        return Response.noContent().build();
+    public Response getAllTodaysActivitiesByMembers() {
+        final List<Activity> activities = activityDao.findAllTodaysActivitiesByMembers();
+        ActivityToReport activityToReport = jsonConverter.convertActivities(activities);
+        return getResponse(activityToReport);
     };
+
+    @GET
+    @Path("/get-todays-guests-activities")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTodaysActivitiesByGuests() {
+        final List<Activity> activities = activityDao.findAllTodaysActivitiesByGuests();
+        return getResponse(activities);
+    }
 
     @POST
     @Path("/save-activity")
@@ -43,5 +50,14 @@ public class ActivityService {
         activityDao.save(activity);
 
         return Response.ok(activityDao.findAll()).build();
+    }
+
+    private Response getResponse(List<Activity> activities) {
+        LOG.info("Found " + activities.size() + " activities");
+
+        if (!activities.isEmpty()) {
+            return Response.ok(activities).build();
+        }
+        return Response.noContent().build();
     }
 }
