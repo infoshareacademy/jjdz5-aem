@@ -1,7 +1,6 @@
 package com.isa.aem.service;
 
 import com.isa.aem.dao.ActivityDao;
-import com.isa.aem.mapper.ActivityToReport;
 import com.isa.aem.mapper.JsonConverter;
 import com.isa.aem.model.Activity;
 import org.slf4j.Logger;
@@ -27,8 +26,7 @@ public class ActivityService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTodaysActivitiesByMembers() {
         final List<Activity> activities = activityDao.findAllTodaysActivitiesByMembers();
-        ActivityToReport activityToReport = jsonConverter.convertActivities(activities);
-        return getResponse(activityToReport);
+        return getResponse(jsonConverter.convertJsonToObjectActivity(activities));
     };
 
     @GET
@@ -36,7 +34,7 @@ public class ActivityService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTodaysActivitiesByGuests() {
         final List<Activity> activities = activityDao.findAllTodaysActivitiesByGuests();
-        return getResponse(activities);
+        return getResponse(jsonConverter.convertJsonToObjectActivity(activities));
     }
 
     @POST

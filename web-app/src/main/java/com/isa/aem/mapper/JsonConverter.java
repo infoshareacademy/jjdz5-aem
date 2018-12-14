@@ -14,23 +14,21 @@ import java.util.List;
 
 public class JsonConverter {
 
-    @Inject
-    private ActivityDao activityDao;
-
     private Logger LOG = LoggerFactory.getLogger(ActivityService.class);
 
-    public ActivityToReport convertActivities(List<Activity> list) {
+    public List<Activity> convertJsonToObjectActivity(List<Activity> list) {
         ObjectMapper mapper = new ObjectMapper();
 
-        ActivityToReport activityToReport = null;
+        List<Activity> convertedList = null;
+
         try {
-            activityToReport = mapper.readValue((JsonParser) list, ActivityToReport.class);
-            LOG.info(activityToReport.getId().toString());
+            convertedList = mapper.readValue((JsonParser) list, mapper.getTypeFactory().constructCollectionType(List.class, Activity.class));
+            LOG.info(convertedList.get(0).getId().toString());
         } catch (
                 IOException e) {
             e.printStackTrace();
         }
 
-        return activityToReport;
+        return convertedList;
     }
 }
