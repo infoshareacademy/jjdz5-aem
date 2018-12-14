@@ -62,9 +62,11 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API_ONE_YEAR);
-        currencyRepository.getCurrencies();
-        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+        if (CurrencyRepository.getCurrencies().isEmpty()) {
+            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API_ONE_YEAR);
+            CurrencyRepository.getCurrencies();
+            currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
+        }
 
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyNameHave = appProperties.getCurrencyNamePln();
@@ -92,14 +94,21 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         if (score.getMaxDate() == null) {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(defaultCurrencyNameHave));
+        } else {
+            score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(score.getCurrencyHave()));
         }
 
         if (score.getMinDate() == null) {
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(defaultCurrencyNameHave));
+        } else {
+            score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(score.getCurrencyHave()));
         }
 
         if (currencyInTable == null) {
             currencyInTable = defaultCurrencyNameHave;
+            currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator.availableCurrencyObjects(currencyInTable));
+        } else {
+            currencyListTableCreator.tableListCurrencyObject.clear();
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator.availableCurrencyObjects(currencyInTable));
         }
     }
