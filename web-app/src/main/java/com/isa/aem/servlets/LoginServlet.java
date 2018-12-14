@@ -62,8 +62,8 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void checkAndAddIfNotExistUser(HttpServletRequest req,
-                                           String email,
-                                           String name) {
+                                            String email,
+                                            String name) {
 
         if (isExistUser(email)) {
             addUser(req);
@@ -91,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 
     private Boolean isExistUser(String email) {
 
-        return userDao.findIdByEmail(email).isEmpty();
+        return userDao.findEmailInDatabase(email).isEmpty();
     }
 
     private void addLoginDateTime(HttpServletRequest req) {
