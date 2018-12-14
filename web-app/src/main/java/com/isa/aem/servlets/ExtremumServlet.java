@@ -49,17 +49,9 @@ public class ExtremumServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-//        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
-//        currencyRepository.getCurrencies();
-//        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
-        if(CurrencyRepository.currencies.isEmpty()){
-            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
-            currencyRepository.getCurrencies();
-            currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
-        }else{
-            currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
-            CurrencyRepository.setCurrencies(currencyApiTranslator.dateTableSingle);
-        }
+        currencyApiTranslator.importCurrencyFromApiToTheStaticList(operationsOnDateRanges.MIN_DATE_NBP_API);
+        CurrencyRepository.setCurrencies(currencyApiTranslator.dateTableSingle);
+        currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
         AppProperties appProperties = PropertiesLoader.loadProperties();
         defaultCurrencyName = appProperties.getCurrencyNameEur();
     }

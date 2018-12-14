@@ -132,7 +132,7 @@ public class Score {
     }
 
     public Score resultCalculator(String haveCurrency, LocalDate date, String wantCurrency, Double calculatorAmount) {
-        CurrencyRepository currencyRepository = new CurrencyRepository();
+
         Double currencyHave = currencyRepository.getExchangeRateForGivenDate(haveCurrency, date);
         Double currencyWant = currencyRepository.getExchangeRateForGivenDate(wantCurrency, date);
         BigDecimal score1 = currencyConverter.currencyConversionAlgorithm(calculatorAmount, currencyHave, currencyWant);
