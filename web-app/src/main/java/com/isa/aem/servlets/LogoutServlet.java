@@ -29,10 +29,12 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+
+            addLogoutDateTime(req);
+
             HttpSession session = req.getSession();
             session.invalidate();
 
-            addLogoutDateTime(req);
             LOG.info("Logout, return to main site.");
             resp.sendRedirect("/calculator");
         } catch (Exception e) {
@@ -42,7 +44,7 @@ public class LogoutServlet extends HttpServlet {
 
     private void addLogoutDateTime(HttpServletRequest req) {
 
-        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+        Long id = recordCreator.findIdFromDataBaseByEmailFromSession(req);
 
         User user = userDao.findById(id);
 

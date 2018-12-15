@@ -7,17 +7,14 @@ import com.isa.aem.model.Activity;
 import com.isa.aem.model.User;
 import com.isa.aem.servlets.IdTokenVerifierAndParser;
 
+import javax.ejb.Stateful;
 import javax.inject.Inject;
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
-
+@Stateful
 public class RecordCreator {
 
     private static final String ID_TOKEN_PARAMETER = "id_token";
@@ -139,9 +136,14 @@ public class RecordCreator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("email od googla" + payLoad.getEmail());
 
         return payLoad.getEmail();
+    }
+
+    public String getEmailBySession(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        Object email = session.getAttribute("email");
+        return email.toString();
     }
 
     public Boolean isAdmin(String email) {
@@ -149,11 +151,16 @@ public class RecordCreator {
     }
 
     public Long findIdFromDataBaseByEmail(HttpServletRequest req) {
+
         String emailByGoogle = getEmailByGoogle(req);
         List<User> idStr = userDao.findAll();
-        System.out.println("elementy listy");
-        System.out.println(idStr.get(0));
         return parseToLong(idStr, emailByGoogle);
+    }
+
+    public Long findIdFromDataBaseByEmailFromSession(HttpServletRequest req) {
+        String emailBySession = getEmailBySession(req);
+        List<User> idStr = userDao.findAll();
+        return parseToLong(idStr, emailBySession);
     }
 
     private Long parseToLong(List<User> list, String email) {

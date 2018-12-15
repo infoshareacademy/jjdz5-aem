@@ -10,13 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,7 +30,6 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     private UserDao userDao;
-    private ActivityDao activityDao;
 
     private Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
@@ -55,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 
             checkAndAddIfNotExistUser(req, email, name);
             addLoginDateTime(req);
-
+            session.setAttribute("email", email);
             resp.sendRedirect("/currency-manager");
 
         } catch (Exception e) {

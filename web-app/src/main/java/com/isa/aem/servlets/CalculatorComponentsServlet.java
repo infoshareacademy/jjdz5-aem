@@ -148,7 +148,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
     private void userLoginTrackingRate(HttpServletRequest req) {
 
-        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+        Long id = recordCreator.findIdFromDataBaseByEmailFromSession(req);
 
         User user = userDao.findById(id);
 
@@ -168,7 +168,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
                                              String reqHave,
                                              String reqWant) {
 
-        Long id = recordCreator.findIdFromDataBaseByEmail(req);
+        Long id = recordCreator.findIdFromDataBaseByEmailFromSession(req);
         LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
 
         User user = userDao.findById(id);

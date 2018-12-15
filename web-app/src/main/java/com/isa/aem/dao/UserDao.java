@@ -9,11 +9,6 @@ import java.util.List;
 @Stateless
 public class UserDao extends GenericDao<User> {
 
-    public List<User> findIdByEmail() {
-        final Query query = entityManager.createNativeQuery("SELECT * FROM USERS");
-        return query.getResultList();
-    }
-
     public List<String> findEmailInDatabase(String email) {
         final Query query = entityManager.createQuery("SELECT u.email FROM User u WHERE u.email = :param");
         query.setParameter("param", email);
