@@ -57,7 +57,6 @@ public class RecordCreator {
     public Activity logInTime(LocalDateTime loginTime) {
 
         Activity activity = new Activity();
-
         activity.setLoggedInTime(loginTime);
 
         return activity;
@@ -66,7 +65,6 @@ public class RecordCreator {
     public Activity logOutTime(LocalDateTime logOutTime) {
 
         Activity activity = new Activity();
-
         activity.setLoggedOutTime(logOutTime);
 
         return activity;
@@ -141,8 +139,10 @@ public class RecordCreator {
     }
 
     public String getEmailBySession(HttpServletRequest req) {
+
         HttpSession session = req.getSession();
         Object email = session.getAttribute("email");
+
         return email.toString();
     }
 
@@ -154,12 +154,14 @@ public class RecordCreator {
 
         String emailByGoogle = getEmailByGoogle(req);
         List<User> idStr = userDao.findAll();
+
         return parseToLong(idStr, emailByGoogle);
     }
 
     public Long findIdFromDataBaseByEmailFromSession(HttpServletRequest req) {
         String emailBySession = getEmailBySession(req);
         List<User> idStr = userDao.findAll();
+
         return parseToLong(idStr, emailBySession);
     }
 
