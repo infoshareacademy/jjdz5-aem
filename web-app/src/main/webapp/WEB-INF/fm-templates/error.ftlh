@@ -11,7 +11,7 @@
 
 <div class="container">
     <div class="alert alert-warning" id ="error" role="alert">
-        API NBP is Offline. Pleas try later.
+    ${errors_message}
     </div>
 </div>
 </body>
