@@ -1,10 +1,12 @@
 package com.isa.aem.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Transactional
 @Entity
 @Table(name = "ACTIVITIES")
 public class Activity {
@@ -196,5 +198,26 @@ public class Activity {
 
     public void setLoggedOutTime(LocalDateTime loggedOutTime) {
         this.loggedOutTime = loggedOutTime;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Activity{");
+        sb.append("id=").append(id);
+        sb.append(", calculatorCurrencyWant='").append(calculatorCurrencyWant).append('\'');
+        sb.append(", calculatorCurrencyHave='").append(calculatorCurrencyHave).append('\'');
+        sb.append(", extremumCurrency='").append(extremumCurrency).append('\'');
+        sb.append(", amount=").append(amount);
+        sb.append(", exchangeRate=").append(exchangeRate);
+        sb.append(", dateFrom=").append(dateFrom);
+        sb.append(", dateTo=").append(dateTo);
+        sb.append(", calculatorDate=").append(calculatorDate);
+        sb.append(", actionDate=").append(actionDate);
+        sb.append(", loggedInTime=").append(loggedInTime);
+        sb.append(", loggedOutTime=").append(loggedOutTime);
+        sb.append(", actionType=").append(actionType);
+        sb.append(", user=").append(user);
+        sb.append('}');
+        return sb.toString();
     }
 }

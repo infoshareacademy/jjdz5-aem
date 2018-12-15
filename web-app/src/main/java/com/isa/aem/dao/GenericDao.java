@@ -14,7 +14,7 @@ public class GenericDao<T> {
     public Class<T> C;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public Long save(T t) {
         entityManager.persist(t);
@@ -37,7 +37,7 @@ public class GenericDao<T> {
     }
 
     public List<T> findAll() {
-        final Query query = entityManager.createQuery("SELECT s FROM" + C + " s");
+        final Query query = entityManager.createQuery("SELECT s FROM " + this.C.getSimpleName() + " s");
         return query.getResultList();
     }
 }
