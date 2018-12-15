@@ -29,8 +29,6 @@ public class ActivityService {
         return getResponse(activities);
     }
 
-    ;
-
     @GET
     @Path("/get-todays-guests-activities")
     @Produces(MediaType.APPLICATION_JSON)
