@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class CurrencyListTableCreator {
     private CurrencyExchangeRateRepository currencyExchangeRateRepository = new CurrencyExchangeRateRepository();
     private LocalDate maxDate;
-    private List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();
+    public List<CurrencyExchangeRate> tableListCurrencyObject = new ArrayList<>();
     private CurrencyRepository currencyRepository = new CurrencyRepository();
     private CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader = new CurrencyNameCountryFlagsLoader();
 

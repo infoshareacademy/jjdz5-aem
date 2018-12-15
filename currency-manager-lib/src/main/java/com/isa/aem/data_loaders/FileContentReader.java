@@ -21,11 +21,18 @@ public class FileContentReader {
 
     private List<Currency> listOfCurrencies = new ArrayList<>();
     private List<Currency> currencies = new ArrayList<>();
-    private static String NAME_FILE = "sourceFilePath";
+    private String propertyName = "sourceFilePath";
+
+    public FileContentReader() {
+    }
+
+    public FileContentReader(String propertyName) {
+        this.propertyName = propertyName;
+    }
 
     public void readFile() {
         AppProperties appProperties = PropertiesLoader.loadProperties();
-        this.filePath = appProperties.getSourceFilePath(NAME_FILE);
+        this.filePath = appProperties.getSourceFilePath(propertyName);
         Path path = Paths.get(filePath).toAbsolutePath();
 
         List<String> allLinesAsString = new ArrayList<>();
