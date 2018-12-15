@@ -1,17 +1,18 @@
 package com.isa.aem.service;
 
 import com.isa.aem.dao.ActivityDao;
-import com.isa.aem.mapper.JsonConverter;
 import com.isa.aem.model.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Transactional
 @Path("/")
 public class ActivityService {
 
@@ -19,22 +20,23 @@ public class ActivityService {
 
     @Inject
     private ActivityDao activityDao;
-    private JsonConverter jsonConverter;
 
     @GET
     @Path("/get-todays-members-activities")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTodaysActivitiesByMembers() {
         final List<Activity> activities = activityDao.findAllTodaysActivitiesByMembers();
-        return getResponse(jsonConverter.convertJsonToObjectActivity(activities));
-    };
+        return getResponse(activities);
+    }
+
+    ;
 
     @GET
     @Path("/get-todays-guests-activities")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTodaysActivitiesByGuests() {
         final List<Activity> activities = activityDao.findAllTodaysActivitiesByGuests();
-        return getResponse(jsonConverter.convertJsonToObjectActivity(activities));
+        return getResponse(activities);
     }
 
     @POST
@@ -42,11 +44,9 @@ public class ActivityService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addActivity(Activity activity) {
-
         LOG.info("Activity: " + activity + " was saved");
 
         activityDao.save(activity);
-
         return Response.ok(activityDao.findAll()).build();
     }
 

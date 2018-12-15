@@ -1,9 +1,13 @@
 package com.isa.aem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name = "USERS")
@@ -25,6 +29,7 @@ public class User {
     private Boolean isAdmin = false;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Activity> activity;
 
     public User() {
@@ -80,5 +85,17 @@ public class User {
 
     public void setActivity(List<Activity> activity) {
         this.activity = activity;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", isAdmin=").append(isAdmin);
+        sb.append(", activity=").append(activity.stream().map(Activity::getId).collect(toList()));
+        sb.append('}');
+        return sb.toString();
     }
 }

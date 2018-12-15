@@ -15,11 +15,11 @@ public class ActivityDao extends GenericDao<Activity> {
     public List<Activity> findAllTodaysActivitiesByMembers() {
         @SuppressWarnings("JpaQlInspection")
         final Query query = entityManager.createQuery("" +
-                "SELECT a.name, b FROM Activity b " +
-                "LEFT JOIN User a " +
-                "ON b.user = a.id " +
-                "WHERE b.user IS NOT NULL " +
-                "AND b.actionDate >= current_date " +
+                "SELECT distinct b FROM Activity b " +
+//                "LEFT JOIN User a " +
+//                "ON b.user = a.id " +
+//                "WHERE b.user IS NOT NULL " +
+                "where b.actionDate >= current_date and b.user IS NOT NULL " +
                 "ORDER BY b.actionDate DESC");
 
         return query.getResultList();
