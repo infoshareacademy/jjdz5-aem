@@ -130,3 +130,12 @@
 .table2 tr:last-child td {
     border-bottom: 0;
 }
+
+.container #error{
+    font-size: 2em;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
