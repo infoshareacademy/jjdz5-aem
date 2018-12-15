@@ -9,8 +9,8 @@ import java.util.List;
 @Stateless
 public class UserDao extends GenericDao<User> {
 
-    public List<String> findIdByEmail(String email) {
-        final Query query = entityManager.createNativeQuery("SELECT ID FROM USERS WHERE EMAIL =" + email);
+    public List<User> findIdByEmail() {
+        final Query query = entityManager.createNativeQuery("SELECT * FROM USERS");
         return query.getResultList();
     }
 
@@ -23,5 +23,16 @@ public class UserDao extends GenericDao<User> {
     public List<User> findAll() {
         final Query query = entityManager.createQuery("SELECT u FROM User u");
         return query.getResultList();
+    }
+
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
+    }
+
+    public void delete(Long id) {
+        User byId = findById(id);
+        if (byId != null) {
+            entityManager.remove(byId);
+        }
     }
 }

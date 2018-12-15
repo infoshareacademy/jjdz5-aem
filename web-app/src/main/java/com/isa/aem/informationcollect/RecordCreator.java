@@ -8,6 +8,7 @@ import com.isa.aem.model.User;
 import com.isa.aem.servlets.IdTokenVerifierAndParser;
 
 import javax.inject.Inject;
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -138,6 +139,7 @@ public class RecordCreator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("email od googla" + payLoad.getEmail());
 
         return payLoad.getEmail();
     }
@@ -148,14 +150,17 @@ public class RecordCreator {
 
     public Long findIdFromDataBaseByEmail(HttpServletRequest req) {
         String emailByGoogle = getEmailByGoogle(req);
-        List<String> idStr = userDao.findIdByEmail(emailByGoogle);
-        return parseToLong(idStr);
+        List<User> idStr = userDao.findAll();
+        System.out.println("elementy listy");
+        System.out.println(idStr.get(0));
+        return parseToLong(idStr, emailByGoogle);
     }
 
-    private Long parseToLong(List<String> id) {
-        return id.stream()
-                .map(s -> Long.parseLong(s))
-                .findFirst()
+    private Long parseToLong(List<User> list, String email) {
+        return list.stream()
+                .filter(user -> email.equals(user.getName()))
+                .map(user -> user.getId())
+                .findAny()
                 .get();
     }
 }

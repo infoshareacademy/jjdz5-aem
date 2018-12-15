@@ -1,33 +1,21 @@
 package com.isa.aem.servlets;
 
 import com.isa.aem.*;
-import com.isa.aem.dao.UserDao;
 import com.isa.aem.freemarker.TemplateName;
-import com.isa.aem.informationcollect.RecordCreator;
-import com.isa.aem.model.Activity;
-import com.isa.aem.model.User;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-manager")
 public class CurrencyManagerServlet extends CalculatorComponentsServlet {
-
-    @Inject
-    RecordCreator recordCreator;
-
-    @Inject
-    UserDao userDao;
 
     @Override
     public void init() throws ServletException {

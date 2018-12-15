@@ -185,6 +185,7 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 currencyInTable);
 
         activityDao.save(exchangeRateActivity);
+        System.out.println(userDao.findAll());
     }
 
     private void userLogoutTrackingCalculator(HttpServletRequest req,

@@ -23,14 +23,5 @@ public class GenericDao<T> {
         return entityManager.merge(t);
     }
 
-    public T findById(Long id) {
-        return entityManager.find(C, id);
-    }
 
-    public void delete(Long id) {
-        T tId = findById(id);
-        if (tId != null) {
-            entityManager.remove(tId);
-        }
-    }
 }

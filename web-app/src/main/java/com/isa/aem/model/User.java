@@ -22,7 +22,7 @@ public class User {
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Activity> activities;
 
     public User() {
@@ -31,9 +31,7 @@ public class User {
 
     public User(String userName,
                 String email,
-                Boolean isAdmin,
-                LocalDateTime loggedIn,
-                LocalDateTime loggedOut) {
+                Boolean isAdmin) {
         this.name = userName;
         this.email = email;
         this.isAdmin = isAdmin;
@@ -82,5 +80,17 @@ public class User {
 
     public void setActivities(List<Activity> activity) {
         this.activities = activity;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", isAdmin=").append(isAdmin);
+        sb.append(", activities=").append(activities);
+        sb.append('}');
+        return sb.toString();
     }
 }
