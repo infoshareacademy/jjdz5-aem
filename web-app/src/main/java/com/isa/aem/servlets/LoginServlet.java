@@ -1,6 +1,7 @@
 package com.isa.aem.servlets;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.isa.aem.dao.ActivityDao;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.Activity;
@@ -31,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     private UserDao userDao;
+    private ActivityDao activityDao;
 
     private Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
@@ -104,6 +106,11 @@ public class LoginServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(loginDataTime);
+
+        user.setActivities(activities);
+
+        userDao.update(user);
+
         LOG.info("Login date and time: {}.", loginDataTime);
     }
 }

@@ -35,4 +35,9 @@ public class UserDao extends GenericDao<User> {
             entityManager.remove(byId);
         }
     }
+
+    public Long save(User user) {
+        entityManager.persist(user);
+        return user.getId();
+    }
 }
