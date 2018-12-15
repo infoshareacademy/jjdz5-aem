@@ -157,6 +157,10 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(exchangeRateActivity);
+
+        user.setActivities(activities);
+
+        userDao.update(user);
     }
 
     private void userLoginTrackingCalculator(HttpServletRequest req,
@@ -177,6 +181,9 @@ public class CalculatorComponentsServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(calculatorActivity);
+
+        user.setActivities(activities);
+        userDao.update(user);
     }
 
     private void userLogoutTrackingRate(HttpServletRequest req) {
@@ -185,7 +192,6 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 currencyInTable);
 
         activityDao.save(exchangeRateActivity);
-        System.out.println(userDao.findAll());
     }
 
     private void userLogoutTrackingCalculator(HttpServletRequest req,

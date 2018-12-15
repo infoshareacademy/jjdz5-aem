@@ -9,8 +9,6 @@ import javax.persistence.PersistenceContext;
 @Any
 public class GenericDao<T> {
 
-    public Class<T> C;
-
     @PersistenceContext
     protected EntityManager entityManager;
 

@@ -186,6 +186,8 @@ public class ExtremumServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(localExtremeumActivity);
+        user.setActivities(activities);
+        userDao.update(user);
     }
 
     private void trackingGlobalExtremum(HttpServletRequest req,
@@ -203,6 +205,8 @@ public class ExtremumServlet extends HttpServlet {
 
         List<Activity> activities = user.getActivities();
         activities.add(globalExtremeumActivity);
+        user.setActivities(activities);
+        userDao.update(user);
     }
 
     private Boolean isLocalExtremum(String s) {

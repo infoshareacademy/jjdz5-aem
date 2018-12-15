@@ -158,7 +158,7 @@ public class RecordCreator {
 
     private Long parseToLong(List<User> list, String email) {
         return list.stream()
-                .filter(user -> email.equals(user.getName()))
+                .filter(user -> email.equals(user.getEmail()))
                 .map(user -> user.getId())
                 .findAny()
                 .get();

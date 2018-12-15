@@ -99,6 +99,7 @@ public class LoginServlet extends HttpServlet {
     private void addLoginDateTime(HttpServletRequest req) {
 
         Long id = recordCreator.findIdFromDataBaseByEmail(req);
+        System.out.println(id);
 
         User user = userDao.findById(id);
 
