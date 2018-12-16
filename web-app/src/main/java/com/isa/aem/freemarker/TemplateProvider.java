@@ -3,15 +3,17 @@ package com.isa.aem.freemarker;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.servlet.ServletContext;
+import java.io.IOException;
 
 @ApplicationScoped
 public class TemplateProvider {
 
     private static final String TEMPLATE_DIRECTORY_PATH = "WEB-INF/fm-templates";
     private static final String TEMPLATE_EXTENSION = ".ftlh";
+
 
     public Template getTemplate(ServletContext servletContext, String templateName)
             throws IOException {

@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/currency-manager"
+       style="font-family: Impact, Charcoal, sans-serif; font-size:1.3em;">
+        CURRENCY MANAGER
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.0em; color: white">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="converter-currency" href="/currency-manager">Currency Converter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="extremum" href="/extremum">Exchange Rate Extremum</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="logout" onclick="signOut();">Sign out</a>
+            <script>
+                function signOut() {
+                    console.log("logging out ...");
+                    gapi.auth.authorize(
+                        {
+                            'client_id': "926732976801-63jco5oge4dhrqb490m6e9k7357khl28.apps.googleusercontent.com",
+                            'scope': "profile email",
+                            'immediate': false,
+                            cookie_policy: 'single_host_origin',
+                            response_type: 'token id_token'
+                        },
+                        function (authResult) {
+                            gapi.auth.signOut();
+                            gapi.auth.disconnect();
+                        }
+                    );
+                    console.log("redirecting to logout servlet");
+                    window.location.href = 'logout';
+                }
+            </script>
+        </form>
+    </div>
+</nav>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+

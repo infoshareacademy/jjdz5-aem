@@ -1,11 +1,20 @@
 package com.isa.aem;
 
-import com.isa.aem.calc.ComplexConsoleCalculator;
-import com.isa.aem.globalextremum.GlobalExtremum;
+import com.isa.aem.currency_calculator.ComplexConsoleCalculator;
+import com.isa.aem.data_loaders.FileContentReader;
+import com.isa.aem.utils.ConsolePrinter;
+import com.isa.aem.rate_extremums.GlobalExtremumConsoleHandler;
+import com.isa.aem.rate_extremums.LocalExtremumConsoleHandler;
 
 import java.util.Scanner;
 
 public class MenuProject {
+
+    private ConsolePrinter consolePrinter = new ConsolePrinter();
+    private LocalExtremumConsoleHandler localExtremumConsoleHandler = new LocalExtremumConsoleHandler();
+    private GlobalExtremumConsoleHandler globalExtremumConsoleHandler = new GlobalExtremumConsoleHandler();
+    private MenuInformation menuInformation = new MenuInformation();
+    private ComplexConsoleCalculator calculator = new ComplexConsoleCalculator();
 
     public MenuProject() {
         FileContentReader fileContentReader = new FileContentReader();
@@ -13,19 +22,13 @@ public class MenuProject {
         fileContentReader.addPLNToListCurrency();
     }
 
-    MenuInformation menuInformation = new MenuInformation();
-    private GlobalExtremum globalExtremeMenu = new GlobalExtremum();
-    private ComplexConsoleCalculator calculator = new ComplexConsoleCalculator();
-
     public void menuPanel() {
         menuInformation.readMenu();
         pick();
     }
 
     private void pick() {
-        System.out.println("Wybierz interesującą Cię metodę");
-
-        // int choose=0;
+        System.out.println("Wybierz interesującą Cię opcję");
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -42,10 +45,13 @@ public class MenuProject {
                         calculator.run();
                         break;
                     case 3:
-                        System.out.println("\n\n\n\n     ");
-                        globalExtremeMenu.run();
+                        globalExtremumConsoleHandler.run();
                         break;
                     case 4:
+                        consolePrinter.printLocalExtremumWelcome();
+                        localExtremumConsoleHandler.run();
+                        break;
+                    case 5:
                         menuInformation.programInformation();
                         break;
                     case 0:
