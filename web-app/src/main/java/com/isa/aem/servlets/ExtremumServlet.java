@@ -12,7 +12,6 @@ import com.isa.aem.freemarker.TemplateProvider;
 import com.isa.aem.extremum.ExtremumObject;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.Activity;
-import com.isa.aem.extremum.ExtremumObject;
 import com.isa.aem.model.User;
 import com.isa.aem.rate_extremums.ExchangeRateExtremum;
 import com.isa.aem.utils.DataValidator;
