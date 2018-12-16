@@ -312,6 +312,11 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-12" >
+        <h3 style="color: white">gap</h3>
+    </div>
+</div>
 
 <script>
     var dateFrom = "${extremumObject.getDateFrom()}";

@@ -1,4 +1,4 @@
-docker run --detach --name=currencymanager-db --env="MYSQL_ROOT_PASSWORD=pass123" --env="TZ=Europe/Warsaw" --publish 6603:3303 mysql
+docker run --detach --name=currencymanager-db --env="MYSQL_ROOT_PASSWORD=pass123" --env="TZ=Europe/Warsaw" --publish 6603:3306 mysql
 ▪ Stworzenie pustej bazy:
 $ docker exec -it currencymanager-db bash
 $ mysql -u root -p

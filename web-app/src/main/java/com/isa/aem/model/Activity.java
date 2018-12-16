@@ -2,13 +2,14 @@ package com.isa.aem.model;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Transactional
 @Entity
 @Table(name = "ACTIVITIES")
+@Transactional
 public class Activity {
 
     @Id
@@ -28,8 +29,8 @@ public class Activity {
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "exchange_rate_by_pln")
-    private BigDecimal exchangeRate;
+    @Column(name = "currency_name_in_rate")
+    private String currencyNameInRate;
 
     @Column(name = "date_from")
     private LocalDate dateFrom;
@@ -61,7 +62,7 @@ public class Activity {
                     String calculatorCurrencyHave,
                     String extremumCurrency,
                     Double amount,
-                    BigDecimal exchangeRate,
+                    String  exchangeRate,
                     LocalDate calculatorDateFrom,
                     LocalDate calculatorDateTo,
                     LocalDate calculatorDate,
@@ -74,7 +75,7 @@ public class Activity {
         this.calculatorCurrencyHave = calculatorCurrencyHave;
         this.extremumCurrency = extremumCurrency;
         this.amount = amount;
-        this.exchangeRate = exchangeRate;
+        this.currencyNameInRate = exchangeRate;
         this.dateFrom = calculatorDateFrom;
         this.dateTo = calculatorDateTo;
         this.calculatorDate = calculatorDate;
@@ -176,12 +177,12 @@ public class Activity {
         this.user = user;
     }
 
-    public BigDecimal getExchangeRate() {
-        return exchangeRate;
+    public String getCurrencyNameInRate() {
+        return currencyNameInRate;
     }
 
-    public void setExchangeRate(BigDecimal exchangeRate) {
-        this.exchangeRate = exchangeRate;
+    public void setCurrencyNameInRate(String exchangeRate) {
+        this.currencyNameInRate = exchangeRate;
     }
 
     public LocalDateTime getLoggedInTime() {
@@ -198,26 +199,5 @@ public class Activity {
 
     public void setLoggedOutTime(LocalDateTime loggedOutTime) {
         this.loggedOutTime = loggedOutTime;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Activity{");
-        sb.append("id=").append(id);
-        sb.append(", calculatorCurrencyWant='").append(calculatorCurrencyWant).append('\'');
-        sb.append(", calculatorCurrencyHave='").append(calculatorCurrencyHave).append('\'');
-        sb.append(", extremumCurrency='").append(extremumCurrency).append('\'');
-        sb.append(", amount=").append(amount);
-        sb.append(", exchangeRate=").append(exchangeRate);
-        sb.append(", dateFrom=").append(dateFrom);
-        sb.append(", dateTo=").append(dateTo);
-        sb.append(", calculatorDate=").append(calculatorDate);
-        sb.append(", actionDate=").append(actionDate);
-        sb.append(", loggedInTime=").append(loggedInTime);
-        sb.append(", loggedOutTime=").append(loggedOutTime);
-        sb.append(", actionType=").append(actionType);
-        sb.append(", user=").append(user);
-        sb.append('}');
-        return sb.toString();
     }
 }

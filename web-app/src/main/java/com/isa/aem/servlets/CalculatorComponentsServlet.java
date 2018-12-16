@@ -7,10 +7,14 @@ import com.isa.aem.api.OperationsOnDateRanges;
 import com.isa.aem.currency_calculator.CurrencyListTableCreator;
 import com.isa.aem.currency_calculator.Score;
 import com.isa.aem.currency_calculator.ScoreResult;
+import com.isa.aem.dao.ActivityDao;
+import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
-import com.isa.aem.data_loaders.FileContentReader;
 import com.isa.aem.data_loaders.PropertiesLoader;
 import com.isa.aem.freemarker.TemplateProvider;
+import com.isa.aem.informationcollect.RecordCreator;
+import com.isa.aem.model.Activity;
+import com.isa.aem.model.User;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class CalculatorComponentsServlet extends HttpServlet {
@@ -25,7 +30,6 @@ public class CalculatorComponentsServlet extends HttpServlet {
     protected Score score = new Score();
     protected ScoreResult scoreResult = new ScoreResult();
     CurrencyRepository currencyRepository = new CurrencyRepository();
-    FileContentReader fileContentReader = new FileContentReader();
     CurrencyApiTranslator currencyApiTranslator = new CurrencyApiTranslator();
     OperationsOnDateRanges operationsOnDateRanges = new OperationsOnDateRanges();
     protected String defaultCurrencyNameHave;
@@ -46,6 +50,15 @@ public class CalculatorComponentsServlet extends HttpServlet {
     @Inject
     public TemplateProvider templateProvider;
     public CurrencyNameCountryFlagsLoader currencyNameCountryFlagsLoader;
+
+    @Inject
+    private RecordCreator recordCreator;
+
+    @Inject
+    private UserDao userDao;
+
+    @Inject
+    private ActivityDao activityDao;
 
     @Override
     public void init() throws ServletException {
@@ -117,12 +130,100 @@ public class CalculatorComponentsServlet extends HttpServlet {
             score.setMaxDate(currencyRepository.getNewestDateForChosenCurrencyName(haveCurrency));
             score.setMinDate(currencyRepository.getOldestDateForChosenCurrencyName(haveCurrency));
 
+            checkLoginAndTrackCalculator(req,
+                    calculatorAmount,
+                    reqHave,
+                    reqWant);
+
         } else if (ACTION_BUTTON_RANGE_CURRENCY.equals(action)) {
             CurrencyListTableCreator currencyListTableCreator1 = new CurrencyListTableCreator();
             String currencyInTableNames = req.getParameter(CURRENCY_TABLE_PARAMETER);
             String[] currencyInTableName = currencyInTableNames.split(" - ");
             currencyInTable = currencyInTableName[0];
             currencyListTableCreator.setTableListCurrencyObject(currencyListTableCreator1.availableCurrencyObjects(currencyInTable));
+
+            checkLoginAndTrackRate(req);
+        }
+    }
+
+    private void userLoginTrackingRate(HttpServletRequest req) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmailFromSession(req);
+
+        User user = userDao.findById(id);
+
+        Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
+                currencyInTable);
+
+        exchangeRateActivity.setUser(user);
+        activityDao.save(exchangeRateActivity);
+
+    }
+
+    private void userLoginTrackingCalculator(HttpServletRequest req,
+                                             Double calculatorAmount,
+                                             String reqHave,
+                                             String reqWant) {
+
+        Long id = recordCreator.findIdFromDataBaseByEmailFromSession(req);
+        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
+
+        User user = userDao.findById(id);
+
+        Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                calculatorAmount,
+                reqHave,
+                reqWant,
+                dateOfExchange);
+
+        calculatorActivity.setUser(user);
+        activityDao.save(calculatorActivity);
+    }
+
+    private void userLogoutTrackingRate(HttpServletRequest req) {
+
+        Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
+                currencyInTable);
+
+        activityDao.save(exchangeRateActivity);
+    }
+
+    private void userLogoutTrackingCalculator(HttpServletRequest req,
+                                             Double calculatorAmount,
+                                             String reqHave,
+                                             String reqWant) {
+
+        LocalDate dateOfExchange = LocalDate.parse(req.getParameter(DATE_PARAMETER));
+
+        Activity calculatorActivity = recordCreator.createCalculatorActivity(
+                calculatorAmount,
+                reqHave,
+                reqWant,
+                dateOfExchange);
+
+        activityDao.save(calculatorActivity);
+    }
+
+    private void checkLoginAndTrackCalculator(HttpServletRequest req,
+                                              Double calculatorAmount,
+                                              String reqHave,
+                                              String reqWant) {
+
+        Object logged = req.getSession().getAttribute("userName");
+        if (logged == null) {
+            userLogoutTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+        } else {
+            userLoginTrackingCalculator(req, calculatorAmount, reqHave, reqWant);
+        }
+    }
+
+    private void checkLoginAndTrackRate(HttpServletRequest req) {
+
+        Object logged = req.getSession().getAttribute("userName");
+        if (logged == null) {
+            userLogoutTrackingRate(req);
+        }else {
+            userLoginTrackingRate(req);
         }
     }
 }

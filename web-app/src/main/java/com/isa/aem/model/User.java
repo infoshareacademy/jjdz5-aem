@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -28,9 +27,9 @@ public class User {
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Activity> activity;
+    private List<Activity> activities;
 
     public User() {
 
@@ -38,12 +37,14 @@ public class User {
 
     public User(String userName,
                 String email,
-                Boolean isAdmin,
-                LocalDateTime loggedIn,
-                LocalDateTime loggedOut) {
+                Boolean isAdmin) {
         this.name = userName;
         this.email = email;
         this.isAdmin = isAdmin;
+    }
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
     }
 
     public Long getId() {
@@ -79,12 +80,12 @@ public class User {
     }
 
 
-    public List<Activity> getActivity() {
-        return activity;
+    public List<Activity> getActivities() {
+        return activities;
     }
 
-    public void setActivity(List<Activity> activity) {
-        this.activity = activity;
+    public void setActivities(List<Activity> activity) {
+        this.activities = activity;
     }
 
     @Override
@@ -94,7 +95,7 @@ public class User {
         sb.append(", name='").append(name).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", isAdmin=").append(isAdmin);
-        sb.append(", activity=").append(activity.stream().map(Activity::getId).collect(toList()));
+        sb.append(", activities=").append(activities.stream().map(Activity::getId).collect(toList()));
         sb.append('}');
         return sb.toString();
     }
