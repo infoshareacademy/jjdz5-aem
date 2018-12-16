@@ -1,4 +1,4 @@
-package com.isa.aem.model;
+package com.isa.aem.extremum;
 
 import com.isa.aem.Currency;
 

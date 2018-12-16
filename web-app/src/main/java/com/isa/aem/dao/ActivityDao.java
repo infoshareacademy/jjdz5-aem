@@ -24,4 +24,24 @@ public class ActivityDao extends GenericDao<Activity> {
             entityManager.remove(byId);
         }
     }
+
+    public List<Activity> findAllTodaysActivitiesByMembers() {
+        @SuppressWarnings("JpaQlInspection") final Query query = entityManager.createQuery("" +
+                "SELECT distinct b FROM Activity b " +
+                "WHERE b.user IS NOT NULL " +
+                "AND b.actionDate >= current_date " +
+                "ORDER BY b.actionDate DESC");
+
+        return query.getResultList();
+    }
+
+    public List<Activity> findAllTodaysActivitiesByGuests() {
+        @SuppressWarnings("JpaQlInspection") final Query query = entityManager.createQuery("" +
+                "SELECT b FROM Activity b " +
+                "WHERE b.user IS NULL " +
+                "AND b.actionDate >= current_date " +
+                "ORDER BY b.actionDate DESC");
+
+        return query.getResultList();
+    }
 }

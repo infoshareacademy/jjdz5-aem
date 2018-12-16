@@ -4,7 +4,8 @@ public enum TemplateName {
 
     CURRENCY_MANAGER("currency-manager-converter"),
     CURRENCY_CONVERTER("currency-converter"),
-    EXTREMUM("extremum");
+    EXTREMUM("extremum"),
+    ERROR("error");
 
     public String name;
 
