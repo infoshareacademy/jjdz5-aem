@@ -9,10 +9,10 @@ import java.util.List;
 @Stateless
 public class UserDao extends GenericDao<User> {
 
-    public List<String> findEmailInDatabase(String email) {
+    public boolean checkIfEmailExist(String email) {
         final Query query = entityManager.createQuery("SELECT u.email FROM User u WHERE u.email = :param");
         query.setParameter("param", email);
-        return query.getResultList();
+        return query.getResultList().isEmpty();
     }
 
     public List<User> findAll() {

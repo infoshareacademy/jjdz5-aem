@@ -1,7 +1,6 @@
 package com.isa.aem.servlets;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.isa.aem.dao.ActivityDao;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.Activity;
@@ -64,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                                             String email,
                                             String name) {
 
-        if (isExistUser(email)) {
+        if (userDao.checkIfEmailExist(email)) {
             addUser(req);
             LOG.info("Add user : {}", name);
         } else {
@@ -86,11 +85,6 @@ public class LoginServlet extends HttpServlet {
 
         userDao.save(user);
         LOG.info("Add new user: {}.", nameByGoogle);
-    }
-
-    private Boolean isExistUser(String email) {
-
-        return userDao.findEmailInDatabase(email).isEmpty();
     }
 
     private void addLoginDateTime(HttpServletRequest req) {

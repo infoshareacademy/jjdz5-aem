@@ -1,11 +1,13 @@
 package com.isa.aem.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
+@Transactional
 public class User {
 
     @Id
@@ -22,7 +24,7 @@ public class User {
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Activity> activities;
 
     public User() {
