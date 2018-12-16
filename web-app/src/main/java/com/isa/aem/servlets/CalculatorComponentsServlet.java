@@ -155,12 +155,9 @@ public class CalculatorComponentsServlet extends HttpServlet {
         Activity exchangeRateActivity = recordCreator.createExchangeRateActivity(
                 currencyInTable);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(exchangeRateActivity);
+        exchangeRateActivity.setUser(user);
+        activityDao.save(exchangeRateActivity);
 
-        user.setActivities(activities);
-
-        userDao.update(user);
     }
 
     private void userLoginTrackingCalculator(HttpServletRequest req,
@@ -179,11 +176,8 @@ public class CalculatorComponentsServlet extends HttpServlet {
                 reqWant,
                 dateOfExchange);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(calculatorActivity);
-
-        user.setActivities(activities);
-        userDao.update(user);
+        calculatorActivity.setUser(user);
+        activityDao.save(calculatorActivity);
     }
 
     private void userLogoutTrackingRate(HttpServletRequest req) {

@@ -17,9 +17,7 @@ public class GenericDao<T> {
         return null;
     }
 
-    public T update(T t) {
-        return entityManager.merge(t);
-    }
+
 
 
 }

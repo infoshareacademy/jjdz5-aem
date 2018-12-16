@@ -35,4 +35,7 @@ public class UserDao extends GenericDao<User> {
         entityManager.persist(user);
         return user.getId();
     }
+    public User update(User t) {
+        return entityManager.merge(t);
+    }
 }
