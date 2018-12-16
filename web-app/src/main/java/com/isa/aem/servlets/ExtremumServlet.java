@@ -4,6 +4,7 @@ import com.isa.aem.AppProperties;
 import com.isa.aem.CurrencyRepository;
 import com.isa.aem.api.CurrencyApiTranslator;
 import com.isa.aem.api.OperationsOnDateRanges;
+import com.isa.aem.dao.ActivityDao;
 import com.isa.aem.data_loaders.CurrencyNameCountryFlagsLoader;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.data_loaders.PropertiesLoader;
@@ -60,6 +61,7 @@ public class ExtremumServlet extends HttpServlet {
 
     @Inject
     private UserDao userDao;
+    private ActivityDao activityDao;
 
     @Override
     public void init() throws ServletException {
@@ -184,10 +186,8 @@ public class ExtremumServlet extends HttpServlet {
                         dateTo,
                         currencyName);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(localExtremeumActivity);
-        user.setActivities(activities);
-        userDao.update(user);
+        localExtremeumActivity.setUser(user);
+        activityDao.save(localExtremeumActivity);
     }
 
     private void trackingGlobalExtremum(HttpServletRequest req,
@@ -203,10 +203,8 @@ public class ExtremumServlet extends HttpServlet {
                         dateFrom,
                         currencyName);
 
-        List<Activity> activities = user.getActivities();
-        activities.add(globalExtremeumActivity);
-        user.setActivities(activities);
-        userDao.update(user);
+        globalExtremeumActivity.setUser(user);
+        activityDao.save(globalExtremeumActivity);;
     }
 
     private Boolean isLocalExtremum(String s) {
