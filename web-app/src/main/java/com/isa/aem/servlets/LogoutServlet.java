@@ -1,5 +1,6 @@
 package com.isa.aem.servlets;
 
+import com.isa.aem.dao.ActivityDao;
 import com.isa.aem.dao.UserDao;
 import com.isa.aem.informationcollect.RecordCreator;
 import com.isa.aem.model.Activity;
@@ -24,14 +25,15 @@ public class LogoutServlet extends HttpServlet {
     RecordCreator recordCreator;
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
+    private ActivityDao activityDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-            addLogoutDateTime(req);
-
+            //addLogoutDateTime(req);
+            //fix me
             HttpSession session = req.getSession();
             session.invalidate();
 
@@ -49,8 +51,7 @@ public class LogoutServlet extends HttpServlet {
         User user = userDao.findById(id);
 
         Activity logoutDataTime = recordCreator.logOutTime(LocalDateTime.now());
-
-        List<Activity> activities = user.getActivities();
-        activities.add(logoutDataTime);
+        logoutDataTime.setUser(user);
+        activityDao.save(logoutDataTime);
     }
 }
